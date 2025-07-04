@@ -1,0 +1,23 @@
+# Web框架
+Flask==2.3.2
+Werkzeug==2.3.7
+
+# 爬虫相关
+selenium==4.10.0
+webdriver-manager==3.8.6
+requests==2.31.0
+beautifulsoup4==4.12.2
+
+# 数据处理
+pandas==2.0.3
+numpy==1.24.4
+snownlp==0.12.3
+jieba==0.42.1
+
+# 可视化
+matplotlib==3.7.2
+wordcloud==1.8.2.2
+
+# 其他工具
+python-dotenv==1.0.0
+tqdm==4.65.0

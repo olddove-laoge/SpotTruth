@@ -88,7 +88,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>商品分析工具</h1>
+        <h1>避雷真商品分析平台</h1>
         <form action="/analyze" method="POST">
             <div class="input-group">
                 <input type="text" name="product_url" placeholder="请输入淘宝商品链接" required>
@@ -183,14 +183,61 @@
         </script>
 
         <div style="margin-top: 40px; text-align: center;">
-            <button onclick="showAbout()" 
-                    style="background-color: #3B82F6; color: #FFFFFF; 
-                           border: none; padding: 8px 16px;
-                           border-radius: 8px; cursor: pointer;
-                           transition: all 0.2s;">
-                关于我们
-            </button>
+            <div class="btn-group">
+                <button onclick="showAbout()" 
+                        style="background-color: #3B82F6; color: #FFFFFF; 
+                               border: none; padding: 8px 16px;
+                               border-radius: 8px; cursor: pointer;
+                               transition: all 0.2s;">
+                    关于我们
+                </button>
+                <button onclick="showDisclaimer()" 
+                        style="background-color: #3B82F6; color: #FFFFFF; 
+                               border: none; padding: 8px 16px;
+                               border-radius: 8px; cursor: pointer;
+                               transition: all 0.2s;">
+                    免责声明
+                </button>
+            </div>
+        </div>
+        <div id="disclaimerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+            <div style="background-color: #FFFFFF; padding: 30px; border-radius: 12px; max-width: 500px; width: 80%; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="text-align: right;">
+                    <span onclick="hideDisclaimer()" style="cursor: pointer; font-size: 24px; color: #64748B;">&times;</span>
+                </div>
+                <h3 style="color: #2563EB; margin-bottom: 20px;">免责声明</h3>
+                <div style="line-height: 1.6; color: #1E293B; margin-bottom: 20px;">
+                    <p>本分析结果由AI自动生成，可能存在误差或不准确之处，仅供参考使用。</p>
+                    <p>我们不对分析结果的准确性、完整性或可靠性做任何保证。</p>
+                    <p>请勿将本分析结果作为决策的唯一依据，建议结合其他信息源进行综合判断。</p>
+                    <p style="margin-top: 15px; color: #DC2626;">注意：当前平台处于开发阶段，淘宝等平台信息通过Selenium爬虫获取，可能对您的账号存在风险。正式发布后将改用官方API，现阶段请谨慎使用。</p>
+                </div>
+                <button onclick="hideDisclaimer()" 
+                        style="background-color: #3B82F6; color: #FFFFFF; 
+                               border: none; padding: 8px 16px;
+                               border-radius: 8px; cursor: pointer;
+                               transition: all 0.2s;">
+                    我明白了
+                </button>
+            </div>
         </div>
     </div>
+
+    <script>
+        function showDisclaimer() {
+            document.getElementById('disclaimerModal').style.display = 'flex';
+        }
+        
+        function hideDisclaimer() {
+            document.getElementById('disclaimerModal').style.display = 'none';
+        }
+        
+        // 点击弹窗外部关闭
+        document.getElementById('disclaimerModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideDisclaimer();
+            }
+        });
+    </script>
 </body>
 </html>

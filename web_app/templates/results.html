@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>分析结果</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -110,15 +111,22 @@
 <body>
     <div class="container">
         <h1>商品分析结果</h1>
+        <button id="saveReport" style="margin-bottom: 30px; padding: 12px 24px; 
+                background: linear-gradient(to right, #3B82F6, #2563EB); 
+                color: #FFFFFF; border: none; border-radius: 8px; 
+                cursor: pointer; font-size: 16px; font-weight: 500;
+                transition: all 0.2s;">
+            保存分析结果
+        </button>
         
         <div class="section">
             <h2>商品评价情感分布及差评关键词</h2>
             <div class="image-gallery">
          
-                <img src="/static/情感分布.png" alt="情感分布">
-                <img src="/static/柱状图_关键词统计.png" alt="关键词统计柱状图">
-                <img src="/static/词云_关键词统计.png" alt="关键词词云">
-                <img src="/static/饼图_关键词统计.png" alt="关键词饼图">
+                <img src="/static/情感分布.png" alt="情感分布" class="zoomable-image">
+                <img src="/static/柱状图_关键词统计.png" alt="关键词统计柱状图" class="zoomable-image">
+                <img src="/static/词云_关键词统计.png" alt="关键词词云" class="zoomable-image">
+                <img src="/static/饼图_关键词统计.png" alt="关键词饼图" class="zoomable-image">
             </div>
             <div class="content-box">
                 <pre>{{ keywords_content|safe }}</pre>
@@ -161,7 +169,121 @@
 
         <a href="/" class="back-btn">返回首页</a>
     </div>
+
+    <!-- 图片放大模态框 -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="zoomedImage">
+    </div>
+
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            text-align: center;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 5%;
+            animation: zoom 0.3s;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0.1)}
+            to {transform: scale(1)}
+        }
+
+        .zoomable-image {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .zoomable-image:hover {
+            transform: scale(1.02);
+        }
+    </style>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // 图片放大功能
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("zoomedImage");
+        const closeBtn = document.querySelector(".close");
+
+        // 为所有可缩放图片添加双击事件
+        document.querySelectorAll('.zoomable-image').forEach(img => {
+            img.addEventListener('dblclick', function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            });
+        });
+
+        // 点击关闭按钮
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        document.getElementById('saveReport').addEventListener('click', function() {
+            // 获取产品名称作为文件名
+            fetch('/get_product_name')
+                .then(response => {
+                    if (!response.ok) throw new Error('获取产品名称失败');
+                    return response.text();
+                })
+                .then(productName => {
+                    if (!productName.trim()) throw new Error('产品名称为空');
+                    
+                    // 使用html2canvas截图
+                    html2canvas(document.querySelector('.container')).then(canvas => {
+                        // 创建下载链接
+                        const link = document.createElement('a');
+                        link.download = `${productName.trim()}_分析结果.jpg`;
+                        link.href = canvas.toDataURL('image/jpeg', 0.9);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    });
+                })
+                .catch(error => {
+                    console.error('使用产品名称失败:', error);
+                    // 使用默认文件名
+                    html2canvas(document.querySelector('.container')).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = '商品分析结果.jpg';
+                        link.href = canvas.toDataURL('image/jpeg', 0.9);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    });
+                });
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 渲染Markdown内容

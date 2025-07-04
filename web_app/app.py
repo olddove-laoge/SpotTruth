@@ -321,6 +321,21 @@ def run_multi_login():
     except Exception as e:
         return f"系统错误: {str(e)}", 500
 
+@app.route('/get_product_name')
+def get_product_name():
+    """获取产品名称"""
+    try:
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        product_name_path = os.path.join(base_dir, 'AIGC', 'Comment_crawling_and_analysis', 'product_name.txt')
+        
+        if os.path.exists(product_name_path):
+            with open(product_name_path, 'r', encoding='utf-8') as f:
+                return f.read().strip()
+        return "未命名商品"
+    except Exception as e:
+        print(f"获取产品名称失败: {str(e)}")
+        return "未命名商品"
+
 @app.route('/')
 def index():
     # 检查是否有分析完成标记
