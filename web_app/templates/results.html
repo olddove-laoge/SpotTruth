@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>分析结果</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #F0F7FF;
+            color: #1E293B;
+            padding: 50px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #E6F2FF;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #B3D1FF;
+            text-align: left;
+        }
+        h1, h2 {
+            color: #2563EB;
+            font-weight: 600;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .image-gallery img {
+            max-width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .content-box {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .content-box pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: inherit;
+            overflow-x: auto;
+        }
+        .markdown-content {
+            padding: 15px;
+        }
+        .markdown-content h1, 
+        .markdown-content h2, 
+        .markdown-content h3 {
+            color: #2563EB;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        .markdown-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .markdown-content ul, 
+        .markdown-content ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        .markdown-content li {
+            margin-bottom: 8px;
+        }
+        .timestamp {
+            text-align: right;
+            color: #666;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(to right, #3B82F6, #2563EB);
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .back-btn:hover {
+            background: linear-gradient(to right, #2563EB, #1D4ED8);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>商品分析结果</h1>
+        
+        <div class="section">
+            <h2>商品评价情感分布及差评关键词</h2>
+            <div class="image-gallery">
+         
+                <img src="/static/情感分布.png" alt="情感分布">
+                <img src="/static/柱状图_关键词统计.png" alt="关键词统计柱状图">
+                <img src="/static/词云_关键词统计.png" alt="关键词词云">
+                <img src="/static/饼图_关键词统计.png" alt="关键词饼图">
+            </div>
+            <div class="content-box">
+                <pre>{{ keywords_content|safe }}</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>小红书避雷笔记</h2>
+            <h3>热门笔记Top5</h3>
+            <div class="content-box">
+                <pre>{{ xhs_top5|safe }}</pre>
+            </div>
+            <h3>综合分析</h3>
+            <div class="content-box">
+                <pre>{{ xhs_analysis|safe }}</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>黑猫投诉平台分析结果</h2>
+            <div class="content-box markdown-content">
+                {{ tousu_content|safe }}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>同类商品比较</h2>
+            <div class="content-box">
+                <pre>{{ rela_prods|safe }}</pre>
+            </div>
+            <h3>综合分析报告</h3>
+            <div class="content-box markdown-content">
+                {{ analysis_report|safe }}
+            </div>
+        </div>
+
+        <div class="timestamp">
+            分析时间: {{ timestamp }}
+        </div>
+
+        <a href="/" class="back-btn">返回首页</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 渲染Markdown内容
+            const markdownElements = document.querySelectorAll('.markdown-content');
+            markdownElements.forEach(element => {
+                element.innerHTML = marked.parse(element.innerHTML);
+            });
+        });
+    </script>
+</body>
+</html>

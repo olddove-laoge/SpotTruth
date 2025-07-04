@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>分析中...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #6B8EAA;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #6B8EAA;
+        }
+    </style>
+</head>
+<body>
+    <h1>正在分析商品数据...</h1>
+    <div class="loader"></div>
+    <div class="message">请稍候，这可能需要几分钟时间</div>
+    
+    <script>
+        // 每5秒检查一次分析状态
+        function checkStatus() {
+            fetch('/check_status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'complete') {
+                        window.location.href = '/';
+                    }
+                });
+        }
+        
+        setInterval(checkStatus, 5000);
+    </script>
+</body>
+</html>

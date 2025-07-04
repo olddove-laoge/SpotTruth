@@ -1,0 +1,85 @@
+:root {
+    --primary-color: #6b8cae;
+    --secondary-color: #a2b9d6;
+    --background-color: #f0f5fa;
+    --text-color: #2c3e50;
+    --accent-color: #4a6fa5;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.main-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder {
+    text-align: center;
+    padding: 40px;
+    color: var(--primary-color);
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    color: var(--primary-color);
+}
+
+/* 输入框组样式 */
+.input-group {
+    display: flex;
+    margin: 20px 0;
+}
+
+.url-input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+
+.url-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.analyze-btn {
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.analyze-btn:hover {
+    background-color: var(--accent-color);
+}

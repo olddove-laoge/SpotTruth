@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商品分析工具</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #F0F7FF;
+            color: #1E293B;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #E6F2FF;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #B3D1FF;
+        }
+        h1 {
+            color: #2563EB;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #1E293B;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus {
+            border-color: #2563EB;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        button, .primary-button {
+            background: linear-gradient(to right, #3B82F6, #2563EB);
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-sizing: border-box;
+            height: 48px;
+            min-width: 160px;
+        }
+        button:hover, .primary-button:hover {
+            background: linear-gradient(to right, #2563EB, #1D4ED8);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        .primary-button {
+            background: linear-gradient(to right, #3B82F6, #2563EB);
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .description {
+            margin-top: 30px;
+            color: #64748B;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .guide-section {
+            background-color: #F8FBFF;
+            border: 1px solid #D6E4FF;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>商品分析工具</h1>
+        <form action="/analyze" method="POST">
+            <div class="input-group">
+                <input type="text" name="product_url" placeholder="请输入淘宝商品链接" required>
+            </div>
+            <button type="submit" class="primary-button">开始分析</button>
+        </form>
+        
+        <div style="margin: 20px 0;">
+            <button onclick="runMultiLogin()" class="primary-button">平台登录管理</button>
+        </div>
+
+        <div class="description">
+            <p>本工具将分析商品评价、小红书避雷笔记、黑猫投诉等信息，请耐心等待分析完成。</p>
+        </div>
+
+        <div class="guide-section" style="margin-top: 40px; padding: 20px;">
+            <h2 style="color: #2563EB; margin-bottom: 15px;">平台介绍</h2>
+            <p style="line-height: 1.6; margin-bottom: 20px; color: #1E293B;">
+                本平台是一个多源商品分析工具，整合了淘宝商品评价、小红书社区笔记和黑猫投诉平台数据，
+                通过AI技术提供全面的商品质量评估和购买决策支持。
+            </p>
+            
+            <h2 style="color: #2563EB; margin-bottom: 15px; margin-top: 25px;">使用指南</h2>
+            <ol style="line-height: 1.6; padding-left: 20px; color: #64748B;">
+                <li style="margin-bottom: 10px;">使用"平台登录管理"配置各平台登录状态</li>
+                <li style="margin-bottom: 10px;">在输入框中粘贴淘宝商品链接</li>
+                <li style="margin-bottom: 10px;">点击"开始分析"按钮</li>
+                <li style="margin-bottom: 10px;">等待分析完成(通常需要3-5分钟)</li>
+                <li>查看生成的综合分析报告</li>
+            </ol>
+        </div>
+
+        <script>
+            function runMultiLogin() {
+                fetch('/run_multi_login', {
+                    method: 'POST'
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                })
+                .catch(error => {
+                    alert('操作失败: ' + error);
+                });
+            }
+
+            function showAbout() {
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.style.zIndex = '1000';
+
+                modal.style.backgroundColor = 'rgba(248, 250, 252, 0.95)';
+                const content = document.createElement('div');
+                content.style.backgroundColor = '#FFFFFF';
+                content.style.color = '#1E293B';
+                content.style.padding = '30px';
+                content.style.borderRadius = '12px';
+                content.style.maxWidth = '500px';
+                content.style.textAlign = 'center';
+                content.style.boxShadow = '0 4px 6px rgba(0,0,0,0.05)';
+                content.style.border = '1px solid #E2E8F0';
+
+                content.innerHTML = `
+                    <h2 style="color: #2563EB; margin-bottom: 20px;">关于我们</h2>
+                    <p style="margin-bottom: 15px; line-height: 1.6;">
+                        <strong>开发团队：</strong>结束乐队
+                    </p>
+                    <p style="margin-bottom: 15px; line-height: 1.6;">
+                        <strong>技术支持：</strong>vivo蓝心大模型
+                    </p>
+                    <p style="margin-bottom: 20px; line-height: 1.6;">
+                        <strong>完成时间：</strong>2025/7
+                    </p>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="background-color: #3B82F6; color: #FFFFFF; border: none; 
+                                   padding: 8px 16px; border-radius: 8px; cursor: pointer;">
+                        关闭
+                    </button>
+                `;
+
+                modal.appendChild(content);
+                document.body.appendChild(modal);
+            }
+        </script>
+
+        <div style="margin-top: 40px; text-align: center;">
+            <button onclick="showAbout()" 
+                    style="background-color: #3B82F6; color: #FFFFFF; 
+                           border: none; padding: 8px 16px;
+                           border-radius: 8px; cursor: pointer;
+                           transition: all 0.2s;">
+                关于我们
+            </button>
+        </div>
+    </div>
+</body>
+</html>
