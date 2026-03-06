@@ -1,0 +1,244 @@
+[33028:35520:0704/155606.316:WARNING:chrome\browser\extensions\activity_log\activity_log_policy.cc:68] Scheduling init
+[33028:35520:0704/155606.316:WARNING:chrome\browser\extensions\activity_log\activity_log_policy.cc:68] Scheduling init
+[33028:35520:0704/155606.788:WARNING:components\signin\internal\identity_manager\account_fetcher_service.cc:233] Edge does not support fetching account capabilities
+[33028:35520:0704/155606.788:WARNING:components\signin\internal\identity_manager\account_fetcher_service.cc:195] Should not execute: Tests depending on this function may fail
+[33028:42444:0704/155606.813:ERROR:chrome\browser\importer\edge_china_browsers\edge_qqbrowser_importer_utils_win.cc:163] QQBrowser user data path not found.
+[42952:32624:0704/155607.060:ERROR:net\socket\ssl_client_socket_impl.cc:910] handshake failed; returned -1, SSL error code 1, net_error -101
+[40612:40736:0704/155607.183:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
+[42952:32624:0704/155607.225:ERROR:net\socket\ssl_client_socket_impl.cc:910] handshake failed; returned -1, SSL error code 1, net_error -101
+[36264:31800:0704/155607.267:INFO:third_party\webrtc\rtc_base\cpu_info.cc:57] Available number of cores: 16
+[24400:37972:0704/155607.272:INFO:third_party\webrtc\rtc_base\cpu_info.cc:57] Available number of cores: 16
+[33028:35520:0704/155607.327:INFO:CONSOLE:0] "The source list for the Content Security Policy directive 'connect-src' contains an invalid source: '*-ib.msn.com'. It will be ignored.", source: https://ntp.msn.cn/edge/ntp?locale=zh-CN&title=%E6%96%B0%E5%BB%BA%E6%A0%87%E7%AD%BE%E9%A1%B5&fre=1&dsp=1&sp=%E5%BF%85%E5%BA%94&feed_dis=peek&en_widget_reg=false&startpage=1&PC=NMTS (0)
+[33028:35520:0704/155607.970:INFO:CONSOLE:1] "The source list for the Content Security Policy directive 'connect-src' contains an invalid source: '*-ib.msn.com'. It will be ignored.", source: https://assets.msn.cn/staticsb/statics/latest/oneTrustCN/1.1/scripttemplates/otSDKStub.js (1)
+[33028:35520:0704/155607.973:INFO:CONSOLE:1] "The source list for the Content Security Policy directive 'connect-src' contains an invalid source: '*-ib.msn.com'. It will be ignored.", source: https://assets.msn.cn/staticsb/statics/latest/oneTrustCN/1.1/scripttemplates/otSDKStub.js (1)
+[33028:35520:0704/155607.980:INFO:CONSOLE:0] "The source list for the Content Security Policy directive 'connect-src' contains an invalid source: '*-ib.msn.com'. It will be ignored.", source: https://ntp.msn.cn/edge/ntp?locale=zh-CN&title=%E6%96%B0%E5%BB%BA%E6%A0%87%E7%AD%BE%E9%A1%B5&fre=1&dsp=1&sp=%E5%BF%85%E5%BA%94&feed_dis=peek&en_widget_reg=false&startpage=1&PC=NMTS (0)
+[33028:35520:0704/155608.876:INFO:CONSOLE:7] "The source list for the Content Security Policy directive 'connect-src' contains an invalid source: '*-ib.msn.com'. It will be ignored.", source: https://assets.msn.cn/staticsb/statics/latest/oneTrustCN/1.1/scripttemplates/202501.2.0/otBannerSdk.js (7)
+[33028:35520:0704/155608.879:INFO:CONSOLE:7] "The source list for the Content Security Policy directive 'connect-src' contains an invalid source: '*-ib.msn.com'. It will be ignored.", source: https://assets.msn.cn/staticsb/statics/latest/oneTrustCN/1.1/scripttemplates/202501.2.0/otBannerSdk.js (7)
+[33028:35520:0704/155608.888:INFO:CONSOLE:7] "The source list for the Content Security Policy directive 'connect-src' contains an invalid source: '*-ib.msn.com'. It will be ignored.", source: https://assets.msn.cn/staticsb/statics/latest/oneTrustCN/1.1/scripttemplates/202501.2.0/otBannerSdk.js (7)
+[33028:35520:0704/155608.889:INFO:CONSOLE:7] "The source list for the Content Security Policy directive 'connect-src' contains an invalid source: '*-ib.msn.com'. It will be ignored.", source: https://assets.msn.cn/staticsb/statics/latest/oneTrustCN/1.1/scripttemplates/202501.2.0/otBannerSdk.js (7)
+[38960:43888:0704/155609.226:INFO:third_party\webrtc\rtc_base\cpu_info.cc:57] Available number of cores: 16
+[24400:42136:0704/155610.426:INFO:third_party\blink\renderer\modules\peerconnection\peer_connection_dependency_factory.cc:802] Running WebRTC with a combined Network and Worker thread.
+[24400:42136:0704/155610.426:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:478] WebRtcVoiceEngine::WebRtcVoiceEngine
+[24400:38304:0704/155610.427:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:500] WebRtcVoiceEngine::Init
+[24400:38304:0704/155610.428:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:603] WebRtcVoiceEngine::ApplyOptions: AudioOptions {aec: 1, agc: 1, ns: 1, hf: 1, swap: 0, audio_jitter_buffer_max_packets: 200, audio_jitter_buffer_fast_accelerate: 0, audio_jitter_buffer_min_delay_ms: 0, }
+[24400:42136:0704/155612.415:INFO:third_party\webrtc\media\base\codec.cc:395] Explicitly added H264 constrained baseline to list of supported formats.
+[24400:38304:0704/155612.416:INFO:third_party\webrtc\pc\peer_connection_factory.cc:412] Using default network controller factory
+[24400:38304:0704/155612.416:INFO:third_party\webrtc\modules\pacing\bitrate_prober.cc:54] Bandwidth probing enabled, set to inactive
+[24400:38304:0704/155612.416:INFO:third_party\webrtc\modules\remote_bitrate_estimator\transport_sequence_number_feedback_generator.cc:52] Maximum interval between transport feedback RTCP messages: 250 ms
+[24400:38304:0704/155612.416:INFO:third_party\webrtc\modules\remote_bitrate_estimator\aimd_rate_control.cc:88] Using aimd rate control with back off factor 0.85
+[24400:38304:0704/155612.416:INFO:third_party\webrtc\modules\remote_bitrate_estimator\remote_bitrate_estimator_single_stream.cc:59] RemoteBitrateEstimatorSingleStream: Instantiating.
+[24400:42136:0704/155612.416:INFO:third_party\webrtc\media\base\codec.cc:395] Explicitly added H264 constrained baseline to list of supported formats.
+[24400:38304:0704/155612.417:INFO:third_party\webrtc\rtc_base\openssl_key_pair.cc:40] Making key pair
+[24400:38304:0704/155612.417:INFO:third_party\webrtc\rtc_base\openssl_key_pair.cc:93] Returning key pair
+[24400:38304:0704/155612.417:INFO:third_party\webrtc\rtc_base\boringssl_certificate.cc:193] Making certificate for WebRTC
+[24400:38304:0704/155612.417:INFO:third_party\webrtc\rtc_base\boringssl_certificate.cc:249] Returning certificate
+[24400:38304:0704/155612.426:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:546] Set backup connection ping interval to 25000 milliseconds.
+[24400:38304:0704/155612.426:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:555] Set ICE receiving timeout to 2500 milliseconds
+[24400:38304:0704/155612.426:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:562] Set ping most likely connection to 0
+[24400:38304:0704/155612.426:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:569] Set stable_writable_connection_ping_interval to 2500
+[24400:38304:0704/155612.426:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:582] Set presume writable when fully relayed to 0
+[24400:38304:0704/155612.426:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:600] Set regather_on_failed_networks_interval to 300000
+[24400:38304:0704/155612.427:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:607] Set receiving_switching_delay to 1000
+[24400:38304:0704/155612.429:INFO:third_party\webrtc\pc\jsep_transport_controller.cc:1184] Creating DtlsSrtpTransport.
+[24400:38304:0704/155612.429:INFO:third_party\webrtc\pc\dtls_srtp_transport.cc:72] Setting RTP Transport on data transport 0x4b3408f61800
+[24400:38304:0704/155612.432:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[24400:38304:0704/155612.435:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[24400:38304:0704/155612.435:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[24400:38304:0704/155612.435:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[24400:38304:0704/155612.435:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:491] Received remote ICE parameters: ufrag=0068T2gAtoKq_rX9gPUGGMkhioRPIPEakQhBPSAUIoa4GsKtEhFO34RH4E_n-TLflnPC2AQ=, renomination disabled
+[24400:42136:0704/155612.435:INFO:third_party\webrtc\pc\peer_connection.cc:2085] Creating data channel, mid=data
+[24400:42136:0704/155612.435:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 7300694283248573769 Old state: stable New state: have-remote-offer
+[24400:38304:0704/155612.667:WARNING:third_party\webrtc\pc\peer_connection.cc:2686] data is not ready to use the remote candidate because the local or remote description is not set.
+[24400:38304:0704/155612.788:INFO:third_party\webrtc\pc\dtls_srtp_transport.cc:72] Setting RTP Transport on data transport 0x4b3408f61800
+[24400:38304:0704/155612.788:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:480] Set ICE ufrag: O7+m pwd: Wj6ZAkfcmhJETweupx5KWfdi on transport data
+[24400:38304:0704/155612.788:WARNING:third_party\webrtc\rtc_base\openssl_stream_adapter.cc:148] WebRTC-ForceDtls13: 
+[24400:38304:0704/155612.788:INFO:third_party\webrtc\p2p\dtls\dtls_transport.cc:497] DtlsTransport[data|1|__]: DTLS setup complete, dtls_in_stun: 0
+[24400:42136:0704/155612.788:INFO:third_party\webrtc\pc\peer_connection.cc:2085] Creating data channel, mid=data
+[24400:42136:0704/155612.789:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 7300694283248573769 Old state: have-remote-offer New state: stable
+[24400:38304:0704/155612.789:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:1189] Asynchronously resolving ICE candidate hostname ph5.ynuf.aliapp.org
+[24400:38304:0704/155612.789:INFO:third_party\webrtc\p2p\client\basic_port_allocator.cc:367] Start getting ports with turn_port_prune_policy 0
+[24400:42136:0704/155612.790:INFO:third_party\webrtc\pc\peer_connection.cc:1867] Changing IceConnectionState 0 => 1
+[24400:42136:0704/155612.804:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 7300694283248573769 Old state: stable New state: closed
+[24400:38304:0704/155612.804:INFO:third_party\webrtc\pc\peer_connection.cc:2542] Tearing down data channel transport for mid=data
+[33028:35520:0704/155613.891:INFO:CONSOLE:0] "Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113", source: https://www.taobao.com/ (0)
+[24400:42136:0704/155616.899:INFO:third_party\blink\renderer\modules\peerconnection\peer_connection_dependency_factory.cc:802] Running WebRTC with a combined Network and Worker thread.
+[24400:42136:0704/155616.899:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:478] WebRtcVoiceEngine::WebRtcVoiceEngine
+[24400:38304:0704/155616.899:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:500] WebRtcVoiceEngine::Init
+[24400:38304:0704/155616.899:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:603] WebRtcVoiceEngine::ApplyOptions: AudioOptions {aec: 1, agc: 1, ns: 1, hf: 1, swap: 0, audio_jitter_buffer_max_packets: 200, audio_jitter_buffer_fast_accelerate: 0, audio_jitter_buffer_min_delay_ms: 0, }
+[24400:42136:0704/155616.900:INFO:third_party\webrtc\media\base\codec.cc:395] Explicitly added H264 constrained baseline to list of supported formats.
+[24400:38304:0704/155616.902:INFO:third_party\webrtc\pc\peer_connection_factory.cc:412] Using default network controller factory
+[24400:38304:0704/155616.902:INFO:third_party\webrtc\modules\pacing\bitrate_prober.cc:54] Bandwidth probing enabled, set to inactive
+[24400:38304:0704/155616.902:INFO:third_party\webrtc\modules\remote_bitrate_estimator\transport_sequence_number_feedback_generator.cc:52] Maximum interval between transport feedback RTCP messages: 250 ms
+[24400:38304:0704/155616.902:INFO:third_party\webrtc\modules\remote_bitrate_estimator\aimd_rate_control.cc:88] Using aimd rate control with back off factor 0.85
+[24400:38304:0704/155616.902:INFO:third_party\webrtc\modules\remote_bitrate_estimator\remote_bitrate_estimator_single_stream.cc:59] RemoteBitrateEstimatorSingleStream: Instantiating.
+[24400:42136:0704/155616.903:INFO:third_party\webrtc\media\base\codec.cc:395] Explicitly added H264 constrained baseline to list of supported formats.
+[24400:38304:0704/155616.904:INFO:third_party\webrtc\rtc_base\openssl_key_pair.cc:40] Making key pair
+[24400:38304:0704/155616.905:INFO:third_party\webrtc\rtc_base\openssl_key_pair.cc:93] Returning key pair
+[24400:38304:0704/155616.905:INFO:third_party\webrtc\rtc_base\boringssl_certificate.cc:193] Making certificate for WebRTC
+[24400:38304:0704/155616.905:INFO:third_party\webrtc\rtc_base\boringssl_certificate.cc:249] Returning certificate
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:546] Set backup connection ping interval to 25000 milliseconds.
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:555] Set ICE receiving timeout to 2500 milliseconds
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:562] Set ping most likely connection to 0
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:569] Set stable_writable_connection_ping_interval to 2500
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:582] Set presume writable when fully relayed to 0
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:600] Set regather_on_failed_networks_interval to 300000
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:607] Set receiving_switching_delay to 1000
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\pc\jsep_transport_controller.cc:1184] Creating DtlsSrtpTransport.
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\pc\dtls_srtp_transport.cc:72] Setting RTP Transport on data transport 0x4b3408f61800
+[24400:38304:0704/155616.906:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[24400:38304:0704/155616.906:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[24400:38304:0704/155616.906:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[24400:38304:0704/155616.906:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[24400:38304:0704/155616.906:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:491] Received remote ICE parameters: ufrag=0068T2gAtoKq_rX9gPUGGMkhioRPIPEakQhBPSAUIoa4GsKtEhFO34RH4E_n-TLflnPC2AQ=, renomination disabled
+[24400:42136:0704/155616.906:INFO:third_party\webrtc\pc\peer_connection.cc:2085] Creating data channel, mid=data
+[24400:42136:0704/155616.906:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 7088361802089916541 Old state: stable New state: have-remote-offer
+[24400:38304:0704/155617.107:WARNING:third_party\webrtc\pc\peer_connection.cc:2686] data is not ready to use the remote candidate because the local or remote description is not set.
+[24400:38304:0704/155617.267:INFO:third_party\webrtc\pc\dtls_srtp_transport.cc:72] Setting RTP Transport on data transport 0x4b3408f61800
+[24400:38304:0704/155617.267:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:480] Set ICE ufrag: f8/z pwd: 3oFUt0H4ORDU2ZzZz5zC/b+E on transport data
+[24400:38304:0704/155617.267:WARNING:third_party\webrtc\rtc_base\openssl_stream_adapter.cc:148] WebRTC-ForceDtls13: 
+[24400:38304:0704/155617.267:INFO:third_party\webrtc\p2p\dtls\dtls_transport.cc:497] DtlsTransport[data|1|__]: DTLS setup complete, dtls_in_stun: 0
+[24400:42136:0704/155617.267:INFO:third_party\webrtc\pc\peer_connection.cc:2085] Creating data channel, mid=data
+[24400:42136:0704/155617.268:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 7088361802089916541 Old state: have-remote-offer New state: stable
+[24400:38304:0704/155617.268:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:1189] Asynchronously resolving ICE candidate hostname ph5.ynuf.aliapp.org
+[24400:38304:0704/155617.268:INFO:third_party\webrtc\p2p\client\basic_port_allocator.cc:367] Start getting ports with turn_port_prune_policy 0
+[24400:42136:0704/155617.268:INFO:third_party\webrtc\pc\peer_connection.cc:1867] Changing IceConnectionState 0 => 1
+[24400:42136:0704/155617.296:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 7088361802089916541 Old state: stable New state: closed
+[24400:38304:0704/155617.297:INFO:third_party\webrtc\pc\peer_connection.cc:2542] Tearing down data channel transport for mid=data
+[33028:35520:0704/155618.156:INFO:CONSOLE:0] "Images loaded lazily and replaced with placeholders. Load events are deferred. See https://go.microsoft.com/fwlink/?linkid=2048113", source: https://www.taobao.com/ (0)
+[19860:40400:0704/155619.266:INFO:third_party\webrtc\rtc_base\cpu_info.cc:57] Available number of cores: 16
+[33028:35520:0704/155619.692:ERROR:chrome\browser\task_manager\providers\fallback_task_provider.cc:126] Every renderer should have at least one task provided by a primary task provider. If a "Renderer" fallback task is shown, it is a bug. If you have repro steps, please file a new bug and tag it as a dependency of crbug.com/739782.
+[33028:35520:0704/155620.262:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155620.675:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/fireyejs/1.231.28/fireyejs.js (1)
+[33028:35520:0704/155620.783:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[38960:38648:0704/155620.800:INFO:third_party\blink\renderer\modules\peerconnection\peer_connection_dependency_factory.cc:802] Running WebRTC with a combined Network and Worker thread.
+[38960:38648:0704/155620.800:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:478] WebRtcVoiceEngine::WebRtcVoiceEngine
+[38960:31488:0704/155620.801:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:500] WebRtcVoiceEngine::Init
+[38960:31488:0704/155620.801:INFO:third_party\webrtc\media\engine\webrtc_voice_engine.cc:603] WebRtcVoiceEngine::ApplyOptions: AudioOptions {aec: 1, agc: 1, ns: 1, hf: 1, swap: 0, audio_jitter_buffer_max_packets: 200, audio_jitter_buffer_fast_accelerate: 0, audio_jitter_buffer_min_delay_ms: 0, }
+[38960:38648:0704/155620.809:INFO:third_party\webrtc\media\base\codec.cc:395] Explicitly added H264 constrained baseline to list of supported formats.
+[38960:31488:0704/155620.810:INFO:third_party\webrtc\pc\peer_connection_factory.cc:412] Using default network controller factory
+[38960:31488:0704/155620.810:INFO:third_party\webrtc\modules\pacing\bitrate_prober.cc:54] Bandwidth probing enabled, set to inactive
+[38960:31488:0704/155620.810:INFO:third_party\webrtc\modules\remote_bitrate_estimator\transport_sequence_number_feedback_generator.cc:52] Maximum interval between transport feedback RTCP messages: 250 ms
+[38960:31488:0704/155620.810:INFO:third_party\webrtc\modules\remote_bitrate_estimator\aimd_rate_control.cc:88] Using aimd rate control with back off factor 0.85
+[38960:31488:0704/155620.810:INFO:third_party\webrtc\modules\remote_bitrate_estimator\remote_bitrate_estimator_single_stream.cc:59] RemoteBitrateEstimatorSingleStream: Instantiating.
+[38960:38648:0704/155620.811:INFO:third_party\webrtc\media\base\codec.cc:395] Explicitly added H264 constrained baseline to list of supported formats.
+[38960:31488:0704/155620.812:INFO:third_party\webrtc\rtc_base\openssl_key_pair.cc:40] Making key pair
+[38960:31488:0704/155620.812:INFO:third_party\webrtc\rtc_base\openssl_key_pair.cc:93] Returning key pair
+[38960:31488:0704/155620.812:INFO:third_party\webrtc\rtc_base\boringssl_certificate.cc:193] Making certificate for WebRTC
+[38960:31488:0704/155620.812:INFO:third_party\webrtc\rtc_base\boringssl_certificate.cc:249] Returning certificate
+[38960:31488:0704/155620.813:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:546] Set backup connection ping interval to 25000 milliseconds.
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:555] Set ICE receiving timeout to 2500 milliseconds
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:562] Set ping most likely connection to 0
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:569] Set stable_writable_connection_ping_interval to 2500
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:582] Set presume writable when fully relayed to 0
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:600] Set regather_on_failed_networks_interval to 300000
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:607] Set receiving_switching_delay to 1000
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\pc\jsep_transport_controller.cc:1184] Creating DtlsSrtpTransport.
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\pc\dtls_srtp_transport.cc:72] Setting RTP Transport on data transport 0x2ddc043d7000
+[38960:31488:0704/155620.814:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[38960:31488:0704/155620.814:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[38960:31488:0704/155620.814:WARNING:third_party\webrtc\p2p\base\transport_description.cc:39] '-', '=', '#' and '-' are not valid ice-char and thus not permitted in ufrag or pwd. This is a protocol violation that is permitted to allow upgrading but will be rejected in the future. See https://crbug.com/1053756
+[38960:31488:0704/155620.814:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:491] Received remote ICE parameters: ufrag=0068T2gAHazsWwPnhhof33ba9I36F_8ZwnNcrc2eWMXaX-DVAwy4gXRmgM0ToFOoSw8AeUc=, renomination disabled
+[38960:38648:0704/155620.814:INFO:third_party\webrtc\pc\peer_connection.cc:2085] Creating data channel, mid=data
+[38960:38648:0704/155620.814:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 3300302278628451183 Old state: stable New state: have-remote-offer
+[33028:35520:0704/155621.014:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[38960:31488:0704/155621.020:WARNING:third_party\webrtc\pc\peer_connection.cc:2686] data is not ready to use the remote candidate because the local or remote description is not set.
+[38960:31488:0704/155621.023:INFO:third_party\webrtc\pc\dtls_srtp_transport.cc:72] Setting RTP Transport on data transport 0x2ddc043d7000
+[38960:31488:0704/155621.023:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:480] Set ICE ufrag: xUjj pwd: ZGwef9CasDnENj7gDe4CKYNQ on transport data
+[38960:31488:0704/155621.023:WARNING:third_party\webrtc\rtc_base\openssl_stream_adapter.cc:148] WebRTC-ForceDtls13: 
+[38960:31488:0704/155621.023:INFO:third_party\webrtc\p2p\dtls\dtls_transport.cc:497] DtlsTransport[data|1|__]: DTLS setup complete, dtls_in_stun: 0
+[38960:38648:0704/155621.023:INFO:third_party\webrtc\pc\peer_connection.cc:2085] Creating data channel, mid=data
+[38960:38648:0704/155621.023:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 3300302278628451183 Old state: have-remote-offer New state: stable
+[38960:31488:0704/155621.024:INFO:third_party\webrtc\p2p\base\p2p_transport_channel.cc:1189] Asynchronously resolving ICE candidate hostname ph5.ynuf.aliapp.org
+[38960:31488:0704/155621.024:INFO:third_party\webrtc\p2p\client\basic_port_allocator.cc:367] Start getting ports with turn_port_prune_policy 0
+[38960:38648:0704/155621.024:INFO:third_party\webrtc\pc\peer_connection.cc:1867] Changing IceConnectionState 0 => 1
+[38960:38648:0704/155621.033:INFO:third_party\webrtc\pc\sdp_offer_answer.cc:3092] Session: 3300302278628451183 Old state: stable New state: closed
+[38960:31488:0704/155621.033:INFO:third_party\webrtc\pc\peer_connection.cc:2542] Tearing down data channel transport for mid=data
+[33028:35520:0704/155622.347:INFO:CONSOLE:1] "%c [APLUS] -- APLUS INIT SUCCESS background:#3B82FE; padding: 4px; padding-right: 8px; border-radius: 4px; color: #fff;", source: https://g.alicdn.com/tbpc/pc-detail-2024/0.0.74/js/main.js (1)
+[33028:35520:0704/155622.351:INFO:CONSOLE:1] "[@ali/lib-mtop] 当前页面不存在 lib.windvane 变量，已自动降级为 H5 请求", source: https://g.alicdn.com/tbpc/pc-detail-2024/0.0.74/js/main.js (1)
+[33028:35520:0704/155622.363:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155622.397:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[2260:39108:0704/155622.420:INFO:third_party\webrtc\rtc_base\cpu_info.cc:57] Available number of cores: 16
+[33028:35520:0704/155622.499:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/fireyejs/1.231.28/fireyejs.js (1)
+[33028:35520:0704/155622.568:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155622.578:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155622.597:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155622.776:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/fireyejs/1.231.28/fireyejs.js (1)
+[33028:35520:0704/155622.856:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155622.890:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.157:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.163:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.372:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.381:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.389:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.398:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.404:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.411:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.452:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.458:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.464:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.471:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.702:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.804:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.847:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.879:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.887:INFO:CONSOLE:1] "[APLUS] -- APLUS INIT SUCCESS", source: https://g.alicdn.com/tbpc/pc-detail-2024/0.0.74/js/@ali/desc-v8-render.js (1)
+[33028:35520:0704/155623.926:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155623.934:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155624.012:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155624.019:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155624.028:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155624.126:INFO:CONSOLE:1] "Uncaught (in promise) #<Object>", source: https://g.alicdn.com/mtb/lib-login/3.4.1/login.js (1)
+[33028:35520:0704/155624.127:INFO:CONSOLE:1] "Uncaught (in promise) #<Object>", source: https://g.alicdn.com/tbpc/pc-detail-2024/0.0.74/js/main.js (1)
+[33028:35520:0704/155624.127:INFO:CONSOLE:1] "Uncaught (in promise) #<Object>", source: https://g.alicdn.com/tbpc/pc-detail-2024/0.0.74/js/main.js (1)
+[33028:35520:0704/155624.131:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155624.883:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155625.433:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155625.448:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155625.466:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155627.292:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155627.322:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155627.818:WARNING:chrome\browser\edge_underside\underside_helper.cc:1301] If test does not need FrontLoad, this may be expected. SetFrontLoadDecision: 11
+[33028:35520:0704/155627.819:WARNING:chrome\browser\ui\edge_window_tab_manager\api\wtm_image_web_contents_helper.cc:872] Favicon request has been preempted. Skipping.  old request_start_time=2025-07-04 07:56:06.854799 UTC, pending_favicon_request_start_time_=2025-07-04 07:56:25.199135 UTC
+[33028:35520:0704/155627.819:WARNING:chrome\browser\ui\edge_window_tab_manager\api\wtm_image_web_contents_helper.cc:872] Favicon request has been preempted. Skipping.  old request_start_time=2025-07-04 07:56:08.934253 UTC, pending_favicon_request_start_time_=2025-07-04 07:56:25.199135 UTC
+[33028:35520:0704/155627.819:WARNING:chrome\browser\ui\edge_window_tab_manager\api\wtm_image_web_contents_helper.cc:872] Favicon request has been preempted. Skipping.  old request_start_time=2025-07-04 07:56:09.066555 UTC, pending_favicon_request_start_time_=2025-07-04 07:56:25.199135 UTC
+[33028:35520:0704/155627.819:WARNING:chrome\browser\ui\edge_window_tab_manager\api\wtm_image_web_contents_helper.cc:872] Favicon request has been preempted. Skipping.  old request_start_time=2025-07-04 07:56:16.222598 UTC, pending_favicon_request_start_time_=2025-07-04 07:56:25.199135 UTC
+[33028:35520:0704/155627.819:WARNING:chrome\browser\ui\edge_window_tab_manager\api\wtm_image_web_contents_helper.cc:872] Favicon request has been preempted. Skipping.  old request_start_time=2025-07-04 07:56:19.059208 UTC, pending_favicon_request_start_time_=2025-07-04 07:56:25.199135 UTC
+[41292:36976:0704/155628.212:INFO:components\services\edge_entity_extraction\extractor_impl.cc:990] ExtractorImpl::SetIsPendingEEConfig : 1
+[33028:35520:0704/155628.813:INFO:CONSOLE:1] "auto_open_controller_script from Edge", source:  (1)
+[33028:35520:0704/155629.768:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155629.801:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155636.437:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155636.473:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155641.445:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155641.477:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155648.059:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155648.094:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155654.668:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155654.699:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155700.536:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155700.573:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155708.709:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155708.747:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155715.279:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155715.320:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155717.407:ERROR:components\edge_smartscreen\browser\smartscreen_dns_resolver.cc:110] SmartScreenDnsResolver::OnComplete Error: -7 DidTimeOut: 1 URL: https://h5api.m.tmall.com//h5/mtop.taobao.rate.detaillist.get/6.0/_____tmd_____/punish?x5secdata=xgbc02e7ec4a0fe9b2bc1c73e30e7976ad2134835353b3bc0fe21751615834a-717315356a1703520446abbzc3an2218533851785a0__bx__h5api.m.tmall.com:443/h5/mtop.taobao.rate.detaillist.get/6.0&x5step=2&action=captcha&pureCaptcha=
+[33028:35520:0704/155717.407:ERROR:components\edge_smartscreen\browser\smartscreen_dns_resolver.cc:110] SmartScreenDnsResolver::OnComplete Error: -7 DidTimeOut: 1 URL: https://detail.tmall.com/
+[33028:35520:0704/155718.802:INFO:CONSOLE:1] "将根据已有的meta标签来设置缩放比例", source: https://g.alicdn.com/mtb/lib-flexible/0.3.2/flexible.js (1)
+[33028:35520:0704/155718.975:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155719.330:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155719.385:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155719.470:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155719.578:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155719.596:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155719.637:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155719.971:INFO:CONSOLE:1] "Permissions policy violation: accelerometer is not allowed in this document.", source: https://g.alicdn.com/AWSC/fireyejs/1.231.23/fireyejs.js (1)
+[33028:35520:0704/155719.972:INFO:CONSOLE:1] "The deviceorientation events are blocked by permissions policy. See https://go.microsoft.com/fwlink/?linkid=2047894", source: https://g.alicdn.com/AWSC/fireyejs/1.231.23/fireyejs.js (1)
+[33028:35520:0704/155719.999:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[33028:35520:0704/155720.014:INFO:CONSOLE:1] "-ms-high-contrast is in the process of being deprecated. Please see https://blogs.windows.com/msedgedev/2024/04/29/deprecating-ms-high-contrast/ for tips on updating to the new Forced Colors Mode standard.", source: https://g.alicdn.com/AWSC/nc/1.97.0/nc.js (1)
+[33028:35520:0704/155720.014:INFO:CONSOLE:1] "-ms-high-contrast is in the process of being deprecated. Please see https://blogs.windows.com/msedgedev/2024/04/29/deprecating-ms-high-contrast/ for tips on updating to the new Forced Colors Mode standard.", source: https://g.alicdn.com/AWSC/nc/1.97.0/nc.js (1)
+[33028:35520:0704/155720.041:INFO:CONSOLE:1] "Error", source: https://g.alicdn.com/AWSC/et/1.83.8/et_f.js (1)
+[38960:38648:0704/155720.823:INFO:third_party\webrtc\pc\usage_pattern.cc:33] Interesting usage signature 148832 observed after observer shutdown
+[2560:31408:0704/155806.933:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
+[33028:35520:0704/155815.716:WARNING:components\prefs\pref_notifier_impl.cc:41] Pref observer for video_enhancement.mode found at shutdown.
+[33028:35520:0704/155815.877:WARNING:components\prefs\pref_notifier_impl.cc:41] Pref observer for edge_screenshot.shortcut.main found at shutdown.
+[33028:35520:0704/155815.877:WARNING:components\prefs\pref_notifier_impl.cc:41] Pref observer for browser.touch_mode found at shutdown.

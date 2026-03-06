@@ -1,0 +1,12 @@
+2025/07/04-15:56:08.494 9888 Reusing MANIFEST d:\C_data\SpotTruth\AIGC\Comment_crawling_and_analysis\相关商品评论\profile_2\Default\Local Storage\leveldb/MANIFEST-000001
+2025/07/04-15:56:08.503 9888 Recovering log #8
+2025/07/04-15:56:08.510 9888 Reusing old log d:\C_data\SpotTruth\AIGC\Comment_crawling_and_analysis\相关商品评论\profile_2\Default\Local Storage\leveldb/000008.log 
+2025/07/04-15:56:20.486 9888 Level-0 table #12: started
+2025/07/04-15:56:20.503 9888 Level-0 table #12: 481057 bytes OK
+2025/07/04-15:56:20.508 9888 Delete type=0 #8
+2025/07/04-15:56:26.161 9888 Level-0 table #14: started
+2025/07/04-15:56:26.167 9888 Level-0 table #14: 47955 bytes OK
+2025/07/04-15:56:26.170 9888 Delete type=0 #11
+2025/07/04-15:58:22.880 9888 Level-0 table #16: started
+2025/07/04-15:58:22.888 9888 Level-0 table #16: 103684 bytes OK
+2025/07/04-15:58:22.891 9888 Delete type=0 #13

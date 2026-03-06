@@ -1,0 +1,104 @@
+0:00:00 Startup
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpEphemeralProfiles
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpDeletedProfiles
+0:00:00 Microsoft.NewBrowser_Normal
+0:00:00 Microsoft.BrowserList.AddBrowser
+0:00:00 Tab1 StartNav1 #ntp #auto_toplevel
+0:00:00 Browser1 Insert active Tab1 at 0
+0:00:02 Tab1 FinishNav1
+0:00:03 Tab1 StartNav2 #renderer-script #auto_subframe
+0:00:03 Tab1 FinishNav2
+0:00:03 Tab1 PageLoad
+0:00:03 Tab1 PageLoad #ntp
+0:00:04 Tab1 StartNav4 #renderer-script #auto_subframe
+0:00:04 Tab1 FinishNav4
+0:00:04 Tab1 PageLoad
+0:00:04 Tab1 StartNav5 #renderer-script #auto_subframe
+0:00:04 Tab1 FinishNav5
+0:00:04 Tab1 PageLoad
+0:00:04 Tab1 StartNav3 #typed
+0:00:04 Tab1 FinishNav3
+0:00:05 Tab1 StartNav6 #renderer-script #auto_subframe
+0:00:05 Tab1 FinishNav6
+0:00:05 Tab1 PageLoad
+0:00:05 Tab1 StartNav7 #renderer-script #auto_subframe
+0:00:05 Tab1 FinishNav7
+0:00:06 Tab1 PageLoad
+0:00:10 Tab1 PageLoad
+0:00:11 Tab1 StartNav8 #reload
+0:00:11 Tab1 FinishNav8
+0:00:11 Tab1 StartNav9 #renderer-script #auto_subframe
+0:00:11 Tab1 FinishNav9
+0:00:11 Tab1 PageLoad
+0:00:11 Tab1 StartNav10 #renderer-script #auto_subframe
+0:00:11 Tab1 FinishNav10
+0:00:12 Tab1 PageLoad
+0:00:14 Tab1 PageLoad
+0:00:15 Tab1 StartNav11 #typed
+0:00:16 Tab1 FinishNav11
+0:00:18 Tab1 StartNav12 #renderer-script #auto_subframe
+0:00:18 Tab1 FinishNav12
+0:00:18 Tab1 PageLoad
+0:00:18 Tab1 StartNav13 #renderer-script #auto_subframe
+0:00:18 Tab1 FinishNav13
+0:00:18 Tab1 PageLoad
+0:00:20 Tab1 StartNav14 #renderer-script #link
+0:00:20 Tab1 FinishNav14
+0:00:22 Tab1 PageLoad
+0:01:29 Microsoft.Shutdown.ExitIgnoreUnloadHandlers
+0:00:00 Startup
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpEphemeralProfiles
+0:00:00 Microsoft.DeleteProfileHelper.CleanUpDeletedProfiles
+0:00:00 Microsoft.NewBrowser_Normal
+0:00:00 Microsoft.BrowserList.AddBrowser
+0:00:00 Tab1 StartNav1 #ntp #auto_toplevel
+0:00:00 Browser1 Insert active Tab1 at 0
+0:00:01 Tab1 FinishNav1
+0:00:01 Tab1 StartNav2 #renderer-script #auto_subframe
+0:00:01 Tab1 FinishNav2
+0:00:01 Tab1 PageLoad
+0:00:02 Tab1 PageLoad #ntp
+0:00:02 Tab1 StartNav4 #renderer-script #auto_subframe
+0:00:02 Tab1 FinishNav4
+0:00:02 Tab1 PageLoad
+0:00:02 Tab1 StartNav5 #renderer-script #auto_subframe
+0:00:02 Tab1 FinishNav5
+0:00:02 Tab1 PageLoad
+0:00:02 Tab1 StartNav3 #typed
+0:00:02 Tab1 FinishNav3
+0:00:03 Tab1 StartNav6 #renderer-script #auto_subframe
+0:00:03 Tab1 FinishNav6
+0:00:03 Tab1 PageLoad
+0:00:03 Tab1 StartNav7 #renderer-script #auto_subframe
+0:00:03 Tab1 FinishNav7
+0:00:06 Tab1 PageLoad
+0:00:08 Tab1 PageLoad
+0:00:09 Tab1 StartNav8 #reload
+0:00:09 Tab1 FinishNav8
+0:00:10 Tab1 StartNav9 #renderer-script #auto_subframe
+0:00:10 Tab1 FinishNav9
+0:00:10 Tab1 PageLoad
+0:00:10 Tab1 StartNav10 #renderer-script #auto_subframe
+0:00:10 Tab1 FinishNav10
+0:00:10 Tab1 PageLoad
+0:00:12 Tab1 PageLoad
+0:00:12 Tab1 StartNav11 #typed
+0:00:13 Tab1 FinishNav11
+0:00:15 Tab1 StartNav12 #renderer-script #auto_subframe
+0:00:15 Tab1 FinishNav12
+0:00:15 Tab1 PageLoad
+0:00:15 Tab1 StartNav13 #renderer-script #auto_subframe
+0:00:16 Tab1 FinishNav13
+0:00:16 Tab1 PageLoad
+0:00:17 Tab1 StartNav14 #renderer-script #link
+0:00:17 Tab1 FinishNav14
+0:00:18 Tab1 PageLoad
+0:00:25 Memory Pressure: Moderate
+0:00:35 Memory Pressure: Moderate
+0:01:09 Tab1 StartNav15 #renderer-script #auto_subframe
+0:01:09 Tab1 FinishNav15
+0:01:09 Tab1 PageLoad
+0:01:09 Tab1 StartNav16 #renderer-script #auto_subframe
+0:01:11 Tab1 FinishNav16
+0:01:13 Tab1 PageLoad
+0:02:09 Microsoft.Shutdown.ExitIgnoreUnloadHandlers
