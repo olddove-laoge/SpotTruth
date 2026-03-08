@@ -1,0 +1,74 @@
+{
+  "best_metric": 0.9700920245398773,
+  "best_model_checkpoint": "d:\\C_data\\SpotTruth\\new_idea\\output\\lora_3cls/electronics_3cls\\checkpoint-1422",
+  "epoch": 3.0,
+  "eval_steps": 500,
+  "global_step": 1422,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 1.0,
+      "eval_accuracy": 0.9539877300613497,
+      "eval_loss": 0.14660406112670898,
+      "eval_runtime": 6.1278,
+      "eval_samples_per_second": 212.802,
+      "eval_steps_per_second": 26.6,
+      "step": 474
+    },
+    {
+      "epoch": 1.0548523206751055,
+      "grad_norm": 6.025333404541016,
+      "learning_rate": 0.00012967651195499298,
+      "loss": 0.2497,
+      "step": 500
+    },
+    {
+      "epoch": 2.0,
+      "eval_accuracy": 0.968558282208589,
+      "eval_loss": 0.13390477001667023,
+      "eval_runtime": 6.1321,
+      "eval_samples_per_second": 212.653,
+      "eval_steps_per_second": 26.582,
+      "step": 948
+    },
+    {
+      "epoch": 2.109704641350211,
+      "grad_norm": 1.568764328956604,
+      "learning_rate": 5.9353023909985935e-05,
+      "loss": 0.085,
+      "step": 1000
+    },
+    {
+      "epoch": 3.0,
+      "eval_accuracy": 0.9700920245398773,
+      "eval_loss": 0.12673735618591309,
+      "eval_runtime": 5.9382,
+      "eval_samples_per_second": 219.595,
+      "eval_steps_per_second": 27.449,
+      "step": 1422
+    }
+  ],
+  "logging_steps": 500,
+  "max_steps": 1422,
+  "num_input_tokens_seen": 0,
+  "num_train_epochs": 3,
+  "save_steps": 500,
+  "stateful_callbacks": {
+    "TrainerControl": {
+      "args": {
+        "should_epoch_stop": false,
+        "should_evaluate": false,
+        "should_log": false,
+        "should_save": true,
+        "should_training_stop": true
+      },
+      "attributes": {}
+    }
+  },
+  "total_flos": 1500594467798016.0,
+  "train_batch_size": 16,
+  "trial_name": null,
+  "trial_params": null
+}

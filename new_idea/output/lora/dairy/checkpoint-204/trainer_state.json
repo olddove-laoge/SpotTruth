@@ -1,0 +1,49 @@
+{
+  "best_metric": 0.13100925087928772,
+  "best_model_checkpoint": "d:\\C_data\\SpotTruth\\new_idea\\output\\lora/dairy\\checkpoint-204",
+  "epoch": 2.0,
+  "eval_steps": 500,
+  "global_step": 204,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 1.0,
+      "eval_loss": 0.17613200843334198,
+      "eval_runtime": 1.8946,
+      "eval_samples_per_second": 214.822,
+      "eval_steps_per_second": 26.919,
+      "step": 102
+    },
+    {
+      "epoch": 2.0,
+      "eval_loss": 0.13100925087928772,
+      "eval_runtime": 1.894,
+      "eval_samples_per_second": 214.886,
+      "eval_steps_per_second": 26.927,
+      "step": 204
+    }
+  ],
+  "logging_steps": 500,
+  "max_steps": 306,
+  "num_input_tokens_seen": 0,
+  "num_train_epochs": 3,
+  "save_steps": 500,
+  "stateful_callbacks": {
+    "TrainerControl": {
+      "args": {
+        "should_epoch_stop": false,
+        "should_evaluate": false,
+        "should_log": false,
+        "should_save": true,
+        "should_training_stop": false
+      },
+      "attributes": {}
+    }
+  },
+  "total_flos": 214649682554880.0,
+  "train_batch_size": 16,
+  "trial_name": null,
+  "trial_params": null
+}

@@ -1,0 +1,78 @@
+{
+  "best_metric": 0.18847426772117615,
+  "best_model_checkpoint": "d:\\C_data\\SpotTruth\\new_idea\\output\\lora/hotel\\checkpoint-1000",
+  "epoch": 3.0,
+  "eval_steps": 500,
+  "global_step": 1500,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 1.0,
+      "grad_norm": 1.2874021530151367,
+      "learning_rate": 0.00013333333333333334,
+      "loss": 0.2868,
+      "step": 500
+    },
+    {
+      "epoch": 1.0,
+      "eval_loss": 0.20201921463012695,
+      "eval_runtime": 9.658,
+      "eval_samples_per_second": 207.083,
+      "eval_steps_per_second": 25.885,
+      "step": 500
+    },
+    {
+      "epoch": 2.0,
+      "grad_norm": 2.3976643085479736,
+      "learning_rate": 6.666666666666667e-05,
+      "loss": 0.1969,
+      "step": 1000
+    },
+    {
+      "epoch": 2.0,
+      "eval_loss": 0.18847426772117615,
+      "eval_runtime": 10.2661,
+      "eval_samples_per_second": 194.817,
+      "eval_steps_per_second": 24.352,
+      "step": 1000
+    },
+    {
+      "epoch": 3.0,
+      "grad_norm": 0.9836612939834595,
+      "learning_rate": 0.0,
+      "loss": 0.1706,
+      "step": 1500
+    },
+    {
+      "epoch": 3.0,
+      "eval_loss": 0.19813348352909088,
+      "eval_runtime": 9.65,
+      "eval_samples_per_second": 207.254,
+      "eval_steps_per_second": 25.907,
+      "step": 1500
+    }
+  ],
+  "logging_steps": 500,
+  "max_steps": 1500,
+  "num_input_tokens_seen": 0,
+  "num_train_epochs": 3,
+  "save_steps": 500,
+  "stateful_callbacks": {
+    "TrainerControl": {
+      "args": {
+        "should_epoch_stop": false,
+        "should_evaluate": false,
+        "should_log": false,
+        "should_save": true,
+        "should_training_stop": true
+      },
+      "attributes": {}
+    }
+  },
+  "total_flos": 1584130498560000.0,
+  "train_batch_size": 16,
+  "trial_name": null,
+  "trial_params": null
+}

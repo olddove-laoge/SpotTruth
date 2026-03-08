@@ -1,0 +1,1012 @@
+## This irony corpus is encoded in UTF-8.
+## The labels are described as follows:
+## <message> represents a single ironic message posted in Plurk.
+## <ironic> represents the ironic word or phrase in each ironic message. The sentiment attribute indicates whether the word or phrase is positive or negative.
+## <context> represents contextual information. The sentiment attribute indicates whether it is positive or negative.
+## <rhetoric> represents rhetorical elements.
+
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">又失眠了</context><rhetoric>!!</rhetoric> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">在農場裡貧富差距很大,有錢人都沒得偷</context> (sick)</message>
+<message>(annoyed)莫拉克...你<ironic sentiment="pos">好樣</ironic>的...想不到你<rhetoric>還真</rhetoric><ironic sentiment="pos">有兩下子</ironic>的...</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">那款什麼昂貴到爆的麥卡倫18年,後勁魔力可真不是普通人能領教的,</context>大高良薑,乳香,埃及紅沒藥,纈草全傾力而出再不行,我要請道士來驅走它在我體內的酒魂 (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric> <context sentiment="neg">經過早上的系統維護之後，我倉庫裡的錢只剩1/3!!</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">餐城掛了，我的評價又要掉到谷底了</context> (annoyed)</message>
+<message><context sentiment="neg">X-(2次迴歸方程式Yn=Bo+B1Xn+B2Xn2+en</context>  =  =<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric>我跟你槓上了 X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">昨天在幫我妹試hotspot shield這玩意，我成功安裝了，結果他一直失敗，後來想說網頁一直出現廣告好煩，我就把它移除。結果...結果！我的網路就斷掉了！！！說找不到我的IP........吼~~~~~~~~~~~~~~</context> X-(</message>
+<message><context sentiment="neg">專題、義工、行前說明、環境釣螃蟹、報告整理加打工</context>！！<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">一個禮拜才七天，沒一天空閒的~真的深深覺得在長庚會累死......</context> :-&</message>
+<message>現在很無言......<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">反正都登不進，閉嘴就是了</context>! X-(</message>
+<message>天氣<rhetoric>真的很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric>好到<context sentiment="neg">我非常的冷!</context>好想回家拿長袖的衣服了~這禮拜六不用上班，早知道星期五就請假了…再回嘉一趟!可是來不及了~今天才請假太晚了!回嘉的日期，遙遙無期…(tears) 我看我就買一件新外套，或者叫爸媽寄一件外套上來，反正我有把長褲都帶上來，冬天就上半身穿短袖+外套!!</message>
+<message><context sentiment="neg">那提+桂格大燕麥片 碰出新瀉藥!</context><rhetoric>很</rhetoric><ironic sentiment="pos">好用</ironic>~可以減肥! (sick)</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>!!!</rhetoric><context sentiment="neg">飛蚊症越來越明顯了!!!</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>呀！</rhetoric><context sentiment="neg">我現在喉嚨又痛了，</context>我是跟哪裡不合壓~ :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">我媽騎車撞我的車...</context> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好<rhetoric>..</rhetoric><context sentiment="neg">圖書館又要關門了..還是有很多事還沒做完</context> :-(</message>
+<message><context sentiment="neg">不知是不是因為太早起了,腦袋不清楚,我竟然把mircoSD卡插入SIM卡槽,塞進去............還知道要推到底...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">拿不出來了,都還沒開機,就又要送回去了</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">要開始學Cubase了!(不過MIDI還是要在FL上寫比較快= =+</context> (tears)</message>
+<message><context sentiment="neg">剛失業就被開罰單，</context>老天爺對我<rhetoric>還真</rhetoric><ironic sentiment="pos">好</ironic>... :-&</message>
+<message><context sentiment="neg">得獎公佈一延再延</content>你<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿</rhetoric>你BenQ，<context sentiment="neg">評審名單不是該幾個月前就確定了，怎麼會關鍵時刻才來說目前評審都在國外所以決審順延!?理由不充足啦!!!</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我的plurk「又」發生不明錯誤了...</context>這真是這世紀最很<ironic sentiment="pos">偉大</ironic>的發明啊... X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>…</rhetoric><context sentiment="neg">現在連開機都開不了了…最近真的很不順，還得籌錢買電腦，真慘～</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric> <context sentiment="neg">昨天失眠凌晨3點才睡 早上6點就起床...</context>我現在都不知道坐在電腦前面的是誰了 (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">有人得到了新流感....</context>救救我...我要離開這裡!!! :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">Mac 上的 Chrome 也升級到在中文輸入法下按 backspace 會回到上一頁的版本了</context> :-&  換回 Safari 4</message>
+<message>被飭回,<rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了 :'-(<context sentiment="neg">我會被小朋友嚇死</context>orz</message>
+<message><context sentiment="neg">好事情在我身上不會超過一天，</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">帥</ironic>了 :-(</message>
+<message>(annoyed)<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric> <context sentiment="neg">我的小桃紅淨重6.25kg!!!! 那我是要帶個屁呀.... 3.75kg!!!!!!!</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">發燒了 我覺得快往生了</context> :'-(</message>
+<message><rhetoric>嗯~~ 很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric> ! </rhetoric><context sentiment="neg">該換設計師了 !!</context>  (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">竟然在胃痛...</context> :-&是叫我吃宵夜的意思嗎?? (unsure)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">第八張!!!!!  X-(  警察先生,你是不是愛上我了?</context></message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>...</rhetoric><context sentiment="neg">我再作下去就能達到「腦容量不足」...雖然說服別人不是一件難事，但可不可以先搞清楚來龍去脈再叫我去說服呀.........</context> (angry)</message>
+<message><rhetoric>真是太</rhetoric><ironic sentiment="pos">喜歡</ironic><context sentiment="neg">颱風　       野台去不了　就連飛機也坐不成了。</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">我很有可能下午開始就不能上撲了</context> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">這週明顯感覺到期中報告壓力降臨 :-& ，可是我還沒ｈｉｇｈ完我的生日噢......</context>  (dance)(banana_rock) (banana_cool)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">睡不著就是睡不著，明天又想翹課了。</context> :-&</message>
+<message>我<rhetoric>真是太</rhetoric><ironic sentiment="pos">幸運</ironic><rhetoric>啦！</rhetoric><context sentiment="neg">今天朋友抽籤，竟然抽到裡面最老的一位奶奶，８４歲。</context>我真的是<ironic sentiment="pos">開心</ironic>到不知道要說什麼．．．<context sentiment="neg">就是傻很大～而且他又喜歡話中代日語，所以我想．．這次專題真的很有挑戰性</context>～ :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>個噗浪<rhetoric>~</rhetoric>你可以在跑<ironic sentiment="pos">慢</ironic>一點... :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> (applause)<context sentiment="neg">工廠的廠務小姐已經來上班好多好多年了,跟我說她不會用outlook發會議通知!!ㄍㄋㄋ勒!! (annoyed)來上班只會切水果有屁用喔!!</context>ㄇㄉ!!妳的薪水也給我我就幫你發通知!!</message>
+<message><rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了...<context sentiment="neg">我現在連banner都要做了</context> :-&</message>
+<message>= ="<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>.....</rhetoric><context sentiment="neg">去面試試做的東西都做的很爛!</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">原來不用到生小孩就有媽媽手~</context> (annoyed)</message>
+<message>聽巧芳說我的筆電壞了，<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">車子壞了電腦也壞了，阿阿阿阿阿阿啊～～～哭哭！</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我真的感冒了>"<  我這週末要去玩的說</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">好久不見的絡枕</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>, <context sentiment="neg">動作快就該死的原罪又出現了..</context>最好是我有這麼多隻手可以做事!!! (angry)</message>
+<message><rhetoric>真是太</rhetoric><ironic sentiment="pos">強</ironic>了，<context sentiment="neg">跟組頭吃那麼多次飯都沒有拿錢</context> :-&＠＃＄％＆</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>嘛！</rhetoric><context sentiment="neg">臭皮的上吐下瀉好了，換我們當大人的！</context> :-&</message>
+<message>:-&今天<rhetoric>真是太太太</rhetoric><ironic sentiment="pos">幸運</ironic>了<rhetoric>~</rhetoric><context sentiment="neg">在台九線上開車，大卡車迎面而來，不知從哪兒飛來一顆拳頭大的石頭，1秒2秒的時間，恰恰好直落在我的轎車車體上方! 碰的巨響嚇我ㄧ跳 :-&還好人車平安。</context></message>
+<message>昨天四點睡 + 今天早上七點半被小朋友吵醒, <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>, <context sentiment="neg">老娘只睡三個半小時而已耶!!</context> :-&</message>
+<message><context sentiment="neg">如此早起</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">黯然</ironic>太<ironic sentiment="pos">消魂</ironic>，<context sentiment="neg">可是我是被逼的</context> :'-(</message>
+<message>假日、<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">去洗碗～～～</context> (annoyed)</message>
+<message>濟州歐巴尚<rhetoric>還真</rhetoric>不是<ironic sentiment="pos">蓋</ironic>的<rhetoric>~</rhetoric><context sentiment="neg">畫X的手勢可是架式十足~~的欠揍</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我就這樣把票根拿在身上超過一個禮拜，一直忘記要給小Q，更好笑的是，我們最近明明還見面好幾次</context> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">我今天滿堂</context> (:</message>
+<message><context sentiment="neg">中午開三小時會議，晚上又加開三小時..</context>  <rhetoric>真是太</rhetoric><ironic sentiment="pos">精實</ironic>太<ironic sentiment="pos">有效率</ironic>了..  (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>~<context sentiment="neg">現在連BB霜塗上去都會浮起來..臉真的是有夠乾..</context> (tears)</message>
+<message>(angry) X-(.....<ironic sentiment="pos">沒關係</ironic>...<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric>你就<ironic sentiment="pos">繼續</ironic><rhetoric>吧....</rhetoric> (angry)</message>
+<message><context sentiment="neg">官夫人霸王車擋路3天　劉淑玲：這是我第1次這樣做</context> --第一次 :-o這種理由<rhetoric>還真</rhetoric><ironic sentiment="pos">冠冕堂皇</ironic> (angry)http://tw.news.yahoo.com/article/url/d/a/091007/17/1sgyo.html</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>......</rhetoric><context sentiment="neg">烙枕了的樣子......我要死掉了........</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我忙了一天然後現在咖馬又沒有一百了</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>..<context sentiment="neg">WEEKEND生了個病 卡馬又掉的比體重還快了</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">上禮拜一整個禮拜都沒有運動~</context>明天開始繼續運動 :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<rhetoric>非常</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!</rhetoric><context sentiment="neg">我的載點源頭全被該死的IT擋光光了....</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">繼msn被鎖後,現在facebook也鎖了,所以現在只能在噗回話了~</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">現在展覽設計部由我一人全包</context> X-(!我幹麻不乾脆自己開工作室算了!</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>ㄚ</rhetoric> <context sentiment="neg">星期一要報告的 改在10/30 意思是報告要重寫</context> :'-(</message>
+<message><context sentiment="neg">大惡魔越來越嚴重，吐到膽汁都出來了!今早又去看醫生，〝腸胃炎〞，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，病痛越來越多!每天都去醫院報到.... (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric> <context sentiment="neg">昨天忘了吃藥~ 今天耳朵又淹水了</context> X-(</message>
+<message>報價<rhetoric>真是太</rhetoric><ironic sentiment="pos">黯然</ironic>太<ironic sentiment="pos">銷魂</ironic>了<rhetoric>..........</rhetoric> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">我剛才上樓去用老公的電腦，才發現「ㄟ～ 啥時買了PS3？為什麼我都不知道？」而且他還大辣辣地放在書桌上，不要以為一堆黑媽媽的，就以為我分不出鍵盤、螢幕和PS3！</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">今天是15小時的瘋狂加班</context> (sick)</message>
+<message><context sentiment="neg">今天總騎乘時間4小時08分 86公里 平均時速20.7公里</context> <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我累了</context>- -* (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<rhetoric>非常</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">公司把 Facebook 24小時全面鎖死了!!以後我只能晚上用手機艱苦的上FB探望好朋友們了...</context> :'-(</message>
+<message><context sentiment="neg">晚上在學校拖地時,突然..!@#$一聲,拖把斷了一截 :-&糟糕,原本想說能趕快做做,趕快回家,結果卻還是搞的很晚,因為另一支拖把久了硬掉了要泡水,所以我還是利用時間先洗洗碗囉!打卡鐘07：02</context>..<rhetoric>嗯!很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">慢了兩分!</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">電話聲．鞭炮聲．機車引擎聲..........接下來是什麼噪音！！！！</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">度完假回來，就遇到大嬸耍白痴</context> (annoyed)</message>
+<message><context sentiment="neg">問出去玩的事這麼不想回答，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>呀！</rhetoric><context sentiment="neg">我也不是很想淌這個渾水！搞得我好像求你</context>。 (annoyed) !</message>
+<message>張先生對我<rhetoric>還真</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>啊~~</rhetoric><context sentiment="neg">一回家就有一桶衣服在等著我...</context> (nottalking)</message>
+<message><context sentiment="neg">我剛看到我廁所有一隻大蟑螂</context>...<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">我快瘋了~!!!!!!!!!!</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">基金就快跌破40大關了</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">一回來就事情排排站!</context>讓我看書先... (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">有個小人兒四點鐘就起來唱歌了</context> (:</message>
+<message>Windows 7 你<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿！</rhetoric> <context sentiment="neg">好不容易的一個假期 這就這麼被你毀了</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">現在什麼都談不下來！ X-(還是覺得很累</context>>"<</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">腳痛完了 現在變胃痛</context> 痛死好了 (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">又過敏了!!我明明就沒喝牛奶~可惡!! (sick)發紅又發癢~是想搞瘋我嗎?!</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>~<context sentiment="neg">我又要24小時沒睡覺啦</context> :-&</message>
+<message>:'-(<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">我私藏ㄉ免稅菸都抽完ㄌ...我要倒在地上大哭一場ㄌ...失業ㄉ人一包九十大洋ㄉ菸抽不起...</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">剛吃完早餐就漏塞...又浪費食物了</context> :-(</message>
+<message><context sentiment="neg">明天做到位子上從早自修考到放學</context>，<rhetoric>真是太</rhetoric><ironic sentiment="pos">酷</ironic>了<rhetoric>!!!!!</rhetoric> <context sentiment="neg">搞得像快月考這樣</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric> 就每次都0.09的加上去吧!!....<context sentiment="neg">反正我還有一個月的時間才要凍結</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">5209 上不去 不爽去了</context>  (angry).....</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">主管叫我明天自己一個人去桃園機場接澳洲來的貴賓, 挫咧但阿~~~</context> :-&</message>
+<message>(annoyed)<context sentiment="neg">每天平均下降三度，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <context sentiment="neg">玩了一晚上FB  又忘了踩線</context> :-&</message>
+<message><ironic sentiment="pos">降</ironic><rhetoric>吧!</rhetoric><ironic sentiment="pos">降</ironic><rhetoric>吧!</rhetoric>隨便讓你<ironic sentiment="pos">降</ironic><rhetoric>吧!</rhetoric><context sentiment="neg">沒發噗~~僅回應也不行喔!真是太不人性化ㄉ噗浪ㄌ~~</context> (nottalking)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">破財了，修機車花了我五千多，碼的勒</context> :-&:-&:-&:-&:-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">又被電腦偷放絕技了...</context> (angry)</message>
+<message><ironic sentiment="pos">好</ironic><rhetoric>呀!!</rhetoric> <ironic sentiment="pos">好</ironic><rhetoric>呀!!</rhetoric> <ironic sentiment="pos">好</ironic><rhetoric>呀!!!</rhetoric> 太<ironic sentiment="pos">好</ironic>了!!! (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">我發了這麼多午夜鹹濕噗~~我會下地獄了我</context> :-&</message>
+<message>千錯萬錯~都是<ironic sentiment="pos">災民的錯</ironic>~政府已經做得<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>囉!</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!!!</rhetoric><context sentiment="neg">一早photoshop就不乖~</context>是要我提前放假的意思嗎? :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">星期六要去聚餐，昨天晚上才告訴我，某人真的是皮癢了</context> (annoyed)</message>
+<message>:'-(<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!</rhetoric> <context sentiment="neg">老娘我兩支手機都A告了!!!</context> 誰能救救我?</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">繼陶板屋訂不到位之後連金色山麥也泡湯</context> (angry)</message>
+<message><context sentiment="neg">我居然一直以為今天是星期四..結果害我錯過了昨天晚上的噩夢工廠..</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric>以後哪位可以天天提醒我一下今天星期幾呢?我會很感激你的... :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">我要變機器人了...因為我吃了廣東苜藥粉..</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我剛才活生生把小canon摔到地上了</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我失眠了...</context> :'-(</message>
+<message>嗯哼...<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>。<context sentiment="neg">我體驗了220V的電擊!! :-&喔買嘎！～整個彈跳了起來！ :-))空白一片</context></message>
+<message><rhetoric>真是太</rhetoric><ironic sentiment="pos">妙</ironic>了，<context sentiment="neg">昨晚一夜折騰，完全忘了今早該去看甲狀腺醫生。沒藥了。</contenxt><rhetoric>太～～～</rhetoric><ironic sentiment="pos">妙</ironic>了。 :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>!<context sentiment="neg">難得的週末 我竟然只能待在家</context> :'-(</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了....<context sentiment="neg">系辦又多了一個姐姐時時逼我要用功了...</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">同事拿了一個2007的word檔，用2003加相容開不起，用OOo3.1也開不起，逼著我灌2007就對了！</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">主管還是不可信的....</context> (nottalking)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～</rhetoric><context sentiment="neg">這個颱風更惡劣，看起來要直撲台灣了，最後一刻改變方向，原本所有的旅遊計畫卻又通通取消，結果就是呆坐家裡打360～～～</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">又來一個在星期六、日侵台的颱風～</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">開始下雨了! 這是表示明天計畫取消了是嗎!?</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">繼昨天的過敏~我想我又感冒了(鼻水流不停)</context> (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">今天去海邊帶了一罐空的防曬油 (annoyed)我黑了</context>... :'-(</message>
+<message>(angry)<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric> <context sentiment="neg">就是要跟我作對就對了~</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">真的證實了我們的Facebook是被MIS給鎖起來了!以後我再也不能再上班的時候「種田、養魚跟開餐廳」了啦~嗚!</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>啊~~</rhetoric><ironic sentiment="pos">GOOD</ironic> la…<context sentiment="neg">廠商打電話來說連鏡頭也有跑沙進去。是把我相機拿去埋在沙灘裡嗎？維修要花1300！囧rz</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">我明明戒了..可是頭又開始痛</context>.. :'-(</message>
+<message><rhetoric>混</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">假日要來當搬家工人了!!  (annoyed) 義氣這東西...還真是逞強不得</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">期末考還要考3科...</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我胃痛了現在... 然後一個晚上跟不少失聯的朋友聊天，有我一直思念的，也有逃避的，心情五味雜陳，是好是壞?I don't know</context> :-&</message>
+<message>很好笑咩!<ironic sentiment="pos">再繼續笑</ironic><rhetoric>阿!</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">剛剛才從公司到家，今天又是異常充實啊！</context> (:</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">我的人生只有辣還有苦</context> (annoyed)我要酸酸甜甜的愛!!!(咦　</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">本來想到公司避暑,沒想到公司冷氣壞了</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">經過兩天的嘗試我確認公司的確鎖了msn，看來要跟web msn當好朋友了。</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">今天中午午餐又沒著落了</context> (:</message>
+<message><context sentiment="neg">看到一段新聞如下: "王郁琦說，馬總統打電話的用意是希望把救援物資催出來，用更有效率的方式執行，請大家共襄盛舉。"</context>.......<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric>救災用共襄盛舉 :-(</message>
+<message><context sentiment="neg">早起，真是美好的開始~能夠把洗面乳當成牙膏給它塗在牙刷上刷下去.....，</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了 (sick)</message>
+<message><context sentiment="neg">颱風肆虐過後，除了豪雨成災，還有網路一直都是斷的...</context>＝ ＝<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric>好不容易可以上...但是看著訊號燈閃閃爍爍...我有不好的預感... :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">我吃飽了...現在很想吐</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">我老闆剛來電說：明早八點前到台北京站門口“監工“，所以我明天要六點起床</context> :-&</message>
+<message>:'-( <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">中秋節我家人都跑出去，家裡只有我一個人，阿我的烤肉哩，我鼻要一個人在家</context> :-(</message>
+<message>大家早安!我從首爾回來了!!! (<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">一趟員工旅行之後,我想全公司的人都知道我很難搞了...</context> :-&)</message>
+<message><context sentiment="neg">中午休息時間想去小憩一下，竟然停電...熱到睡不著。起床上班電就來了</context>，電力公司<rhetoric>還真</rhetoric><ironic sentiment="pos">貼心</ironic>。 (annoyed)</message>
+<message><context sentiment="neg">花了三小時候診，五分鐘看診，二小時來回車程，共計五小時又五分</context>，<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric> <context sentiment="neg">小B要阿嬤不要我這個親生娘</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿!</rhetoric> X-( <context sentiment="neg">公司可以鎖的外部網站全都鎖了->無名/噗浪/臉書/雅虎購物全都要下班時間才開放, 以後上班只剩福利課陪我了! (硬是不要乖乖上班就是 XD)</context></message>
+<message><context sentiment="neg">兩天的假期就這樣結束了,為什麼放鬆 快樂的時光總是過的特別快阿</context>!<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">提起精神 明天一去公司又有著麻煩的事情要解決掉!吼~~天哪! 我好想當各貴婦!哀~~可惜沒那個命!</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我的門禁卡真的不見了!</context> :-&</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<context sentiment="neg">有機都看不懂</context>= =打副本去 :'-(</message>
+<message><context sentiment="neg">才剛回到電腦桌前，就給我藍幕當機</context>...對我<rhetoric>還真</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>啊</rhetoric> (annoyed)</message>
+<message><context sentiment="neg">為什麼家裡跟公司附近都有工程在進行!</context>我<rhetoric>還真</rhetoric><ironic sentiment="pos">幸運</ironic><rhetoric>!</rhetoric><context sentiment="neg">快發瘋啦!</context> :-&</message>
+<message>昨天回公司<rhetoric>還真</rhetoric><ironic sentiment="pos">幸運</ironic>，<context sentiment="neg">公車居然給我壞掉...而且還壞在離家不遠的地方，害我拿著不算輕的NB...擠下一班公車</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric> <context sentiment="neg">一立方公分大的鮭魚讓我得明天早上八點起床掛號看醫生 :( 什麼鬼??!!</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">還沒七點~~~</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">最好都給我這麼晚才讓我離開</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">還是喝了友露安...我又輸了...馬的馬的馬的啦 ...就是戒不掉就是戒不掉...</context>:(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric> <context sentiment="neg">原來 session 都沒處理好.....</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">十二點了 ... 真難過 (tears)  最後一個夜晚 卻是這樣的對待</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">拉到小腹都平了......</context> :'-(</message>
+<message><context sentiment="neg">颱風變強了~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~!!</rhetoric> X-(</message>
+<message><context sentiment="neg">為什麼?放假.我要當司機.不然就是苦力.....</context>老爸<rhetoric>也太</rhetoric><ironic sentiment="pos">會規劃</ironic>了<rhetoric>吧!!!</rhetoric>..... X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">臭老鼠 你把我的柿柿如意吃掉了..我要放老鼠藥了我跟你說</context>ˋˊ (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿...</rhetoric><context sentiment="neg">我的 Port 被封了....</context>:'(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric> <context sentiment="neg">我的左眼 獲得 急性結膜炎囉】</context> :-&</message>
+<message><context sentiment="neg">我這麼熱心切蜂蜜蛋糕給大家，竟然有人說，怎沒有一杯熱奶茶。</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">你的要求越來越多，也不一句謝謝就好。我不是大家的下午茶精靈!!</context> (angry)</message>
+<message><context sentiment="neg">這星期要生出2份作業!!</context> <rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>了!!</rhetoric> 準備受死 :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">我現在有輕飄飄的感覺~</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我剛回到家，等等要線上補課，就這樣</context> (annoyed)</message>
+<message>= =<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">來維修電視的維修員說這修理起來要花1萬多(這還不包括工資)ˋˊ是啥鬼東西要這麼貴ㄚ!!!!(老媽說不修了~沒電視可看了</context> (angry)</message>
+<message><context sentiment="neg">無名打到一半當掉</context>....<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric>不爽打了 (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">卡馬跌到50以下,我果然只有三分鐘熱度!</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">這麼晚了還有客人來，我趕不上10:37的火車了...</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">又開始頭痛了!!</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">今天繼續加班到爆!!</context>  (angry)</message>
+<message><context sentiment="neg">本以為是小感冒,但昨天去驗血竟是呈瘧疾陽性反應,沒想到我這麼快就中標了!</context> :-&非洲大陸<rhetoric>也太特別</rhetoric><ironic sentiment="pos">眷顧</ironic>我了<rhetoric>吧!</rhetoric></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">現在女兒會管妹妹了......</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">死颱風  我們認輸了 (tears)墾丁延期了辣!!!!!</context></message>
+<message>剛去看醫生回來。<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我又感冒了。</context> (sick)</message>
+<message>削個水梨想吃，妹妹來個暴衝突刺。<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">刀子墬落，我，掛彩了。</context> :'-(</message>
+<message><context sentiment="neg">XBOX360 開始當機就是慘劇的開始...</context> <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我終於跟上流行... 三紅了... Red Ring of Death...</context> (angry)</message>
+<message><context sentiment="neg">放假過的還真快..</context>接下來又是<ironic sentiment="pos">黯然銷魂</ironic>的五天了.. :-&</message>
+<message><ironic sentiment="pos">好樣的</ironic><rhetoric>~</rhetoric><context sentiment="neg">這麼夭壽的 http://tw.news.yahoo.com/article/url/d/a/091014/129/1syon.html (黑心養樂多)還真敢賣</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">日月光踏碼的MIS連youtube給我鎖了</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">被削了。</context> :-(　有一種要全部重做的感覺。</message>
+<message><context sentiment="neg">離期中考的日子就不遠，還有一堆該讀的東西都還沒作讀書計劃，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric> <context sentiment="neg">每次都是考前再來衝刺的。</context>=_="  (=>還敢說!) (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>。<context sentiment="neg">今天整個睡過頭,還被小人兒罵臭頭...</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">第一次<鐵腿>就給我踵到像小象腿~~~痛阿</鐵腿> :'-(</message>
+<message><ironic sentiment="pos">FINE</ironic><rhetoric>!</rhetoric> <context sentiment="neg">9月的第一天就遲到!</context> <rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了 (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我的手腕隧道症又發作了 幹</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">頭真的在痛了</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！！</rhetoric><context sentiment="neg">給我莊笑維就對了..什麼鬼理由</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>。<context sentiment="neg">因為剛剛太... (angry) 我現在超餓的、要吃頓好吃的來安慰自己。</context></message>
+<message><context sentiment="neg">風雨這麼大 台北居然不放假，上下課騎車全身都溼了!!!</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~~</rhetoric>周錫偉 年底你拿不到我的這一票 (angry)</message>
+<message><context sentiment="neg">公視世運轉播 http://forum.pts.org.tw/phpBB2/pts/viewtopic.php?t=17031 (討論區)</context> ""<ironic sentiment="pos">有水準</ironic>""的人<rhetoric>還真</rhetoric>不少! (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">差十分九點 我才剛到家</context> X-(</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>！</rhetoric><context sentiment="neg">我眼鏡真的掉了</context> :'-(</message>
+<message><context sentiment="neg">捷運內湖線的車廂,</context> <rhetoric>還真</rhetoric>是"<ironic sentiment="pos">小巧可愛</ironic>"<rhetoric>啊~</rhetoric> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">頭開始痛了!</context><rhetoric>非~常~</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">公司又把部落格,噗浪跟臉書全擋了!</context>:(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><ironic sentiment="pos">好樣的</ironic><rhetoric>!!</rhetoric><context sentiment="neg">好久不見的蠢生活又再現</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我他媽的又發了個忘記附件的信出去 都不丟臉</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">今天一早去 電腦就掛 聽說是整個硬碟都廢了 得花大錢搶救囉~~</context>不過...即便沒有電腦可用也可以這樣庸碌地過一天 嘖嘖 今天竟然7點40才離開公司  (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">團購了一個可以拿來澆花的、可能會摔破的、大陸製的自行車水壺</context> :-&</message>
+<message><rhetoric>哈~很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">沒東西可以吃~</context>來去吃仙草好了!!待會認真去~( / "  ) (tears)</message>
+<message><context sentiment="neg">我的電腦與踩線機制無法相容，17分前發的訊息現在才出現~~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> (angry)</message>
+<message><context sentiment="neg">我真的很生氣 X-( 甚麼叫做故意要讓我掌控讓我了解...shit...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">禮拜四我會生病請病假的...我現在真的一肚子火</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">變臉跟翻書一樣~ X-(~這就是男人~</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">體能衰退了，每天跑還居然體能衰退，可惡</context> (angry)</message>
+<message><context sentiment="neg">那些阿都阿主管有沒有這麼好幹阿，你們母公司來稽核，去的通通是主管，我們部門你要我一個小小助理去擋!!</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">接著我得到的回覆是"最清楚的就是處理人員"，然後所有表格通通丟給我填，然後填完回出去，又說還要他同意。是怎樣，阿不然資料通通丟給他填嘛，奇怪勒，丟給我幹嘛。</context>＝ ＝ 凸 X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">我快掛了...同事突然丟了一個震撼彈給我...要我幫他查一個我完全沒有印象的case...還說他甚麼都不記得只記得案子是交給我的... (甚麼都不記得幹麻偏偏記得是丟給我的...) :'-(完全沒有印象...</context> (doh)</message>
+<message><ironic sentiment="pos">Great</ironic>，<context sentiment="neg">約好的結果沒有一個人能去，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>。 X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我想真的是感冒了~</context>  :-(</message>
+<message><context sentiment="neg">每天晚上都這個時候出現~我的噗友卻都在忙...</context> :-(我還真"<ironic sentiment="pos">沒空</ironic>"耶~</message>
+<message><context sentiment="neg">公司外面狂風暴雨 我的安全帽又外掛...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">準備養金魚了~</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric> <context sentiment="neg">左手舉起時, 有點痛!</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">一顆饅頭從早吃到晚!</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">也輪到我上不了facebook了...</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric> <context sentiment="neg">在南台被老師ㄠ就算了, 還被廠商ㄠ... 還被嗆聲 現在是怎樣!! 當我比較細漢就對了!!</context> (sick)</message>
+<message>拉拉山<rhetoric>還真不是普通的</rhetoric><ironic sentiment="pos">近</ironic>，<context sentiment="neg">尤其周末走走停停大塞車！</context> :-(還好有水蜜桃可以補充～</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我的手机充電沒帶，這禮拜不用開機了</context> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">第一次開會就給我開到十點五十。</context> :'-(</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>～</rhetoric><context sentiment="neg">終於要再一次接受漏水測試了！</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">連喇叭都壞了</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">假期又過了一天.....</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">今天被發了冷落卡...感覺真不好..</context> :'-(</message>
+<message><context sentiment="neg">房間溫度33度，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>， (angry)<context sentiment="neg">該閃去外面的圖書館睡覺了</context> (sleeping)</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>~</rhetoric><context sentiment="neg">又一次沒帶鑰匙被關門外+1還是樓下好心人幫我開</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">剛剛收到一顆紅色炸彈~~~~</context>大家都去結婚好啦...... (sick)</message>
+<message><context sentiment="neg">疫苗青壯年沒得打,過敏者也打不得,</context><rhetoric>喔</rhetoric>  這<rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>的疫苗和政策XD (angry)</message>
+<message><context sentiment="neg">帶了相機歡歡喜喜想拍照卻漏了記憶卡，你說這人是不是腦殘到極點</context> X-(...<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">這就是在下本人囧</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">我突然想起來..今天沒帶雨傘！</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～</rhetoric><context sentiment="neg">竟然挑我發薪水那天預購......</context><ironic sentiment="pos">好樣的</ironic><rhetoric>阿！！！</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">颱風來~客戶電話也一直來~打去問新竹和大榮有沒收貨!?它們的回答是有收貨~但是送貨不一定!!!呼~但是還是要上班啦</context> :-(</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>~</rhetoric><context sentiment="neg">我週末行程排到10/11</context> :-&</message>
+<message>而且禮拜天做激烈運動真的事<rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>阿!!!!!!</rhetoric><context sentiment="neg">游泳也撐不上什麼激烈運動...但是隔天四肢痠痛阿!!!!</context> (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">the verve又解散了.....</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">這兩天高溫 搞的硬碟都過熱當機 = =  還要弄個電扇給它吹</context> . . .  測試中 (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">我的榮譽假就要貢獻在我的睡眠上了</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!</rhetoric><context sentiment="neg">我抵抗不住雞排香，我要去買派克了!!!哀~~超沒定性的我!!!明明剛剛還過店門而不入的!!!哭哭</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">轉轉貓現在每天的清醒時間是~半夜2點半-5點~~要命喔</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">熟悉之後通勤時間縮短了一點點。恩，真的只有一點點</context> (annoyed)</message>
+<message><context sentiment="neg">早安噗友們我感冒了，一醒來頭痛鼻塞喉嚨痛都來了...</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了 (tears)</message>
+<message><context sentiment="neg">昨天真的很倒楣。洗衣機又來亂，搞了很久之後只能手洗+我猜可能是中暑所以不舒服+半夜兩點被自己的腳背叛來個大抽筋。</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，這一切一定都是家家上次詛咒我的結果 X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">$180的眼藥水這次只活了兩天。</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！！</rhetoric><context sentiment="neg">又要馬兒好，又要馬兒不吃草！....</context> X-(</message>
+<message><context sentiment="neg">還原到一半跳電~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric> :-(</message>
+<message><rhetoric>超</rhetoric><ironic sentiment="pos">酷</ironic>的<rhetoric>吧!!</rhetoric> <context sentiment="neg">一張底片要60幾塊錢..還真是燒錢啊!!</context> what do you want for me X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">flurk 慢的越來越</context><ironic sentiment="pos">酷</ironic>了 <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  X-(</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了 <context sentiment="neg">~我居然無法回應 X-( 看情形只好急流湧退，</context>各位晚安，要乖乖睡覺唷!</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">到公司上班五年後的結果是....我的過敏從頭頂發作到腳底</context> (angry)</message>
+<message>剛剛一位婦人開著休旅車經過我家巷子..技術<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>..<context sentiment="neg">擦撞2台機車..倒下來撞到我家隔壁鐵門..害我嚇了一大跳..要去收驚了</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">煎包裡面有頭髮....</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">第一天就得面臨在家加班的情況，看樣子這一個半月日子不太好過了...</context> (sick)</message>
+<message><context sentiment="neg">一切都是這麼的衰  「莫拉克颱風路徑南移 可能直撲台灣」</context> <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <context sentiment="neg">星期五跟星期六的約會得取消</context>  :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～</rhetoric><context sentiment="neg">完全自己都沒有回應～白目中的白目</context> (angry)</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>～</rhetoric><context sentiment="neg">昨天又失眠了....有點緊張4年多沒見的朋友選在今天下班相見...臉色這麼難看怎麼見人阿.....</context>太<ironic sentiment="pos">好</ironic>了太<ironic sentiment="pos">好</ironic>了 (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>非常</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>.....</rhetoric> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">強大</ironic><rhetoric>...</rhetoric><context sentiment="neg">騎車騎一半給我爆胎 卡在路邊浪費了快一個鐘頭...</context> (:</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">老師都去死</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿</rhetoric> 再<ironic sentiment="pos">繼續</ironic><rhetoric>阿~</rhetoric>(angry) <context sentiment="neg">現在連影印機都壞掉了! 大家一起罷工是不是? 你們不怕我把你們給了資源回收廠把你們分解掉嗎?</context> 現在要換誰罷工 相機 手機 <ironic sentiment="pos">都一起來</ironic><rhetoric>阿~~</rhetoric> :-&</message>
+<message><context sentiment="neg">我終於知道了!!難怪會下降!!有人把我當實驗的目標..</context>^^"9<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric> (annoyed)</message>
+<message>今天早起, 比較早去公司, 然後運氣<rhetoric>還真</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">居然撞車了</context> (angry)</message>
+<message>(angry)<rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>～</rhetoric><context sentiment="neg">剛洗完車～準備出發去台南～天空開始飄細雨～</context><rhetoric>真的是太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>！！！</rhetoric></message>
+<message>原本想睡的.看到麻辣天后宮在說減肥的方法.精神又給它來了~ (LOL)但是<context sentiment="neg">吃蛔蟲減肥</context><rhetoric>也太...</rhetoric><ironic sentiment="pos">好</ironic> :-& 喔~</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">我竟然把相機丟在醫院了</context> (angry)....</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>嘛!</rhetoric> <context sentiment="neg">Everest開起來一看, 竟然給我插DDRII 667而不是800的記憶體</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">至少兩邊輪流癢!?喔~我的眼睛</context> :'-(</message>
+<message><context sentiment="neg">9;01的卡~~~~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">又是一個沒心情培養休假情緒的禮拜五!!下午還要去場佈+採訪...然後明天得凌晨五點起床...</context>我的天吶!嘉義人真幸福，有免費的身體健康檢查可作... :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">我的牙齦縫合傷口發炎了...原來用手摸才知道線頭這麼前面  根本每天刷牙都會被我扯到= =  每天晚上都很痛  消炎藥吃完了都沒有好一點   現在是要怎麼辦....嗚嗚  好痛</context> (tears)</message>
+<message><context sentiment="neg">今天一度遺失皮夾......回來只剩15摳..是留給我坐車錢嗎!?</context><rhetoric>還真</rhetoric><ironic sentiment="pos">好心</ironic> (annoyed)</message>
+<message><context sentiment="neg">自己很北七，恍惚中的我因為懶惰轉個方向，所以被保鮮膜的刀片給割了..</context><rhetoric>很</rhetoric>好</ironic><rhetoric>!</rhetoric><context sentiment="neg">還是前幾天自己buy下來的..唉  :'-(鮮血就這麼冒出來了..</context></message>
+<message><context sentiment="neg">台南市突然豪大雨...騎機車等紅綠燈的我淋了一身...從頭溼到腳...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">上帝你很愛開玩笑喔...專挑我沒有帶雨衣的時候...</context>:-&</message>
+<message><context sentiment="neg">有人吃過鮪魚罐頭裡面的魚鱗嗎??</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">我可能是史上第一位</context>  (sick)</message>
+<message>我不得不抱怨華碩的品質<rhetoric>實在是太「</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>」</rhetoric>了。<context sentiment="neg">我現在居然需要墊著冰枕在腿上，上面架著華碩F5的筆記型電腦，這樣無線網卡才不會過熱。</context>他喵的<rhetoric>真是太「</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>」</rhetoric>了<rhetoric>啊!</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">老闆剛剛宣布明天強制上班，不得放颱風假!!</context>(angry)</message>
+<message>正在看大話新聞~我只能說~我們的政府<rhetoric>實在是太</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>了點</rhetoric> X-(<rhetoric>！！！</rhetoric> <context sentiment="neg">有時間去看新聞，沒時間去防疫~(angry)生氣阿~~好爛~!!!!!</context></message>
+<message>還真的自然醒!!! <ironic sentiment="pos">自~~~然~的</ironic><rhetoric>~</rhetoric><context sentiment="neg">被對街的阿桑的鬼叫聲吵醒~</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～</rhetoric>進口都<ironic sentiment="pos">丟過來</ironic><rhetoric>吧～</rhetoric><context sentiment="neg">該死的王八蛋</context> X-(</message>
+<message><context sentiment="neg">兩邊跑居然今天新竹那邊還打電話跟我說下個月要排我留守 (angry)，還排了4天，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～</rhetoric>那我每個星期四、五都排補假好了</message>
+<message>終於租到20世紀少年!!!!!!!!!!!!!<context sentiment="neg">然後又跟家裡吵了一架!!</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>了阿</rhetoric> (nottalking)</message>
+<message><context sentiment="neg">晚上換手機囉~~山豬希望我換新機~~舊機給他用</context> :-o<rhetoric>還真是</rhetoric><ironic sentiment="pos">貼心</ironic><rhetoric>呢~~</rhetoric> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>嘛</rhetoric> <context sentiment="neg">昨天說不用發布緊急命令 結果今天自打嘴巴了 開國安會議? 已經來不及了 如果人民的動作都比政府還快 那還需要政府做甚麼 真的已經變成政治學中 定義國家 政府尚未出現的原始社會只能" 自力救濟 "嗎?</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">今日新增工作經驗是幫人撐傘</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">繼抽油煙機之後，今天是去撞烘碗櫃，</context>下次煮菜戴個安全帽好了 X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">晚餐明明吃火鍋吃的很飽...現在我又嗑完七顆水煎包....</context> :-&</message>
+<message><context sentiment="neg">練唱搞烏龍，據說身高約4公尺高的熊大腦才一丁點兒；那身高不到兩公尺的熊大腦是不是可以省略? 連曲目都搞錯，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">強大</ironic><rhetoric>...</rhetoric> 純抱怨噗！ 補一個  X-(幫我罵凹眼熊</message>
+<message><rhetoric>嗯，</rhetoric><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">電腦又壞了......</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">有人很愛偵查我的三城，一直讓我偵查騎全軍覆沒，被我知道是誰絕對壓爆你</context> X-(</message>
+<message><context sentiment="neg">老闆說17號一定要,下面的說他沒空~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,那就老娘自己做 (angry)</message>
+<message>facebook的隱私設定做得<rhetoric>還真</rhetoric><ironic sentiment="pos">不賴</ironic><rhetoric>！</rhetoric><context sentiment="neg">一定非要+為好友才能看得到對方的資料！</context> (angry)</message>
+<message><context sentiment="neg">準備去黃昏市場採買晚上煮鮮魚粥的材料。結果這時屋頂傳來~啪答~啪答~的下雨聲...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric>『雨女』的封號果然不是隨便取的。 (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <context sentiment="neg">竟然到現在都還睡不著!</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">頭痛了~</context> (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>…</rhetoric><context sentiment="neg">印表機大概又要掛了...</context> (nottalking)</message>
+<message><rhetoric>喔～真是太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>！</rhetoric><context sentiment="neg">你們這些澳洲來的客人可以在澳一點</context>　<ironic sentiment="pos">謝謝指教</ironic><rhetoric>！！！！</rhetoric>  X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">到今天下午四點之前都要自己面對資料庫！</context>然後只有兩個小時對答案就可以下班了！ (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">到今天下午四點之前都要自己面對資料庫！</context>                                                  然後只有兩個小時對答案就可以下班了！ (angry)</message>
+<message><context sentiment="neg">Magic是不是沒有選取多封郵件的功能?</context>  如果是真的, 那...就<rhetoric>真是太</rhetoric><ironic sentiment="pos">神奇</ironic>了.... (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">interivew整個提前到兩點，要去跟主管討論讓他給我大提示，幫我在大主管面前有更妥當的表現~很ㄔㄨㄚ</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>!!!!<context sentiment="neg">還沒五點 我就肚子餓!!!!</context> (tears)</message>
+<message><context sentiment="neg">今天RUSH的跟狗一樣.....星期一大家去遠企開會吃高級八肥，老娘卻也還要留守瘋狂處理急件~~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我的電腦又掛了...</context> :'-(</message>
+<message>太<ironic sentiment="pos">好</ironic>了，<context sentiment="neg">新13" macbook pro有可能在運送過程中底殼就被敲到變形...</context> what's wrong with you? Apple? (annoyed)</message>
+<message>太<ironic sentiment="pos">好</ironic>了！<context sentiment="neg">連Facebook都發作！</context>  :-(</message>
+<message><context sentiment="neg">元智的信箱整個癱瘓數天，今早一打開信箱才驚覺...空的真是一乾二淨...</context>資服處你<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>... (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>~<context sentiment="neg">我的硬碟又掛了,兩年掛一次,北投的硫磺真的會害我破產</context> X-(</message>
+<message>正是"<ironic sentiment="pos">風和</ironic>"的午候啊~~~又不是在省道或沿海公路飆車，<context sentiment="neg">風也太大了吧，風飛沙差點把我弄瞎</context> (angry)</message>
+<message><context sentiment="neg">今天去打球打到眼鏡鏡片掉下來，回家途中車子還拋錨壞在路邊...</context><rhetoric>真是太"</rhetoric><ironic sentiment="pos">幸運</ironic><rhetoric>"</rhetoric>了 :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>! <context sentiment="neg">頭髮完全變咖了</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我弟的女朋友來了 (angry) 看看我要怎麼對付這樣的狀況....</context></message>
+<message><context sentiment="neg">早上九點起床，九點零二分出門，九點零六分在大馬路上狂追公車!</context>我的一天的開始也太<ironic sentiment="pos">精采</ironic>了一點 (:</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>...<context sentiment="neg">6點半才好不容易睡著 睡的有夠濫的...七點半就醒了...</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>!! <context sentiment="neg">根據最新出爐的值日排班表, 我的下一次值日排班就是我生日當天</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>呀～</rhetoric><context sentiment="neg">出去玩是吧！！</context>12點沒到家，門就反鎖了！嘿嘿 X-(</message>
+<message>(angry)<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">現在俺起床都不用鬧鐘了!!因為隔壁的工地他媽的吵得俺睡不著覺!!!</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">我有一堆書和一堆過期的日劇及電影等著我去看</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!!</rhetoric><context sentiment="neg">淡水有36.7度,我就不信今天沒36度!!</context> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">現在我的FB進不去了!!</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>。<context sentiment="neg">在我花了3個小時完成一份報表之後，IT杯杯來說：「昨晚HO伺服器當機，資料不完整。」</context> :-&<rhetoric>真‧是‧太‧</rhetoric><ironic sentiment="pos">好</ironic>‧了<rhetoric>！</rhetoric></message>
+<message>http://tw.news.yahoo.com/article/url/d/a/090813/17/1oz4c.html <context sentiment="neg">(8月8日水患第一天百姓最需救援的黃金時刻，軍方投入的兵力僅有740人。)</context> 只能說這個數字<rhetoric>真是太</rhetoric><ironic sentiment="pos">黯然</ironic>、太<ironic sentiment="pos">銷魂</ironic>了<rhetoric>！</rhetoric> (angry)</message>
+<message><context sentiment="neg">今天七點半才下班~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric>VERY GOOD~祝你考試100分~ (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">腳踝扭傷比想像中的嚴重 宣布進入15天傷兵名單</context> 謝謝阿巴背我走了一段路 育宏的便車以及猴子的冰塊 >< :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">夜騎完貓空~體重有增無減!!!</context> X-(</message>
+<message>高雄的雨<rhetoric>最好</rhetoric><ironic sentiment="pos">可以再大一點</ironic><rhetoric>啦</rhetoric>    你們看我來買條船怎麼樣 :-&</message>
+<message><context sentiment="neg">今天走啥運阿</context>  :-& 吃個飯而已也狂遇到  <rhetoric>還真是</rhetoric><ironic sentiment="pos">精采</ironic>的一頓飯 <context sentiment="neg">害我快沒胃口</context></message>
+<message>http://tw.nextmedia.com/applenews/article/art_id/32031861/IssueID/20091021 <context sentiment="neg">(國道擦撞下車吵 被撞死)</context> <ironic sentiment="pos">可以再<ironic sentiment="neg">白爛</ironic>一點</ironic> (annoyed)</message>
+<message>你們<ironic sentiment="pos">可以再<ironic sentiment="neg">過份</ironic>一點沒關係</ironic><rhetoric>啦~</rhetoric><context sentiment="neg">我才說洗手不偷了~一堆人的農作物與貝殼就都不收走!連動物樂園的一堆蛋也沒人撿!</context>現在是怎樣啦~警告你們!不要逼我重出江湖喔! X-(</message>
+<message><context sentiment="neg">我.生.氣.了............</context><ironic sentiment="pos">沒關係</ironic><rhetoric>!</rhetoric> <ironic sentiment="pos">結局可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>...!</rhetoric> X-(</message>
+<message><context sentiment="neg">日本行五天，只去了兩個主要的地方</context> = =" (<rhetoric>還真</rhetoric><ironic sentiment="pos">充實</ironic> (annoyed))</message>
+<message><context sentiment="neg">早上接到一通晴天霹靂的電話!組長說1/1號開始實施無薪休假!喔NO!假日加班兜換補休了!現在又來無薪假!</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">棒</ironic>了! (angry)</message>
+<message>網路<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>呀..</rhetoric><ironic sentiment="pos">沒關係</ironic><rhetoric>呀...</rhetoric> X-(</message>
+<message>http://tw.news.yahoo.com/article/url/d/a/091007/1/1shjt.html <context sentiment="neg">(不滿同學 國二女生在全班午餐湯內放瀉藥！)</context>  現在教育是怎樣，<ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點沒關係</ironic> (angry)</message>
+<message>(annoyed)<rhetoric>哼！</rhetoric><context sentiment="neg">期中考一堆資料一堆報告！</context><ironic sentiment="pos">可以再<ironic sentiment="neg">多</ironic>一點</ironic><rhetoric>呀！</rhetoric> (unsure)真是氣死我也！</message>
+<message><context sentiment="neg">Madonna的雙DVD竟然沒有收錄nothing really matter...</context> <rhetoric>真的太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>...</rhetoric> 又害我省錢了 X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">我又被凍醒了~~</context>大家早啊 (:</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">已經有超過3個人直接跟我說我變胖ㄌ....表示我真ㄉ該注意了</context> :'-(</message>
+<message><ironic sentiment="pos">好</ironic>,<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">果然還是要重做...翻桌ing</context> :'-(</message>
+<message><context sentiment="neg">今天的突發事件</context><ironic sentiment="pos">可以再<ironic sentiment="neg">多</ironic>一點沒關係</ironic> :(。</message>
+<message><context sentiment="neg">這周的假期又過玩了...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我還是在亂亂的房間裡...找地方睡覺...</context> (annoyed)</message>
+<message>雨<ironic sentiment="pos">可以再<ironic sentiment="neg">下大</ironic>一點</ironic><rhetoric>呀!!!</rhetoric> <context sentiment="neg">到底為什麼我要穿雨衣 ??? 濕到內褲去了 !!! #$%^&*()</context> (angry)</message>
+<message>今天去的那家club地板<ironic sentiment="pos">可以再<ironic sentiment="neg">黏</ironic>一點</ironic>，<context sentiment="neg">我鞋子都不乖乖待在我腳上了!!</context> X-(</message>
+<message><rhetoric>嗯~~很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">明天星期一吔~~目前下大雨中，不會一路下到天亮吧~~~</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好<ironic sentiment="pos"><rhetoric>很</rhetoric><ironic sentiment="pos">好<ironic sentiment="pos">~~~<context sentiment="neg">請叫我龜毛琦琦，把整燙好的又拆了，只因為他在照片看起來有點小歪~~~</context> X-(</message>
+<message>老闆才一進門~~就<rhetoric>很</rhetoric><ironic sentiment="pos">好心</ironic>的<context sentiment="neg">塞了一堆事情給我</context> :-&</message>
+<message>那位蘇菲小姐，你<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點沒關係</ironic><rhetoric>囉！</rhetoric> (annoyed)</message>
+<message>你<ironic sentiment="pos">可以再<ironic sentiment="neg">GY</ironic>一點</ironic> X-(</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">難溝通</ironic>一點</ironic><rhetoric>啊妳!!!!!!!!!</rhetoric> X-(</message>
+<message>社會<ironic sentiment="pos">可以再<ironic sentiment="neg">骯髒</ironic>一點</ironic>  (nottalking)</message>
+<message><context sentiment="neg">我們兩兄妹會不會窮到瘋掉哩....現在明明才月初...</context><rhetoric>嗯!!</rhetoric>世界<rhetoric>真是太</rhetoric><ironic sentiment="pos">美好</ironic>了<rhetoric>...</rhetoric>順便減減肥XD... :'-( 敬請期待</message>
+<message>李佩如,你態度<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic><rhetoric>!!</rhetoric> (angry)</message>
+<message><context sentiment="neg">衰的事情～</context><ironic sentiment="pos">可以再<ironic sentiment="pos">多</ironic>一點沒關係</ironic> (angry)</message>
+<message><context sentiment="neg">今天中午看到麥當當人很少..所以就買了大麥克餐回公司吃..拿回來後發現..你他xx的..</context>薯條<ironic sentiment="pos">可以再給我<ironic sentiment="pos">少</ironic>一點</ironic><rhetoric>..</rhetoric> (annoyed)</message>
+<message>我可以<ironic sentiment="pos">再<ironic sentiment="neg">忙</ironic>一點</ironic>...<ironic sentiment="pos">再<ironic sentiment="neg">亂</ironic>一點</ironic>...<ironic sentiment="pos">再<ironic sentiment="neg">忙亂</ironic>一點</ironic> :-(</message>
+<message>新版MSN下載<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>!</rhetoric> X-(<context sentiment="neg">都快一個小時了還沒load完是怎樣....</context></message>
+<message>:-(<context sentiment="neg">才想著要出去...就下雨了..</context>老天爺<rhetoric>也太</rhetoric><ironic sentiment="pos">厚愛</ironic>我了<rhetoric>吧!!</rhetoric></message>
+<message><context sentiment="neg">累了~~~花了一個半小時從科技生活館走到明湖路~~</context>我<rhetoric>真是太</rhetoric><ironic sentiment="pos">厲害</ironic>(白痴)了<rhetoric>!!</rhetoric>晚安~~~ (:</message>
+<message><rhetoric>!!!!!!!</rhetoric><context sentiment="neg">以往需要一個多月籌備的東西~現在兩個星期就可以解決了~</context>只能說你們<rhetoric>真是太</rhetoric><ironic sentiment="pos">有勇氣</ironic>了<rhetoric>!!!!!</rhetoric> :'-(</message>
+<message>1、做任何事情或決定，一定要有為什麼嗎？？2、學校網路是<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>！</rhetoric><context sentiment="neg">一部好好的電影被當成連續劇在那邊看，驚悚指數瞬間"低"到破表！</context> (angry)</message>
+<message><context sentiment="neg">剛不知道是我聽錯還是怎樣！我是現在行銷部的代理！！</context>馬斯特也太<ironic sentiment="pos">看得起</ironic>我了吧<rhetoric>！</rhetoric>狂派走了我們部門的代理不是馬斯特嗎？怎麼變成是我啦！什麼毛病啊~~~ (annoyed)</message>
+<message><context sentiment="neg">(:從10點起床開始，除了半小時去診所換藥、一小時的早餐、兩小時的晚餐時間外，竟然都在寫Seminararbeit，</context>我也太<ironic sentiment="pos">勤奮</ironic>了<rhetoric>吧!</rhetoric> <context sentiment="neg">(其實是死到臨頭了)</context></message>
+<message>http://tw.news.yahoo.com/article/url/d/a/091019/1/1t8tu.html <context sentiment="neg">(穿胸罩被打理由是詐欺)</context>這也太<ironic sentiment="pos">屌</ironic>了，那些男人是在憤恨不平甚麼勁啊! (annoyed)</message>
+<message>拜託，公司的網路<ironic sentiment="pos">可以再更<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>啦！</rhetoric><context sentiment="neg">慢成這樣到底是怎麼一回事？！沒錢昇級嗎？！</context> (angry)</message>
+<message>同學你也太<ironic sentiment="pos">積極</ironic><rhetoric>…</rhetoric>(angry)</message>
+<message>共用影印的電腦 <ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>阿~</rhetoric>  (angry)</message>
+<message>蛙哩咧，Google 的整合<ironic sentiment="pos">可以再<ironic sentiment="neg">牛步</ironic>一點</ironic>，<context sentiment="neg">為什麼 chrome 開 gmail 的時候一直出現重新導入次數過多的錯誤訊息，或者根本連不上去，清掉 cookie 也沒有用啊！！！</context> (angry)</message>
+<message>我今天真是太<ironic sentiment="pos">lucky</ironic>了<rhetoric>...</rhetoric><context sentiment="neg">又來一張異常...</context> (lonely)</message>
+<message><context sentiment="neg">下午兩點半就關門!</context> 媽的中國領事館你<ironic sentiment="pos">可以再<ironic sentiment="neg">懶</ironic>一點</ironic><rhetoric>!!</rhetoric> (angry)</message>
+<message><context sentiment="neg">那扇門是怎麼一回事.....</context>大家<ironic sentiment="pos">可以再<ironic sentiment="neg">關用力</ironic>一點</ironic><rhetoric>....</rhetoric> (angry)</message>
+<message>天天有<ironic sentiment="pos">驚喜</ironic> <context sentiment="neg">PDE必死無疑 不 也太難了 完全跟不上阿</context> :'-(</message>
+<message>電腦<ironic sentiment="pos">可以再「<ironic sentiment="pos">快</ironic>」一點</ironic><rhetoric>～～～</rhetoric> (annoyed)</message>
+<message><context sentiment="neg">右腳又腫又掰咖，左腳剛撞到門指甲掀起來。</context>我<ironic sentiment="pos">可以再<ironic sentiment="neg">粗心</ironic>一點</ironic>，想把自己打昏！ :-(</message>
+<message>鳥事<ironic sentiment="pos">可以再<ironic sentiment="neg">多</ironic>一點</ironic><rhetoric>!</rhetoric>  X-(</message>
+<message>很<ironic sentiment="pos">好</ironic> <rhetoric>...</rhetoric> 作業交出去了 ; <context sentiment="neg">今天還要看 5 篇 animation 的 paper 寫評語，明天英文課要交</context> :-&</message>
+<message><context sentiment="neg">苦惱阿!!辣椒真好吃</context>  我的臉<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message>雨<ironic sentiment="pos">可以再<ironic sentiment="neg">大</ironic>一點</ironic><rhetoric>...</rhetoric>我<rhetoric>真的一點都</rhetoric><ironic sentiment="pos">不介意</ironic><rhetoric>!!</rhetoric> :-&</message>
+<message>http://www.youtube.com/watch?v=rtIcedRcIk0&feature=player_embedded  這...<ironic sentiment="pos">可以再<ironic sentiment="neg">扯</ironic>一點</ironic>，<context sentiment="neg">真的有人會信嗎？這麼粗糙的動畫</context> (annoyed)</message>
+<message>龜毛女  你<ironic sentiment="pos">可以再<ironic sentiment="neg">三心兩意</ironic>一點</ironic> X-(</message>
+<message><context sentiment="neg">可惡!!亨宇被打了>"< (angry)  我斜後方立刻傳來一陣叫罵..然後我姐轉頭看到這畫面立刻幹譙「亨宇被打了！幹！」</context>→你<ironic sentiment="pos">可以再<ironic sentiment="neg">沒水準</ironic>一點</ironic></message>
+<message><context sentiment="neg">昨天澳幣換(台幣)在超級低點, 今天澳幣又漲了耶!!</context> 我換的點<rhetoric>也太</rhetoric><ironic sentiment="pos">讚</ironic>了<rhetoric>吧</rhetoric> :'(</message>
+<message><context sentiment="neg">開心農場讓我一點也不開心,</context>你<ironic sentiment="pos">可以再<ironic sentiment="pos">爛</ironic>一點</ironic><rhetoric>!</rhetoric> X-(</message>
+<message>周旋在廠商.小老闆.廠長...<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic>.. X-( <context sentiment="neg">已經忙不完了..還來亂</context>@@</message>
+<message><context sentiment="neg">芭瑪加上米勒=雙颱效應...再加上東北季風=共伴效應，</context><rhetoric>還真</rhetoric><ironic sentiment="pos">嗨</ironic><rhetoric>啊</rhetoric> :'-(</message>
+<message>亞洲<ironic sentiment="pos">第一名</ironic> 台灣的<ironic sentiment="pos">驕傲</ironic><rhetoric>!!</rhetoric><context sentiment="neg">台灣失業率6.13% 亞洲最高</context> X-( ,主計處認為，八月份的失業率接近高峰，九月起有下降的空間，主計處<ironic sentiment="pos">可以再<ironic sentiment="neg">無恥</ironic>一點</ironic> (unsure)</message>
+<message>聯強系統<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點沒關係</ironic> X-(</message>
+<message>正在新竹活動現場，學校場地麥克風<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic>，<context sentiment="neg">講師都快沒聲音了...</context> (angry)</message>
+<message><context sentiment="neg">中秋節前要扛著十公斤的筊白筍回家，</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">酷</ironic>了(nottalking)</message>
+<message><context sentiment="neg">看了新聞畫面中被救的尼姑~~怎麼一點都沒有災民的fu，還大包小包的還有旅行箱，真不知道你是逃難還是出國(新聞報說是經書)，你們不知道少了你們那些書可以多載幾個人出災區嗎??~~出家人經書比人命重要~</context><rhetoric>還真是</rhetoric><ironic sentiment="pos">特別</ironic> X-(</message>
+<message>今天天氣<rhetoric>未免太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>吧</rhetoric> (thinking)<context sentiment="neg">萬里無雲艷陽高照…我不喜歡 X-(因為等等要小外出一下~不然會變阿宅</context> (LOL)</message>
+<message>今晚應該很<ironic sentiment="pos">好睡</ironic>... (:</message>
+<message>很<ironic sentiment="pos">好</ironic>，<context sentiment="neg">縣府把臉書鎖住，不能開了</context> X-(</message>
+<message>很<ironic sentiment="pos">好</ironic><rhetoric>~~~</rhetoric><context sentiment="neg">以為小山慢慢矮了~~沒想到~~真正困難的才要開始~~~~~我不想做彩D啦~</context> (tears)</message>
+<message><context sentiment="neg">自己很北七，恍惚中的我因為懶惰轉個方向，所以被保鮮膜的刀片給割了..</context>很<ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric>還是前幾天自己buy下來的..唉 :'-(鮮血就這麼冒出來了..</message>
+<message><context sentiment="neg">40分鐘後就要開車去台中..又是一件被凹的事情....</context>我<rhetoric>真是</rhetoric>人<rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>吧...</rhetoric> :'-(</message>
+<message>....Boss你<rhetoric>也太</rhetoric><ironic sentiment="pos">早講</ironic>了<rhetoric>吧..</rhetoric><context sentiment="neg">明天就要繳論文計畫書 + 核研所報告 + 書報報告 + KM作業</context>   :-&</message>
+<message>喝喜酒這件事...真是挺累人的...吃完飯到家都三點多了 :'-(沾沾喜氣是還挺開心感動的啦...<context sentiment="neg">只是這兩個月就紅色炸彈五枚ㄟ...</context><rhetoric>也太</rhetoric><ironic sentiment="pos">酷</ironic><rhetoric>了點...</rhetoric></message>
+<message>電影台<rhetoric>也太</rhetoric><ironic sentiment="pos">應景</ironic>,<context sentiment="neg">在鬼月不斷播放驚悚片是怎樣?!</context> :'-(</message>
+<message><context sentiment="neg">東星大樓選在農曆7月落成，難道不了解台灣民俗嗎 (angry)蓋了10年，</context>他馬的<rhetoric>也太</rhetoric><ironic sentiment="pos">利害</ironic>了<rhetoric>!</rhetoric></message>
+<message><context sentiment="neg">一點沙啞 在帶點鼻音...</context>我的聲音<rhetoric>真是太</rhetoric><ironic sentiment="pos">有特色</ironic>了<rhetoric>..</rhetoric> :'-(  ((苦中做樂))</message>
+<message><context sentiment="neg">從早上八點忙到晚上九點半，</context><rhetoric>真是</rhetoric><ironic sentiment="pos">好樣</ironic>的 :-&</message>
+<message><context sentiment="neg">又要幫老婆和2個小鬼頭買晚餐了，</context><rhetoric>真是</rhetoric><ironic sentiment="pos">幸福</ironic>！ (annoyed) :-(</message>
+<message>今天<rhetoric>真是</rhetoric>運氣<ironic sentiment="pos">好</ironic><rhetoric>到爆耶!!!</rhetoric><context sentiment="neg">早上騎腳踏車出去爆胎爆前輪...晚上騎摩托車出去爆後輪...</context>真是<ironic sentiment="pos">好樣</ironic>的!!! (angry)</message>
+<message><context sentiment="neg">滿一個月紀念日吃飯，喝到酸掉的玉米巧達湯，喝完才知道是壞的。</context> <rhetoric>真是</rhetoric><ironic sentiment="pos">有紀念到</ironic><rhetoric>哦!!!</rhetoric> :'-(</message>
+<message><context sentiment="neg">開個愛之味脆瓜罐頭蓋;竟然可以傷到小姆指甲…</context>傑克，這<rhetoric>真是太</rhetoric><ironic sentiment="pos">神奇</ironic>了(波波波…的流血) :-&</message>
+<message>星期一<rhetoric>真是</rhetoric><ironic sentiment="pos">充實</ironic><rhetoric>阿</rhetoric> :'-( <context sentiment="neg">連blue的時間都沒有</context> (LOL)</message>
+<message><context sentiment="neg">昨晚不好眠..一直醒過來就像沒睡一樣...早上出門前還吐了</context> :-&<rhetoric>真是太</rhetoric><ironic sentiment="pos">驚奇</ironic>的一天</message>
+<message><context sentiment="neg">人家在工廠如火如茶...有人沒有交代一切就放大假...</context><rhetoric>真是</rhetoric><ironic sentiment="pos">富有責任感</ironic><rhetoric>丫...</rhetoric> (annoyed)...真是一點也不意外...</message>
+<message><context sentiment="neg">對人客氣，結果被婊，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，要玩一起玩！ (banana_rock) <p,p></message>
+<message><context sentiment="neg">冬天到了，我的ASUS NB 可以當我的電暖爐，</context><rhetoric>真</rhetoric><ironic sentiment="pos">好</ironic> :-&</message>
+<message><context sentiment="neg">下週回工作崗位就要面臨颱風威脅~</context> <rhetoric>天啊~</rhetoric> 你對我<rhetoric>真</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>啊!</rhetoric> (sick)</message>
+<message><context sentiment="neg">能夠天天出錯</context>也是一件<ironic sentiment="pos">了不起</ironic>的事<rhetoric>!!!</rhetoric> (annoyed)</message>
+<message>(angry)馬的~COW逼~綜研所<ironic sentiment="pos">了不起</ironic>~<context sentiment="neg">你的發票又不是我開錯的~幫你查誰負責的，又在那GY說難不成你們開發票的人很多唷~ OS：對，我們有N個~</context> (annoyed)</message>
+<message>裝冷氣是<rhetoric>很</rhetoric><ironic sentiment="pos">偉大</ironic><rhetoric>歐</rhetoric>，<context sentiment="neg">態度超級差，不然是不想做生意了嗎?超級機車的家電行，機車</context> (angry)</message>
+<message>哇~~~<context sentiment="neg">壓力真的大到誇張~</context>短短的20分鐘午休~竟然也可以夢到<ironic sentiment="pos">偉大</ironic>的許處長又想把新工作丟給我了~然後試探性的問我~想不想做些新嘗試~~~於是我再也忍不住~一口氣的把我的不滿全部傾洩而出~然後午休結束鐘響~就醒了.... :-(</message>
+<message><context sentiment="neg">生氣！！ (angry)　美國帶骨牛肉、內臟、脊髓等這類的進口是非同小可的，只有南韓這種需要看美國臉色的國家才會不設防地開放，連咱們的"祖國"也拒絕這類謀財害命的事情。結果，有種拒絕軍購，卻沒種對美國say NO！？</context> (rock)　唉，<ironic sentiment="pos">偉大</ironic>的總統只關心他的BMI值捏<rhetoric>......</rhetoric></message>
+<message>(angry)國泰SOGO卡..你<ironic sentiment="pos">了不起</ironic><rhetoric>!</rhetoric><context sentiment="neg">我月月刷卡消費~竟還跟我收1800大洋的年費!</context>(該考慮是否剪卡了我)</message>
+<message>哇！好飽好飽。<context sentiment="neg">辦公室裡業務講經濟政治講得天花亂墜，自己的人生弄得亂七八糟。</context><rhetoric>那麼</rhetoric><ironic sentiment="pos">偉大</ironic>，先把自己的事做好好嗎？ (annoyed)</message>
+<message><context sentiment="neg">國外唸到博士的老哥整天迷facebook…</context>人生走到這囧境他<rhetoric>也算</rhetoric><ironic sentiment="pos">了不起</ironic>… :-&</message>
+<message><context sentiment="neg">每個人都知道.死豬死雞沒處理.肯定會造成傳染病會瘟疫..</context><ironic sentiment="pos">偉大</ironic>的馬政府<context sentiment="neg">到現在都還不處理</context>.是怎樣!!要變相圖沙南台灣的民眾嗎??還是南台灣的票比較少..多死幾個也沒差..都說是災區了!!災民哪有時間能力處理這些屍體..還口口聲聲說苦民所苦!!哇咧看看看!! (angry)</message>
+<message><context sentiment="neg">老天.. 我終於可以好好波個噗了..</context> 祖國的河蟹計劃<rhetoric>真是太</rhetoric><ironic sentiment="pos">偉大</ironic>了 :'-(</message>
+<message>半夜睡不著覺，來<ironic sentiment="pos">歌功頌德</ironic>一下咱們<ironic sentiment="pos">偉大</ironic>的<context sentiment="neg">政府是「賊」</context>。</message>
+<message><context sentiment="neg">9月失業率榮登亞洲第一名,</context>馬統又一<ironic sentiment="pos">偉大政績</ironic> <rhetoric>!</rhetoric>  (angry)</message>
+<message><context sentiment="neg">我居然睡到落枕!!!!!!</context>   <rhetoric>有夠</rhetoric><ironic sentiment="pos">了不起</ironic> X-(</message>
+<message><context sentiment="neg">一個國家,兩個世界,駭人的南台灣水災,</context>而我們<ironic sentiment="pos">偉大</ironic>的中央政府ㄋ,為我們做ㄌ什麼,馬英9,劉兆漩堪什麼災,只不過又做ㄌ一場秀 X-(</message>
+<message><context sentiment="neg">明天要在台北吃謝師宴囉!</context>勁桑<rhetoric>還真</rhetoric><ironic sentiment="pos">會挑地方</ironic>.. :-&</message>
+<message>如果是<context sentiment="neg">假球</context>的話<rhetoric>也太</rhetoric><ironic sentiment="pos">精采</ironic>了 :'-(</message>
+<message>陳有美...你<ironic sentiment="pos">可以再<ironic sentiment="neg">壞</ironic>一點</ironic><rhetoric>!!!</rhetoric> X-(</message>
+<message><context sentiment="neg">居然拿到機王,</context>運氣還真<ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric>明天又要跑一趟,真麻煩 (tears)</message>
+<message><context sentiment="neg">歸檔花了我兩個半小時的青春......</context>效率<ironic sentiment="pos">可以再<ironic sentiment="neg">差</ironic>一點沒關係</ironic> (annoyed)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">忙</ironic>一點</ironic> 這週 (angry)</message>
+<message>銀豹小姐:你<ironic sentiment="pos">可以再<ironic sentiment="neg">過分</ironic>一點</ironic>，<context sentiment="neg">每天考4張大張考卷，輔導課被你強來上國文+考試，挖勒!!!每天都有你的課還不夠ㄚ!!!!!</context> X-(</message>
+<message>本公司MIS<ironic sentiment="pos">可以再<ironic sentiment="neg">混</ironic>一點沒關係</ironic> (angry)</message>
+<message>品冠旅行社你<ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic> <context sentiment="neg">明天早上就要出團 剛剛才通知要改班機 是逼我們要改找光良旅行社辦嗎</context>  (angry)</message>
+<message>(angry)<context sentiment="neg">不順不順不順...</context><ironic sentiment="pos">可以再<ironic sentiment="pos">不順</ironic>一點</ironic>!</message>
+<message><ironic sentiment="pos">好樣的</ironic>~<context sentiment="neg">這麼夭壽的</context> http://tw.news.yahoo.com/article/url/d/a/</message>
+<message><context sentiment="neg">鼻子過敏</context>  <ironic sentiment="pos">可以再<ironic sentiment="neg">包多</ironic>一點</ironic>餛頓<ironic sentiment="pos">沒關係</ironic><rhetoric>啦!!</rhetoric>  :'-(</message>
+<message>姑媽<rhetoric>還真</rhetoric><ironic sentiment="pos">會挑時間</ironic>來<rhetoric>ㄟ~~</rhetoric> (tears)</message>
+<message>開心農場你<ironic sentiment="pos">可以再<ironic sentiment="neg">難連</ironic>一點沒關係</ironic><rhetoric>啦~~</rhetoric> X-(</message>
+<message>是怎麼了?<context sentiment="neg">工作沒心?生日吵架?</context>你們的生活<rhetoric>也太</rhetoric><ironic sentiment="pos">精采</ironic>了<rhetoric>吧...</rhetoric> :-&</message>
+<message>Xd!!!<context sentiment="neg">剛才剪了頭髮，</context>設計師的態度<ironic sentiment="pos">可以再<ironic sentiment="neg">差</ironic>一點</ironic><rhetoric>！</rhetoric> (angry)</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>！</rhetoric><context sentiment="neg">TWD變成DaLi的分公司  什麼時候會反客為主呢？</context> :-&</message>
+<message>天氣<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點沒關係</ironic>~ :-&</message>
+<message><context sentiment="neg">太誇張了太誇張了,我連睡覺都夢到老師再改我的櫥窗設計!!</context><ironic sentiment="pos">可以再<ironic sentiment="neg">煩惱</ironic>一點沒關係</ironic> (angry)</message>
+<message>word<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>!</rhetoric> (angry)</message>
+<message><context sentiment="neg">今天一早就遇到莫名其妙的早餐店先生，做生意還恍神喔!~</context><rhetoric>真</rhetoric><ironic sentiment="pos">有你的</ironic><rhetoric>阿!</rhetoric>是嫌我久沒去光顧喔~你<ironic sentiment="pos">可以再<ironic sentiment="neg">給我放空</ironic>一點</ironic>，還給我一雙斷掉的筷子，真是...(annoyed)</message>
+<message><context sentiment="neg">痞痞剉  :-& 北佛現在竟然跟紐約一樣冷，</context>7度C<rhetoric>真是太</rhetoric><ironic sentiment="pos">了不起</ironic>了<rhetoric>...</rhetoric></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric> <context sentiment="neg">我的左眼 獲得 急性結膜炎囉】</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿...</rhetoric><context sentiment="neg">我的 Port 被封了....</context>:'(</message>
+<message>學校的網路今天你<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>!!</rhetoric>  X-(</message>
+<message><context sentiment="neg">更..學姐啊..</context>你<ironic sentiment="pos">可以再<ironic sentiment="neg">瞎</ironic>一點</ironic> X-(</message>
+<message><context sentiment="neg">我要瘋了</context> X-( Facebook<ironic sentiment="pos">可以再<ironic sentiment="neg">給我爛</ironic>一點沒關係</ironic><rhetoric>阿!</rhetoric></message>
+<message>(angry) X-(.....<ironic sentiment="pos">沒關係</ironic>...<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>...你就<ironic sentiment="pos">繼續</ironic><rhetoric>吧</rhetoric>...很<ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric> <context sentiment="neg">原來 session 都沒處理好.....</context> (angry)</message>
+<message><context sentiment="neg">我今天又混了一天，計畫中要看完書結果沒看，要弄完早餐店也沒弄，唯一做的事是把印表機買好裝好灌好，還有把遊戲和文爬好，</context>我<ironic sentiment="pos">可以再<ironic sentiment="neg">混</ironic>一點</ironic><rhetoric>啊</rhetoric> X-(</message>
+<message>cow...你的字<ironic sentiment="pos">可以再<ironic sentiment="neg">醜</ironic>一點</ironic><rhetoric>..</rhetoric><context sentiment="neg">寫什麼鬼東東阿!</context> (angry)</message>
+<message>斑斑妳的毛<ironic sentiment="pos">可以再<ironic sentiment="neg">多</ironic>一點</ironic><rhetoric>...</rhetoric> (annoyed)</message>
+<message><rhetoric>天啊</我<ironic sentiment="pos">可以再<ironic sentiment="neg">不細心</ironic>一點</ironic><rhetoric>!!!!</rhetoric> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">衰小</ironic>一點</ironic> X-(<context sentiment="neg">雨衣被偷走、輪胎被長釘字刺破！</context></message>
+<message><context sentiment="neg">散步到一半突然下起雨，抱著小肉狗離開公園卻發現只有公園那一塊下雨，</context>運氣太<ironic sentiment="pos">好</ironic>了<rhetoric>…</rhetoric> (annoyed)</message>
+<message>MSN<ironic sentiment="pos">可以再<ironic sentiment="neg">賤</ironic>一點</ironic><rhetoric>～</rhetoric><context sentiment="neg">硬要我安裝新的才讓我登入！</context> (angry)</message>
+<message>：「這雨也太<ironic sentiment="pos">銷魂</ironic>了吧<rhetoric>...</rhetoric><context sentiment="neg">可惡，看來今天要出門上課很拼了...</context>」 :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">破財了，修機車花了我五千多，碼的勒 </context>:-&:-&:-&:-&:-&IBM大樓還真是一個"灰"... (annoyed)</message>
+<message><context sentiment="neg">死管理員</context>你<ironic sentiment="pos">可以在把住戶的問題講得再<ironic sentiment="neg">事不關己</ironic>一點沒關係</ironic></message>
+<message><context sentiment="neg">上下班的時候才在飄雨</context>    :-( 也太<ironic sentiment="pos">神奇</ironic>了<rhetoric>吧!!</rhetoric></message>
+<message><context sentiment="neg">腰好痛!!!!早上刷牙也可以閃到腰，</context>我<rhetoric>真是太</rhetoric><ironic sentiment="pos">強</ironic>了 (nottalking)</message>
+<message>HP維修工程師你<ironic sentiment="pos">可以再<ironic sentiment="neg">混</ironic>一點</ironic><rhetoric>啊...</rhetoric><context sentiment="neg">CPU風扇上面已經貼了注意事項，還可以給我裝錯方向...</context> (annoyed)</message>
+<message><context sentiment="neg">相機原廠送修半個多月,今天才報價,</context>效率<rhetoric>未免太</rhetoric><ironic sentiment="pos">好</ironic>了 :-&</message>
+<message><context sentiment="neg">啃!!明天居然要上班,</context>老闆你的員工福利<rhetoric>還真</rhetoric><ironic sentiment="pos">不錯</ironic> (angry)</message>
+<message>貴公司的換班系統<ironic sentiment="pos">可以再<ironic sentiment="neg">更爛</ironic>一點</ironic>    <context sentiment="neg">每次秀出來的班都是不一樣      浪費了我好多時間在去重新整一次網頁   ㄎ!!</context>  (angry)</message>
+<message><context sentiment="neg">坐飛機(ACM)....真的很累</context>      貴公司商務艙的椅子<ironic sentiment="pos">可以再<ironic sentiment="neg">更爛</ironic>一點</ironic><rhetoric>!!</rhetoric> (angry)</message>
+<message>生活<ironic sentiment="pos">可以再<ironic sentiment="neg">苦悶</ironic>一點沒關係</ironic><rhetoric>!!!!</rhetoric> :-&</message>
+<message><context sentiment="neg">北區和方案九薪水重複領取？</context><ironic sentiment="pos">可以再<ironic sentiment="neg">麻煩</ironic>一點沒關係</ironic> X-(</message>
+<message>自己的作息<ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic><rhetoric>...</rhetoric> (:</message>
+<message><context sentiment="neg">擾人清夢到令人髮指!!!</context> 是哪個神生日嗎? 迎神什麼的? 就不能有點公德心晚點放嗎?? <rhetoric>喔很</rhetoric><ironic sentiment="pos">好</ironic>, 7點了<ironic sentiment="pos">繼續炸吧炸吧炸吧</ironic><rhetoric>!!!</rhetoric> 到底為何故要放鞭炮????? 氣死! (angry)</message>
+<message><context sentiment="neg">中午吃飯點餐都要等半小時</context> 服務<rhetoric>還真是</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿</rhetoric> (annoyed)</message>
+<message>美股,你<ironic sentiment="pos">可以再<ironic sentiment="neg">軟</ironic>一點</ironic><rhetoric>....</rhetoric> (annoyed)</message>
+<message><context sentiment="neg">今天評鑑我又被抽到去訪談了，大三的時候也是被抓去訪談，</context>真是太<ironic sentiment="pos">幸運</ironic>了<rhetoric>啦</rhetoric> :'-(</message>
+<message>Orange...你<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic> <context sentiment="neg">竟然給我在客廳亂大便..</context> (angry)</message>
+<message>:-&<context sentiment="neg">挫賽~翻了好久~還是睡不著~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric>我失眠了 (doh)</message>
+<message>三立<ironic sentiment="pos">可以再<ironic sentiment="neg">不專業</ironic>一點</ironic><rhetoric>啊!</rhetoric> (angry)</message>
+<message>外面的太陽<ironic sentiment="pos">可以再<ironic sentiment="neg">大</ironic>一點沒關係</ironic>，<context sentiment="neg">反正我已經黑了，只是我不想自焚啦</context> :'-(</message>
+<message>這些公務人員<ironic sentiment="pos">可以再<ironic sentiment="neg">腦殘</ironic>一點</ironic><rhetoric>!</rhetoric> :-& http://tw.nextmedia.com/applenews/article/art_id/32042255/IssueID/20091025 <context sentiment="neg">(今年8月出生的許姓男嬰，本月6日爸爸幫他到銀行開戶，但行員告知：「你兒子被列為『警示帳戶』。」無法辦理開戶)</context></message>
+<message>公司的冷氣<ironic sentiment="pos">可以再<ironic sentiment="neg">冷</ironic>一點</ironic><rhetoric>嘛!</rhetoric><context sentiment="neg">是把我們都當御飯團堅持18度c嗎?</context> (annoyed)、</message>
+<message><context sentiment="neg">問出去玩的事這麼不想回答，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>呀！</rhetoric><context sentiment="neg">我也不是很想淌這個渾水！搞得我好像求你。</context> </message>
+<message><context sentiment="neg">剛剛中x銀來電推銷儲蓄的意外險,說什麼繳2年後可以不繳還可以保到20年,如果中間繳不出來可以停繳兩年.</context>   <ironic sentiment="pos">最好</ironic><ironic sentiment="pos">可以再<ironic sentiment="neg">沒道德</ironic>一點</ironic><rhetoric>啦!</rhetoric>騙人不懂保險呀 (angry)</message>
+<message>今天<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic> :-&</message>
+<message>天哪~~38度C!!<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>！</rhetoric><context sentiment="neg">最高41度吔！烤焦了！</context> (angry)</message>
+<message>廠商你們<ironic sentiment="pos">可以再<ironic sentiment="neg">塞多</ironic>一點</ironic>書來沒關係，<context sentiment="neg">最好是每本都這麼會賣啊！</context> (annoyed)</message>
+<message>(annoyed)太<ironic sentiment="pos">好</ironic>了，<context sentiment="neg">沒有車可以騎，要走路去看牙醫了。</context></message>
+<message>我拍照<ironic sentiment="pos">可以再<ironic sentiment="neg">隨便</ironic>一點</ironic><rhetoric>!!!</rhetoric> (annoyed)</message>
+<message>頭等ㄉ客人你<ironic sentiment="pos">可以再<ironic sentiment="neg">賤</ironic>一點</ironic> <context sentiment="neg">當著我的面把餐盤丟在地上說很難吃麻煩你收走 我還要蹲著清理地上ㄉ菜渣....火大</context> X-(</message>
+<message>(goodluck)準備倒數最後一天囉 就要歸隊囉!! <context sentiment="neg">還有某人 你完蛋 今天狂欺負我是吧 還聯合他人一起</context> 你<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>     (angry)</message>
+<message>X-(你<ironic sentiment="pos">可以再<ironic sentiment="neg">寵女兒</ironic>一點</ironic><rhetoric>！</rhetoric><context sentiment="neg">我不知道還伺候小三生整理書包起床穿衣會有甚麼後遺症，不過，我想可以不用期待這個小孩往後會有甚麼成就了！</context></message>
+<message><context sentiment="neg">天丫~我第一次聽到普渡要自己帶東西來拜耶~</context>算你狠~<ironic sentiment="pos">可以再<ironic sentiment="neg">本土</ironic>一點</ironic><rhetoric>丫~~~</rhetoric> (angry)</message>
+<message>你們這群人<ironic sentiment="pos">可以再<ironic sentiment="neg">被動</ironic>一點</ironic>　 (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">新任務失敗~</context> :'-(</message>
+<message>漢堡王那個人龍<ironic sentiment="pos">可以再<ironic sentiment="neg">長</ironic>一點沒關係</ironic><rhetoric>..</rhetoric> :-(</message>
+<message>網路啊~你<ironic sentiment="pos">可以再<ironic sentiment="neg">怪</ironic>一點 在<ironic sentiment="neg">慢</ironic>一點沒關係</ironic> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic> (angry)</message>
+<message><context sentiment="neg">今天到了養老院..早上幫一個老爺爺按摩身體..下午有個社工叫我唸報紙給另一個老爺爺聽.我認真念完兩則新聞.沒想到~老爺爺竟然叫我閉嘴...</context><ironic sentiment="pos">可以再<ironic sentiment="neg">瞎</ironic>一點沒關係</ironic> :-&</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>啊,,,</rhetoric><ironic sentiment="pos">再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>啊</rhetoric> X-(</message>
+<message>台北中山區的房東<ironic sentiment="pos">可以再<ironic sentiment="neg"> (angry)跩</ironic>一點沒關係</ironic></message>
+<message>你<ironic sentiment="pos">可以再<ironic sentiment="neg">混</ironic>一點沒關係</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message><context sentiment="neg">常常午休起來頭好痛，今天吞了一顆普拿疼還是好痛，</context>我的身體<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>喔...</rhetoric> X-(</message>
+<message><context sentiment="neg">以為訂的是晚上七點半回新竹的票，七點在自動售票機取到票才發現是晚上八點。特地再到網路訂位取票的窗口問可不可以換到七點半，結果票務人員發現我訂的是晚上八點從新竹到台北的票。</context>我<rhetoric>真的</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">天兵</ironic>一點</ironic><rhetoric>。。。</rhetoric> :'-(</message>
+<message><context sentiment="neg">ㄧ個人住旅館</context><rhetoric>也太</rhetoric><ironic sentiment="pos">HIGH</ironic>了<rhetoric>吧</rhetoric>  :-&</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>！</rhetoric><context sentiment="neg">第一次碰到關廠，老闆跑人，拖欠工資和社保金，看看這個爛攤子會發展到怎樣的情形。</context> (annoyed)</message>
+<message><context sentiment="neg">越晚越冷</context> :-& 這天氣<rhetoric>真</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">詭異</ironic>一點</ironic></message>
+<message><context sentiment="neg">這是甚麼鬼天氣，</context><rhetoric>真的</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點沒關係</ironic> :-&</message>
+<message>我<ironic sentiment="pos">可以再<ironic sentiment="neg">笨</ironic>一點</ironic> :-(</message>
+<message><context sentiment="neg">我真的覺得ck是廉價品,</context>鞋子和禮服<ironic sentiment="pos">可以再<ironic sentiment="neg">醜</ironic>一點</ironic>沒關西 (annoyed)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">亂</ironic>一點沒關係</ironic><rhetoric>!!!</rhetoric><context sentiment="neg">你門怎麼吵都沒關係...請讓我順利讓分行開幕好嗎</context>= =TMD (angry)</message>
+<message>公司電腦~<rhetoric>真的</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>啦!!</rhetoric>   今天網路也爆慢~是怎樣!!  X-(</message>
+<message>公司電腦~你<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic>   <ironic sentiment="pos">沒關係</ironic> (angry)</message>
+<message>雜碎袋<rhetoric>也太"</rhetoric><ironic sentiment="pos">早</ironic><rhetoric>"</po了<rhetoric>吧?!</rhetoric> :'-(</message>
+<message>那個誰誰誰　你<ironic sentiment="pos">可以再<ironic sentiment="neg">偷大</ironic>一點沒關係</ironic><rhetoric>～</rhetoric>我下次就要公布你姓名了！！！ (angry)</message>
+<message><context sentiment="neg">今天一整個快發火了...</context>你<ironic sentiment="pos">可以再<ironic sentiment="neg">皮</ironic>一點</ironic><rhetoric>...</rhetoric> X-(</message>
+<message>ㄇㄉ, 秀玲<ironic sentiment="pos">可以再<ironic sentiment="neg">更會推</ironic>一點</ironic>, 看! (angry)</message>
+<message>你<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>!!!!!!!!!!!</rhetoric> X-(</message>
+<message><context sentiment="neg">最近真的到了一個境界了，結果還是沒噗私密噗</context>>"<  <ironic sentiment="pos">可以再<ironic sentiment="neg">忙</ironic>一點</ironic> X-(</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>啊！</rhetoric>難道我們現在只能待在有冷氣的地方!? (annoyed)</message>
+<message><context sentiment="neg">2334 unit 要RMA</context> <rhetoric>也太</rhetoric><ironic sentiment="pos">幸運</ironic>了<rhetoric>吧~</rhetoric> <context sentiment="neg">第一次RMA的數量那麼驚人</context> :'-(</message>
+<message><context sentiment="neg">叫一個一句日文都不懂的人跑去日本看展, 然後拿一堆天書回來叫我翻譯(而且還是照片沒有檔案)!!!</context> 你們這些人<ironic sentiment="pos">可以再<ironic sentiment="neg">腦殘</ironic>一點</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">睏</ironic>一點</ironic>…:(</message>
+<message>哈利6<ironic sentiment="pos">可以再<ironic sentiment="neg">難看</ironic>一點沒關係</ironic><rhetoric>....</rhetoric>還有樂聲是在節能省炭嗎..冷氣也不開 大家看到一身汗出來  第一次覺得夏天室外比冷房還涼  (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic> (angry)</message>
+<message>(angry) (angry) (angry) (angry) (angry)迎新迎前訓<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic>,<context sentiment="neg">還要交2600元,</context></message>
+<message><context sentiment="neg">晚上的餐城</context><ironic sentiment="pos">可以再<ironic sentiment="neg">難連</ironic>一點沒關係</ironic>  (angry)</message>
+<message>我說 plurk 啊～你<ironic sentiment="pos">可以再<ironic sentiment="neg"> lag </ironic>一點沒關係</ironic><rhetoric>呀！！</rhetoric>X-(</message>
+<message>公司信箱<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>.....</rhetoric> X-(</message>
+<message><context sentiment="neg">我的時間就不是時間嗎？我也需要好好休息吧,你怎麼知道我在牙科那上班不累,</context>你<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">打算以後都叫我兩邊奔波是嗎,薪水又沒多給到哪,區區那幾千,我才不要</context> :'-(</message>
+<message>來我家裝潢的人你<ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點沒關係</ironic><rhetoric>!!</rhetoric><context sentiment="neg">你下午不來沒關係，換我晚上到你家找你!</context> X-(</message>
+<message>早安 <context sentiment="neg">一早起來就31度</context> <rhetoric>呵呵呵~</rhetoric>你<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>啊</rhetoric> (annoyed) 希望大家今天一切順利吧!!! B-)</message>
+<message>Facebook的loading速度<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>阿!!!!</rhetoric>Fucking crap!!!! X-(</message>
+<message><context sentiment="neg">最好颱風都是週末來啦!</context>怒!!<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點沒關係</ironic><rhetoric>啊</rhetoric> X-(</message>
+<message>Karma 你<ironic sentiment="pos">可以再<ironic sentiment="neg">降快</ironic>一點，沒關係</ironic> X-(</message>
+<message><context sentiment="neg">去花蓮泛舟</context>很<ironic sentiment="pos">好玩</ironic><rhetoric>！</rhetoric><context sentiment="neg">因為喝水喝到飽‧‧‧‧</context> :-&</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">無聊</ironic>一點</ironic> (annoyed)</message>
+<message><context sentiment="neg">進入九月、第四季。是忙碌的一個月和第四季。</context><ironic sentiment="pos">可以再<ironic sentiment="neg">忙</ironic>一點</ironic><rhetoric>～～</rhetoric> :'-(</message>
+<message>:-( 市府發言人<rhetoric>真是太</rhetoric><ironic sentiment="pos">了不起</ironic>了，<context sentiment="neg">居然直接說，故障頻傳，跟市民也有關係，是已經在胡言亂語了嗎？？</context></message>
+<message><context sentiment="neg">我媽來家裡看瓜瓜，抱著瓜瓜自言自語：「來...看看你媽種什麼花？~ㄡ！乾燥花耶！」</context><rhetoric>對對對，</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">用力虧我</ironic>一點</ironic><rhetoric>！</rhetoric> :-&</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">難用</ironic>一點</ironic><rhetoric>啊</rhetoric> :-&</message>
+<message>XO的  <ironic sentiment="pos">可以再<ironic sentiment="neg">衰</ironic>一點沒關係</ironic><rhetoric>...</rhetoric> :-&</message>
+<message>FB的開心農場<ironic sentiment="pos">可以再<ironic sentiment="neg">醜</ironic>一點沒關西</ironic>，搞得整個不開心了起來 X-(</message>
+<message>MD！樓上死小孩走路<ironic sentiment="pos">可以再<ironic sentiment="neg">大聲</ironic>一點</ironic><rhetoric>阿！</rhetoric><ironic sentiment="pos">最好踏破天花板好了</ironic><rhetoric>啦！</rhetoric> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">倒楣</ironic>一點</ironic> :-& <context sentiment="neg">最近真的是諸事不順</context></message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>~~~</rhetoric><ironic sentiment="pos">沒關西</ironic> :-&</message>
+<message><rhetoric>真是太</rhetoric><ironic sentiment="pos">棒</ironic>了，<context sentiment="neg">我鼻翼的脫皮</context><ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic><ironic sentiment="pos">沒有關係</ironic>呀 (tears)</message>
+<message>今天又是哪位<ironic sentiment="pos">偉大</ironic>神明生日？<context sentiment="neg">外面砲聲沒停過</context></message>
+<message><context sentiment="neg">(台灣正式進入政府一言堂的時代)：</context><ironic sentiment="pos">偉大</ironic>的衛生署長楊志良昨天表示，「不專業」的人不可以評論衛生署H1N1疫情</message>
+<message><context sentiment="neg">客服非常差~要退換貨都要到台北總公司喔! 而且打過去客服那邊的小姐會跟你說，可能要「等幾天！」才可以知道退換貨流程！「等幾天！」</context>讓我想起<ironic sentiment="pos">偉大</ironic>中華民國政府世界級的行政效率<rhetoric>！</rhetoric></message>
+<message><ironic sentiment="pos">偉大</ironic>的<context sentiment="neg">祖國只有閱兵太遜了，人家美帝都直接開到人家國家裡火力展示啊</context></message>
+<message><context sentiment="neg">砲友~原來~也可以解釋成這樣!!</context><ironic sentiment="pos">偉大</ironic>的教育部<rhetoric>真是</rhetoric><ironic sentiment="pos">了不起</ironic><rhetoric>!!</rhetoric>既三隻小豬是成語之後我在一次配服的五體投地...</message>
+<message><rhetoric>ㄟㄟㄟ...</rhetoric><ironic sentiment="pos">親愛</ironic>的同事們, <context sentiment="neg">不是只要是講英文的電話都轉到我這裡...也有其他外商公司跟國內業務買零件滴...變成我好像是英文的接線生&傳話筒了...</context> (angry)</message>
+<message><ironic sentiment="pos">親愛</ironic>的騎車大嬸，<context sentiment="neg">可不可以麻煩你不要在路中間慢慢騎，要左轉也不打方向燈，在後面的我可沒有第六感能夠預知妳要左轉</context> (angry)</message>
+<message><ironic sentiment="pos">親愛</ironic>的鄰居我知道<context sentiment="neg">你長期臥病不舒服,但也別在半夜嘶喊巴豆么</context> :-&</message>
+<message>中秋節收到的<ironic sentiment="pos">大禮</ironic>是<rhetoric>.......</rhetoric><context sentiment="neg">長了一堆肉</context> :-&</message>
+<message>雖說是鄰居但也要懂得基本尊重吧!隔壁<rhetoric>"</rhetoric><ironic sentiment="pos">大姐</ironic><rhetoric>"</rhetoric> <context sentiment="neg">把車這麼大方停放別人家前整夜,讓我進出不得就算了~讓我停對面停車格還被球"K" X-(這次我忍不下了><妳對鄰居那麼不仁~所以我也好對妳不義囉!!</context> (griltongue)</message>
+<message><context sentiment="neg">大創買的39元滑鼠墊開始脫皮了!</context><rhetoric>真的很</rhetoric><ironic sentiment="pos">好用</ironic> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">頭髮在這樣掉下去!  我看不出兩個月就要變燈炮了..</context> (tears)</message>
+<message>meebo你<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>！！</rhetoric><context sentiment="neg">不要動不動就斷線好不好？？</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">高鐵14點後開。昨晚坐夜車來高雄!馬的~</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">明天全台灣停班停課，D版是拿不成了...</context> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <context sentiment="neg">野蠻女友的劇情居然發生在我身上.....</context> :'-(</message>
+<message><context sentiment="neg">幫小小孩刷牙,</context><rhetoric>還真</rhetoric><ironic sentiment="pos">不是蓋的</ironic>.<context sentiment="neg">比餵老虎,更容易被咬到</context> :'-(</message>
+<message><context sentiment="neg">兒子最近吃飯老愛中途休息，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric>那我也休息來噗一句。 (annoyed)</message>
+<message>內湖線的冷氣<ironic sentiment="pos">可以再<ironic sentiment="neg">冷</ironic>一點</ironic> (sick)</message>
+<message><rhetoric>真是太</rhetoric><ironic sentiment="pos">棒</ironic>了，<context sentiment="neg">一大早就有人morning call，</context>讓我上班不會遲到唷，呵呵呵呵呵呵...... :-&</message>
+<message>運氣<rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>~</rhetoric><context sentiment="neg">剛才加班完要去吃晚餐時,車壞在建國高架上!!!每個月都在修車是怎樣!!!</context> (angry)</message>
+<message>陳政典<ironic sentiment="pos">可以再<ironic sentiment="neg">偏頗</ironic>一點</ironic><rhetoric>啊</rhetoric> X-(</message>
+<message>友達....<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>...</rhetoric><context sentiment="neg">6600點買36.2，現在7300點變成31.7  更更更</context>(angry)</message>
+<message>晚上的電視節目 <ironic sentiment="pos">可以再<ironic sentiment="neg">無聊</ironic>一點點</ironic><rhetoric>!~~~</rhetoric> :-&</message>
+<message>...桌機你<ironic sentiment="pos">可以再<ironic sentiment="neg">任性</ironic>一點</ironic>= =  <context sentiment="neg">開了四五次機進到桌面後都自動shut down...最後乾脆開了筆電，但當筆電開好機連上網路後，桌機就正常了</context>(annoyed)</message>
+<message><context sentiment="neg">靠！又把杯子丟在公司...</context> 你<ironic sentiment="pos">可以再<ironic sentiment="neg">健忘</ironic>一點</ironic><rhetoric>啦！</rhetoric><context sentiment="neg">明天白天又沒得用了...雪特！</context>(angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">獵命師居然給我停在這種鬼地方</context> (angry)</message>
+<message>禮拜天電視<ironic sentiment="pos">可以再<ironic sentiment="neg">難看</ironic>一點沒有關係</ironic> (angry)</message>
+<message><context sentiment="neg">我綁不綁頭髮關你屁事?</context>做事態度<ironic sentiment="pos">可以再<ironic sentiment="neg">差</ironic>一點</ironic><rhetoric>阿</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric> <context sentiment="neg">為什麼我的便當裡面有苦瓜</context>  (angry)  :-&</message>
+<message>哇靠！RC<ironic sentiment="pos">可以再<ironic sentiment="neg">熱門</ironic>一點沒關係</ironic><rhetoric>....</rhetoric><context sentiment="neg">已經兩天連不上去了。</context> (sick)</message>
+<message>公司網路真的<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>！</rhetoric><context sentiment="neg">LAN還比WLAN慢是怎麼回事</context> X-(</message>
+<message><context sentiment="neg">唸書很了不起嗎?</context> 脾氣<ironic sentiment="pos">可以再<ironic sentiment="neg">大</ironic>一點</ironic><rhetoric>!</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">喉嚨發炎了</context> :-&</message>
+<message><context sentiment="neg">一通電話也沒有</context> <rhetoric>噢 真是太</rhetoric><ironic sentiment="pos">酷</ironic>了 好吧 那就這樣吧 (nottalking)</message>
+<message><context sentiment="neg">只在乎吃.喝.玩.樂--</context><ironic sentiment="pos">可以再<ironic sentiment="neg">不長進</ironic>一點</ironic> X-(</message>
+<message><context sentiment="neg">澎湖的跨年請"偶像巨星演唱"~結果是超偶</context> (angry)<rhetoric>還真是</rhetoric><ironic sentiment="pos">巨星</ironic><rhetoric>阿~</rhetoric> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我的桌電MSN兩個月後依舊上不了!!</context> (angry)</message>
+<message>(tears)<context sentiment="neg">還在公司...星期五晚上加班還要下雨...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>...</message>
+<message><context sentiment="neg">攝影課破裂…！！</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>=3= (<context sentiment="neg">自己進修~~哼！！老師我鄙視你~~就算你要讓我上，我也不想上了~~</context>講的話有 (angry) )</message>
+<message><context sentiment="neg">清晨五點入厝...</context>半仙<rhetoric>還真</rhetoric><ironic sentiment="pos">會</ironic>給我挑的<ironic sentiment="pos">好</ironic>時辰<rhetoric>哩!</rhetoric> (:</message>
+<message>中國歷史<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic> =ˋ=  <context sentiment="neg">好多內容</context>  X-(</message>
+<message>統一<ironic sentiment="pos">可以再<ironic sentiment="neg">小氣</ironic>一點</ironic>，<context sentiment="neg">貴為台灣第一大食品業，居然只捐1000萬...</context> (angry)</message>
+<message><context sentiment="neg">週末前的忙碌，</context>電話跟插播<ironic sentiment="pos">可以再<ironic sentiment="neg">多</ironic>一點沒關係</ironic> (nottalking)</message>
+<message>衛生局的護士你<rhetoric>很</rhetoric><ironic sentiment="pos">屌</ironic><rhetoric>喔~</rhetoric><context sentiment="neg">到球場邊不幫忙量體溫，只負責醫護工作，</context><ironic sentiment="pos">好樣的</ironic>!你<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">已經11點了。我現在才要來解決今天是deadline的最後一件事</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">今天又忘了帶錢出門。準備餓一天了</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>.7<context sentiment="neg">515個TestCase要在3W內測完~</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <context sentiment="neg">現在還在用分析設計</context> :-( 明早上還要拍廣角照片</message>
+<message><context sentiment="neg">成績才出現幾科</context>  但是...<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  非常的刺激 X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">又是在我休假的時候  有我想要看的人..阿阿阿阿  我要瘋了啦..</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<rhetoric>非常</rhetoric><ironic sentiment="pos">好</ironic><rhetoric><rhetoric>!!!</rhetoric></rhetoric><context sentiment="neg">繼FB之後,公司連Web MSN都封鎖了!! (angry)拜託~請不要再把魔掌伸向噗浪啊~~</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">我女朋友汽車卡在路上發不起來，現在要我過去看</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">豬豬人你看你欠大家多少錢?!薪水下來全部繳出來還不夠還!!!</context> X-(</message>
+<message><context sentiment="neg">好悶的天氣</context>跟星期一 <rhetoric>還真</rhetoric><ironic sentiment="pos">配</ironic><rhetoric>ㄟ~</rhetoric>  :-(</message>
+<message>公司電腦是<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>！</rhetoric> (angry)</message>
+<message><context sentiment="neg">mom親子台做火影忍者</context><rhetoric>還真是有夠</rhetoric><ironic sentiment="pos">親子</ironic>的 (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">就在tut9的最後一個部分卡住....</context> :-&</message>
+<message><context sentiment="neg">假日還要見老闆..</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">幸福</ironic>了 :'-(</message>
+<message><context sentiment="neg">有人不貼心~只會說風涼話!</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!!!</rhetoric> (angry)</message>
+<message>啃!<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">這次尿在我的枕頭套上..而且床墊也被用到了..</context> X-(</message>
+<message>sony ericsson的藍芽連線設定...<ironic sentiment="pos">可以再<ironic sentiment="neg">麻煩</ironic>一點</ironic><rhetoric>啦..</rhetoric>. (angry)</message>
+<message>一顆心噗通噗通的狂跳。 <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我真的覺得有東西快從我喉嚨裡跳出來了</context> :-&</message>
+<message>我媽<rhetoric>真是太</rhetoric><ironic sentiment="pos">偉大</ironic>了 (annoyed)</message>
+<message><context sentiment="neg">先把舊的編碼接成新的編碼 然後再把新的編碼接上實驗室的編碼 然後再把編碼接上名錄 如此四個輪迴</context> <ironic sentiment="pos">可以再<ironic sentiment="neg">囉唆</ironic>一點沒有關係</ironic> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～</rhetoric><context sentiment="neg">鬧鐘沒響就已經醒來了，真是好習慣！但是…今天放假ㄋㄟ！</context> (angry) 繼續來睡，哼～</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">今天又得繼續加班...</context> (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric> <context sentiment="neg">我很無聊的.. 很"認真"貼文....</context>  (:</message>
+<message><context sentiment="neg">我們家頂樓的大LOGO飛走了三分之一,</context><rhetoric>也太</rhetoric><ironic sentiment="pos">酷</ironic>了<rhetoric>吧!!</rhetoric>又要寫意外事件了 :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<rhetoric>非常</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">出國玩都不知道要打電話回家了~~看回國後，要怎麼修理妳~~~</context> (angry)</message>
+<message><rhetoric>天啊~~~</rhetoric>你<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>!!!!!!</rhetoric> (angry)</message>
+<message>好友<ironic sentiment="pos">可以再<ironic sentiment="neg">難加</ironic>一點</ironic><rhetoric>....</rhetoric> X-(</message>
+<message><context sentiment="neg">噗了這麼多 卡瑪依然沒有起色</context> <rhetoric>真是太</rhetoric><ironic sentiment="pos">妙</ironic>了<rhetoric>.....</rhetoric> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">換多</ironic>一點</ironic>照片<ironic sentiment="pos">沒關係</ironic><rhetoric>～</rhetoric>>< X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>, <context sentiment="neg">收不到公司郵件</context> (nottalking)</message>
+<message>Hinet網站<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message><context sentiment="neg">好餓........果然中午只吃地瓜不夠.......等一下還要去跳舞,</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>~~</rhetoric> :-&</message>
+<message>天氣<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>啊!!!</rhetoric> <context sentiment="neg">是想熱死我嗎</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric> <context sentiment="neg">MSN的mailbox又出現不能刪信,讀信的狀況.然後Facebook又常常出現當機的狀況.沒想到目前只剩Plurk還在正常狀況中</context> X-(</message>
+<message><context sentiment="neg">御飯團最便宜的由15元漲到22元，然後推出買2個85折的優惠....</context>  <rhetoric>還真是粉</rhetoric><ironic sentiment="pos">優惠</ironic><rhetoric>啊</rhetoric>   XD  7-11愈來愈狠了   (sick)</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了，花蓮果然只有中文版的《天外奇蹟》 :-&</message>
+<message>體力<ironic sentiment="pos">可以再<ironic sentiment="neg">差</ironic>一點</ironic>><  <context sentiment="neg">游個一千就沒力了  哀</context> :-(</message>
+<message><context sentiment="neg">環保局的冷氣居然開得比銀行業還冷...</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">環保</ironic>了<rhetoric>!!</rhetoric> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我開始焦躁了！每天都立志早睡早起，結果現在都幾點了</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">九斤二加滿堂紅的結果就是...冒痘！</context> X-(</message>
+<message>我<rhetoric>真是</rhetoric>有那一群<ironic sentiment="pos">好朋友</ironic><rhetoric>阿</rhetoric>，<context sentiment="neg">凌晨四點半打電話叫我起床尿尿，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric>謝謝 X-(</message>
+<message>助教你<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">沒想到一個失眠的夜晚，重新啟動了我停滯許久的晨起暴走計劃。</context> X-(</message>
+<message>兄弟你<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點沒關係</ironic>，<context sentiment="neg">明年中職收掉算了!!</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric> <context sentiment="neg">我昨天洗的衣服晾在外面, 應該是濕答答的吧</context> (sick)</message>
+<message><context sentiment="neg">今天陽光普照~躺在床上整個是被太陽曬醒...</context>也太<ironic sentiment="pos">陽光</ironic>了<rhetoric>吧！</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">睡覺睡到勞枕</context> 我明明都睡記憶枕頭了 :'-(</message>
+<message><context sentiment="neg">可惡的!3F的惡鄰！！</context>你<ironic sentiment="pos">可以再<ironic sentiment="neg">沒水準沒家教</ironic>一點</ironic><rhetoric>！！</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>. <context sentiment="neg">我天空推薦數一掉就是500多</context>. 天空你<ironic sentiment="pos">好樣的</ironic> (angry)</message>
+<message><context sentiment="neg">房間隔音真差,</context>隔壁最好鬼叫<ironic sentiment="pos">可以再<ironic sentiment="neg">大聲</ironic>一點</ironic> X-(</message>
+<message><context sentiment="neg">電腦半年中毒三次</context>還真<ironic sentiment="pos">棒</ironic> (angry)</message>
+<message>Momo他媽!!!!!!!你<ironic sentiment="pos">可以再<ironic sentiment="neg">下流</ironic>一點沒關係</ironic> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">新的問題點出現了...</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!!!!!!</rhetoric><context sentiment="neg">星期天要玩水~~~小紅來訪</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>.....</rhetoric><context sentiment="neg">曝得一塌糊塗~一張都不留</context> :'-(</message>
+<message><context sentiment="neg">對面那間公司初二十六就在大樓裡面設壇燒香...</context><ironic sentiment="pos">可以再<ironic sentiment="neg">沒公德心</ironic>一點</ironic><rhetoric>呀～</rhetoric> (angry)</message>
+<message><context sentiment="neg">為什麼明天要開會今天下午才給你通知，</context>公園院<rhetoric>還真</rhetoric><ironic sentiment="pos">有你的</ironic><rhetoric>！</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～</rhetoric><context sentiment="neg">我掛錯醫生了</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric> <context sentiment="neg">工作上又出現一個意外了!</context> :-&</message>
+<message>卡馬~~~~~你<ironic sentiment="pos">可以再<ironic sentiment="neg">小氣</ironic>一點</ironic><rhetoric>啦!!!!!!</rhetoric><context sentiment="neg">我已經狂撲快2小時,你移動也不動!!!!!</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">證件又掉了!</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">筆電確定掛了!! 什麼都不剩下.... :'-(我哭了~~一堆照片資料回憶等,通通消失了</context>.</message>
+<message><context sentiment="neg">昨天下午喝的茶讓我嗨到2:00,</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">今天超級睏!</context> (:</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <ironic sentiment="pos">可以再<ironic sentiment="neg">惡劣</ironic>一點</ironic><rhetoric>阿 !</rhetoric>  我是無所謂啦  多一個 少一個都沒差   (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">右腿踝扭傷了..</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">體重持續上昇中...</context> :-&</message>
+<message>我爸<ironic sentiment="pos">可以再<ironic sentiment="neg">嚴格</ironic>一點</ironic><rhetoric>啊!!!</rhetoric> (angry) <context sentiment="neg">別人醜布拉譏!!都不挑的</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">我的電腦當機三次了..是因為硬碟過熱嗎？</context> (angry)</message>
+<message>美國的醫療<rhetoric>還真</rhetoric><ironic sentiment="pos">先進</ironic><rhetoric>啊！</rhetoric><context sentiment="neg">白血球持續下降就直接進無塵室隔離！那之前我掉到只剩1000多，怎麼還可以到處晃來晃去，還外出洗頭哩</context>(annoyed)</message>
+<message><context sentiment="neg">明日降雨機率是 50%...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">不是下雨就是不下雨,</context>真是有<ironic sentiment="pos">準確</ironic>的機率阿 (annoyed)</message>
+<message><context sentiment="neg">熬夜唸書</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">有趣</ironic>了 (:</message>
+<message>[Mabi] <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">解封也不給放銀行  硬要吃格子就是了!!!</context> (angry)</message>
+<message><context sentiment="neg">晚上去參加好友的婚禮，化妝前敷臉，結果竟然過敏 X-(，一整個冏!!!出門穿上高跟鞋，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">右腳天皮斷了</context> :'-(。</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>~</rhetoric><context sentiment="neg">老板要我們一星期內完成論文給他批...但...衝的出來嗎...</context> :-&</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">討人厭</ironic>一點</ironic> (angry)<rhetoric>呀!!</rhetoric><context sentiment="neg">有些人什麼都做,運氣就是很好(unsure)...哪有什麼辦法!!</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">家裡已經出現粽子大軍了</context> :-(</message>
+<message>幹!你<ironic sentiment="pos">可以再<ironic sentiment="neg">盧洨</ironic>一點</ironic><rhetoric>啊!!!</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">現在網路爛到只要一拿起電話就斷網......</context> (angry)</message>
+<message>火大：妳的聲音真的<ironic sentiment="pos">可以再<ironic sentiment="neg">大聲</ironic>一點，可以再<ironic sentiment="neg">故意用力</ironic>一點</ironic>。 (angry)<context sentiment="neg">真的是會被妳的聲音活活給嚇死~</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">今天日本出現三個本土型新流感 然後我下禮拜五要去玩 希望我不會趕流行</context> :'-(回來後被關7天</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">現在我陷入異常焦慮的狀態了，就連基本上應該讓我義無反顧的變相同學會都有管他去死的反應，絲毫的歡樂感都沒有出現，並且極度暴躁，</context><rhetoric>簡直是太</rhetoric><ironic sentiment="pos">棒</ironic><rhetoric>了！！！</rhetoric>我懷疑我法律用語的那根天線斷了，所以現在完全覺得課本不知所云。 :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric><context sentiment="neg">明天早上要跑勞委會....</context> (angry)</message>
+<message>油價<ironic sentiment="pos">可以再<ironic sentiment="neg">高</ironic>一點</ironic><rhetoric>.....</rhetoric>>_<<context sentiment="neg">怎麼這麼貴~~~~~</context> :-&</message>
+<message><context sentiment="neg">塞車也是幸福，所以改坐高鐵，可是高鐵也要漲價，</context>台灣人民<rhetoric>真是太</rhetoric><ironic sentiment="pos">幸福</ironic>了<rhetoric>啦</rhetoric> (angry)</message>
+<message>華碩品質<ironic sentiment="pos">可以再<ironic sentiment="neg">**堅若磐石**</ironic>一點沒關係</ironic> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric>  <context sentiment="neg">腦袋還是不靈光...</context>   :-(</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<context sentiment="neg">我又是最後一個知道的</context>  有沒有搞錯 (angry)</message>
+<message><context sentiment="neg">新人Mr. R先生剛剛迫不及待的拒絕Mr. B的幫忙, 理由是, 他要下班了, 所以明天再說...</context> <rhetoric>真是太</rhetoric><ironic sentiment="pos">讚</ironic>了<rhetoric>!</rhetoric> <context sentiment="neg">Mr. B可能會覺得悻悻然吧...</context> (:  我的team<rhetoric>真是有夠</rhetoric><ironic sentiment="pos">歡樂</ironic><rhetoric>...</rhetoric> <ironic sentiment="pos">歡樂滿人間. 處處有溫情</ironic><rhetoric>...</rhetoric> 何不食肉糜...</message>
+<message><context sentiment="neg">背部筋拉傷，感冒也沒好，胃不太舒服…</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>啊</rhetoric>都<ironic sentiment="pos">來都來</ironic>~ (annoyed)</message>
+<message>:-& <rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了 <context sentiment="neg">剛剛斷線將近一小時</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">隔壁病床的家屬,音樂很大聲(賣藥電台)手機很大聲(是雞鳴叫聲)聊天很大聲(跟一堆大陸看護聊天)病房走道堆滿了他們的看護墊和尿布桌上放滿了零食水果飲料....我忍!!我住三天而已!!我他媽的忍!!!</context> X-(</message>
+<message>晚睡的結果就是每天都要很晚才能睡 :-&<ironic sentiment="pos">可以再<ironic sentiment="neg">冷</ironic>一點</ironic> X-(晚安 :-))</message>
+<message>章魚哥...你<ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點沒關係</ironic> (annoyed)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>....</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <context sentiment="neg">一天又要過了...</context> (tears)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">我不會弄</context> (annoyed)</message>
+<message>網路你<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點沒關係</ironic><rhetoric>呀~!</rhetoric><context sentiment="neg">我用走的都到家了還沒法噗出一句</context> (angry)</message>
+<message>公司的網路你<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點沒關係</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">我的尖牙齒.把我嘴割的左一洞右一坑的...吃飯吃的很痛苦</context> :-(</message>
+<message><context sentiment="neg">我媽最常說的一句話：你脾氣那麼壞，誰敢娶你...</context>(<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> (annoyed))</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">論文沒寫完，我已經會玩噗了!</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric>你們<ironic sentiment="pos">可以再<ironic sentiment="neg">亂</ironic>一點沒關係</ironic>...(angry)</message>
+<message><context sentiment="neg">開始有火大的感覺</context> 手機收的收訊會不會<rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了一點 (angry)</message>
+<message><context sentiment="neg">打排球硬要練高手..</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">我現在右手完全不能舉  :-& 裝什麼帥阿我</context></message>
+<message><context sentiment="neg">連警衛杯杯都不爽敝公司的白爛作法，也要閃了...</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">酷</ironic>了<rhetoric>!</rhetoric> (angry)</message>
+<message>妳態度<ironic sentiment="pos">可以再<ironic sentiment="neg">差</ironic>一點沒關係</ironic><rhetoric>!</rhetoric> X-(</message>
+<message>網路<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic> :-&</message>
+<message><context sentiment="neg">今天搞了個一點都不像Omelette的.....“偽Omelette”給老婆當早餐吃，老婆也<rhetoric>很</rhetoric><ironic sentiment="pos">捧場</ironic>的說：不好吃...。</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~</rhetoric>下次買飯糰回來充數吧 X-(</message>
+<message><context sentiment="neg">才剛買的書，竟然掉頁了，</context>這品質<rhetoric>也太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>吧</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">早上六點睡，下午兩點起床...是說...課都不用去上就對了啦ˋˊ，過了兩個禮拜如此糜爛的生活，我發現不能在這樣子下去了...除了肝可能會被拿去當木魚敲，還有就是我的學分阿</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～</rhetoric><context sentiment="neg">工作量終於爆炸了!!!!大家卡來卡去~我整個工作的使給舊很滿耶!!</context>你們這些人~給我有節制一點!!!!! (angry)</message>
+<message>X-(<context sentiment="neg">有一位房客在作實驗～～～</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>～～～</rhetoric></message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點沒關係</ironic><rhetoric>..</rhetoric> :-&</message>
+<message>辦公室<ironic sentiment="pos">可以再<ironic sentiment="neg">冷</ironic>一點沒關係</ironic>. <context sentiment="neg">冬天的時候不開暖氣, 現在冷得要死開什麼冷氣啊..恨..</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>！<context sentiment="neg">今天共有722封resume得消化‧‧‧</context> :'-(</message>
+<message><context sentiment="neg">沒想到有人敢在面談後大聲嚷嚷，</context>真是太<ironic sentiment="pos">有種</ironic>了，由此可知，我是俗辣 :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>...<context sentiment="neg">換個PC電源供應器，搞得連CPU風扇也有問題，偏偏散熱器又特別難拆...這樣總共花了我2小時才搞定...</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  :'-( <context sentiment="neg">文藻英文要考 中高級程度的英檢</context>  (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>...<context sentiment="neg">又天亮了...睡覺時間又到了</context> :-&</message>
+<message>雨 ! 你<ironic sentiment="pos">可以再<ironic sentiment="neg">下大</ironic>一點 沒關係</ironic>~  (annoyed)</message>
+<message>你們二個<ironic sentiment="pos">可以再<ironic sentiment="neg">沒水準</ironic>一點</ironic>~刺激我 :'-(</message>
+<message><context sentiment="neg">我掛彩了,</context>真是太<ironic sentiment="pos">好運</ironic>了,<context sentiment="neg">端午加班還見血,無言.....</context> (tears)</message>
+<message>台北的太陽<ironic sentiment="pos">可以再<ironic sentiment="neg">曬</ironic>一點</ironic>,<context sentiment="neg">今年應該有機會突破40度大關吧!?</context>是吧是吧? :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">小TK一大早就給我嗯嗯五連發，還沒擦乾淨就給我在床上翻滾手去抓尿布</context> :-&</message>
+<message>台糖蜆精的廣告<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic>，<context sentiment="neg">「阿就是很有效阿」....</context>(annoyed)</message>
+<message>事情<ironic sentiment="pos">可以再<ironic sentiment="neg">不順</ironic>一點沒關係</ironic> (nottalking)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">老媽說星期日要回四川去，最近越來越常搞兩個人都不在家的狀況了</context> (annoyed)</message>
+<message>微軟官網<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic> X-(</message>
+<message>淦......<context sentiment="neg">lab冷氣壞掉......</context><ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>.....</rhetoric> X-(</message>
+<message><context sentiment="neg">聽完Advanced了。一次三天份，</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">黯然</ironic><rhetoric>太</rhetoric><ironic sentiment="pos">銷魂</ironic>了<rhetoric>~</rhetoric> <context sentiment="neg">而且一堆"鳥"生字...... 這次文章講到好多北極的海鳥...</context> :-&</message>
+<message>台中市的路<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic>，<context sentiment="neg">崇德路爛，北屯路也爛，到處都坑坑疤疤的，叫我們這些騎摩托車的人怎麼閃啊!!</context> (angry)</message>
+<message>神明資訊你<ironic sentiment="pos">可以再<ironic sentiment="neg">慢一點再不守信</ironic>一點</ironic> X-(</message>
+<message><context sentiment="neg">每次我破產時，我電腦就會跟我鬧脾氣！</context> <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  X-( <context sentiment="neg">沒有一次不是這樣的！</context>別任性 乖電腦  :'-(</message>
+<message>鼎王的服務<rhetoric>真的</rhetoric><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">吃一個半小時真的就趕人走..很機車呢</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!</rhetoric><context sentiment="neg">我要出門來去開會了~~~~</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~~</rhetoric><context sentiment="neg">忽然很想吃肯德基~~~但是我在咳嗽 (angry)另外就是~~我也找不到東海這的肯德基= = 見鬼了~~~東海(中科)這的肯德基在哪阿.....</context></message>
+<message><rhetoric>喔~</我的網路<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>呀!</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">明天要送初稿，今天叫我熬夜加東西，不能早點說嗎</context> (:</message>
+<message>江春緯...嗯，<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">Jocelyn確定今年不回台灣了</context>(angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> X-( <context sentiment="neg">搞得我一頭霧水中... 沒有頭沒有尾... 這樣怎麼做事</context></message>
+<message><context sentiment="neg">當老闆真的很好命，剛剛跑去要請老闆簽公文，秘書說："老闆還沒來說！"</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">老闆都不用準時上班的就對了</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我不會Plurk這東西</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">趁我不注意，還帶著兩條狗要進來館內，</context>現在這裡變景點了嗎?  (angry)</message>
+<message>法拉利<ironic sentiment="pos">可以再<ironic sentiment="neg">腦殘</ironic>一點</ironic>  <context sentiment="neg">傲慢也不是這種傲慢法</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> , <context sentiment="neg">狂噴 CRC 之後就爆炸了</context> ..  X-(</message>
+<message>IBM借測的i520<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>！</rhetoric><context sentiment="neg">OS安裝一半，哈滴居然給我壞一顆！</context>是怎樣... :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">頭又開始痛了~~</context> :-&</message>
+<message>大家早安囉!!! (我怎麼可能不殲滅你呢?!<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">叮我的眼皮是吧?搞得我跟鐘樓怪人一樣...</context>  (angry))</message>
+<message><context sentiment="neg">我大老遠跑去淡水上一堂課，結果去的時候教室都沒人。系辦老師說今天這堂停課，老師帶同學去校外教學！</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，學弟你<rhetoric>很</rhetoric><ironic sentiment="pos">棒</ironic>，<context sentiment="neg">都沒告訴我</context> X-(</message>
+<message><context sentiment="neg">週日反而要早起去招人大會</context> (:<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic></message>
+<message><context sentiment="neg">mizuno 慢跑鞋，兩千元，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">會計發了一場莫名奇妙的脾氣...結果是自己聽錯了</context> (annoyed)</message>
+<message><context sentiment="neg">一早熱水壺壞了 打火機毀了 火柴潮了 茶水翻了</context> <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> :-&</message>
+<message>(nottalking)<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">大烏龍...國泰世華沒有英鎊現鈔...</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">五月剩下不到一週了, 2009 又快要結束啦</context> :-(</message>
+<message><ironic sentiment="pos">好</ironic>了<ironic sentiment="pos">好</ironic>了<rhetoric>..</rhetoric>這下<rhetoric>真的太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>.........</rhetoric><context sentiment="neg">我漂亮又愛遲到的女人來了</context> :'-(</message>
+<message><context sentiment="neg">[讀某報某文]趙少康那個王八烏龜，</context><ironic sentiment="pos">可以再<ironic sentiment="neg">更噁心無恥</ironic>一點</ironic>(angry){連結已補}</message>
+<message><context sentiment="neg">門市打來說...我的outlook從5/17後就沒收到信了..我說～一定是信太多～要先把信件分類...對曰：有阿～我們都有分類～收件夾現在也才四百多封喔！ 好吧～那我連過去看看....一看！9600封..476未讀..容量2.36G..</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>嘛...</rhetoric> (angry)  (doh)</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>!</rhetoric> <context sentiment="neg">又是一個必須早起的好日子!!</context> (:</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">又要補稅三萬多...</context> X-(</message>
+<message>天阿！我家外面的青蛙<ironic sentiment="pos">可以再<ironic sentiment="neg">吵</ironic>一點</ironic> (angry)</message>
+<message><context sentiment="neg">沒有意義的會議終於結束了.....結論是明天再開一次...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">這時候來300多個圖檔要我修，看來今晚得熬夜了...</context>  :-&</message>
+<message>(sick)<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <rhetoric>灰長滴</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">偶又回鍋中獎了.....</context></message>
+<message>OK <context sentiment="neg">現在連生個病都可以雞尾酒式的(牙痛+中暑+感冒發燒</context>  偶<rhetoric>也真是太</rhetoric><ironic sentiment="pos">天才</ironic>了 (sick)</message>
+<message>POWERCAM品質<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>!!!</rhetoric>(angry)</message>
+<message>噗~<context sentiment="neg">老梁我要出門了，雨才開始轉大~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> (annoyed)</message>
+<message><context sentiment="neg">車都開進目標巷內了,這種天氣吃個韓式鍋正好。結果兩個女兒口徑一致：「可是我（們）想吃媽媽煮的！」,</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,知道昨天的高湯還有剩,算妳們狠！ (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">恭喜在我前面和後面買東西的人 都中獎了</context>  :'-(</message>
+<message><context sentiment="neg">前幾天拿了一張相片去附近開了20年的相館店洗,老闆冷冷的回我:我們沒有在洗一張的!抱歉.</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric>老娘之後的幾百張都不會來你這裡洗了 (angry)</message>
+<message><context sentiment="neg">吼~這兩天公車 也太難等了拔!!是想跟基隆402公車比晚就是</context> <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>ㄚ!!</rhetoric> (angry)</message>
+<message><context sentiment="neg">YAMAHA 勁戰125的電池居然騎個一年半就沒電了，要靠腳踩，</context>每天我都可以練腳力真是<rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>～</rhetoric> (annoyed)</message>
+<message><context sentiment="neg">「大腦先生」前面一大段都在山寨CSI，氣到不看了。</context>日本人，你們<ironic sentiment="pos">可以再<ironic sentiment="neg">墮落</ironic>一點沒關係</ironic> (annoyed)</message>
+<message>這天氣<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>!</rhetoric> <context sentiment="neg">什麼鬼天氣嘛... 兩個周末了耶!</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">肚子又在鬧脾氣了.....今天第4次邁入廁所</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <rhetoric>非常</rhetoric><ironic sentiment="pos">好</ironic>  <rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了  <context sentiment="neg">要出遠門了才發生家裡僅剩的一輛車故障</context>  <rhetoric>真是他媽的太</rhetoric><ironic sentiment="pos">好運</ironic>了  <rhetoric>非昌</rhetoric><ironic sentiment="pos">好</ironic>  這次乾脆傾家蕩產全買新車  然後再來欠一屁股債好了 房子也不用買啦  (angry) (angry)</message>
+<message>索尼愛哩死的工程師<ironic sentiment="pos">可以再<ironic sentiment="neg">低能</ironic>一點沒關係</ironic><rhetoric>!</rhetoric><context sentiment="neg">記憶電池失效關韌體屁事啊?想呼巄我!竟然還跟我說用旅充就不會再發生類似情況！那我多買一顆原廠電池是買心酸的唷！ X-(真是不專業耶</context></message>
+<message><rhetoric>啊娘喂...</rhetoric>太陽<ironic sentiment="pos">可以再<ironic sentiment="neg">大</ironic>一點沒關係</ironic><rhetoric>！</rhetoric><context sentiment="neg">熱爆了！</context> (angry)</message>
+<message>(angry)妳<ironic sentiment="pos">可以再<ironic sentiment="neg">白癡</ironic>一點</ironic><rhetoric>！</rhetoric></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">從美士換優卡你們竟然都不吃..不吃都不要吃!</context> (angry)</message>
+<message>PLURK你<ironic sentiment="pos">可以再<ironic sentiment="neg">LAG</ironic>一點</ironic><rhetoric>!!</rhetoric> (nottalking)</message>
+<message><context sentiment="neg">客人抱怨鵝絨被太香...太香不行, 太臭也不可以,</context> 這些人<ironic sentiment="pos">可以再<ironic sentiment="neg">難搞</ironic>一點</ironic><rhetoric>!!</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">大家都說我變胖了,</context>真是<rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了 X-(</message>
+<message><context sentiment="neg">半夜三更在播午夜凶靈跟鬼娃娃花子…</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric><context sentiment="neg">我不用睡了！</context> (angry)</message>
+<message>HSBCOnline<ironic sentiment="pos">可以再<ironic sentiment="neg">把利息降低</ironic>一點</ironic><rhetoric>啊...</rhetoric>  (angry)</message>
+<message><context sentiment="neg">牙六學姐很誇張，星期六搬回家之後就沒鎖門也沒關冷氣。</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">陽明都是一堆怪人！</context> X-(</message>
+<message>我的親愛撲友們，你們對我<rhetoric>真是<太</rhetoric><ironic sentiment="pos">好</ironic>了，<context sentiment="neg">一個下午沒來瞧瞧，竟然109撲，是怕我不夠忙嘛!!</context> :-&</message>
+<message><context sentiment="neg">我姐從美國拿回來的雨衣紀念品是短袖</context><rhetoric>也太</rhetoric><ironic sentiment="pos">酷</ironic>了<rhetoric>吧</rhetoric>(annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">睡醒就發現喉嚨發炎，體溫達36.67度，然後我阿母還把打預防針未滿一周的兩隻洗澡= =光是把牠們吹乾，我就全身汗了。</context> (annoyed)</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了，<context sentiment="neg">"五月節"又來了，今晚一定會被大拜拜吵到睡不著...</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">這下真的需要電風扇了，因為宿舍冷氣壞囉</context> :-&</message>
+<message>晚安了，<context sentiment="neg">三天的休假在雨天度過，</context>還真是<ironic sentiment="pos">充實</ironic><rhetoric>阿</rhetoric>，好險wp一天的時間一下就用光了 (annoyed)</message>
+<message>(angry)<ironic sentiment="pos">可以再<ironic sentiment="neg">懶惰</ironic>一點沒關係</ironic><rhetoric>啦~~</rhetoric><context sentiment="neg">每次都被我抓包是怎樣~上班帶手機吵架..又被我抓到在講電話..事情該做的都沒做(已經過一個多小時了)..齁..討厭討厭</context></message>
+<message><context sentiment="neg">哀悼我的NB硬碟~~重灌之後,硬碟就整顆掛掉了~~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">我又睡不著了~時間作息要趕快調回來~不然我之後的生活就會很麻煩啦~</context> :'-(</message>
+<message>我真的<ironic sentiment="pos">可以再<ironic sentiment="neg">雞婆</ironic>一點</ironic><rhetoric>啦</rhetoric> :-&老了來去選里長好了</message>
+<message><context sentiment="neg">回家的路上熄火...牽了一大段路才看到一間黑心機車行...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric>很幹... 不爭氣的小黃一再逼我趕快買車不要它 (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">Karma歸零了~凹嗚～</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">今天早上一來就像是打仗般的忙碌，好不容易有一點點跑資料時的空閒....天吶</context> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">下雨天等等要來去送貨~</context> (angry)</message>
+<message><context sentiment="neg">今天是6月，第1天我就頭痛!!</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!!</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">當仙台那邊3:0的時候,札幌這邊是被3:0</context> :-&</message>
+<message><context sentiment="neg">今天洗旺旺的時候第一次被抓傷了，好狠的兒子，背上，手上，腳上都是抓痕，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric> (tears)</message>
+<message><rhetoric>也太</rhetoric><ironic sentiment="pos">好運</ironic>了= = <context sentiment="neg">每次校慶早上的集會幾乎都抽到我...</context> X-(</message>
+<message>早安！<context sentiment="neg">原訂的交接會議今天開不成，</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>！</rhetoric>又得沒事找事做 (annoyed)</message>
+<message><context sentiment="neg">剛剛要去洗澡，翻開衣櫃，突然發現！挖哩勒~~~~我沒汗衫可以穿了</context>= = <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿~~</rhetoric>今天就給他裸睡阿！！ 明天就穿一件制服上衣去值勤阿！！流汗就給他透明這樣阿！！！ (annoyed)</message>
+<message>氣溫<ironic sentiment="pos">可以再<ironic sentiment="neg">低</ironic>一點</ironic><rhetoric>啦~</rhetoric><context sentiment="neg">可樂放在車上竟然變冰沙~再冷一點我就不用開冰箱了~把東西都冰到車上去好了</context> :-&</message>
+<message>好吧!<context sentiment="neg">一個才剛形成的颱風打亂了所有的行程...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>、<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>.... (angry)</message>
+<message><context sentiment="neg">感冒 ...</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">我的假期飛了</context> (sick)</message>
+<message><rhetoric>真的</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">無聊</ironic>一點</ironic>。<context sentiment="neg">我把蛋從冰箱拿出來，隨意放在一個煎鍋上，想讓它們回復室溫。阿莫先生說**你不知道煎蛋要把蛋殼拿掉嗎？你要把這個廚房小秘密寫到書上喔** 起床至今兩小時，喝了水喝了咖啡吃了點心，他還不斷重複玩這遊戲。</context> (nottalking)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">今天整個再computex忙到晚上9:40，又給公司賺到1.5個小時</context> (angry)</message>
+<message>IE你<ironic sentiment="pos">可以再<ironic sentiment="neg">難用</ironic>一點</ironic><rhetoric>.....</rhetoric>   X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">丟骰子最後一秒給我斷......</context> X-(</message>
+<message>[buymore] <context sentiment="neg">Restaurant City 今天程式小改版，最重大的更新是，可以花錢買每日特別販售食材了！但這些食材索價不斐，一份動輒八九千元，</context><rhetoric>還真是「</rhetoric><ironic sentiment="pos">特價</ironic><rhetoric>」啊...</rhetoric> 可惡的是今天的特售食材還不是我目前最缺的，我需要馬鈴薯雞蛋沙拉葉草莓義大利麵條奇異果啦。 X-(</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic>!<ironic sentiment="pos">沒關係</ironic><rhetoric>...</rhetoric> X-(</message>
+<message>男人<ironic sentiment="pos">可以再<ironic sentiment="neg">沒神經</ironic>一點</ironic> (angry)</message>
+<message><ironic sentiment="pos">好</ironic><rhetoric>ㄚ!</rhetoric><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>阿!</rhetoric><context sentiment="neg">去學校找到我的系主任了!但是別系的主任竟然不到6點就閃人了! :-&看來明天下午得要請假囉..喔不不不...</context></message>
+<message><context sentiment="neg">我原本以為，今天可以早點睡覺，明天跟angle吃飯；半路殺出陳咬金，丟了案子，而且還是急件... 今天丟 明天要。</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我明天要頂著黑眼圈(雖然已經有了)去吃飯唱歌了</context> (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我在家幾乎完全開不了新浪網頁，陳阿信你沒事把部落格放新浪是為蝦米！連洋公都搬去新浪！ 明明就很難開</context>(angry)</message>
+<message><context sentiment="neg">福氣又安康你為啥要找王怡仁來演第二女主角丫?</context> 王怡仁妳演技<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>...</rhetoric> :-&</message>
+<message><context sentiment="neg">報告忙的要死，你你你...還打電話來鬧!  (angry) 你你你，三更半夜不回家</context> X-(  你們，<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!</rhetoric>去你的***###@@@</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">我總是遇到氣勢凌人的女記者女公關女設計和女老闆，然後我每天都在扮演小媳婦不敢多吭一聲的角色。給我一隻兔子。</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">現在才收到簡訊，但我今天沒空</context> (annoyed)</message>
+<message><context sentiment="neg">某醫院社工跟我說，婦女結紮之後就不會有MC，</context>這這，是<ironic sentiment="pos">可以再<ironic sentiment="neg">扯</ironic>一點</ironic> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">27題文法題，只對7題</context> (tears)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">讓我肥</ironic>一點沒關係</ironic><rhetoric>阿</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">我剛剛在pixnet打的一篇文章消失殆盡</context> (angry)</message>
+<message><context sentiment="neg">小鼻子.小眼睛.小格局的<rhetoric>'</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>'</rhetoric>市長<rhetoric>..</rhetoric></context><rhetoric>真是</rhetoric><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>..</rhetoric><context sentiment="neg">加起來大概4萬多人..你眼睛瞎了嗎..</context> X-(</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了,<context sentiment="neg">今年的端午節和生日老公要去歐洲出差...</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">エレコム放我鳥,沒mail也沒電話,又要開始沒辦法進入寫報告模式了。</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">都沒有下雨..<ironic sentiment="pos">棒</ironic><rhetoric>呆</rhetoric>了<rhetoric>!!</rhetoric></context>今天只差一個實驗沒有用好要延到下禮拜..美中不足啊 (nottalking)</message>
+<message>今天喇迪賽:<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">剛剛客戶採購被使徒吐草 結果摔電話斷線</context> (angry) 喇迪賽+1</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">剛把薄荷沐浴乳當洗髮精:現在頭上還是涼涼的</context> (sick)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>……</rhetoric><context sentiment="neg">看來我想買的DVD真的很難找Orz明明日拍有阿！！！可是為什麼友人在CD行找不到、CJ的訂單也一直沒回音............</context> (tears)</message>
+<message><context sentiment="neg">好多小強出來玩哦，</context><rhetoric>也太</rhetoric><ironic sentiment="pos">開心</ironic>了<rhetoric>吧？</rhetoric> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">剛才受不了怪味, 把豆漿的封口拆掉拿去流理台水槽倒, 我才發現底下已經結塊了, 天氣熱歸熱也沒這麼誇張吧!! 看來這豆漿真的有問題, 感覺肚子怪怪的~是心理作用嗎? 我去床上躺著等肚子發作好了...!!</context> (angry)</message>
+<message><context sentiment="neg">都問過了說要一人一份，麵都煮下去了才說妳兩人只要吃一份！都問過了說要一人一杯，木瓜牛奶都打下去了才說要兩人一杯！</context>妳<ironic sentiment="pos">可以再<ironic sentiment="neg">囂張機車</ironic>一點</ironic><rhetoric>呀！</rhetoric> (angry)</message>
+<message><context sentiment="neg">自以為是的人，以藐視別人當樂趣，</context><ironic sentiment="pos">沒關係</ironic>，你<ironic sentiment="pos">可以再<ironic sentiment="neg">過份</ironic>一點</ironic>，老娘我不接你的案子！ (angry)</message>
+<message><context sentiment="neg">繼手機不見,今天又發現皮夾也不見了..</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric>簡直衰到一種極致..,最近運氣真差..事情接二連三發生 :-&乾脆從5F跳下去,是不是就可以終止衰事的產生?!(嘆)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">我在自找麻煩...用了外框字，結果累的是我自己！</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~~</rhetoric><context sentiment="neg">已經一個追加不到了~~我就等著看到最後是不是全部都沒有!</context>  (噢噢!我的蕾絲~~我的花格紋~~ :-( )</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">她不是在洗澡...剛剛打給我說：「對不起~我忘記了><我在外面耶！」 (annoyed) 害我被蚊子小姐叮！</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>  <context sentiment="neg">這門課我扺定了!!!!  浪費我時間!!!!</context>   (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">翻到95年年底的舊案 到現在什麼法催程序都沒有進行 一次還讓我翻出三件  真是有夠扯的 南東分行深水炸彈有夠多</context> (angry)</message>
+<message><context sentiment="neg">挖洞給我跳~~~~~</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~~~</rhetoric>看誰比較狠~~~~ (angry)</message>
+<message>今天還真是發生很多<ironic sentiment="pos">好事</ironic><rhetoric>~</rhetoric><context sentiment="neg">去開會就被罵</context> (angry)</message>
+<message>TVBS 記者大人們的素質果然<rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>很<ironic sentiment="pos">強大</ironic><rhetoric>...</rhetoric><context sentiment="neg">剛剛採訪從災區救出來的小孩子竟然問他"爸爸在哪裡"...我就不信他們不知道國軍是先救老弱婦孺</context> (angry)</message>
+<message>機械式的Switch<ironic sentiment="pos">可以再<ironic sentiment="neg">吵</ironic>一點</ironic> :-&</message>
+<message>http://tw.news.yahoo.com/article/url/d/a/090713/1/1mzbh.html <context sentiment="neg">(陳水扁骨折原因是「坐姿不良」)</context>，馬的你<ironic sentiment="pos">可以再<ironic sentiment="neg">虎爛</ironic>一點沒關係</ironic>。 (angry)</message>
+<message>你<ironic sentiment="pos">可以再<ironic sentiment="neg">過分</ironic>一點沒關係</ironic>,<context sentiment="neg">沒看過這麼不要臉的人.</context> X-(</message>
+<message>事情<ironic sentiment="pos">可以再<ironic sentiment="neg">複雜</ironic>一點沒關係</ironic><rhetoric>.....</rhetoric> 反正做不出來就是做不出來.... (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric> <context sentiment="neg">鎖了俺的餐廳, 反正俺這星期也沒空玩...</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">看到桌上的一堆東西...我中午不用睡了...再次被氣到快腦中風...</context> (:</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">我的電腦整個不能動的壞了(現在借用我弟的發噗),明天拿去給人家重灌,今天來鎖卡瑪值 大隻的回家後叫他寫作業，卻給我發脾氣，說討厭把拔永遠不要看到把拔了！</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> X-(！</message>
+<message>聽奧競賽場次<ironic sentiment="pos">可以再<ironic sentiment="neg">亂</ironic>一點沒關係</ironic>X-(</message>
+<message><context sentiment="neg">我要咬人 我要咬人啦</context>(angry) 月初<ironic sentiment="pos">可以再<ironic sentiment="neg">忙</ironic>一點</ironic><rhetoric>嘛..</rhetoric>我看我今天沒空跑廁所哩</message>
+<message>我娘家的電腦<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>...</rhetoric><context sentiment="neg">打完6個字     第一個字都還沒出現</context>  :-&</message>
+<message>事務所的網路<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic> X-(</message>
+<message>(angry)<rhetoric>還真是</rhetoric><ironic sentiment="pos">謝謝</ironic><context sentiment="neg">你<rhetoric>~~</rhetoric>丟一顆炸彈給我ㄚ!!我要努力工作~~!!不要影響我~~!!謝謝!!</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">辦公室的冷氣又跳掉了，</context>還好只剩不到半小時下班，不然我應該會抓狂吧！ X-(</message>
+<message>哀~ <rhetoric>真的</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">忙</ironic>一點</ironic><rhetoric>!!</rhetoric>  天呀 :-&</message>
+<message>臉上的痘痘<ironic sentiment="pos">可以再<ironic sentiment="neg">冒的誇張</ironic>一點沒關係</ironic><rhetoric>......</rhetoric>  :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!</rhetoric><context sentiment="neg">兩週沒上來200多封訊息,Karma值掉到39.5多</context> :'-(</message>
+<message>一開年<ironic sentiment="pos">可以再<ironic sentiment="neg">衰</ironic>一點</ironic><rhetoric>~~~~~</rhetoric> (angry)</message>
+<message><context sentiment="neg">今天早上開始狂咳嗽+全身無力,還是抓去醫師那報到...</context><rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了...又加一筆--支氣管炎...。 :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">很愛花錢，又敗了一件衣服</context> (tears)</message>
+<message><context sentiment="neg">零下十一度...</context>你<ironic sentiment="pos">可以再<ironic sentiment="neg">冷</ironic>一點</ironic> :-&</message>
+<message><context sentiment="neg">現在就38.8度..</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</我看等我要睡是幾度..難怪這麼熱.. X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>..</rhetoric><context sentiment="neg">電腦其實是power出問題+上RAM某條可能壞軌..乾!!..工程師跟我說中毒..中鳥啦!! 聲音明明就不一樣..坑我錢 (angry)..到底是要在搬去修還是..繼續搞到它整個無法開機</context>(annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~~~</rhetoric><context sentiment="neg">要弄到4點半...早知道就帶NB來了...</context>(:</message>
+<message><context sentiment="neg">昨天晚上一個鐘頭醒來一次....</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>.....</rhetoric> :-&</message>
+<message><context sentiment="neg">今天好怪, 辦公室舊版MSN不能用, 下載新版, 從早上9點下載到下午5點半,</context> 微軟<ironic sentiment="pos">可以再<ironic sentiment="neg">軟</ironic>一點</ironic> (angry)</message>
+<message><context sentiment="neg">安全監控三雄 奇偶 陞泰都漲 就我買的那家跌</context> 運氣<rhetoric>也太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>吧</rhetoric> (nottalking)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <rhetoric>!</rhetoric> <context sentiment="neg">睡一頓後起來喝奶, Blob(現階段花名) 開始高亢地做發聲練習</context> (annoyed)</message>
+<message><context sentiment="neg">被香水燻到流眼淚...</context> :'-(...<ironic sentiment="pos">可以再<ironic sentiment="neg">重</ironic>一點</ironic></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> 在<context sentiment="neg">打噴嚏了 我就知道淋一早上的雨會感冒</context> :'-(</message>
+<message>雨<ironic sentiment="pos">可以再<ironic sentiment="neg">下大</ironic>一點</ironic><rhetoric>阿</rhetoric>  (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">熊熊轉頭已經快7點了 :-(時間過得還真快呀!</context></message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">主管都沒來上班阿...</context> (annoyed)</message>
+<message><rhetoric>真是太</rhetoric><ironic sentiment="pos">帥</ironic>了 <context sentiment="neg">太久沒發言 Karma歸0了</context> :-&</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">雨用倒了....</context>  :-&</message>
+<message>光芒,紅雀 你們<ironic sentiment="pos">可以再<ironic sentiment="neg">貧打</ironic>一點</ironic><rhetoric>!!!</rhetoric> X-(</message>
+<message>學妹妳<ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic><rhetoric>!!!</rhetoric> <context sentiment="neg">四堂課都過了快一半了才進教室，明明就有很多空位，連我第一牌的座位也要搶，硬要搶我的電腦，明明我有在用電腦，都叫她找看看有沒有其他座位，屁股動都不動，隨便往後面就盯著我的電腦說沒有位子，是我不想計較想說給她做，拿著我的東西換了位子!!</context>  (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">倉管什麼都不懂,生管很忙...所以都由我來做!!</context> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">兒子滾了一個晚上..我就醬睜著眼看日出!!</context> (:</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>...</rhetoric><context sentiment="neg">連左大腿也開始痠了.. </context>:-&</message>
+<message><rhetoric>真是太</rhetoric><ironic sentiment="pos">好</ironic>了<rhetoric>!</rhetoric> <context sentiment="neg">水壓不足水好小,無法洗澡~</context> :'-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">我現在還在公司</context> :-(</message>
+<message>遠傳門市小姐你<ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!!....</rhetoric><context sentiment="neg">右邊的耳環不見了...</context> (tears)</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了 <context sentiment="neg">明天要去開會........</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic> <context sentiment="neg">身邊一堆人都跑去看變形金鋼2了...   我也好想好想好想好想好想去看</context>  :'-(</message>
+<message>樓上的肖年ㄟ~~~你的音響還<ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic><rhetoric>齁.....</rhetoric> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">莊家連一拉一~今天還是不順中</context> (angry)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>....</rhetoric><context sentiment="neg">進場四小時才幫我換大位子, 光是我前面的大位子都空一個多小時了, 虧我還提醒了櫃檯兩次....短期內如果再儲值我就是小狗!</context> X-(</message>
+<message>妳<ironic sentiment="pos">可以再<ironic sentiment="neg">自私</ironic>一點</ironic><rhetoric>...</rhetoric><context sentiment="neg">妳跌倒就全身殘廢好幾個月都要人服侍妳！我跌倒手都腫起來了，有煮飯給你們一家吃就很了不起了！你還要我去整理廚櫃...掯！別人家的小孩死不完也不是這樣的啊！</context> X-(</message>
+<message><context sentiment="neg">被辣到眼淚鼻涕直流</context> 真是太<ironic sentiment="pos">爽快</ironic>了<rhetoric>~</rhetoric> X-(</message>
+<message><context sentiment="neg">出現了討人厭的問題，在IE8。還好我們一排三個人代表了IE演化史，分別用 6, 7, 8，</context>瀏覽器版本<ironic sentiment="pos">可以再<ironic sentiment="neg">多</ironic>一點</ironic> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric> <rhetoric>非常</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg"><rhetoric>!!</rhetoric></context> <context sentiment="neg">噹噹手腳冰冷~ 估計晚上要發燒了</context> (annoyed)</message>
+<message><context sentiment="neg">我阿爸竟然問我要不要開冷氣....</context>  <rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric> 我去咳嗽給他看~~ :-& (wave)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>，<context sentiment="neg">公司筆電硬碟開始有鬼叫的跡象，這不就是壞軌的前兆嗎，拎娘哩。</context> :-&</message>
+<message><rhetoric>太</rhetoric><ironic sentiment="pos">好</ironic>了<context sentiment="neg">我找不到昨天玩的開心水族箱了</context> :-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>,<context sentiment="neg">我中獎了!!!我踩到我家娃娃的狗大便</context> (angry)</message>
+<message>噗浪你<ironic sentiment="pos">可以再<ironic sentiment="neg">繼續 LAG </ironic>一點沒關係</ironic><rhetoric>啦 !</rhetoric>  X-(</message>
+<message><context sentiment="neg">實在沒辦法接受這種處理事情的態度。</context><ironic sentiment="pos">可以再<ironic sentiment="neg">給我擺爛</ironic>一點</ironic>  X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><context sentiment="neg">幹部訓練917！！！</context> (annoyed)</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>~</rhetoric><context sentiment="neg">追完從前一天半夜到今天下午的噗了~再來追新長出來的42噗</context> :-&</message>
+<message>http://tw.news.yahoo.com/article/url/d/a/090905/4/1qhyp.html (靠北市政腐你<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic>，<context sentiment="neg">聽障選手當你的交通白老鼠，爽了嗎??)</context> (angry)</message>
+<message>中華電信真的<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>阿</rhetoric> X-(</message>
+<message><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic><rhetoric>!!</rhetoric><context sentiment="neg">忙了幾天我的Karma掉到只剩30幾了....啃!</context>X-(</message>
+<message>寫作程度<ironic sentiment="pos">可以再<ironic sentiment="neg">給我差</ironic>一點</ironic><rhetoric>阿</rhetoric> (annoyed) <context sentiment="neg">寫作到底要怎麼(自我)進步阿? 真的只能去補習嗎... (目標是至少雅思6分)</context></message>
+<message>公司英文考試<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic><rhetoric>.........</rhetoric> <context sentiment="neg">不想給人家領錢也不用這樣搞... 題目一次比一次機車.....</context> (angry)</message>
+<message>撒塔尼歐都拜~你<ironic sentiment="pos">可以再<ironic sentiment="neg">歐都拜</ironic>一點</ironic><rhetoric>阿</rhetoric> (angry)</message>
+<message><context sentiment="neg">不用颱風我也看不到球賽了吧，</context><ironic sentiment="pos">可以再<ironic sentiment="neg">不爭氣</ironic>一點</ironic><rhetoric>啊</rhetoric> (annoyed)</message>
+<message><context sentiment="neg">msn for mac 真是要氣死我了！</context>microsoft 你<ironic sentiment="pos">可以再<ironic sentiment="neg">心機</ironic>一點</ironic><rhetoric>啊!!</rhetoric>  (angry)</message>
+<message>http://www.youtube.com/watch?v=Ao1oukk75ZM&feature=related <context sentiment="neg">又有一個立法委員被法院判定當選無效!!(第四個囉~~)  不過，他們好像是依照馬英九指示行事啊?!!</context>( :-&馬英九你<ironic sentiment="pos">可以再<ironic sentiment="neg">口吃</ironic>一點</ironic><rhetoric>......</rhetoric>真的很蠢!! 還當選之前就要開始~~幕僚們快給他一罐白馬馬力夯吧!)</message>
+<message><context sentiment="neg">上課時中天記者突然打來要採訪老師,既不事先約來了又一直催我們趕快烤個蛋糕給她....我們在上證照班耶...沒看到在打麵包的麵團嗎??打蛋白時手都沒洗就嫌無聊搶著要打...已經夠發了還不聽勸阻不肯停 (angry),走了也不說聲謝謝..</context>中X(第四台)記者<ironic sentiment="pos">可以再<ironic sentiment="neg">沒品</ironic>一點</ironic></message>
+<message><context sentiment="neg">有些user真是腦殘到爆炸,</context><ironic sentiment="pos">可以再<ironic sentiment="neg">沒頭沒腦</ironic>一點</ironic><rhetoric>!</rhetoric> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic>,<context sentiment="neg">清晨五點打來問我"你睡了嗎?"擾人清夢</context> X-(</message>
+<message><context sentiment="neg">噁心，驅長說禮物退回人家會傷心後，又改口收的禮物已經送給弱勢！</context>（你<ironic sentiment="pos">可以再<ironic sentiment="neg">ㄍㄟˋ</ironic>一點</ironic>） (annoyed)</message>
+<message>中天新聞<ironic sentiment="pos">可以再<ironic sentiment="neg">鬼混</ironic>一點</ironic> <context sentiment="neg">連幫你罵人的噗浪機器人都可以做一則新聞 ...怎麼可以有這麼無腦的新聞</context> X-(</message>
+<message>HP維修工程師你<ironic sentiment="pos">可以再<ironic sentiment="neg">混</ironic>一點</ironic><rhetoric>啊...</rhetoric><context sentiment="neg">CPU風扇上面已經貼了注意事項，還可以給我裝錯方向...</context> (annoyed) http://images.plurk.com/3461061_6058af35ecce7c25af8e78d6f69b7f7d.jpg</message>
+<message><context sentiment="neg">約早上九點的會，到現在還沒開始！</context><ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic><rhetoric>!</rhetoric> (angry)</message>
+<message>公司的冷氣<ironic sentiment="pos">可以再<ironic sentiment="neg">冷</ironic>一點</ironic><rhetoric>嘛!</rhetoric><context sentiment="neg">是把我們都當御飯團堅持18度c嗎?</context> (annoyed)</message>
+<message><context sentiment="neg">"88節耶~~吃個飯不過分吧~~拜託~~~~~~~"</context> X 香川他講話<ironic sentiment="pos">可以再<ironic sentiment="neg">賤</ironic>一點</ironic><rhetoric>阿!!</rhetoric> 看新聞真的只會有滿肚子辛酸和髒話而已!! (angry)</message>
+<message>http://www.nownews.com/2009/10/23/11507-2523467.htm (山寨版貓熊?!?!<context sentiment="neg">你們這些無德業者</context>對待狗狗<ironic sentiment="pos">可以再<ironic sentiment="neg">夭壽</ironic>一點</ironic>) (angry)</message>
+<message>救命啊~~~這個DIMMER ROOM<ironic sentiment="pos">可以再<ironic sentiment="neg">冷</ironic>一點</ironic><rhetoric>!!!</rhetoric> <context sentiment="neg">狂喝溫水都沒用!!! 新聞棚這邊的DIMMER ROOM空調跟二棚是相通的，只要二棚正在ON，就不可能關冷氣。 夏天的時候有西曬，可以讓這房間很溫暖。現在天氣一不好，就不行了...冷死了!</context> :'-(</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">噁心</ironic>一點</ironic><rhetoric>!!!</rhetoric> :-&http://images.plurk.com/3658030_496be71d6d85a6ff9766c28a192d409d.jpg</message>
+<message>這雨還<ironic sentiment="pos">可以再<ironic sentiment="neg">大</ironic>一點</ironic>，<context sentiment="neg">得濕身上班了~~</context> :'-(</message>
+<message>這個總統<ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic>，<context sentiment="neg">明年6月歐盟免簽是吧?!再大聲一點ㄚ</context>  (annoyed)</message>
+<message><context sentiment="neg">死管理員你可以在把住戶的問題講得再事不關己一點沒關係~這是第二次了，別惹火我~ 我好歹也算是個寫報告能手 == 什麼不會寫幾篇報告書應該還不是難事 之前害我車被市府拖，</context>你<ironic sentiment="pos">可以再<ironic sentiment="neg">讓我等久</ironic>一點</ironic>看馬桶什麼時候要來修~ X-(</message>
+<message>第一次跟強迫症很嚴重的Nikki一起吃飯，但是非常開心 (LOL)不過點媽妳<ironic sentiment="pos">可以再<ironic sentiment="neg">笑大聲</ironic>一點真的</ironic><rhetoric>！！</rhetoric> (angry)</message>
+<message>JOsh你<ironic sentiment="pos">可以再<ironic sentiment="neg">不夠意思</ironic>一點</ironic> (angry) 祝你以後肚子越來越大~</message>
+<message>幹！<ironic sentiment="pos">可以再<ironic sentiment="neg">過份</ironic>一點</ironic><rhetoric>啊</rhetoric> X-(<context sentiment="neg">之前沒弄清楚自己的預算亂聘人然後又隨便裁，要我簽的請款單自創格式不通過竟然只發了一封email叫我重簽，一通電話也不打；等到我一個多月後打開那個email信箱才發現，竟然有臉跟我說都連絡不上我？我說的就是你們！陽明大學生醫資訊所！</context></message>
+<message>撲浪 你<ironic sentiment="pos">可以再<ironic sentiment="neg">帥</ironic>一點</ironic><rhetoric>....</rhetoric> http://images.plurk.com/4129577_2fe407fc318e461c0e69ce77737ec108.jpg  (annoyed)</message>
+<message><context sentiment="neg">真的很受不了！！到底是誰總是把馬桶弄得髒兮兮？乾淨的馬桶座墊妳不想碰到...卻要我們其他人用滿是尿漬的？</context><ironic sentiment="pos">可以再<ironic sentiment="neg">沒有品</ironic>一點</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message>郵局的美國臭老伯..服務態度<ironic sentiment="pos">可以再<ironic sentiment="neg">差</ironic>一點</ironic><rhetoric>!</rhetoric><context sentiment="neg">自以為是白人就很了不起那樣</context> :-&</message>
+<message>X-(你<ironic sentiment="pos">可以再<ironic sentiment="neg">寵女兒</ironic>一點</ironic><rhetoric>！</rhetoric><context sentiment="neg">我不知道還伺候小三生整理書包起床穿衣會有甚麼後遺症，不過，我想可以不用期待這個小孩往後會有甚麼成就了！這跟 http://tw.news.yahoo.com/article/url/d/a/090911/17/1qvmy.html (大學宿舍沒裝空調　新生家長當眾哭訴)的家長有甚麼兩樣？！</context></message>
+<message><context sentiment="neg">突然想到，最近她超早下班的，連昨天可以八點就給偶下班約會去，</context><rhetoric>真的</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic><rhetoric>!</rhetoric> (angry)</message>
+<message><context sentiment="neg">剛剛看新聞真的很扯,淹水的地區都已經沒電了,他們是有電可以看的到電視新聞嗎?!他們要怎麼打電話通報災情呢?</context>記者跟主播<ironic sentiment="pos">可以再<ironic sentiment="neg">天真</ironic>一點沒關係</ironic><rhetoric>!</rhetoric> X-(</message>
+<message>你<ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic> <context sentiment="neg">辦公室熱的要死  你不要空調一打立刻穿外套  到底是不是男人  這麼虛</context> X-(</message>
+<message>秘書小姐你<ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>再<ironic sentiment="neg">懶</ironic>一點</ironic><rhetoric>!</rhetoric> (angry)</message>
+<message>"非死不可"的開心農場<ironic sentiment="pos">可以再<ironic sentiment="neg">給我爛</ironic>一點</ironic> (:</message>
+<message>              <ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic> (angry)</message>
+<message><context sentiment="neg">剛剛打電話給尪,跟他說今天七夕吔~他說:喔~七夕可以吃嗎???</context>我的尪,沒關係你<ironic sentiment="pos">可以再<ironic sentiment="neg">不浪漫</ironic>一點</ironic><rhetoric>!!</rhetoric>我要跟兒子出去約會~ (angry)</message>
+<message>你<ironic sentiment="pos">可以再<ironic sentiment="neg">挑釁</ironic>一點</ironic><rhetoric>...</rhetoric><context sentiment="neg">是把我當小偷嗎?!不跟你發脾氣只是不想跟你撕破臉...如果你嫌我還為你做不夠,那麻煩你以後都自己來吧!!我很樂意!!</context> X-(</message>
+<message><context sentiment="neg">你用力的翻 我用力的54... 你想要扁我嗎 賣高麗鼻比?!</context> (K)（予想：你<ironic sentiment="pos">可以再<ironic sentiment="neg">欠扁</ironic>一點</ironic><rhetoric>！</rhetoric> X-(）</message>
+<message>@fuckma2009: X-( http://www.tvbs.com.tw/NEWS/NEWS_LIST.asp?no=yehmin20090812191039 <context sentiment="neg">(扯？　小兵投書：救災等不到長官下令)  不僅天災,更素人禍?</context>三軍統帥馬英九,你<ironic sentiment="pos">可以再<ironic sentiment="neg">無能</ironic>一點</ironic>?!冷水坑當事人劉兆玄,你<ironic sentiment="pos">可以再<ironic sentiment="neg">自我感覺良好</ironic>一點</ironic><rhetoric>?!</rhetoric></message>
+<message>今天的電腦 :'-( <ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點沒關係</ironic></message>
+<message><context sentiment="neg">雨水打滑我在家具店門口警衛面前大滑一跤，腳踝撞到階梯直角處腫得跟小籠包一樣...</context>:-& <ironic sentiment="pos">可以再<ironic sentiment="neg">糗</ironic>一點沒關係</ironic><rhetoric>...</rhetoric></message>
+<message>非常<ironic sentiment="pos">好</ironic>!!<context sentiment="neg">樓上施工中~</context><ironic sentiment="pos">可以再<ironic sentiment="neg">吵</ironic>一點</ironic><rhetoric>!!</rhetoric> :-(</message>
+<message><context sentiment="neg">面對慘不忍睹的災情....</context>馬政府<ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic><rhetoric>！！</rhetoric> X-(</message>
+<message>SOA design pattern...你<ironic sentiment="pos">可以再<ironic sentiment="neg">抽象</ironic>一點沒有關係</ironic><rhetoric>…</rhetoric> (angry)</message>
+<message>轟胎~<ironic sentiment="pos">可以再<ironic sentiment="neg">強</ironic>一點</ironic><rhetoric>嗎.....</rhetoric> (angry)</message>
+<message>時間..你<ironic sentiment="pos">可以再<ironic sentiment="neg">龜速</ironic>一點</ironic><rhetoric>!!</rhetoric> X-(</message>
+<message>妳做事<ironic sentiment="pos">可以再<ironic sentiment="neg">沒效率</ironic>一點</ironic>  (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">煩人</ironic>一點</ironic> X-(</message>
+<message><context sentiment="neg">冏噗:維持了一周的迷濛眼 + 頭暈 ..,再加上跟DI"在那邊研究是不是電腦螢幕問題之後 , 我終於找到主因了..><" 就是 { 我把隱形眼鏡左右戴相反了}..</context><rhetoric>很</rhetoric><ironic sentiment="pos">好</ironic>!!!!我<ironic sentiment="pos">可以再<ironic sentiment="neg">笨</ironic>一點 再<ironic sentiment="neg">笨</ironic>一點</ironic><rhetoric>阿</rhetoric>... (annoyed)</message>
+<message><context sentiment="neg">遭埋女童 總統:妳可以閉氣兩分鐘 不簡單!</context>http://www.youtube.com/watch?v=SrZ2woFj6Ts 你<ironic sentiment="pos">可以再<ironic sentiment="neg">白目</ironic>一點</ironic><rhetoric>~~</rhetoric> (angry)</message>
+<message><context sentiment="neg">昨天去看中醫,晚上九點出發12點才到家!</context><ironic sentiment="pos">可以再<ironic sentiment="neg">等久</ironic>一點</ironic>哪@_@而且走出診所之前才發現 其實用拿藥的就可以了 (angry)</message>
+<message><context sentiment="neg">現在進辦公室都很內傷~油條碩士!!</context>你<ironic sentiment="pos">可以再<ironic sentiment="neg">過分</ironic>一點</ironic><rhetoric>~~</rhetoric> (angry)</message>
+<message><context sentiment="neg">K值連降兩次是怎樣ㄚ?</context>管理員你<ironic sentiment="pos">可以再<ironic sentiment="neg">過分</ironic>一點</ironic><rhetoric>!</rhetoric> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">不尊重我</ironic>一點</ironic><rhetoric>...</rhetoric><context sentiment="neg">晚上11點被通知下禮拜一回早班....,還不是直接跟我本人說....超想罵髒話</context> X-(</message>
+<message>雨<ironic sentiment="pos">可以再<ironic sentiment="neg">下大</ironic>一點沒關係</ironic><rhetoric>!!</rhetoric>   :-&</message>
+<message>媽阿~~雨<ironic sentiment="pos">可以再<ironic sentiment="neg">下大</ironic>一點</ironic><rhetoric>!!!</rhetoric> :-&</message>
+<message>樂X的網站~~<rhetoric>真的</rhetoric><ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic><rhetoric>~~</rhetoric>我<rhetoric>非常的</rhetoric><ironic sentiment="pos">有耐心</ironic><rhetoric>~~</rhetoric> (angry)</message>
+<message>今天的頭毛<ironic sentiment="pos">可以再<ironic sentiment="neg">毛</ironic>一點</ironic><rhetoric>!!!!!!!!</rhetoric>  (angry)</message>
+<message><rhetoric>厚...</rhetoric>台中天氣真的<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點</ironic><rhetoric>...</rhetoric> :-&</message>
+<message>我想...我快失業了....老闆你<ironic sentiment="pos">可以再<ironic sentiment="neg">討厭</ironic>一點</ironic><rhetoric>!!</rhetoric> (annoyed)</message>
+<message>Sinon Bulls 你們<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>..</又被逆轉了 X-(</message>
+<message>g打成h <ironic sentiment="pos">可以再<ironic sentiment="neg">天才</ironic>一點</ironic><rhetoric>呀</rhetoric> 保險業務員 X-(</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">蠢</ironic>一點</ironic><rhetoric>!</rhetoric> <context sentiment="neg">剛剛倒水開錯開到熱水去 ~~~燙到手</context> >"< (annoyed)</message>
+<message>暑假作業<ironic sentiment="pos">可以再<ironic sentiment="neg">多</ironic>一點</ironic><rhetoric>.....</rhetoric><context sentiment="neg">每天都累的要命</context> :-(</message>
+<message>自己<ironic sentiment="pos">可以再<ironic sentiment="neg">笨</ironic>一點沒關係</ironic><rhetoric>!!!</rhetoric> <context sentiment="neg">領個錢忘記拿ATM卡...不知是不是會被機器吃掉</context> :-&</message>
+<message><context sentiment="neg">印刷物又出問題~</context> 公司東西<ironic sentiment="pos">可以再<ironic sentiment="neg">趕</ironic>一點沒關係</ironic><rhetoric>!!!!</rhetoric>都沒時間檢查的下場~下次就是直接自己印完做出來有問題你們自己去收尾!!我去校對然後把自己忙死是怎樣?!好煩阿!!!!!!!!!!! (angry)</message>
+<message>So-net！你<ironic sentiment="pos">可以再<ironic sentiment="neg">愛斷我的MSN</ironic>一點</ironic><rhetoric>！</rhetoric> (angry)</message>
+<message>農場~~<ironic sentiment="pos">可以再<ironic sentiment="neg">傻</ironic>一點</ironic><rhetoric>~~</rhetoric><context sentiment="neg">上一秒才在灌溉!下一秒跟我說太久沒更新網頁</context> (annoyed)什ㄇ鬼阿!!傻傻的</message>
+<message><context sentiment="neg">同部門的不能知道密碼，可以跟別公司的人說密碼，馬的....</context><ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic><rhetoric>！</rhetoric> (angry)</message>
+<message><context sentiment="neg">連續5天加班,餓著肚子回家(今天晚到計程車費要加成),</context>「百商」<ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic>,媽的 (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">誇張</ironic>一點</ironic><rhetoric>!</rhetoric> 你們這些人...(angry) http://www.chinatimes.com/content-images/110520/C988130Y1.jpg From http://news.chinatimes.com/2007Cti/2007Cti-News/2007Cti-News-Content/0,4521,50102291+112009081300395,00.html</message>
+<message><context sentiment="neg">終於搞清楚了, LA County現在是9.75%是吧!</context> <ironic sentiment="pos">可以再<ironic sentiment="neg">搶多</ironic>一點</ironic><rhetoric>啦! (哼哼!)</rhetoric> (angry)</message>
+<message>今天<ironic sentiment="pos">可以再<ironic sentiment="neg">忙</ironic>一點</ironic><rhetoric>....</rhetoric> :'-(</message>
+<message>人生最後的暑假<ironic sentiment="pos">可以再<ironic sentiment="neg">精彩</ironic>一點</ironic> (nottalking)</message>
+<message>發電影票的人,你態度<ironic sentiment="pos">可以再<ironic sentiment="neg">差</ironic>一點</ironic><rhetoric>!</rhetoric> (angry)</message>
+<message>種花 3GS<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點沒關係</ironic> (angry)</message>
+<message><context sentiment="neg">為什麼大家很愛問我成績  都研究所了還耍一些花招得高分不必要吧  然後同組的分數可以不一樣  不知道這些老師是幹什麼吃的</context>  你<ironic sentiment="pos">可以再<ironic sentiment="neg">偏袒</ironic>一點沒關係</ironic><rhetoric>阿</rhetoric>(不好意思我爆衝了) (angry)</message>
+<message>工作<ironic sentiment="pos">可以再<ironic sentiment="neg">多</ironic>一點</ironic>。 (nottalking)</message>
+<message>做人<ironic sentiment="pos">可以再<ironic sentiment="neg">不要臉</ironic>一點</ironic> X-(</message>
+<message>匯豐銀行，你們<ironic sentiment="pos">可以再<ironic sentiment="neg">跩</ironic>一點</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">賤</ironic>一點</ironic><rhetoric>...</rhetoric><context sentiment="neg">連剪刀也要少我二塊...而且以前還沒賣...是要來拼嗎!!???...</context> (angry)</message>
+<message><context sentiment="neg">明天要去實習耶 好緊張</context> :-o  最近<ironic sentiment="pos">可以再<ironic sentiment="neg">忙</ironic>一點沒有關係</ironic> X-(  阿阿阿阿阿阿~~(吶喊)</message>
+<message><context sentiment="neg">竟然作弊，</context>你<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic><rhetoric>......</rhetoric>XD (angry)</message>
+<message>靠咧  整個<ironic sentiment="pos">可以再<ironic sentiment="neg">莫名奇妙</ironic>一點</ironic><rhetoric>...</rhetoric><context sentiment="neg">小玫也是蕯克奇</context> :-(</message>
+<message>東野圭吾！你的白夜行<ironic sentiment="pos">可以再<ironic sentiment="neg">灰色</ironic>一點沒關係</ironic><rhetoric>...</rhetoric> (angry)</message>
+<message><context sentiment="neg">樓上的死小孩，</context>你關門<ironic sentiment="pos">可以再<ironic sentiment="neg">關大聲</ironic>一點</ironic>，<context sentiment="neg">嚇到晴晴睡覺了啦！</context> X-(</message>
+<message>公司網路<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic> (angry)</message>
+<message>法官你<ironic sentiment="pos">可以再<ironic sentiment="neg">扯</ironic>一點</ironic><rhetoric>~</rhetoric> <context sentiment="neg">直接拿報紙當證據來質詢被告？我不曉得記者什麼時候多了個「特偵組調查員」了身份了？</context> (angry)</message>
+<message>ADSL你<ironic sentiment="pos">可以再<ironic sentiment="neg">給我爛</ironic>一點</ironic><rhetoric>~</rhetoric><context sentiment="neg">小心我叫大哥大把你弄掉</context> (angry)</message>
+<message>公司男同事<ironic sentiment="pos">可以再<ironic sentiment="neg">懶</ironic>一點沒關係</ironic>, <context sentiment="neg">連昨晚買的新手機要放價目表進去也要來找我用!!! 吵著說昨天才買的手機, 不會用... 真的讓我抓狂的狂罵不是不會, 只是懶!! 竟然還跟我說對電器就是不會嘛! (angry) 最好是不會啦! 我只花了五分鐘就搞懂你的新手機了! 而且還是三星牌的</context></message>
+<message><context sentiment="neg">我看不清, 是誰蒙蔽了我的雙眼?! 才發現... 原來......</context> 我的眼鏡<ironic sentiment="pos">可以再<ironic sentiment="neg">髒</ironic>一點沒關係</ironic><rhetoric>...</rhetoric> (annoyed)</message>
+<message>(angry) 小莫，你<ironic sentiment="pos">可以再<ironic sentiment="neg">超過</ironic>一點</ironic><rhetoric>!!!</rhetoric> <context sentiment="neg">(話說，一直聽到玻璃破掉，東西碰撞的聲音，還真是有恐怖!!)</context></message>
+<message><context sentiment="neg">爛電腦,</context> 你<ironic sentiment="pos">可以再<ironic sentiment="neg">慢</ironic>一點</ironic>, <context sentiment="neg">等我受不了就把你砸了..</context> X-(</message>
+<message><context sentiment="neg">原來不是不見 還真的是沒帶啊....</context>我<ironic sentiment="pos">可以再<ironic sentiment="neg">腦殘</ironic>一點</ironic><rhetoric>啊</rhetoric> :-&</message>
+<message>(angry)PETSOCIETY<ironic sentiment="pos">可以再<ironic sentiment="neg">機車</ironic>一點</ironic><rhetoric>...</rhetoric></message>
+<message>我這邊ㄉ天氣<ironic sentiment="pos">可以再<ironic sentiment="neg">好</ironic>一點</ironic><rhetoric>ㄚ...</rhetoric><context sentiment="neg">吼~~~~~大太陽ㄝ :-&~~~各位能想像嗎?!!</context> (thinking)...</message>
+<message>你!!!....<ironic sentiment="pos">可以再<ironic sentiment="neg">討厭</ironic>一點</ironic>，<context sentiment="neg">老是站在別人後面看別人的螢幕...爛人!! (angry)..就不想和你講話了，還一直問東問西...很煩人耶!!</context></message>
+<message>台哥大司機~車<ironic sentiment="pos">可以再<ironic sentiment="neg">開快</ironic>一點</ironic>。<context sentiment="neg">我真的沒那麼趕時間…</context> :-&</message>
+<message>早安!<ironic sentiment="pos">可以再<ironic sentiment="neg">熱</ironic>一點沒關係</ironic>。 (angry)前陣子新聞說有颱風就有地震，看來是真的啊!(咖啡) 有颱風就有震(亂亨)</message>
+<message>靠么勒!!中華x信的客戶<ironic sentiment="pos">可以再<ironic sentiment="neg">狠</ironic>一點</ironic><rhetoric>!!!</rhetoric><context sentiment="neg">今天才要開始做的案子要15號上線...不給延期還叫設計師都別睡了!!!</context> (angry)</message>
+<message>亞太的收訊<ironic sentiment="pos">可以再<ironic sentiment="neg">爛</ironic>一點</ironic><rhetoric>!!!!!!!!!!!!!!</rhetoric><context sentiment="neg">直接斷訊是怎麼一回事!?火大</context> (angry)</message>
+<message><ironic sentiment="pos">可以再<ironic sentiment="neg">更難</ironic>一點沒關係</ironic>  X-(</message>

@@ -1,0 +1,41 @@
+{
+  "best_metric": 0.1340840458869934,
+  "best_model_checkpoint": "d:\\C_data\\SpotTruth\\new_idea\\output\\lora/electronics\\checkpoint-316",
+  "epoch": 1.0,
+  "eval_steps": 500,
+  "global_step": 316,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 1.0,
+      "eval_loss": 0.1340840458869934,
+      "eval_runtime": 6.2347,
+      "eval_samples_per_second": 202.575,
+      "eval_steps_per_second": 25.342,
+      "step": 316
+    }
+  ],
+  "logging_steps": 500,
+  "max_steps": 948,
+  "num_input_tokens_seen": 0,
+  "num_train_epochs": 3,
+  "save_steps": 500,
+  "stateful_callbacks": {
+    "TrainerControl": {
+      "args": {
+        "should_epoch_stop": false,
+        "should_evaluate": false,
+        "should_log": false,
+        "should_save": true,
+        "should_training_stop": false
+      },
+      "attributes": {}
+    }
+  },
+  "total_flos": 333459469946880.0,
+  "train_batch_size": 16,
+  "trial_name": null,
+  "trial_params": null
+}

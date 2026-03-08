@@ -1,0 +1,63 @@
+{
+  "best_metric": 0.14171244204044342,
+  "best_model_checkpoint": "d:\\C_data\\SpotTruth\\new_idea\\output\\lora/clothing\\checkpoint-1000",
+  "epoch": 2.0,
+  "eval_steps": 500,
+  "global_step": 1000,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 1.0,
+      "grad_norm": 0.5602952837944031,
+      "learning_rate": 0.00013333333333333334,
+      "loss": 0.2028,
+      "step": 500
+    },
+    {
+      "epoch": 1.0,
+      "eval_loss": 0.1469259411096573,
+      "eval_runtime": 9.4179,
+      "eval_samples_per_second": 212.361,
+      "eval_steps_per_second": 26.545,
+      "step": 500
+    },
+    {
+      "epoch": 2.0,
+      "grad_norm": 1.8295737504959106,
+      "learning_rate": 6.666666666666667e-05,
+      "loss": 0.1363,
+      "step": 1000
+    },
+    {
+      "epoch": 2.0,
+      "eval_loss": 0.14171244204044342,
+      "eval_runtime": 9.9381,
+      "eval_samples_per_second": 201.247,
+      "eval_steps_per_second": 25.156,
+      "step": 1000
+    }
+  ],
+  "logging_steps": 500,
+  "max_steps": 1500,
+  "num_input_tokens_seen": 0,
+  "num_train_epochs": 3,
+  "save_steps": 500,
+  "stateful_callbacks": {
+    "TrainerControl": {
+      "args": {
+        "should_epoch_stop": false,
+        "should_evaluate": false,
+        "should_log": false,
+        "should_save": true,
+        "should_training_stop": false
+      },
+      "attributes": {}
+    }
+  },
+  "total_flos": 1056086999040000.0,
+  "train_batch_size": 16,
+  "trial_name": null,
+  "trial_params": null
+}
