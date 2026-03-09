@@ -94,16 +94,6 @@ CATEGORY_KEYWORDS = {
 
 - **模型保存位置**：`output/lora/{category}`
 
-### Step 4-B: 三分类模型（Electronics）✅
-- **问题**：二分类无法识别"中评"
-- **解决方案**：
-  1. 新增三分类数据：`data/electronics_3cls/`
-  2. 提取neutral类（203条）并入训练集
-  3. 使用过采样平衡类别
-  4. 创建独立训练脚本：`step4_train_lora_3cls.py`
-- **验证集准确率**：97%
-- **模型保存位置**：`output/lora_3cls/electronics_3cls`
-
 ### Step 5-8: 框架搭建 ⚠️
 - **step5_sarcasm_detector.py**：阴阳怪气检测（框架）
 - **step6_mcp_tools.py**：MCP工具注册（框架）
@@ -167,8 +157,7 @@ LoRA适配器: r=8, lora_alpha=16 (297K参数, 0.29%)
 |------|------|
 | `step2_category_classifier.py` | 品类判断 |
 | `step3_data_preprocessor.py` | 数据预处理 |
-| `step4_train_lora.py` | 二分类训练 |
-| `step4_train_lora_3cls.py` | 三分类训练 |
+| `step4_train_lora.py` | 分类训练 |
 | `test_all_models.py` | 批量测试 |
 
 ---
@@ -258,6 +247,23 @@ sarcasm_detection/
 
 ---
 
+## 九、新增工作
+
+1. **淘宝爬虫修复** (2025-03-09)
+   - 优化评论去重逻辑
+   - 修复评论元素定位（class名称包含hash变化）
+   - 文件位置：`AIGC/Comment_crawling_and_analysis/taobao_new.py`
+
+2. **MCP工具框架重构** (2025-03-09)
+   - 完整MCP工具体系（12个工具）
+   - 多场景支持：商品分析、书评分析、酒店分析
+   - 知识库RAG管理（查询+更新）
+   - Kimi LLM集成（讽刺判断、总结、建议）
+   - 情感分析流程：LoRA + TOSPrompt + LLM判断
+   - 文件位置：`new_idea/step6_mcp_tools.py`
+
+---
+
 ## 八、待完成任务
 
 1. ~~【高优先级】修复Book模型~~ ✅ 已完成
@@ -276,10 +282,8 @@ sarcasm_detection/
 1. **训练中断**：断电导致训练未完成，需从断点恢复
 2. **标签混淆**：基座模型分类头随机初始化，需确保训练完成
 3. **模型路径**：加载本地缓存模型需使用完整snapshot路径
-4. **三分类数据不平衡**：使用过采样 + 类别权重解决
 
 ### 7.2 解决方案
 1. 训练时设置checkpoint保存策略
 2. 使用merge_and_unload()合并LoRA权重后推理
 3. 验证集准确率作为训练效果指标
-4. 区分二分类和三分类模型的加载路径
