@@ -11,7 +11,7 @@ class TaobaoScraperNew:
     def _process_comment(self, comment, processed: set) -> tuple:
         """处理单个评论元素，返回(内容, 是否新增)"""
         try:
-            content = comment.find_element(By.XPATH, ".//*[contains(@class, 'content')]").text.strip()
+            content = comment.text.strip()
             
             # 仅过滤空内容，保留所有评价（包括默认评价）
             if not content.strip():
@@ -31,7 +31,7 @@ class TaobaoScraperNew:
 
     def _collect_comments(self, processed: set, max_comments: int) -> tuple:
         """收集当前页面评论，返回(新增评论列表, 是否收集足够)"""
-        current_comments = self.driver.find_elements(By.XPATH, "//*[contains(@class, '0b4e753')]")
+        current_comments = self.driver.find_elements(By.XPATH, "//*[contains(@class, 'content--uonoOhaz')]")
         new_comments = []
         
         for comment in current_comments:
@@ -126,12 +126,12 @@ class TaobaoScraperNew:
 
     def smart_scroll(self) -> bool:
         scroll_container = self.driver.execute_script("""
-            return document.querySelector("body > div[class*='7efaeec'] > div[class*='e320bf32'] > div > div[class*='00182ac']") 
+            return document.querySelector("body > div.Drawer--nzZd5HyY.detailClassName--hEQeQoBa > div.content--nuxTngci.detailContentClassName--L4MaK8TB > div.Comments--eCO6Uz4o.clearfix > div.comments--ChxC7GEN.beautify-scroll-bar") 
             || document.documentElement
         """)
         
         try:
-            pre_count = len(self.driver.find_elements(By.XPATH, "//*[contains(@class, '0b4e753')]"))
+            pre_count = len(self.driver.find_elements(By.XPATH, "//*[contains(@class, 'content--uonoOhaz')]"))
             
             self.driver.execute_script("""
                 arguments[0].scrollTop += arguments[0].clientHeight * 20;
@@ -139,7 +139,7 @@ class TaobaoScraperNew:
             
             time.sleep(random.uniform(0.1, 0.3))  
             
-            post_count = len(self.driver.find_elements(By.XPATH, "//*[contains(@class, '0b4e753')]"))
+            post_count = len(self.driver.find_elements(By.XPATH, "//*[contains(@class, 'content--uonoOhaz')]"))
             print(f" 滚动检测: {pre_count} → {post_count} 条评论")
             return post_count > pre_count
         except Exception as e:
@@ -173,7 +173,7 @@ class TaobaoScraperNew:
         # 获取商品名称并保存
         try:
             product_name = self.driver.execute_script(
-                "return document.querySelector('#tbpc-detail-item-title > h1')?.textContent?.trim()"
+                "return document.querySelector('#tbpcDetail_SkuPanelBody > div.block1--PlRzQppo > div > div > div.MainTitle--PiA4nmJz.f-els-2 > span')?.textContent?.trim()"
             )
             if product_name:
                 # 确保输出目录存在
@@ -219,7 +219,7 @@ class TaobaoScraperNew:
 
         try:
             review_btn = WebDriverWait(self.driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, "//*[contains(@class, '15e2446')]"))
+                EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), '查看全部评价')]"))
             )
             self.driver.execute_script("arguments[0].click();", review_btn)
             time.sleep(1.5)
@@ -321,7 +321,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     # 验证驱动路径
-    driver_path = r"AIGC\edgedriver\msedgedriver.exe"
+    driver_path = r"E:\edgedriver_win64\msedgedriver.exe"
     if not os.path.exists(driver_path):
         logging.error(f"Edge驱动路径不存在: {driver_path}")
         raise FileNotFoundError(f"Edge驱动路径不存在: {driver_path}")
@@ -330,7 +330,7 @@ if __name__ == "__main__":
     
     output_file = r'AIGC\Comment_crawling_and_analysis\reviews.txt'
     with TaobaoScraperNew(
-        driver_path=r"AIGC\edgedriver\msedgedriver.exe"
+        driver_path=r"E:\edgedriver_win64\msedgedriver.exe"
     ) as scraper:
         scraper.ensure_login()
         scraper.scrape_reviews(
