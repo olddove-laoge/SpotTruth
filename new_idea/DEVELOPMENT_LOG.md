@@ -257,10 +257,89 @@ sarcasm_detection/
 2. **MCP工具框架重构** (2025-03-09)
    - 完整MCP工具体系（12个工具）
    - 多场景支持：商品分析、书评分析、酒店分析
-   - 知识库RAG管理（查询+更新）
-   - Kimi LLM集成（讽刺判断、总结、建议）
-   - 情感分析流程：LoRA + TOSPrompt + LLM判断
+    - 知识库RAG管理（查询+更新）
+    - Kimi LLM集成（讽刺判断、总结、建议）
+    - 情感分析流程：LoRA + TOSPrompt + LLM判断
+    - 文件位置：`new_idea/step6_mcp_tools.py`
+
+2. **MCP测试框架** (2025-03-10)
+   - 创建mcp_test目录
+   - 实现KimiClient：支持function calling
+   - 实现test_taobao_agent.py：测试Kimi自动调用工具
+   - 创建三个独立测试脚本：
+     - test_taobao_scraper.py
+     - test_xiaohongshu_scraper.py
+     - test_heimao_scraper.py
+   - 文件位置：`new_idea/mcp_test/`
+
+3. **爬虫工具对接** (2025-03-10)
+   - 对接taobao_new.py：支持品牌+商品搜索
+   - 对接xiaohongshu_scraper.py：小红书避雷笔记
+   - 对接tousu_crawler.py：黑猫投诉
+   - 解决登录状态问题：支持传入已登录的browser实例
    - 文件位置：`new_idea/step6_mcp_tools.py`
+
+4. **淘宝爬虫优化** (2025-03-10)
+   - 解耦：移除自动调用品牌分析、小红书，黑猫爬虫的代码
+   - 新增搜索功能：支持品牌+商品名搜索
+   - 修复商品链接获取：从data-spm-act-id构建正确URL
+   - 文件位置：`AIGC/Comment_crawling_and_analysis/taobao_new.py`
+
+5. **小红书数据读取修复** (2025-03-10)
+   - 问题：MCP工具读取的是URL列表文件，实际内容保存在 *_desc.txt
+   - 修复：改为读取 *_desc.txt 文件，解析"URL: xxx\n内容:\n实际内容"格式
+   - 文件位置：`new_idea/step6_mcp_tools.py`
+
+---
+
+## 十、登录状态问题
+
+### 问题现象
+使用Selenium爬虫时，每个爬虫使用不同的browser profile：
+- 淘宝：`C:\taobao_bot_profile`
+- 小红书：`C:\xiaohongshu_bot_profile`
+- 黑猫：`C:\Temp\EdgeProfile`
+
+第一次登录后，第二次运行时登录状态丢失。
+
+### 原因分析
+1. 每个爬虫使用独立的browser profile目录
+2. 测试时先打开浏览器让用户登录 → 关闭浏览器 → 重新打开执行爬虫
+3. 浏览器关闭后重新打开时，profile会话丢失
+
+### 解决方案
+1. 统一使用同一个profile目录：`C:\unified_bot_profile`
+2. 登录后不关闭浏览器，直接复用同一browser实例
+3. MCP工具支持传入已登录的browser对象：
+```python
+server = MCPToolServer()
+products = server.search_product(brand="华为", product="手机", driver=driver)
+```
+
+---
+
+## 十一、下一步规划
+
+### 短期目标
+1. 继续完善MCP工具：
+   - 确认LoRA模型路径（9个品类）
+   - 确认讽刺检测模型路径
+   - 创建知识库目录结构
+2. 完成ProductWorkflow完整工作流
+3. 端到端测试
+
+### 中期目标
+1. 添加更多工具：
+   - 情感分析（sentiment_analysis）
+   - 讽刺检测（detect_sarcasm）
+   - LLM判断讽刺（llm_judge_sarcasm）
+2. BookWorkflow占位
+3. HotelWorkflow占位
+
+### 长期目标
+1. Agent智能体：自动规划调用流程
+2. 社区版功能
+3. Go后端工程化
 
 ---
 
