@@ -13,6 +13,7 @@ Step 6: MCP工具封装 - 避雷真
 """
 
 import os
+import sys
 import json
 import torch
 from typing import List, Dict, Any, Optional
@@ -22,6 +23,11 @@ from openai import OpenAI
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from peft import PeftModel
 import numpy as np
+
+# 添加项目根目录到路径
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+AIGC_DIR = os.path.join(SCRIPT_DIR, "..", "AIGC")
+sys.path.insert(0, AIGC_DIR)
 
 
 # ============== 配置 ==============
@@ -474,13 +480,15 @@ class MCPToolServer:
                 "type": "function",
                 "function": {
                     "name": "search_product",
-                    "description": "搜索淘宝商品",
+                    "description": "搜索淘宝商品，返回商品列表供选择",
                     "parameters": {
                         "type": "object",
                         "properties": {
-                            "keyword": {"type": "string", "description": "搜索关键词"}
+                            "brand": {"type": "string", "description": "品牌名"},
+                            "product": {"type": "string", "description": "商品名"},
+                            "max_results": {"type": "integer", "description": "返回商品数量", "default": 5}
                         },
-                        "required": ["keyword"]
+                        "required": ["brand", "product"]
                     }
                 }
             },
@@ -488,14 +496,15 @@ class MCPToolServer:
                 "type": "function",
                 "function": {
                     "name": "get_comments",
-                    "description": "获取商品评论",
+                    "description": "获取淘宝商品评论",
                     "parameters": {
                         "type": "object",
                         "properties": {
-                            "item_id": {"type": "string", "description": "商品ID"},
+                            "url": {"type": "string", "description": "商品详情页链接（优先使用）"},
+                            "brand": {"type": "string", "description": "品牌名（url为空时使用搜索）"},
+                            "product": {"type": "string", "description": "商品名（url为空时使用搜索）"},
                             "max_count": {"type": "integer", "description": "最大评论数", "default": 100}
-                        },
-                        "required": ["item_id"]
+                        }
                     }
                 }
             },
@@ -657,15 +666,101 @@ class MCPToolServer:
     
     # ============== MCP工具实现 ==============
     
-    def search_product(self, keyword: str) -> List[Dict]:
-        """搜索淘宝商品"""
-        # TODO: 调用淘宝爬虫
-        return [{"id": "123", "name": keyword, "price": 99.0}]
+    def _get_taobao_scraper_class(self):
+        """获取淘宝爬虫类"""
+        try:
+            import sys
+            aigc_path = r"D:\C_data\SpotTruth\AIGC\Comment_crawling_and_analysis"
+            if aigc_path not in sys.path:
+                sys.path.insert(0, aigc_path)
+            from taobao_new import TaobaoScraperNew
+            return TaobaoScraperNew
+        except Exception as e:
+            print(f"导入淘宝爬虫失败: {e}")
+            return None
     
-    def get_comments(self, item_id: str, max_count: int = 100) -> List[Comment]:
-        """获取商品评论"""
-        # TODO: 调用淘宝爬虫
-        return []
+    def search_product(self, brand: str = "", product: str = "", max_results: int = 5) -> List[Dict]:
+        """搜索淘宝商品
+        
+        Args:
+            brand: 品牌名
+            product: 商品名
+            max_results: 返回最多多少个商品
+            
+        Returns:
+            list: 商品列表 [{"name": "商品名称", "url": "商品链接", "price": "价格", "shop": "店铺"}]
+        """
+        try:
+            TaobaoScraperNew = self._get_taobao_scraper_class()
+            if not TaobaoScraperNew:
+                return []
+            
+            with TaobaoScraperNew(
+                driver_path=r"E:\edgedriver_win64\msedgedriver.exe"
+            ) as scraper:
+                scraper.ensure_login()
+                products = scraper.search_products(brand, product, max_results)
+                return products
+        except Exception as e:
+            print(f"搜索商品失败: {e}")
+            return []
+    
+    def get_comments(self, url: str = "", brand: str = "", product: str = "", max_count: int = 100) -> List[Dict]:
+        """获取商品评论
+        
+        Args:
+            url: 商品详情页链接（优先使用）
+            brand: 品牌名（url为空时使用搜索）
+            product: 商品名（url为空时使用搜索）
+            max_count: 最大评论数
+            
+        Returns:
+            list: 评论列表 [{"text": "评论内容", "source": "taobao"}]
+        """
+        try:
+            TaobaoScraperNew = self._get_taobao_scraper_class()
+            if not TaobaoScraperNew:
+                return []
+            
+            output_file = os.path.join(SCRIPT_DIR, "data", "temp_comments.txt")
+            os.makedirs(os.path.dirname(output_file), exist_ok=True)
+            
+            with TaobaoScraperNew(
+                driver_path=r"E:\edgedriver_win64\msedgedriver.exe"
+            ) as scraper:
+                scraper.ensure_login()
+                
+                if url:
+                    scraper.scrape_reviews(
+                        output_file=output_file,
+                        max_comments=max_count,
+                        manual_input=False,
+                        preset_url=url
+                    )
+                else:
+                    scraper.select_product_and_scrape(
+                        brand=brand,
+                        product=product,
+                        output_file=output_file,
+                        max_comments=max_count
+                    )
+                
+                # 读取评论文件
+                comments = []
+                if os.path.exists(output_file):
+                    with open(output_file, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            text = line.strip()
+                            if text:
+                                comments.append({
+                                    "text": text,
+                                    "source": "taobao"
+                                })
+                
+                return comments
+        except Exception as e:
+            print(f"获取评论失败: {e}")
+            return []
     
     def search_xiaohongshu(self, keyword: str) -> List[Dict]:
         """搜索小红书"""

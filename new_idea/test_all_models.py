@@ -11,7 +11,6 @@ from peft import PeftModel
 
 SCRIPT_DIR = "D:/C_data/SpotTruth/new_idea"
 OUTPUT_DIR = f"{SCRIPT_DIR}/output/lora"
-OUTPUT_DIR_3CLS = f"{SCRIPT_DIR}/output/lora_3cls"
 CACHE_DIR = r"C:\Users\lyh23\.cache\huggingface\hub\models--hfl--chinese-roberta-wwm-ext\snapshots\5c58d0b8ec1d9014354d691c538661bf00bfdb44"
 
 BINARY_LABELS = {0: "差评", 1: "好评"}
@@ -19,7 +18,7 @@ BINARY_LABELS = {0: "差评", 1: "好评"}
 CATEGORIES = {
     "book": {"name": "书籍", "labels": BINARY_LABELS, "path": "book", "num_labels": 2},
     "tablet": {"name": "平板", "labels": BINARY_LABELS, "path": "tablet", "num_labels": 2},
-    "electronics": {"name": "电子产品", "labels": BINARY_LABELS, "path": "electronics_3cls", "num_labels": 3},
+    "electronics": {"name": "电子产品", "labels": BINARY_LABELS, "path": "electronics", "num_labels": 2},
     "fruit": {"name": "水果", "labels": BINARY_LABELS, "path": "fruit", "num_labels": 2},
     "shampoo": {"name": "洗发水", "labels": BINARY_LABELS, "path": "shampoo", "num_labels": 2},
     "dairy": {"name": "奶制品", "labels": BINARY_LABELS, "path": "dairy", "num_labels": 2},
@@ -379,14 +378,8 @@ def test_category(cat_key, cat_info):
     print(f"【{cat_info['name']}】")
     print(f"{'='*60}")
     
-    # electronics使用三分类模型，但测试用二分类标签
-    if cat_info["num_labels"] == 3:
-        model_path = f"{OUTPUT_DIR_3CLS}/{cat_info['path']}"
-        # 预测时用二分类，但模型是三分类
-        test_labels = BINARY_LABELS
-    else:
-        model_path = f"{OUTPUT_DIR}/{cat_info['path']}"
-        test_labels = cat_info["labels"]
+    model_path = f"{OUTPUT_DIR}/{cat_info['path']}"
+    test_labels = cat_info["labels"]
     
     if not os.path.exists(model_path):
         print(f"模型不存在: {model_path}")
@@ -451,10 +444,7 @@ def main():
     print("=" * 70)
     
     for cat_key, cat_info in CATEGORIES.items():
-        if cat_info["num_labels"] == 3:
-            model_path = f"{OUTPUT_DIR_3CLS}/{cat_info['path']}"
-        else:
-            model_path = f"{OUTPUT_DIR}/{cat_info['path']}"
+        model_path = f"{OUTPUT_DIR}/{cat_info['path']}"
         
         if not os.path.exists(model_path):
             print(f"\n【{cat_info['name']}】模型不存在，跳过")

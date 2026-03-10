@@ -2,7 +2,6 @@
 
 from openai import OpenAI
 import os
-from datetime import datetime
 
 def analyze_product_name(content, api_key="sk-959db6c460bb4ace9a066bd4c065981e", base_url="https://api.deepseek.com"):
     """
@@ -75,51 +74,6 @@ if __name__ == "__main__":
         output_path = r'AIGC\Comparison_of_similar_products_and_external_link_information\simple_prod_name_with_brand.txt'
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(result)
-            
-            # 自动调用爬虫脚本(同时运行)
-
+        print(f"商品名称分析完成: {result}")
     except Exception as e:
         print(f"错误: {str(e)}")
-
-    import subprocess
-    processes = []
-    try:
-        # 同时启动两个爬虫
-        tousu_script = r"AIGC\Comparison_of_similar_products_and_external_link_information\tousu_crawler.py"
-        xhs_script = r"AIGC\Comparison_of_similar_products_and_external_link_information\xiaohongshu_scraper.py"
-        
-        # 启动投诉爬虫并等待完成
-        p1 = subprocess.Popen(["python", tousu_script])
-        p1.wait()
-        # 投诉爬虫完成后立即启动分析
-        tousu_analysis = r"AIGC\Comparison_of_similar_products_and_external_link_information\AIs\tousu_analysis.py"
-        subprocess.Popen(["python", tousu_analysis])
-        
-        # 启动小红书爬虫并等待完成
-        p2 = subprocess.Popen(["python", xhs_script])
-        p2.wait()
-        # 小红书爬虫完成后立即启动分析
-        xhs_analysis = r"AIGC\Comparison_of_similar_products_and_external_link_information\AIs\xhs_comment_analysis.py"
-        subprocess.Popen(["python", xhs_analysis])
-        
-        print("爬虫脚本执行完成，分析脚本已启动")
-        
-        # 创建分析完成标记文件
-        marker_dir = "AIGC/analysis_markers"
-        os.makedirs(marker_dir, exist_ok=True)
-        marker_file = os.path.join(marker_dir, "brand_analysis_complete.flag")
-        
-        try:
-            with open(marker_file, "w") as f:
-                f.write(f"completed_at:{datetime.now().isoformat()}\n")
-            print(f"创建品牌分析完成标记: {marker_file}")
-        except Exception as e:
-            print(f"创建标记文件失败: {str(e)}")
-            raise
-            
-    except Exception as e:
-        print(f"爬虫脚本执行失败: {str(e)}")
-        # 确保所有子进程都被终止
-        for p in processes:
-            if p.poll() is None:  # 检查进程是否仍在运行
-                p.terminate()

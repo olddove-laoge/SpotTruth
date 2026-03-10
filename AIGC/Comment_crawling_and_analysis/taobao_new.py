@@ -7,6 +7,8 @@ import pickle
 import os
 import time
 import random
+import urllib.parse
+import json
 class TaobaoScraperNew:
     def _process_comment(self, comment, processed: set) -> tuple:
         """处理单个评论元素，返回(内容, 是否新增)"""
@@ -146,6 +148,140 @@ class TaobaoScraperNew:
             print(f" 滚动异常: {str(e)}")
             return False
 
+    def search_products(self, brand: str = "", product: str = "", max_results: int = 5) -> list:
+        """搜索商品
+        
+        Args:
+            brand: 品牌名
+            product: 商品名
+            max_results: 返回最多多少个商品
+            
+        Returns:
+            list: 商品列表 [{"name": "商品名称", "url": "商品链接", "price": "价格", "shop": "店铺"}]
+        """
+        keyword = f"{brand} {product}".strip()
+        if not keyword:
+            raise ValueError("品牌和商品名称不能同时为空")
+        
+        encoded_keyword = urllib.parse.quote(keyword)
+        search_url = f"https://s.taobao.com/search?page=1&q={encoded_keyword}&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_{time.strftime('%Y%m%d')}&ie=utf8"
+        
+        print(f" 搜索关键词: {keyword}")
+        self.driver.get(search_url)
+        time.sleep(3)
+        
+        products = []
+        try:
+            # 使用部分类名匹配，包含doubleCardWrapperAdapt的元素
+            items = self.driver.find_elements(By.CSS_SELECTOR, "[class*='doubleCardWrapperAdapt']")
+            
+            for i, item in enumerate(items[:max_results]):
+                try:
+                    name = ""
+                    url = ""
+                    price = ""
+                    shop = ""
+                    
+                    # 获取商品名称 - 在title span里
+                    try:
+                        title_elem = item.find_element(By.CSS_SELECTOR, ".title--ASSt27UY span")
+                        name = title_elem.text.strip()[:100] if title_elem else ""
+                    except:
+                        try:
+                            title_elem = item.find_element(By.CSS_SELECTOR, "[class*='title--AS']")
+                            name = title_elem.text.strip()[:100] if title_elem else ""
+                        except:
+                            pass
+                    
+                    # 获取价格
+                    try:
+                        price_elem = item.find_element(By.CSS_SELECTOR, "[class*='priceWrapper']")
+                        price = price_elem.text.strip()[:30] if price_elem else ""
+                    except:
+                        pass
+                    
+                    # 获取店铺
+                    try:
+                        shop_elem = item.find_element(By.CSS_SELECTOR, "[class*='shopName']")
+                        shop = shop_elem.text.strip()[:50] if shop_elem else ""
+                    except:
+                        pass
+                    
+                    # 获取商品ID，从data-spm-act-id获取，然后构建商品详情页URL
+                    try:
+                        item_id = item.get_attribute("data-spm-act-id")
+                        if item_id and item_id.isdigit():
+                            url = f"https://item.taobao.com/item.htm?id={item_id}"
+                    except:
+                        pass
+                    
+                    # 过滤有效商品
+                    if name and url and "item.taobao.com" in url:
+                        products.append({
+                            "name": name,
+                            "url": url,
+                            "price": price,
+                            "shop": shop
+                        })
+                        
+                except Exception as e:
+                    print(f" 解析商品{i+1}失败: {str(e)}")
+                    continue
+                    
+        except Exception as e:
+            print(f" 搜索失败: {str(e)}")
+        
+        return products
+
+    def select_product_and_scrape(self, 
+                                   brand: str = "", 
+                                   product: str = "",
+                                   output_file: str = "",
+                                   max_comments: int = 100):
+        """搜索商品并让用户选择，然后爬取评论
+        
+        Args:
+            brand: 品牌名
+            product: 商品名  
+            output_file: 输出文件路径
+            max_comments: 最大评论数
+        """
+        products = self.search_products(brand, product)
+        
+        if not products:
+            print(" 未找到相关商品")
+            return None
+        
+        print(f"\n 找到 {len(products)} 个商品:")
+        for i, p in enumerate(products):
+            print(f" {i+1}. {p['name']}")
+            print(f"    价格: {p['price']} | 店铺: {p['shop']}")
+        
+        choice = input("\n 请选择商品编号 (直接回车选择第1个): ").strip()
+        if not choice:
+            choice = "1"
+        
+        try:
+            idx = int(choice) - 1
+            if idx < 0 or idx >= len(products):
+                print(" 无效选择，使用第1个商品")
+                idx = 0
+        except ValueError:
+            print(" 输入无效，使用第1个商品")
+            idx = 0
+        
+        selected = products[idx]
+        print(f"\n 已选择: {selected['name']}")
+        
+        self.scrape_reviews(
+            output_file=output_file,
+            max_comments=max_comments,
+            manual_input=False,
+            preset_url=selected['url']
+        )
+        
+        return selected
+
     def scrape_reviews(self, 
                      output_file: str, 
                      max_comments: int = 1000,
@@ -188,26 +324,6 @@ class TaobaoScraperNew:
                     with open(product_name_file, 'w', encoding='utf-8') as f:
                         f.write(product_name)
                     print(f" 商品名称已保存到: {product_name_file}")
-                    
-                    # 异步调用分析脚本
-                    import subprocess
-                    try:
-                        # 调用品牌+名称分析脚本
-                        brand_script = r"AIGC\Comparison_of_similar_products_and_external_link_information\AIs\prod_brand&name_analysis.py"
-                        subprocess.Popen(["python", brand_script])
-                        
-                        # 调用纯名称分析脚本
-                        name_script = r"AIGC\Comparison_of_similar_products_and_external_link_information\AIs\prod_name_analysis.py"
-                        subprocess.Popen(["python", name_script])
-                        
-                        print("分析脚本已异" \
-                        "步启动")
-                        subprocess.run(["python", name_script], check=True)
-                        
-                        print(" 已完成商品名称分析")
-                    except subprocess.CalledProcessError as e:
-                        print(f" 分析脚本执行失败: {str(e)}")
-        
                     
                 except Exception as e:
                     print(f"保存商品名称失败: {str(e)}")
@@ -313,10 +429,15 @@ if __name__ == "__main__":
     )
     
     parser = argparse.ArgumentParser(description='淘宝商品评论爬取工具')
-    parser.add_argument('--manual_input', type=lambda x: x.lower() == 'true', 
-                       default=True, help='是否手动输入链接')
-    parser.add_argument('--preset_url', type=str, 
-                       default="", help='预设商品链接')
+    parser.add_argument('--mode', type=str, choices=['url', 'search'], default='search',
+                       help='模式: url=直接输入链接, search=搜索商品')
+    parser.add_argument('--brand', type=str, default='', help='品牌名 (search模式)')
+    parser.add_argument('--product', type=str, default='', help='商品名 (search模式)')
+    parser.add_argument('--url', type=str, default='', help='商品链接 (url模式)')
+    parser.add_argument('--max_comments', type=int, default=200, help='最大评论数')
+    parser.add_argument('--output', type=str, 
+                       default=r'AIGC\Comment_crawling_and_analysis\reviews.txt',
+                       help='输出文件路径')
     
     args = parser.parse_args()
     
@@ -326,19 +447,39 @@ if __name__ == "__main__":
         logging.error(f"Edge驱动路径不存在: {driver_path}")
         raise FileNotFoundError(f"Edge驱动路径不存在: {driver_path}")
     
-    logging.info(f"启动爬虫，参数: manual_input={args.manual_input}, preset_url={args.preset_url}")
-    
-    output_file = r'AIGC\Comment_crawling_and_analysis\reviews.txt'
     with TaobaoScraperNew(
         driver_path=r"E:\edgedriver_win64\msedgedriver.exe"
     ) as scraper:
         scraper.ensure_login()
-        scraper.scrape_reviews(
-            output_file=output_file,
-            max_comments=200,
-            manual_input=args.manual_input,
-            preset_url=args.preset_url
-        )
+        
+        if args.mode == 'search':
+            if not args.brand and not args.product:
+                # 交互式输入
+                brand = input(" 请输入品牌名: ").strip()
+                product = input(" 请输入商品名: ").strip()
+            else:
+                brand = args.brand
+                product = args.product
+            
+            scraper.select_product_and_scrape(
+                brand=brand,
+                product=product,
+                output_file=args.output,
+                max_comments=args.max_comments
+            )
+        else:
+            # url模式
+            url = args.url
+            if not url:
+                url = input(" 请输入商品详情页链接: ").strip()
+            
+            scraper.scrape_reviews(
+                output_file=args.output,
+                max_comments=args.max_comments,
+                manual_input=False,
+                preset_url=url
+            )
+        
         # 爬取完成后自动删除默认评价
-        scraper.remove_default_reviews(output_file)
+        scraper.remove_default_reviews(args.output)
         
