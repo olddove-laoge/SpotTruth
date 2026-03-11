@@ -590,6 +590,40 @@ class MCPToolServer:
             {
                 "type": "function",
                 "function": {
+                    "name": "analyze_comments",
+                    "description": "【推荐】统一分析评论：自动进行讽刺检测+情感分析。流程：对所有评论先进行讽刺检测，是讽刺的用LLM判断，正常评论用LoRA模型分析，最后合并结果",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "comments": {"type": "array", "items": {"type": "object", "properties": {"text": {"type": "string"}, "source": {"type": "string"}}, "description": "评论列表"}},
+                            "category": {"type": "string", "description": "商品品类"},
+                            "product_name": {"type": "string", "description": "商品名称（可选）"}
+                        },
+                        "required": ["comments", "category"]
+                    }
+                }
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "analyze_by_source",
+                    "description": "分析评论数据。流程：1)淘宝评论→讽刺检测→正常评论用LoRA分析，讽刺评论用LLM判断→得到淘宝好/差评率 2)小红书笔记和黑猫投诉直接返回文本列表（后续由Kimi分析）",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "taobao_comments": {"type": "array", "items": {"type": "object"}, "description": "淘宝评论列表"},
+                            "xiaohongshu_notes": {"type": "array", "items": {"type": "object"}, "description": "小红书笔记列表"},
+                            "heimao_complaints": {"type": "array", "items": {"type": "object"}, "description": "黑猫投诉列表"},
+                            "category": {"type": "string", "description": "商品品类"},
+                            "product_name": {"type": "string", "description": "商品名称（可选）"}
+                        },
+                        "required": ["category"]
+                    }
+                }
+            },
+            {
+                "type": "function",
+                "function": {
                     "name": "query_knowledge_base",
                     "description": "查询RAG知识库",
                     "parameters": {
@@ -936,6 +970,241 @@ class MCPToolServer:
     def llm_judge_sarcasm(self, text: str, topic: str) -> Dict:
         """LLM判断讽刺评论"""
         return self.kimi.judge_sarcasm(text, topic)
+    
+    def analyze_comments(self, comments: List[Dict], category: str, product_name: str = "") -> Dict:
+        """统一分析评论（讽刺检测 + 情感分析）
+        
+        流程：
+        1. 对所有评论进行讽刺检测（TOSPrompt）
+        2. 讽刺评论 → LLM判断真实情感
+        3. 正常评论 → LoRA模型情感分析
+        4. 合并结果
+        
+        Args:
+            comments: 评论列表 [{"text": "...", "source": "..."}]
+            category: 商品品类
+            product_name: 商品名称（可选）
+            
+        Returns:
+            {
+                "results": [
+                    {
+                        "text": "...",
+                        "source": "...",
+                        "is_sarcasm": true/false,
+                        "sarcasm_confidence": 0.0-1.0,
+                        "sentiment": "positive/negative",
+                        "confidence": 0.0-1.0,
+                        "final_judgment": "好评/差评"
+                    },
+                    ...
+                ],
+                "statistics": {
+                    "total": N,
+                    "positive": N,
+                    "negative": N,
+                    "sarcasm": N
+                }
+            }
+        """
+        if not comments:
+            return {"results": [], "statistics": {"total": 0, "positive": 0, "negative": 0, "sarcasm": 0}}
+        
+        texts = [c.get("text", "") for c in comments]
+        sources = [c.get("source", "taobao") for c in comments]
+        topics = [product_name] * len(texts)
+        
+        sarcasm_results = self.sarcasm_detector.batch_detect(texts, topics)
+        
+        normal_texts = []
+        normal_indices = []
+        sarcasm_texts = []
+        sarcasm_indices = []
+        
+        for i, result in enumerate(sarcasm_results):
+            if result.get("is_sarcasm", False) and result.get("confidence", 0) > 0.6:
+                sarcasm_texts.append(texts[i])
+                sarcasm_indices.append(i)
+            else:
+                normal_texts.append(texts[i])
+                normal_indices.append(i)
+        
+        llm_judgments = {}
+        for i, text in zip(sarcasm_indices, sarcasm_texts):
+            llm_result = self.kimi.judge_sarcasm(text, product_name)
+            llm_judgments[i] = llm_result
+        
+        lora_results = {}
+        if normal_texts:
+            lora_sentiments = self.sentiment_analyzer.batch_analyze(normal_texts, category)
+            for i, result in zip(normal_indices, lora_sentiments):
+                lora_results[i] = result
+        
+        results = []
+        for i, comment in enumerate(comments):
+            text = texts[i]
+            source = sources[i]
+            
+            if i in llm_judgments:
+                llm_result = llm_judgments[i]
+                final_judgment = llm_result.get("judgment", "差评")
+                sentiment = "negative" if final_judgment == "差评" else "positive"
+                results.append({
+                    "text": text,
+                    "source": source,
+                    "is_sarcasm": True,
+                    "sarcasm_confidence": sarcasm_results[i].get("confidence", 0),
+                    "sentiment": sentiment,
+                    "confidence": llm_result.get("confidence", 0.8),
+                    "final_judgment": final_judgment
+                })
+            elif i in lora_results:
+                lora_result = lora_results[i]
+                sentiment = lora_result.get("sentiment", "positive")
+                final_judgment = "好评" if sentiment == "positive" else "差评"
+                results.append({
+                    "text": text,
+                    "source": source,
+                    "is_sarcasm": False,
+                    "sarcasm_confidence": sarcasm_results[i].get("confidence", 0),
+                    "sentiment": sentiment,
+                    "confidence": lora_result.get("confidence", 0.5),
+                    "final_judgment": final_judgment
+                })
+            else:
+                results.append({
+                    "text": text,
+                    "source": source,
+                    "is_sarcasm": sarcasm_results[i].get("is_sarcasm", False),
+                    "sarcasm_confidence": sarcasm_results[i].get("confidence", 0),
+                    "sentiment": "positive",
+                    "confidence": 0.5,
+                    "final_judgment": "好评"
+                })
+        
+        positive_count = sum(1 for r in results if r["final_judgment"] == "好评")
+        negative_count = sum(1 for r in results if r["final_judgment"] == "差评")
+        sarcasm_count = sum(1 for r in results if r["is_sarcasm"])
+        
+        return {
+            "results": results,
+            "statistics": {
+                "total": len(results),
+                "positive": positive_count,
+                "negative": negative_count,
+                "sarcasm": sarcasm_count
+            }
+        }
+    
+    def analyze_by_source(self, taobao_comments: List[Dict] = None, xiaohongshu_notes: List[Dict] = None, heimao_complaints: List[Dict] = None, category: str = "electronics", product_name: str = "") -> Dict:
+        """按数据源分别分析
+        
+        流程：
+        1. 淘宝评论：讽刺检测 + LoRA(正常)/LLM(讽刺) → 好/差评率
+        2. 小红书笔记：直接Kim分析
+        3. 黑猫投诉：直接Kimi分析
+        4. 最后汇总返回
+        
+        Args:
+            taobao_comments: 淘宝评论列表（需要完整分析）
+            xiaohongshu_notes: 小红书笔记列表
+            heimao_complaints: 黑猫投诉列表
+            category: 商品品类
+            product_name: 商品名称
+            
+        Returns:
+            {
+                "taobao_sentiment": {"positive_rate": 0.0-1.0, "negative_rate": 0.0-1.0, "sarcasm_count": N},
+                "xiaohongshu_analysis": "Kimi分析结果",
+                "heimao_analysis": "Kimi分析结果",
+                "combined_statistics": {...}
+            }
+        """
+        
+        # 1. 分析淘宝评论（讽刺检测 + 情感分析）
+        taobao_sentiment = {"positive_rate": 0.0, "negative_rate": 0.0, "sarcasm_count": 0, "total": 0}
+        if taobao_comments:
+            texts = [c.get("text", "") for c in taobao_comments]
+            topics = [product_name] * len(texts)
+            
+            # 讽刺检测
+            sarcasm_results = self.sarcasm_detector.batch_detect(texts, topics)
+            
+            normal_texts = []
+            normal_indices = []
+            sarcasm_texts = []
+            sarcasm_indices = []
+            
+            for i, result in enumerate(sarcasm_results):
+                if result.get("is_sarcasm", False) and result.get("confidence", 0) > 0.6:
+                    sarcasm_texts.append(texts[i])
+                    sarcasm_indices.append(i)
+                else:
+                    normal_texts.append(texts[i])
+                    normal_indices.append(i)
+            
+            # 讽刺评论 → LLM判断
+            for i, text in zip(sarcasm_indices, sarcasm_texts):
+                llm_result = self.kimi.judge_sarcasm(text, product_name)
+            
+            # 正常评论 → LoRA分析
+            lora_results = []
+            if normal_texts:
+                lora_results = self.sentiment_analyzer.batch_analyze(normal_texts, category)
+            
+            # 统计
+            positive_count = 0
+            negative_count = 0
+            sarcasm_count = len(sarcasm_indices)
+            total = len(texts)
+            
+            # 统计LoRA结果
+            lora_pos = 0
+            for result in lora_results:
+                if hasattr(result, 'sentiment'):
+                    if result.sentiment.value == "positive":
+                        lora_pos += 1
+                elif result.get("sentiment") == "positive":
+                    lora_pos += 1
+            
+            positive_count = lora_pos + len(sarcasm_indices)  # 讽刺评论算负面
+            negative_count = len(normal_texts) - lora_pos
+            
+            if total > 0:
+                taobao_sentiment = {
+                    "positive_rate": round(positive_count / total, 2),
+                    "negative_rate": round(negative_count / total, 2),
+                    "sarcasm_count": sarcasm_count,
+                    "total": total,
+                    "positive_count": positive_count,
+                    "negative_count": negative_count
+                }
+        
+        # 2. 小红书笔记 → LLM分析（简化为直接返回文本列表，后续由Kimi处理）
+        xiaohongshu_analysis = []
+        if xiaohongshu_notes:
+            for note in xiaohongshu_notes:
+                xiaohongshu_analysis.append({
+                    "text": note.get("text", ""),
+                    "source": "xiaohongshu"
+                })
+        
+        # 3. 黑猫投诉 → LLM分析（简化为直接返回文本列表）
+        heimao_analysis = []
+        if heimao_complaints:
+            for complaint in heimao_complaints:
+                heimao_analysis.append({
+                    "text": complaint.get("text", ""),
+                    "source": "heimao"
+                })
+        
+        return {
+            "taobao_sentiment": taobao_sentiment,
+            "xiaohongshu_notes": xiaohongshu_analysis,
+            "heimao_complaints": heimao_analysis,
+            "category": category,
+            "product_name": product_name
+        }
     
     def query_knowledge_base(self, category: str, brand: str = "", product: str = "") -> List[Dict]:
         """查询知识库"""

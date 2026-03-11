@@ -426,3 +426,72 @@ products = server.search_product(brand="华为", product="手机", driver=driver
 1. 训练时设置checkpoint保存策略
 2. 使用merge_and_unload()合并LoRA权重后推理
 3. 验证集准确率作为训练效果指标
+
+---
+
+## 十二、反讽检测与MCP集成 (2025-03-11)
+
+### 12.1 架构设计
+
+**完整分析流程：**
+```
+1. Kimi判断：品牌名、商品名、商品品类
+         ↓
+2. 爬取：淘宝评论、小红书笔记、黑猫投诉
+         ↓
+3. analyze_by_source工具：
+   - 淘宝评论 → 讽刺检测(TOSPrompt)
+     - 正常评论 → LoRA情感分析
+     - 讽刺评论 → LLM判断真实情感
+     → 输出：淘宝好/差评率
+   - 小红书笔记 → 返回文本列表（后续Kimi分析）
+   - 黑猫投诉 → 返回文本列表（后续Kimi分析）
+         ↓
+4. Kimi分析小红书笔记 → 结论
+5. Kimi分析黑猫投诉 → 结论
+6. Kimi综合所有结果 → 最终报告和购买建议
+```
+
+### 12.2 关键设计
+
+1. **只有淘宝评论需要讽刺检测+情感分析**
+   - 小红书本身就是避雷内容，直接分析即可
+   - 黑猫本身就是投诉内容，直接标记负面
+
+2. **三个数据源分别分析避免token超限**
+   - 淘宝评论：讽刺检测 + LoRA/LLM
+   - 小红书/黑猫：直接返回文本，由Kimi后续处理
+
+3. **统一分析工具 analyze_by_source**
+   - 位置：`new_idea/step6_mcp_tools.py`
+   - 返回：淘宝好/差评率 + 小红书/黑猫文本列表
+
+### 12.3 MCP工具更新
+
+1. **新增 analyze_comments 工具**
+   - 统一分析评论（讽刺检测+情感分析）
+
+2. **新增 analyze_by_source 工具**
+   - 按数据源分别分析
+   - 返回结构：
+   ```json
+   {
+       "taobao_sentiment": {"positive_rate": 0.0, "negative_rate": 0.0, "sarcasm_count": N},
+       "xiaohongshu_notes": [...],
+       "heimao_complaints": [...],
+       "category": "...",
+       "product_name": "..."
+   }
+   ```
+
+3. **更新测试文件 test_taobao_agent.py**
+   - 添加 analyze_by_source 工具定义
+   - 更新系统提示明确流程
+
+### 12.4 文件清单
+
+- `new_idea/step6_mcp_tools.py` - MCP工具框架（含analyze_by_source）
+- `new_idea/mcp_test/test_taobao_agent.py` - 集成测试文件
+- `new_idea/mcp_test/kimi_client.py` - Kimi客户端
+
+---
