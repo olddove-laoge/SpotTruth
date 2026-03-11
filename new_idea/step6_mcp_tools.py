@@ -14,6 +14,7 @@ Step 6: MCP工具封装 - 避雷真
 
 import os
 import json
+import time
 import torch
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field, asdict
@@ -851,7 +852,7 @@ class MCPToolServer:
         Args:
             brand: 品牌名
             max_complaints: 最大投诉数量
-            driver: 可选，已登录的浏览器实例（暂未使用，黑猫无需登录）
+            driver: 可选，已登录的浏览器实例
             
         Returns:
             list: 投诉列表 [{"text": "内容", "source": "heimao"}]
@@ -861,16 +862,40 @@ class MCPToolServer:
             heimao_path = r"D:\C_data\SpotTruth\AIGC\Comparison_of_similar_products_and_external_link_information"
             if heimao_path not in sys.path:
                 sys.path.insert(0, heimao_path)
-            from tousu_crawler import TousuCrawler
             
+            # 写入品牌到文件
             brand_file = os.path.join(heimao_path, "simple_prod_name_with_brand.txt")
             with open(brand_file, 'w', encoding='utf-8') as f:
                 f.write(brand)
             
-            scraper = TousuCrawler(keyword=brand, max_items=max_complaints)
-            scraper.collect_complaints()
-            scraper.driver.quit()
+            tousu_file = os.path.join(heimao_path, "tousu.txt")
             
+            if driver:
+                # 使用传入的driver
+                from tousu_crawler import TousuCrawler
+                scraper = TousuCrawler.__new__(TousuCrawler)
+                scraper.driver = driver
+                scraper.keyword = brand
+                scraper.max_items = max_complaints
+                # 先导航到搜索页面（driver当前可能是首页或登录状态）
+                search_url = f"https://tousu.sina.com.cn/index/search/?keywords={brand}&t=1"
+                driver.get(search_url)
+                time.sleep(3)  # 等待页面加载
+                collected = scraper.collect_complaints()
+                # 手动写入文件
+                with open(tousu_file, 'w', encoding='utf-8') as f:
+                    for item in collected:
+                        f.write(item + "\n")
+            else:
+                from tousu_crawler import TousuCrawler
+                scraper = TousuCrawler(keyword=brand, max_items=max_complaints)
+                collected = scraper.collect_complaints()
+                with open(tousu_file, 'w', encoding='utf-8') as f:
+                    for item in collected:
+                        f.write(item + "\n")
+                scraper.driver.quit()
+            
+            # 读取投诉文件
             complaints = []
             tousu_file = os.path.join(heimao_path, "tousu.txt")
             if os.path.exists(tousu_file):

@@ -365,6 +365,44 @@ products = server.search_product(brand="华为", product="手机", driver=driver
 
 ---
 
+## 十三、黑猫投诉爬虫修复 (2025-03-11)
+
+### 问题描述
+- `test_heimao_scraper.py` 单独测试正常
+- `test_taobao_agent.py` 中黑猫投诉工具调用后无数据，输出旧数据（如华为）
+
+### 根因分析
+1. **问题1：未导航到搜索页**
+   - 用户登录后浏览器停留在黑猫首页
+   - `search_heimao` 直接调用 `collect_complaints()`，假设driver已在搜索结果页
+   
+2. **问题2：未写入新数据**
+   - `TousuCrawler.collect_complaints()` 只返回列表，不写入文件
+   - 写入逻辑在 `run()` 方法中
+   - 读取的 `tousu.txt` 是旧的华为数据
+
+### 修复内容 (`step6_mcp_tools.py`)
+1. 添加 `import time` 解决模块导入问题
+2. driver分支中添加搜索页导航：
+   ```python
+   search_url = f"https://tousu.sina.com.cn/index/search/?keywords={brand}&t=1"
+   driver.get(search_url)
+   time.sleep(3)
+   ```
+3. 手动写入文件确保数据更新：
+   ```python
+   collected = scraper.collect_complaints()
+   with open(tousu_file, 'w', encoding='utf-8') as f:
+       for item in collected:
+           f.write(item + "\n")
+   ```
+
+### 测试结果
+- 修复后黑猫投诉工具正常爬取"优形"相关投诉
+- 输出结果正确
+
+---
+
 ## 八、待完成任务
 
 1. ~~【高优先级】修复Book模型~~ ✅ 已完成
