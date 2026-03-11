@@ -292,6 +292,14 @@ sarcasm_detection/
 
 ---
 
+## 十一、已知问题
+
+### 1. 黑猫投诉爬取问题 (待修复)
+- 问题描述：黑猫投诉爬虫运行异常
+- 后续需要排查和修复
+
+---
+
 ## 十、登录状态问题
 
 ### 问题现象
@@ -340,6 +348,20 @@ products = server.search_product(brand="华为", product="手机", driver=driver
 1. Agent智能体：自动规划调用流程
 2. 社区版功能
 3. Go后端工程化
+
+---
+
+## 十二、Kimi集成测试 (2025-03-11)
+
+### 1. MCP工具定义更新
+- 添加search_xiaohongshu、search_heimao工具定义
+- 更新get_comments参数支持driver
+
+### 2. 测试脚本更新
+- test_taobao_agent.py 支持4个工具
+- 先登录淘宝+小红书
+- 传入已登录的driver
+- Kimi自动调用工具链分析商品
 
 ---
 
