@@ -737,3 +737,94 @@ func (s *Server) BatchAnalyze(w http.ResponseWriter, r *http.Request) {
 2. **品牌名提取**：从商品名称智能提取品牌名（用于小红书/黑猫搜索）
 
 3. **闲聊回复**：以"避雷真"身份回答，不是Kimi
+
+---
+
+## 十七、爬虫修复与字段优化 (2026-03-12)
+
+### 17.1 淘宝爬虫CSS选择器修复
+
+#### 问题描述
+淘宝搜索结果页使用动态class名，类名包含随机后缀，如：
+- `CardV2--doubleCardWrapper--rq81FGu`
+- `title--title--wJY8TeA`
+
+原来的精确匹配选择器（如 `.doubleCardWrapperAdapt`）已失效。
+
+#### 修复方案
+将CSS选择器从精确匹配改为部分匹配（contains）：
+
+```python
+# 旧写法（失效）
+items = self.driver.find_elements(By.CSS_SELECTOR, ".doubleCardWrapperAdapt")
+
+# 新写法（有效）
+items = self.driver.find_elements(By.CSS_SELECTOR, "[class*='doubleCard']")
+```
+
+#### 更新的选择器列表
+
+| 字段 | 新选择器 |
+|------|----------|
+| 商品卡片 | `[class*='doubleCard']` |
+| 商品标题 | `[class*='title--'] span` |
+| 价格整数 | `[class*='priceInt']` |
+| 价格小数 | `[class*='priceFloat']` |
+| 购买人数 | `[class*='realSales']` |
+| 商品图片 | `[class*='mainPic--']` |
+| 店铺名称 | `[class*='shopNameText']` |
+| 店铺标签 | `[class*='shopTagText']` |
+
+### 17.2 新增商品字段
+
+为前端展示优化，新增以下字段：
+
+- **sales**：销量（如 "1000+人付款"）
+- **image_url**：商品图片URL
+- **shop_name**：店铺名称
+- **shop_tag**：店铺标签（回头客/年老店）
+
+### 17.3 黑猫投诉品牌名修复
+
+#### 问题描述
+在多Kimi Agent流程中，黑猫投诉爬虫使用淘宝返回的商品名称提取品牌，而不是用户输入的原品牌。
+
+例如：
+- 用户输入：品牌="蓝月亮"，商品="洗衣液"
+- 淘宝返回：product_name="蓝月亮 薰衣草香洗衣液 3kg"
+- 错误做法：从product_name提取"蓝月亮"（虽然正确但冗余）
+
+#### 根因
+`collected_data` 没有保存原始品牌参数，导致后续只能从淘宝商品名称中提取。
+
+#### 修复方案
+
+1. 在 `collected_data` 中添加 `brand` 字段：
+```python
+self.collected_data = {
+    "product_info": None,
+    "product_name": "",
+    "brand": "",  # 新增：保存原始品牌
+    ...
+}
+```
+
+2. 在 `collect_data` 方法开始时保存原始品牌：
+```python
+def collect_data(self, tool_functions, brand, product, driver):
+    self.collected_data["brand"] = brand  # 保存原始品牌
+```
+
+3. 在 `analyze_heimao` 中使用保存的原始品牌：
+```python
+brand = self.collected_data.get("brand", "")  # 使用原始品牌
+```
+
+### 17.4 修改的文件
+
+| 文件 | 修改内容 |
+|------|----------|
+| `AIGC/Comment_crawling_and_analysis/taobao_new.py` | CSS选择器改为部分匹配，新增字段 |
+| `new_idea/step6_mcp_tools.py` | 更新docstring |
+| `new_idea/mcp_test/test_taobao_scraper.py` | 调试脚本 |
+| `new_idea/mcp_test/test_multi_kimi_agent.py` | 修复品牌保存和提取逻辑 |

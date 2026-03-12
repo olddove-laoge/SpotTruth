@@ -207,6 +207,7 @@ class MultiKimiAgent:
         self.collected_data = {
             "product_info": None,
             "product_name": "",
+            "brand": "",  # 保存原始品牌
             "category": "electronics",
             "taobao_comments": [],
             "xiaohongshu_notes": [],
@@ -215,6 +216,9 @@ class MultiKimiAgent:
         
     def collect_data(self, tool_functions: dict, brand: str, product: str, driver) -> bool:
         """主控Kimi收集数据 - 只收集淘宝数据"""
+        # 保存原始品牌
+        self.collected_data["brand"] = brand
+        
         print("\n" + "="*60)
         print("📥 阶段1: 主控Kimi收集淘宝数据")
         print("="*60)
@@ -507,7 +511,7 @@ class MultiKimiAgent:
         complaints = self.collected_data.get("heimao_complaints", [])
         if not complaints and tool_functions:
             print("   正在爬取黑猫投诉...")
-            brand = self.collected_data.get("product_name", "").split()[0] if self.collected_data.get("product_name") else ""
+            brand = self.collected_data.get("brand", "")  # 使用原始品牌
             complaints = tool_functions["search_heimao"](brand, max_complaints=10)
             self.collected_data["heimao_complaints"] = complaints
             print(f"   获取到 {len(complaints)} 条投诉")

@@ -157,7 +157,17 @@ class TaobaoScraperNew:
             max_results: 返回最多多少个商品
             
         Returns:
-            list: 商品列表 [{"name": "商品名称", "url": "商品链接", "price": "价格", "shop": "店铺"}]
+            list: 商品列表 [
+                {
+                    "name": "商品名称",
+                    "url": "商品链接", 
+                    "price": "价格",
+                    "sales": "购买人数",
+                    "image_url": "图片URL",
+                    "shop_name": "店铺名称",
+                    "shop_tag": "店铺标签"
+                }
+            ]
         """
         keyword = f"{brand} {product}".strip()
         if not keyword:
@@ -172,42 +182,74 @@ class TaobaoScraperNew:
         
         products = []
         try:
-            # 使用部分类名匹配，包含doubleCardWrapperAdapt的元素
-            items = self.driver.find_elements(By.CSS_SELECTOR, "[class*='doubleCardWrapperAdapt']")
+            # 使用部分类名匹配，包含doubleCard的元素
+            items = self.driver.find_elements(By.CSS_SELECTOR, "[class*='doubleCard']")
             
             for i, item in enumerate(items[:max_results]):
                 try:
+                    # 初始化所有字段
                     name = ""
                     url = ""
-                    price = ""
-                    shop = ""
+                    price_int = ""
+                    price_float = ""
+                    sales = ""
+                    image_url = ""
+                    shop_name = ""
+                    shop_tag = ""  # 回头客/年老店
                     
-                    # 获取商品名称 - 在title span里
+                    # 获取商品名称 (title--开头)
                     try:
-                        title_elem = item.find_element(By.CSS_SELECTOR, ".title--ASSt27UY span")
+                        title_elem = item.find_element(By.CSS_SELECTOR, "[class*='title--'] span")
                         name = title_elem.text.strip()[:100] if title_elem else ""
                     except:
-                        try:
-                            title_elem = item.find_element(By.CSS_SELECTOR, "[class*='title--AS']")
-                            name = title_elem.text.strip()[:100] if title_elem else ""
-                        except:
-                            pass
+                        pass
                     
-                    # 获取价格
+                    # 获取价格（整数部分）
                     try:
-                        price_elem = item.find_element(By.CSS_SELECTOR, "[class*='priceWrapper']")
-                        price = price_elem.text.strip()[:30] if price_elem else ""
+                        price_int_elem = item.find_element(By.CSS_SELECTOR, "[class*='priceInt']")
+                        price_int = price_int_elem.text.strip() if price_int_elem else ""
                     except:
                         pass
                     
-                    # 获取店铺
+                    # 获取价格（小数部分）
                     try:
-                        shop_elem = item.find_element(By.CSS_SELECTOR, "[class*='shopName']")
-                        shop = shop_elem.text.strip()[:50] if shop_elem else ""
+                        price_float_elem = item.find_element(By.CSS_SELECTOR, "[class*='priceFloat']")
+                        price_float = price_float_elem.text.strip() if price_float_elem else ""
                     except:
                         pass
                     
-                    # 获取商品ID，从data-spm-act-id获取，然后构建商品详情页URL
+                    # 获取购买人数
+                    try:
+                        sales_elem = item.find_element(By.CSS_SELECTOR, "[class*='realSales']")
+                        sales = sales_elem.text.strip() if sales_elem else ""
+                    except:
+                        pass
+                    
+                    # 获取图片URL
+                    try:
+                        img_elem = item.find_element(By.CSS_SELECTOR, "[class*='mainPic--']")
+                        image_url = img_elem.get_attribute("src") if img_elem else ""
+                    except:
+                        pass
+                    
+                    # 获取店铺名
+                    try:
+                        shop_name_elem = item.find_element(By.CSS_SELECTOR, "[class*='shopNameText']")
+                        shop_name = shop_name_elem.text.strip()[:50] if shop_name_elem else ""
+                    except:
+                        pass
+                    
+                    # 获取店铺标签（回头客/年老店）
+                    try:
+                        shop_tag_elem = item.find_element(By.CSS_SELECTOR, "[class*='shopTagText']")
+                        shop_tag = shop_tag_elem.text.strip() if shop_tag_elem else ""
+                    except:
+                        pass
+                    
+                    # 构建完整价格
+                    price = f"¥{price_int}{price_float}" if price_int else ""
+                    
+                    # 获取商品ID，构建商品详情页URL
                     try:
                         item_id = item.get_attribute("data-spm-act-id")
                         if item_id and item_id.isdigit():
@@ -221,7 +263,10 @@ class TaobaoScraperNew:
                             "name": name,
                             "url": url,
                             "price": price,
-                            "shop": shop
+                            "sales": sales,           # 购买人数
+                            "image_url": image_url,   # 商品图片URL
+                            "shop_name": shop_name,   # 店铺名称
+                            "shop_tag": shop_tag      # 店铺标签
                         })
                         
                 except Exception as e:
@@ -255,7 +300,7 @@ class TaobaoScraperNew:
         print(f"\n 找到 {len(products)} 个商品:")
         for i, p in enumerate(products):
             print(f" {i+1}. {p['name']}")
-            print(f"    价格: {p['price']} | 店铺: {p['shop']}")
+            print(f"    价格: {p.get('price', '')} | 销量: {p.get('sales', '')} | 店铺: {p.get('shop_name', '')}")
         
         choice = input("\n 请选择商品编号 (直接回车选择第1个): ").strip()
         if not choice:
