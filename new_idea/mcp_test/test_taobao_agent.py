@@ -221,13 +221,13 @@ def main():
         def wrapped_search_product(brand, product, max_results=5):
             return mcp_server.search_product(brand=brand, product=product, max_results=max_results, driver=driver)
         
-        def wrapped_get_comments(url="", brand="", product="", max_count=30):
+        def wrapped_get_comments(url="", brand="", product="", max_count=100):
             return mcp_server.get_comments(url=url, brand=brand, product=product, max_count=max_count, driver=driver)
         
-        def wrapped_search_xiaohongshu(keyword, max_notes=10):
+        def wrapped_search_xiaohongshu(keyword, max_notes=50):
             return mcp_server.search_xiaohongshu(keyword=keyword, max_notes=max_notes, driver=driver)
         
-        def wrapped_search_heimao(brand, max_complaints=50):
+        def wrapped_search_heimao(brand, max_complaints=30):
             return mcp_server.search_heimao(brand=brand, max_complaints=max_complaints, driver=driver)
         
         def wrapped_detect_sarcasm(texts, topics=None):
