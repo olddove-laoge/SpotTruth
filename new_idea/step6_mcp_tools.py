@@ -719,7 +719,17 @@ class MCPToolServer:
             driver: 可选，已登录的浏览器实例
             
         Returns:
-            list: 商品列表 [{"name": "商品名称", "url": "商品链接", "price": "价格", "shop": "店铺"}]
+            list: 商品列表 [
+                {
+                    "name": "商品名称",
+                    "url": "商品链接",
+                    "price": "价格",
+                    "sales": "购买人数",
+                    "image_url": "图片URL",
+                    "shop_name": "店铺名称",
+                    "shop_tag": "店铺标签"
+                }
+            ]
         """
         try:
             TaobaoScraperNew = self._get_taobao_scraper_class()
