@@ -828,3 +828,82 @@ brand = self.collected_data.get("brand", "")  # 使用原始品牌
 | `new_idea/step6_mcp_tools.py` | 更新docstring |
 | `new_idea/mcp_test/test_taobao_scraper.py` | 调试脚本 |
 | `new_idea/mcp_test/test_multi_kimi_agent.py` | 修复品牌保存和提取逻辑 |
+
+---
+
+## 十八、Agent架构重构 - LLM驱动版 (2026-03-12)
+
+### 18.1 背景问题
+
+之前的 `agent.py` 存在以下问题：
+1. **硬编码流程** - 用 if/else 判断意图，然后执行固定流程，LLM没有主观能动性
+2. **上下文丢失** - 分析完一个商品后，数据被丢弃，无法追问"再详细点"
+3. **无法跨商品记忆** - 用户分析了5个商品后让选一个，Agent早忘了
+
+### 18.2 架构改进
+
+#### 1. LLM自主决策
+- 去掉硬编码的 if/else 意图判断
+- 改为 System Prompt 告诉 LLM 它的能力、工具、应该怎么做
+- LLM 根据用户输入自主决定调用哪些工具
+
+#### 2. 上下文保存
+```python
+self.collected_products = {
+    "蓝月亮洗衣液": {
+        "brand": "蓝月亮",
+        "taobao_comments": [...],
+        "taobao_result": {...},
+        "xiaohongshu_result": "...",
+        "heimao_result": "..."
+    },
+    "自嗨锅自热火锅": {...}
+}
+```
+
+#### 3. 持久化缓存
+- 分析结果保存到 `data/product_cache.json`
+- 下次启动时自动加载，支持追问之前分析过的商品
+
+#### 4. 对话历史
+- 保存最近10轮对话
+- LLM 可以理解上下文
+
+### 18.3 System Prompt 设计
+
+```python
+def get_system_prompt(self) -> str:
+    return """你是"避雷真"，一个专业的商品口碑分析助手。
+
+## 你的核心能力
+1. 分析淘宝商品的好评率/差评率
+2. 识别虚假好评和阴阳怪气评价（反讽检测）
+3. 搜索小红书避雷笔记
+4. 搜索黑猫投诉记录
+5. 提供购买建议
+
+## 你应该怎么做
+### 场景1: 用户要分析一个商品
+1. 先用search_product搜索商品
+2. 用get_comments获取评论
+3. 用classify_category判断商品品类
+4. 用detect_sarcasm检测反讽评论
+5. 对反讽评论用llm_judge_sarcasm判断真实情感
+6. 对正常评论用sentiment_analysis做情感分析
+7. 返回分析结果
+
+### 场景2: 用户追问之前分析过的商品
+- 从已分析商品中读取结果，给出回答
+- 如果用户想要更详细，可以调用更多工具深入分析
+
+### 场景3: 用户想要对比多个商品
+- 读取已分析商品的结果，进行对比
+"""
+```
+
+### 18.4 修改的文件
+
+| 文件 | 修改内容 |
+|------|----------|
+| `new_idea/agent.py` | 完全重构，LLM驱动架构 |
+| `new_idea/data/product_cache.json` | 新增商品分析缓存文件 |
