@@ -214,9 +214,9 @@ class MultiKimiAgent:
         }
         
     def collect_data(self, tool_functions: dict, brand: str, product: str, driver) -> bool:
-        """主控Kimi收集数据"""
+        """主控Kimi收集数据 - 只收集淘宝数据"""
         print("\n" + "="*60)
-        print("📥 阶段1: 主控Kimi收集数据")
+        print("📥 阶段1: 主控Kimi收集淘宝数据")
         print("="*60)
         
         system_prompt = """你是一个专业的商品分析助手。
@@ -224,9 +224,9 @@ class MultiKimiAgent:
 
 1. 搜索淘宝商品（search_product，品牌=brand，商品=product）
 2. 获取淘宝商品评论（get_comments，使用上一步得到的商品链接）
-3. 搜索小红书相关笔记（search_xiaohongshu，关键词=品牌+商品）
-4. 搜索黑猫投诉记录（search_heimao，品牌=brand）
-5. 判断商品品类（classify_category，使用商品名称）
+3. 判断商品品类（classify_category，使用商品名称）
+
+注意：只需要收集淘宝相关数据，不要搜索小红书和黑猫投诉。
 
 完成数据收集后，直接输出"数据收集完成"。"""
         
@@ -449,13 +449,21 @@ class MultiKimiAgent:
         print(f"淘宝评论内容分析:\n{result[:300]}...")
         return result
     
-    def analyze_xiaohongshu(self) -> str:
+    def analyze_xiaohongshu(self, tool_functions: dict = None) -> str:
         """子Kimi2: 分析小红书笔记"""
         print("\n" + "="*60)
         print("🔍 阶段2.2: Kimi2 分析小红书笔记")
         print("="*60)
         
-        notes = self.collected_data["xiaohongshu_notes"]
+        # 先调用爬虫获取数据
+        notes = self.collected_data.get("xiaohongshu_notes", [])
+        if not notes and tool_functions:
+            print("   正在爬取小红书笔记...")
+            keyword = f"{self.collected_data.get('product_name', '')}"
+            notes = tool_functions["search_xiaohongshu"](keyword, max_notes=10)
+            self.collected_data["xiaohongshu_notes"] = notes
+            print(f"   获取到 {len(notes)} 条笔记")
+        
         if not notes:
             return '{"error": "无小红书数据"}'
         
@@ -489,13 +497,21 @@ class MultiKimiAgent:
         print(f"小红书分析结果:\n{result[:500]}...")
         return result
     
-    def analyze_heimao(self) -> str:
+    def analyze_heimao(self, tool_functions: dict = None) -> str:
         """子Kimi3: 分析黑猫投诉"""
         print("\n" + "="*60)
         print("🔍 阶段2.3: Kimi3 分析黑猫投诉")
         print("="*60)
         
-        complaints = self.collected_data["heimao_complaints"]
+        # 先调用爬虫获取数据
+        complaints = self.collected_data.get("heimao_complaints", [])
+        if not complaints and tool_functions:
+            print("   正在爬取黑猫投诉...")
+            brand = self.collected_data.get("product_name", "").split()[0] if self.collected_data.get("product_name") else ""
+            complaints = tool_functions["search_heimao"](brand, max_complaints=10)
+            self.collected_data["heimao_complaints"] = complaints
+            print(f"   获取到 {len(complaints)} 条投诉")
+        
         if not complaints:
             return '{"error": "无黑猫投诉数据"}'
         
@@ -589,6 +605,89 @@ class MultiKimiAgent:
         
         return response.get("content", "分析完成")
     
+    def recognize_intent(self, user_input: str, target: str) -> bool:
+        """用Kimi判断用户意图
+        
+        Args:
+            user_input: 用户输入
+            target: 目标（"小红书" 或 "黑猫投诉"）
+            
+        Returns: True = 需要, False = 不需要
+        """
+        prompt = f"""请判断用户是否想查看{target}信息。
+
+用户回复："{user_input}"
+
+请只回答"是"或"否"，不要回答其他内容。"""
+        
+        response = self.main_kimi.chat([
+            {"role": "user", "content": prompt}
+        ])
+        
+        content = response.get("content", "").strip()
+        
+        # 调试：打印Kimi返回的内容
+        print(f"      [Kimi意图识别返回]: {content}")
+        
+        if self.tracker:
+            self.tracker.record("意图识别", "kimi_judge", 
+                {"user_input": user_input, "target": target}, 
+                f"kimi回答: {content}")
+        
+        # 更robust的判断
+        content_lower = content.lower()
+        if "是" in content or "yes" in content_lower or "要" in content or "好" in content:
+            return True
+        elif "否" in content or "no" in content_lower or "不" in content:
+            return False
+        
+        # 默认返回False
+        return False
+    
+    def ask_user_xiaohongshu(self) -> bool:
+        """询问用户是否需要小红书信息"""
+        print("\n" + "="*60)
+        print("❓ 询问：是否需要参考小红书信息？")
+        print("="*60)
+        print("  小红书可以提供用户真实使用体验和避坑指南")
+        print("  请回复：是/要/需要   或者   否/不要/跳过")
+        print("-" * 40)
+        
+        user_input = input("  您的回复: ").strip()
+        result = self.recognize_intent(user_input, "小红书")
+        
+        if self.tracker:
+            self.tracker.record("阶段2-小红书选择", "user_input", {"reply": user_input}, f"需要: {result}")
+        
+        if result:
+            print("  ✅ 将为您搜索小红书避坑信息...")
+        else:
+            print("  ⏭️ 跳过小红书分析")
+        
+        return result
+    
+    def ask_user_heimao(self) -> bool:
+        """询问用户是否需要黑猫投诉信息"""
+        print("\n" + "="*60)
+        print("❓ 询问：是否需要参考黑猫投诉信息？")
+        print("="*60)
+        print("  黑猫投诉可以提供商家售后服务和投诉处理情况")
+        print("  请回复：是/要/需要   或者   否/不要/跳过")
+        print("-" * 40)
+        
+        user_input = input("  您的回复: ").strip()
+        result = self.recognize_intent(user_input, "黑猫投诉")
+        
+        if self.tracker:
+            self.tracker.record("阶段2-黑猫选择", "user_input", {"reply": user_input}, f"需要: {result}")
+        
+        if result:
+            print("  ✅ 将为您搜索黑猫投诉信息...")
+        else:
+            print("  ⏭️ 跳过黑猫投诉分析")
+        
+        return result
+    
     def run(self, tool_functions: dict, brand: str, product: str, driver):
         """运行完整的分析流程"""
         print("="*60)
@@ -603,21 +702,31 @@ class MultiKimiAgent:
             print("❌ 数据收集失败")
             return
         
-        # 阶段2: 并行分析
-        # 2.1 淘宝评论：分类(反讽+LoRA) + 内容分析(Kimi)
+        # 阶段1.5: 询问用户是否需要小红书和黑猫（在爬虫之前询问）
+        need_xiaohongshu = self.ask_user_xiaohongshu()
+        need_heimao = self.ask_user_heimao()
+        
+        # 阶段2: 分析
+        # 2.1 淘宝评论：分类(反讽+LoRA) + 内容分析(Kimi)（始终需要）
         taobao_classify_result = self.analyze_taobao_classify(tool_functions)
         taobao_content_result = self.analyze_taobao_content()
         
-        # 2.2 小红书、黑猫
-        xiaohongshu_result = self.analyze_xiaohongshu()
-        heimao_result = self.analyze_heimao()
+        # 2.2 小红书（根据用户选择）
+        xiaohongshu_result = None
+        if need_xiaohongshu:
+            xiaohongshu_result = self.analyze_xiaohongshu(tool_functions)
+        
+        # 2.3 黑猫投诉（根据用户选择）
+        heimao_result = None
+        if need_heimao:
+            heimao_result = self.analyze_heimao(tool_functions)
         
         # 阶段3: 主控Kimi生成最终报告
         final_report = self.generate_final_report(
             taobao_classify_result,
             taobao_content_result,
-            xiaohongshu_result, 
-            heimao_result
+            xiaohongshu_result or "用户选择不查看小红书",
+            heimao_result or "用户选择不查看黑猫投诉"
         )
         
         # 保存日志
@@ -679,7 +788,7 @@ def main():
         tracker = ToolCallTracker()
         
         agent = MultiKimiAgent(tracker=tracker)
-        result = agent.run(tool_functions, "虎邦", "鸡蛋酱", driver)
+        result = agent.run(tool_functions, "蓝月亮", "洗衣液", driver)
         
         print("\n" + "="*60)
         print("📊 最终分析报告")

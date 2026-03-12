@@ -555,3 +555,149 @@ products = server.search_product(brand="华为", product="手机", driver=driver
 - 结果预览
 
 运行后自动保存到 `tool_calls_日期时间.json`
+
+---
+
+## 十四、Go并发调度方案 (2026-03-12)
+
+### 14.1 背景问题
+
+多选择/多品牌对比需要并行分析多个商品，但：
+- 工具由大模型决定调用
+- Python串行执行效率低
+- 需要Go的高并发能力
+
+### 14.2 Go的8个核心作用
+
+1. **接入网关**：参数校验、鉴权、限流、防重复提交
+2. **任务编排器**：DAG编排，支持单步重试
+3. **并发控制中心**：控制Selenium实例数和API调用频率
+4. **状态与结果服务**：统一状态机，前端轮询
+5. **子进程治理层**：拉起Python Worker，控制超时、回收
+6. **可观测性中枢**：结构化日志，输出吞吐、成功率指标
+7. **运维基座**：常驻服务，健康检查、灰度发布
+8. **团队协作隔离**：Go工程化与Python算法解耦
+
+### 14.3 技术方案：Go包装为Python工具
+
+**核心思路**：把Go服务包装为Python工具，大模型调用时Go负责并发调度。
+
+```
+大模型: batch_analyze_products([商品1, 商品2, ...])
+    ↓
+Python: 发送HTTP请求给Go网关
+    ↓
+Go: 收到请求，并发启动多个Python Worker
+    ↓
+Python Worker: 执行爬虫+ML分析
+    ↓
+Go: 汇总结果，返回给Python
+    ↓
+Python: 返回结果给大模型
+```
+
+### 14.4 具体实现
+
+**1. Python端 - 包装Go为工具**
+
+```python
+# step6_mcp_tools.py
+def batch_analyze_products(products: List[Dict], category: str) -> List[Dict]:
+    """批量分析商品 - 底层调用Go服务"""
+    response = requests.post(
+        "http://localhost:8080/api/batch_analyze",
+        json={"products": products, "category": category},
+        timeout=300
+    )
+    return response.json()["results"]
+```
+
+**2. Go端 - 并发调度**
+
+```go
+// Go网关
+func (s *Server) BatchAnalyze(w http.ResponseWriter, r *http.Request) {
+    var req BatchReq
+    json.NewDecoder(r.Body).Decode(&req)
+    
+    // 并发启动Python Worker
+    var wg sync.WaitGroup
+    for _, p := range req.Products {
+        wg.Add(1)
+        go func(p Product) {
+            defer wg.Done()
+            result := s.executePythonTool(p)  // 启动Python进程执行
+            results = append(results, result)
+        }(product)
+    }
+    wg.Wait()
+    
+    w.Write(json.Marshal(results))
+}
+```
+
+### 14.5 层级职责
+
+| 层级 | 谁控制 | 作用 |
+|------|--------|------|
+| 大模型 | 大模型 | 决定调用哪些工具（单个/批量） |
+| Python工具 | Go（通过HTTP调用） | 并发调度Python Worker |
+| Python Worker | Python | 具体执行爬虫/ML分析 |
+| Go网关 | Go | 任务编排、状态管理、限流 |
+
+### 14.6 待实现任务
+
+- 在step6_mcp_tools.py添加 batch_analyze_products 函数
+- Go网关实现 /api/batch_analyze 接口
+- Go并发调度多个Python Worker
+- 定义商品分析结果的数据结构
+
+---
+
+## 十五、多轮对话功能 (2026-03-12)
+
+### 15.1 背景
+
+之前的流程是自动收集所有数据再分析，但用户可能只需要部分信息（如只需要淘宝分析，不需要小红书/黑猫）。
+
+### 15.2 流程设计
+
+```
+用户选择商品
+    ↓
+淘宝评论爬取 + 分析（始终需要）
+    ↓
+询问1：是否需要小红书信息？（用户输入）
+    ↓ → Kimi意图识别
+    ↓
+[需要] → 小红书爬虫 + 分析
+[不需要] → 跳过
+    ↓
+询问2：是否需要黑猫投诉信息？
+    ↓ → Kimi意图识别
+    ↓
+[需要] → 黑猫爬虫 + 分析
+[不需要] → 跳过
+    ↓
+生成最终报告
+```
+
+### 15.3 实现细节
+
+1. **意图识别**：使用Kimi判断用户回复
+   - 用户说"好啊"、"当然"、"要"等 → 识别为需要
+   - 用户说"否"、"不"、"跳过"等 → 识别为不需要
+
+2. **条件执行**：根据用户选择决定是否调用爬虫
+
+3. **数据收集优化**：
+   - collect_data 只收集淘宝数据（商品、评论、品类）
+   - 小红书和黑猫在用户确认后才爬取
+
+### 15.4 新增函数
+
+- `recognize_intent()`: Kimi意图识别
+- `ask_user_xiaohongshu()`: 询问小红书
+- `ask_user_heimao()`: 询问黑猫
+- 修改 `analyze_xiaohongshu()`: 先爬取再分析
+- 修改 `analyze_heimao()`: 先爬取再分析
