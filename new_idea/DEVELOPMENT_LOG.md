@@ -907,3 +907,85 @@ def get_system_prompt(self) -> str:
 |------|----------|
 | `new_idea/agent.py` | 完全重构，LLM驱动架构 |
 | `new_idea/data/product_cache.json` | 新增商品分析缓存文件 |
+## 十四、Go 网关鉴权改动补录 (2026-03-12)
+
+### 14.1 记录时间
+
+- 补录提交时间：2026-03-12 19:04:05 +0800
+- 提交哈希：33a9e8aa43888bb7b50d3d9db04e8c132e7ed4f3
+- 提交说明：feat: add jwt auth middleware
+
+### 14.2 改动情况
+
+1. 新增 JWT 鉴权核心实现（Access Token 生成与解析、角色校验、鉴权中间件）
+2. 新增鉴权单元测试，覆盖缺失 Token、角色不足、过期 Token、非法 Token 等路径
+3. 增加 Go 模块依赖：github.com/golang-jwt/jwt/v5（同步生成 go.sum）
+4. 新增并整理 Token 鉴权设计文档
+
+### 14.3 涉及文件
+
+- `go_backend/internal/auth/token.go`
+- `go_backend/internal/auth/token_test.go`
+- `go_backend/internal/auth/middleware.go`
+- `go_backend/internal/auth/middleware_test.go`
+- `go_backend/go.mod`
+- `go_backend/go.sum`
+- `go_backend/docs/Token鉴权设计方案.md`
+- `go_backend/docs/设计与可扩展性说明.md`
+
+### 14.4 验证结果
+
+- 已执行：go test ./...
+- 结果：go_backend 模块内相关包测试通过（internal/auth、internal/config、internal/gateway、internal/middleware）
+
+---
+
+## 十五、Go 网关框架改动补录 (2026-03-08 ~ 2026-03-09)
+
+### 15.1 网关框架主提交
+
+- 提交时间：2026-03-08 22:56:35 +0800
+- 提交哈希：ed305cc4f7a62645e75ea264cc9d40d444a98e4f
+- 提交说明：feat(网关): 完成高并发API网关与单元测试
+
+改动情况：
+
+1. 初始化 Go 网关主程序与启动入口，形成可运行的 API Gateway 框架
+2. 增加网关核心能力：反向代理、服务启动与关闭、并发限制、请求日志中间件
+3. 增加配置加载能力与示例环境变量，支持本地和部署场景配置
+4. 补充 config、gateway、middleware 三个层面的单元测试
+5. 补充网关 README 与设计说明文档
+
+涉及文件：
+
+- `go_backend/.env.example`
+- `go_backend/README.md`
+- `go_backend/cmd/api-gateway/main.go`
+- `go_backend/go.mod`
+- `go_backend/internal/config/config.go`
+- `go_backend/internal/config/config_test.go`
+- `go_backend/internal/gateway/proxy.go`
+- `go_backend/internal/gateway/proxy_test.go`
+- `go_backend/internal/gateway/server.go`
+- `go_backend/internal/gateway/server_test.go`
+- `go_backend/internal/middleware/concurrency_limiter.go`
+- `go_backend/internal/middleware/concurrency_limiter_test.go`
+- `go_backend/internal/middleware/logging.go`
+- `go_backend/docs/设计与可扩展性说明.md`
+
+### 15.2 网关文档细化提交
+
+- 提交时间：2026-03-09 18:36:57 +0800
+- 提交哈希：5f9685839a173bd3cac290f333063c8373faf685
+- 提交说明：docs: 更新优化清单与网关细扣记录
+
+改动情况：
+
+1. 细化网关问题清单与后续优化项
+2. 补充网关实现细节记录，明确后续演进方向
+
+涉及文件：
+
+- `go_backend/docs/设计与可扩展性说明.md`
+
+---
