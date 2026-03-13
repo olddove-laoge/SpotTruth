@@ -1,12 +1,45 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import subprocess
 import os
 import time
 import re
+import requests
 
 app = Flask(__name__, 
            static_url_path='/static',
            static_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'static'))
+
+DEFAULT_GATEWAY_BASE_URL = os.environ.get('SPOTTRUTH_GATEWAY_URL', 'http://127.0.0.1:8080')
+
+CATEGORY_KEYWORDS = {
+    "book": ["书", "图书", "小说", "教材", "绘本", "书籍"],
+    "tablet": ["平板", "ipad", "平板电脑", "surface"],
+    "electronics": ["手机", "iphone", "安卓", "电脑", "笔记本", "耳机", "电子"],
+    "fruit": ["水果", "苹果", "橙子", "芒果", "草莓", "荔枝"],
+    "shampoo": ["洗发水", "护发素", "洗头膏", "洗发液"],
+    "dairy": ["牛奶", "酸奶", "奶酪", "奶粉", "乳制品"],
+    "clothing": ["衣服", "T恤", "衬衫", "裙子", "裤子", "外套", "服装"],
+    "water_heater": ["热水器", "电热水器", "燃气热水器"],
+    "hotel": ["酒店", "民宿", "宾馆", "客栈", "公寓"],
+}
+
+
+def classify_product_category(product_name):
+    """轻量品类分类工具，用于联调链路验证。"""
+    if not product_name:
+        return "electronics"
+
+    normalized = product_name.lower()
+    for category, keywords in CATEGORY_KEYWORDS.items():
+        if any(kw.lower() in normalized for kw in keywords):
+            return category
+
+    return "electronics"
+
+
+def normalize_gateway_base_url(base_url):
+    """统一网关地址格式，避免双斜杠拼接。"""
+    return (base_url or DEFAULT_GATEWAY_BASE_URL).strip().rstrip('/')
 
 def convert_urls_to_links(text):
     """将文本中的URL转换为HTML链接"""
@@ -335,6 +368,98 @@ def get_product_name():
     except Exception as e:
         print(f"获取产品名称失败: {str(e)}")
         return "未命名商品"
+
+
+@app.route('/api/gateway/health', methods=['GET'])
+def gateway_health():
+    """检查Go网关健康状态。"""
+    base_url = normalize_gateway_base_url(request.args.get('gateway_url', DEFAULT_GATEWAY_BASE_URL))
+    health_url = f"{base_url}/healthz"
+
+    try:
+        response = requests.get(health_url, timeout=5)
+        payload = {}
+        try:
+            payload = response.json()
+        except ValueError:
+            payload = {"raw": response.text[:300]}
+
+        return jsonify({
+            "ok": response.ok,
+            "status_code": response.status_code,
+            "gateway_url": base_url,
+            "health_url": health_url,
+            "payload": payload,
+        }), (200 if response.ok else 502)
+    except requests.RequestException as e:
+        return jsonify({
+            "ok": False,
+            "gateway_url": base_url,
+            "health_url": health_url,
+            "error": str(e),
+        }), 502
+
+
+@app.route('/api/python/tool-test', methods=['POST'])
+def python_tool_test():
+    """测试Python工具能力（品类分类）。"""
+    data = request.get_json(silent=True) or {}
+    product_name = (data.get('product_name') or '').strip()
+
+    if not product_name:
+        return jsonify({"ok": False, "error": "product_name 不能为空"}), 400
+
+    category = classify_product_category(product_name)
+    return jsonify({
+        "ok": True,
+        "tool": "classify_category",
+        "input": product_name,
+        "category": category,
+    })
+
+
+@app.route('/api/integration/test', methods=['POST'])
+def integration_test():
+    """串联测试：Go网关健康检查 + Python工具调用。"""
+    data = request.get_json(silent=True) or {}
+    product_name = (data.get('product_name') or '').strip()
+    base_url = normalize_gateway_base_url(data.get('gateway_url', DEFAULT_GATEWAY_BASE_URL))
+
+    if not product_name:
+        return jsonify({"ok": False, "error": "product_name 不能为空"}), 400
+
+    health_url = f"{base_url}/healthz"
+    gateway_result = {
+        "ok": False,
+        "gateway_url": base_url,
+        "health_url": health_url,
+    }
+    try:
+        response = requests.get(health_url, timeout=5)
+        gateway_result["ok"] = response.ok
+        gateway_result["status_code"] = response.status_code
+        try:
+            gateway_result["payload"] = response.json()
+        except ValueError:
+            gateway_result["payload"] = {"raw": response.text[:300]}
+    except requests.RequestException as e:
+        gateway_result["error"] = str(e)
+
+    category = classify_product_category(product_name)
+    python_tool_result = {
+        "ok": True,
+        "tool": "classify_category",
+        "input": product_name,
+        "category": category,
+    }
+
+    all_ok = gateway_result.get("ok", False) and python_tool_result.get("ok", False)
+    return jsonify({
+        "ok": all_ok,
+        "message": "联合链路可用" if all_ok else "联合链路存在异常，请检查网关或工具服务",
+        "gateway": gateway_result,
+        "python_tool": python_tool_result,
+    }), (200 if all_ok else 502)
 
 @app.route('/')
 def index():
