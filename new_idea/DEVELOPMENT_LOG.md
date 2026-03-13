@@ -989,3 +989,54 @@ def get_system_prompt(self) -> str:
 - `go_backend/docs/设计与可扩展性说明.md`
 
 ---
+
+## 十六、网关设计文档补充 Token 已落地能力 (2026-03-13)
+
+### 16.1 记录时间
+
+- 变更时间：2026-03-13 08:45:25 +0800
+
+### 16.2 改动情况
+
+1. 在 Go 后端设计文档“2.1 已落地能力”中新增 Token 鉴权能力说明。
+2. 明确当前已落地内容：JWT Access Token、鉴权中间件、角色校验、401/403 鉴权失败语义。
+3. 调整“后续可扩展方向”表述，避免与已落地 JWT 能力冲突，改为认证体系完善项（Refresh Token、黑名单、Session 管理）。
+
+### 16.3 涉及文件
+
+- `go_backend/docs/设计与可扩展性说明.md`
+
+---
+
+---
+
+## 十八、联调控制台重构 (2026-03-13)
+
+### 18.1 目标
+
+- 使用轻量前端框架重构首页
+- 可直接验证 Go 网关与 Python 工具的联合可用性
+- 保留旧版商品分析流程入口
+
+### 18.2 改动内容
+
+1. `web_app/app.py`
+   - 新增 `GET /api/gateway/health`：检查 Go 网关 `/healthz`
+   - 新增 `POST /api/python/tool-test`：测试 Python 工具（品类分类）
+   - 新增 `POST /api/integration/test`：串联执行网关检测 + Python 工具调用
+   - 新增轻量品类分类函数与网关地址标准化函数
+
+2. `web_app/templates/index.html`
+   - 采用 Vue 3（CDN 免构建）重构首页为联调控制台
+   - 页面包含四个区块：网关检测、Python工具测试、联合链路测试、原始分析入口
+   - 增加结构化结果展示与状态提示
+
+3. `web_app/test_app_api.py`
+   - 新增 Flask API 单元测试（4个用例）
+   - 覆盖成功/失败路径，包含网关调用 Mock
+
+### 18.3 结果
+
+- 前端可一键测试 Go + Python 联调链路
+- 后端具备可复用联调 API
+- 旧业务入口 `/analyze` 保持兼容
