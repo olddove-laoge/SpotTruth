@@ -981,6 +981,87 @@ class MCPToolServer:
         """LLM判断讽刺评论"""
         return self.kimi.judge_sarcasm(text, topic)
     
+    def calculate_sentiment_stats(self, sarcasm_results: List[Dict], sentiment_results: List[Dict]) -> Dict:
+        """统一计算好评率/差评率
+        
+        统一格式：
+        - sentiment_analysis: {"text": "...", "sentiment": "positive"/"negative", "confidence": 0.0}
+        - llm_judge_sarcasm: {"text": "...", "real_sentiment": "正面"/"负面", "analysis": "..."}
+        
+        Returns:
+            {
+                "positive_rate": 0.85,
+                "negative_rate": 0.15,
+                "positive_count": 85,
+                "negative_count": 15,
+                "sarcasm_count": 5,
+                "total": 100
+            }
+        """
+        positive_count = 0
+        negative_count = 0
+        sarcasm_count = 0
+        
+        # 统计讽刺评论（已通过llm_judge_sarcasm判断真实情感）
+        handled_texts = set()
+        if sarcasm_results:
+            for result in sarcasm_results:
+                text = result.get("text", "")
+                handled_texts.add(text)
+                
+                # 判断是否为讽刺
+                is_sarcastic = result.get("is_sarcastic", False)
+                sarcasm_confidence = result.get("confidence", 0)
+                
+                if is_sarcastic and sarcasm_confidence > 0.6:
+                    sarcasm_count += 1
+                    # 讽刺评论使用LLM判断的真实情感
+                    real_sentiment = result.get("real_sentiment", "")
+                    if "正面" in real_sentiment or "positive" in real_sentiment.lower():
+                        positive_count += 1
+                    else:
+                        negative_count += 1
+                else:
+                    # 非讽刺评论，加入正常统计
+                    if "正面" in real_sentiment or "positive" in real_sentiment.lower():
+                        positive_count += 1
+                    else:
+                        negative_count += 1
+        
+        # 统计正常评论的情感分析结果
+        if sentiment_results:
+            for result in sentiment_results:
+                text = result.get("text", "")
+                if text in handled_texts:
+                    continue  # 已统计过的跳过
+                
+                sentiment = result.get("sentiment", "")
+                if "positive" in sentiment.lower():
+                    positive_count += 1
+                else:
+                    negative_count += 1
+        
+        total = positive_count + negative_count
+        
+        if total == 0:
+            return {
+                "positive_rate": 0.0,
+                "negative_rate": 0.0,
+                "positive_count": 0,
+                "negative_count": 0,
+                "sarcasm_count": 0,
+                "total": 0
+            }
+        
+        return {
+            "positive_rate": round(positive_count / total, 2),
+            "negative_rate": round(negative_count / total, 2),
+            "positive_count": positive_count,
+            "negative_count": negative_count,
+            "sarcasm_count": sarcasm_count,
+            "total": total
+        }
+    
     def analyze_comments(self, comments: List[Dict], category: str, product_name: str = "") -> Dict:
         """统一分析评论（讽刺检测 + 情感分析）
         

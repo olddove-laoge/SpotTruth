@@ -139,6 +139,21 @@ TOOLS = [
                 "required": ["text", "topic"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "calculate_sentiment_stats",
+            "description": "统一计算好评率/差评率，接收讽刺检测和情感分析的结果，输出统计报告",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "sarcasm_results": {"type": "array", "description": "讽刺检测结果列表"},
+                    "sentiment_results": {"type": "array", "description": "情感分析结果列表"}
+                },
+                "required": ["sarcasm_results", "sentiment_results"]
+            }
+        }
     }
 ]
 
@@ -370,6 +385,16 @@ class Agent:
                             text=func_args.get("text", ""),
                             topic=func_args.get("topic", "")
                         )
+                        
+                    elif func_name == "calculate_sentiment_stats":
+                        sarcasm_results = func_args.get("sarcasm_results", [])
+                        sentiment_results = func_args.get("sentiment_results", [])
+                        result = self.mcp_server.calculate_sentiment_stats(
+                            sarcasm_results=sarcasm_results,
+                            sentiment_results=sentiment_results
+                        )
+                        if self.current_product:
+                            self.collected_products[self.current_product]["taobao_stats"] = result
                         
                     elif func_name == "search_xiaohongshu":
                         result = self.mcp_server.search_xiaohongshu(
