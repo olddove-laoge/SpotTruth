@@ -1,0 +1,54 @@
+package main
+
+import (
+	"context"
+	"errors"
+	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+
+	"spottruth/go_backend/internal/config"
+	"spottruth/go_backend/internal/gateway"
+)
+
+func main() {
+	cfg := config.Load()
+
+	proxy, err := gateway.NewReverseProxy(cfg.UpstreamBaseURL, gateway.ProxyOptions{
+		MaxIdleConns:          cfg.MaxIdleConns,
+		MaxIdleConnsPerHost:   cfg.MaxIdleConnsPerHost,
+		IdleConnTimeout:       cfg.IdleConnTimeout,
+		ResponseHeaderTimeout: cfg.ResponseHeaderTimeout,
+	})
+	if err != nil {
+		log.Fatalf("UPSTREAM_BASE_URL 非法: %v", err)
+	}
+
+	handler := gateway.NewHandler(proxy, cfg.MaxInFlight)
+	server := &http.Server{
+		Addr:              cfg.GatewayAddr,
+		Handler:           handler,
+		ReadHeaderTimeout: cfg.ReadHeaderTimeout,
+	}
+
+	go func() {
+		log.Printf("API 网关启动: addr=%s upstream=%s", cfg.GatewayAddr, cfg.UpstreamBaseURL)
+		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			log.Fatalf("网关启动失败: %v", err)
+		}
+	}()
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+
+	ctx, cancel := context.WithTimeout(context.Background(), cfg.ShutdownTimeout)
+	defer cancel()
+
+	log.Println("网关正在优雅停机")
+	if err := server.Shutdown(ctx); err != nil {
+		log.Printf("优雅停机失败: %v", err)
+	}
+}
