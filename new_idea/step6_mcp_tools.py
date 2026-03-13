@@ -323,29 +323,45 @@ class SentimentAnalyzer:
         self.tokenizer = None
         self.models = {}
         self._load_models()
+        self._load_error = {}  # 记录每个品类的加载错误
     
     def _load_models(self):
         """加载所有品类模型"""
         for category in CATEGORIES:
             model_path = os.path.join(LORA_DIR, category)
             if os.path.exists(model_path):
-                try:
-                    self.models[category] = {
-                        "path": model_path,
-                        "model": None,
-                        "tokenizer": None
-                    }
-                except Exception as e:
-                    print(f"加载{category}模型失败: {e}")
+                self.models[category] = {
+                    "path": model_path,
+                    "model": None,
+                    "tokenizer": None,
+                    "loaded": False
+                }
+            else:
+                print(f"   [警告] 品类模型目录不存在: {model_path}")
+                self._load_error[category] = f"模型目录不存在: {model_path}"
     
     def _get_model(self, category: str):
-        """获取模型（延迟加载）"""
+        """获取模型（延迟加载），返回(model, tokenizer)或(None, None)"""
         category = category.lower()
         
-        if category not in self.models:
-            category = "electronics"
+        # 检查是否有加载错误
+        if category in self._load_error:
+            print(f"   [错误] {category}模型加载失败: {self._load_error[category]}")
+            return None, None
         
-        if self.models[category]["model"] is None:
+        if category not in self.models:
+            # 尝试使用默认electronics
+            if "electronics" in self.models:
+                category = "electronics"
+            else:
+                print(f"   [错误] 未找到品类{category}的模型配置")
+                return None, None
+        
+        if self.models[category].get("loaded", False):
+            return self.models[category]["model"], self.models[category]["tokenizer"]
+        
+        # 尝试加载模型
+        try:
             model_path = self.models[category]["path"]
             base_model = AutoModelForSequenceClassification.from_pretrained(
                 CACHE_DIR,
@@ -357,12 +373,26 @@ class SentimentAnalyzer:
             
             self.models[category]["model"] = model
             self.models[category]["tokenizer"] = tokenizer
-        
-        return self.models[category]["model"], self.models[category]["tokenizer"]
+            self.models[category]["loaded"] = True
+            
+            return model, tokenizer
+        except Exception as e:
+            error_msg = str(e)
+            self._load_error[category] = error_msg
+            print(f"   [错误] 加载{category}模型失败: {error_msg}")
+            return None, None
     
     def analyze(self, text: str, category: str = "electronics") -> SentimentResult:
         """分析单条评论"""
         model, tokenizer = self._get_model(category)
+        
+        # 模型加载失败，返回默认结果
+        if model is None or tokenizer is None:
+            return SentimentResult(
+                sentiment=SentimentType.POSITIVE,  # 默认正面
+                confidence=0.0,
+                original_text=text
+            )
         
         inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=128)
         
@@ -410,13 +440,20 @@ class SarcasmDetector:
                 self.model = PeftModel.from_pretrained(base_model, SARCASM_DIR)
                 self.model = self.model.merge_and_unload()
                 self.tokenizer = AutoTokenizer.from_pretrained(CACHE_DIR)
+                print(f"   ✅ 讽刺检测模型加载成功")
             except Exception as e:
-                print(f"加载讽刺检测模型失败: {e}")
+                print(f"   [错误] 加载讽刺检测模型失败: {e}")
+                self.model = None
+                self.tokenizer = None
+        else:
+            print(f"   [警告] 讽刺检测模型目录不存在: {SARCASM_DIR}")
+            self.model = None
+            self.tokenizer = None
     
     def detect(self, text: str, topic: str = "") -> Dict:
         """检测讽刺"""
-        if self.model is None:
-            return {"is_sarcasm": False, "confidence": 0.0, "text": text}
+        if self.model is None or self.tokenizer is None:
+            return {"is_sarcasm": False, "confidence": 0.0, "text": text, "topic": topic, "error": "模型未加载"}
         
         prompt = f'"{text}" 是对 "{topic}" 的讽刺吗？[MASK]'
         inputs = self.tokenizer(prompt, return_tensors="pt", truncation=True, max_length=128)
@@ -1013,20 +1050,20 @@ class MCPToolServer:
                 is_sarcastic = result.get("is_sarcastic", False)
                 sarcasm_confidence = result.get("confidence", 0)
                 
+                # 只有当检测为讽刺且置信度>0.6时，才认为是真的讽刺
                 if is_sarcastic and sarcasm_confidence > 0.6:
                     sarcasm_count += 1
-                    # 讽刺评论使用LLM判断的真实情感
+                    # 讽刺评论使用LLM判断的真实情感（如果已有）
                     real_sentiment = result.get("real_sentiment", "")
-                    if "正面" in real_sentiment or "positive" in real_sentiment.lower():
-                        positive_count += 1
+                    if real_sentiment:
+                        if "正面" in real_sentiment or "positive" in real_sentiment.lower():
+                            positive_count += 1
+                        else:
+                            negative_count += 1
                     else:
+                        # 有讽刺标记但没有LLM判断，暂时算负面
                         negative_count += 1
-                else:
-                    # 非讽刺评论，加入正常统计
-                    if "正面" in real_sentiment or "positive" in real_sentiment.lower():
-                        positive_count += 1
-                    else:
-                        negative_count += 1
+                # 非讽刺评论不在这里处理，由sentiment_analysis处理
         
         # 统计正常评论的情感分析结果
         if sentiment_results:
