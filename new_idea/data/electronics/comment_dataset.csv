@@ -1,0 +1,1002 @@
+﻿Sample Preview - Chinese-English Product Reviews,,,,
+id,category,zh_review,en_review,sentiment
+id_001,smartphone,信号偶尔会跳格子，在地下停车场特别明显。,"The signal drops randomly, especially in underground parking lots.",negative
+id_002,headphone,耳机戴着很舒服，长时间也不会觉得夹耳朵。,"These headphones are super comfy, even after wearing them for hours.",positive
+id_003,headphone,反应还挺快的，就是有时候多任务处理会稍微卡一下。,"It's pretty responsive, though it lags a bit when I multitask too much.",neutral
+id_004,smartphone,电池真的扛不住，每天都得充两次，有点烦。,"The battery just can't keep up—I have to charge it twice a day, kinda annoying.",negative
+id_005,tablet,降噪功能真的香，坐地铁都能听得一清二楚！,The noise cancelling is amazing—I can hear everything clearly on the subway!,positive
+id_006,smartphone,屏幕显示挺细腻的，看剧很有那味儿。,"The screen's super crisp, perfect for binge-watching shows.",positive
+id_007,smartphone,蓝牙偶尔会断线，不过音质还不错。,"Bluetooth cuts off sometimes, but the sound quality's decent.",neutral
+id_008,headphone,用了两个礼拜目前没发现啥毛病，挺顺手的。,"Been using it for two weeks—no issues so far, feels good in the hand.",positive
+id_009,headphone,感觉续航时间没宣传的那么长，用一天就快没电了。,The battery doesn’t last as long as advertised—barely makes it through a day.,negative
+id_010,headphone,包装特别精致，打开的时候还有种仪式感哈哈。,The packaging was so fancy—it felt like an unboxing ceremony haha.,positive
+id_011,headphone,打游戏的时候发热有点明显，不过帧率还挺稳的。,"It heats up a bit when gaming, but the frame rate stays pretty stable.",neutral
+id_012,tablet,拍照功能真的惊艳，尤其是夜景模式超出预期。,"The camera is seriously impressive, especially the night mode—totally exceeded my expectations.",positive
+id_013,headphone,连手机有点慢，而且偶尔还要重连。,"Takes a while to connect to my phone, and sometimes I have to reconnect.",negative
+id_014,headphone,系统很流畅，动画过渡也很自然，用着特别舒服。,"The system runs super smoothly, with natural transitions—feels great to use.",positive
+id_015,headphone,主要拿来看网课，屏幕够大，字清楚，看久了眼睛也不累。,"I mainly use it for online classes—the screen is big and clear, and it doesn’t strain my eyes.",positive
+id_016,headphone,耳机不太贴耳，有点容易掉，运动的时候不太稳。,They don’t fit snugly and tend to fall out—kinda unstable when working out.,negative
+id_017,headphone,日常使用还行，就是偶尔会突然卡个一两秒。,"It’s fine for everyday use, but it randomly freezes for a second or two.",neutral
+id_018,tablet,这个价位能买到这种配置，已经很值了。,"At this price, getting these specs is a total win.",positive
+id_019,headphone,通话音质一般，对方老说听不清楚我讲话。,Call quality’s just so-so—people keep saying they can’t hear me clearly.,negative
+id_020,headphone,颜色挺时尚的，手感也好，朋友都说好看。,The color is super trendy and it feels great—my friends all said it looks nice.,positive
+id_021,smartphone,声音外放有点小，开最大音量也不够响。,"The speaker's kind of weak—even at max volume, it's not loud enough.",negative
+id_022,headphone,蓝牙连接速度挺快的，几乎是秒连。,Bluetooth connects super fast—like almost instant.,positive
+id_023,smartphone,偶尔会误触，可能是我手太大了哈哈。,Sometimes I tap the wrong thing by accident—maybe my fingers are just too big haha.,neutral
+id_024,tablet,听低音特别爽，有那种震撼感。,The bass is awesome—it really hits hard.,positive
+id_025,smartphone,触控反应稍慢一点，特别是画图的时候不够跟手。,"Touch response is a bit sluggish, especially when drawing—just not snappy enough.",negative
+id_026,tablet,整体用起来还算顺畅，就是指纹解锁偶尔失灵。,"Overall it runs fine, but fingerprint unlock fails sometimes.",neutral
+id_027,headphone,小巧便携，放包里一点不占地方。,Super compact—doesn’t take up any space in my bag.,positive
+id_028,tablet,比我想象中轻，单手拿着刷剧一点都不累。,Lighter than I expected—watching shows one-handed is a breeze.,positive
+id_029,smartphone,拍照有点偏色，肤色不太自然。,The photos come out kinda off—skin tones look unnatural.,negative
+id_030,tablet,充电速度挺快的，充十几分钟就能听好久。,Charges fast—just a few minutes and it lasts for hours.,positive
+id_031,tablet,系统挺纯净，没有乱七八糟的预装软件，喜欢！,"The system's clean, no bloatware at all—love that!",positive
+id_032,smartphone,屏幕分辨率高，看图和刷视频都很舒服。,High-res screen—great for scrolling and watching videos.,positive
+id_033,smartphone,有点漏音，开大点别人都听得到。,Leaks sound a bit—people around me can hear when it’s loud.,negative
+id_034,tablet,处理器性能一般，不适合玩大型游戏。,The processor’s average—not great for heavy gaming.,neutral
+id_035,smartphone,系统更新之后流畅了不少，值得一夸。,Got way smoother after the latest update—props for that.,positive
+id_036,tablet,配对过程挺简单的，不用装App，插上就行。,"Super easy to pair—no app needed, just plug and play.",positive
+id_037,smartphone,边框有点厚，看起来不太高级。,The bezels are kinda thick—doesn’t look very premium.,negative
+id_038,headphone,外放音质不错，放歌都不用连音响了。,The speakers are solid—no need for extra speakers when I play music.,positive
+id_039,smartphone,佩戴久了耳朵有点胀，不太适合长时间用。,My ears feel sore after a while—not ideal for long use.,negative
+id_040,smartphone,支持手写笔，很适合做笔记或者画画。,Supports stylus—perfect for notes and doodles.,positive
+id_041,smartphone,有点容易发热，特别是边充边玩的时候。,"Gets warm pretty quick, especially when charging and gaming.",neutral
+id_042,tablet,隔音效果还行，但不是特别沉浸那种。,"Noise isolation is okay, but not super immersive.",neutral
+id_043,tablet,电池能撑一整天，出门不用担心没电。,Battery easily lasts all day—no worries when I’m out.,positive
+id_044,tablet,信号挺稳定的，郊区也基本没断过。,"Signal’s really stable—even in the suburbs, no drops.",positive
+id_045,headphone,耳机盒有点难打开，设计可以再人性化点。,The case is kinda hard to open—they could’ve designed it better.,negative
+id_046,smartphone,开机速度快，几秒钟就进系统了。,Boots up fast—only takes a few seconds to get going.,positive
+id_047,headphone,用了几天，不卡顿，也没发热，满意。,"Used it for a few days—no lag, no heating up, pretty satisfied.",positive
+id_048,headphone,语音助手反应有点慢，要等一两秒才执行。,Voice assistant’s kinda slow—takes a second or two to respond.,neutral
+id_049,tablet,做工挺扎实的，拿在手上很有分量感。,Feels solid in hand—definitely well-built.,positive
+id_050,headphone,屏幕色彩偏冷，不是很喜欢这种调调。,The screen colors are too cool-toned for my taste.,negative
+id_051,tablet,手感是真的好，边框圆润，拿久了也不会硌手。,"It feels great to hold—rounded edges, no discomfort even after long use.",positive
+id_052,tablet,更新完系统以后，屏幕有点卡顿，跟以前比差了点。,"After the system update, the screen started lagging a bit—was smoother before.",negative
+id_053,headphone,左耳有时候连不上，要重启才能恢复。,The left earbud sometimes won’t connect—have to restart it to fix.,negative
+id_054,headphone,性价比不错，这个配置这个价格可以入手。,Great value for money—worth it for the specs you get.,positive
+id_055,smartphone,边看剧边做笔记，效率高很多，超级方便。,Watching shows and taking notes at the same time? Total game changer.,positive
+id_056,tablet,充电仓有点松，盖子感觉随时会掉。,"The charging case feels loose, like the lid could pop off anytime.",negative
+id_057,tablet,屏幕响应很快，玩游戏手感不错。,The screen responds super fast—gaming feels great on it.,positive
+id_058,headphone,配件有点少，连个保护壳都没有。,Not much in the box—not even a case included.,negative
+id_059,smartphone,降噪只能说一般吧，在咖啡厅效果不太明显。,Noise cancelling is just so-so—doesn’t block much in a café.,neutral
+id_060,headphone,后壳容易沾指纹，强迫症有点受不了。,Back cover picks up fingerprints like crazy—not ideal for clean freaks.,negative
+id_061,smartphone,续航不错，白天上班用，晚上回家还有电。,Battery life is solid—still has juice after a full day of work.,positive
+id_062,tablet,高频部分有点刺耳，听久了耳朵不太舒服。,The highs sound kinda sharp—gets tiring after a while.,negative
+id_063,smartphone,充电速度超快，30分钟就充了快一半。,Charges super fast—almost 50% in just 30 minutes.,positive
+id_064,headphone,没有蜂窝版，出门在外就只能靠热点了。,"No cellular version, so I have to tether when I’m out.",neutral
+id_065,headphone,耳机戴上去很稳，跑步也不会掉，赞一个。,Stays firmly in place—even while running. Big win.,positive
+id_066,headphone,外观设计比较普通，没有特别惊艳的地方。,The design is kinda basic—nothing really eye-catching.,neutral
+id_067,headphone,接口只有一个Type-C，有点不太够用。,Only has one Type-C port—not quite enough for my setup.,neutral
+id_068,smartphone,音质中规中矩，不算特别惊艳。,Sound quality is average—nothing to write home about.,neutral
+id_069,smartphone,夜拍表现不错，噪点控制得挺好。,Night shots turned out well—noise is handled nicely.,positive
+id_070,headphone,自带支架挺方便的，不用老是拿着。,The built-in stand is super handy—no need to hold it all the time.,positive
+id_071,smartphone,耳机壳有点刮痕，不确定是不是新机。,The case came with a few scratches—kinda doubt if it’s really brand new.,negative
+id_072,smartphone,系统自带App太多，删不掉很烦。,Too many pre-installed apps you can’t delete—super annoying.,negative
+id_073,smartphone,开会用它共享屏幕很方便，投屏功能稳。,Great for meetings—screen casting works like a charm.,positive
+id_074,headphone,中音层次很丰富，听人声特别舒服。,The mids are rich—vocals sound amazing.,positive
+id_075,smartphone,信号偶尔抽风，明明满格却收不到消息。,Signal acts up sometimes—full bars but no notifications.,negative
+id_076,smartphone,屏幕亮度不够高，户外看不清。,Screen’s not bright enough—hard to see outside.,negative
+id_077,headphone,充电口是Type-C，这点必须夸，非常方便。,"It charges via Type-C, which is super convenient—props for that.",positive
+id_078,headphone,开箱体验感不错，包装质感挺好。,Unboxing was satisfying—the packaging felt premium.,positive
+id_079,smartphone,运行大型PDF文件有点吃力，经常卡顿。,Struggles with large PDFs—lags quite a bit.,negative
+id_080,smartphone,蓝牙连接稳定，几乎没断过线。,Bluetooth is rock solid—barely ever disconnects.,positive
+id_081,headphone,前置摄像头美颜有点过，调了也没法自然点。,"Front cam beauty mode is too much—even with tweaks, it still looks fake.",negative
+id_082,smartphone,内存有点小，装不了几个App就满了。,Storage is pretty limited—just a few apps and it’s full.,negative
+id_083,headphone,接电话声音清晰，风大的时候也听得见。,"Calls are super clear—even with wind blowing, no problem hearing.",positive
+id_084,smartphone,运行快，但玩游戏发热挺明显的。,"It runs fast, but gets noticeably hot during games.",neutral
+id_085,headphone,屏幕比例适合办公，用来看文档很舒服。,Screen ratio is great for work—reading documents feels just right.,positive
+id_086,smartphone,按键手感有点生硬，不是很灵敏。,Buttons feel stiff—not very responsive.,negative
+id_087,tablet,待机时间超长，忘记充电都还能撑一天。,Standby time is awesome—still going strong even if I forget to charge.,positive
+id_088,headphone,接口支持拓展坞，办公拓展性强。,Supports docking station—perfect for a productivity setup.,positive
+id_089,headphone,没啥延迟，看视频对口型也对得上。,Almost no delay—lip sync is spot on when watching videos.,positive
+id_090,headphone,机身有点滑，没壳的话容易掉手。,The body is slippery—easy to drop without a case.,negative
+id_091,headphone,刷网页特别顺，手指滑过去就跟着走。,Scrolling through pages is super smooth—follows your finger perfectly.,positive
+id_092,headphone,续航一般，听三个小时左右就没电了。,Battery life’s just okay—lasts about three hours.,neutral
+id_093,smartphone,边框有点宽，不太符合现在的审美了。,Bezels are kinda thick—not very modern-looking.,neutral
+id_094,headphone,配套键盘手感不错，打字像用笔记本一样。,The keyboard feels great—typing feels just like on a laptop.,positive
+id_095,tablet,耳机看起来时尚，配衣服也很搭。,They look super stylish—go well with pretty much any outfit.,positive
+id_096,smartphone,没有耳机孔有点不方便，我还得带个转接头。,No headphone jack is a pain—now I have to carry a dongle.,negative
+id_097,headphone,界面简洁易懂，爸妈也能轻松上手。,UI is clean and simple—even my parents can use it with no problem.,positive
+id_098,smartphone,低音不够劲，有点发虚。,The bass is kind of weak—sounds a bit hollow.,negative
+id_099,smartphone,前后摄像头像素都高，自拍和录像都很清晰。,Both front and rear cameras are sharp—great for selfies and videos.,positive
+id_100,smartphone,配套手写笔延迟低，几乎没感觉到延时。,The stylus has super low latency—feels instant when writing.,positive
+id_101,tablet,带着有点压耳，尤其是眼镜族不是很友好。,Feels a bit tight on the ears—not great if you wear glasses.,negative
+id_102,tablet,充满一次电基本能用一天半，挺满意的。,One full charge lasts about a day and a half—pretty happy with that.,positive
+id_103,tablet,边框挺窄的，看电影的时候沉浸感强。,Thin bezels really pull you in when watching movies.,positive
+id_104,headphone,耳机音量调节反应有点慢，要等一两秒才变。,Volume controls lag a bit—takes a second or two to respond.,neutral
+id_105,headphone,系统界面太复杂，找个设置项要翻半天。,The UI is way too complicated—takes forever to find a setting.,negative
+id_106,tablet,机身做工细腻，摸起来很有质感。,The build quality is top-notch—feels really premium to the touch.,positive
+id_107,headphone,连接电视的时候有延迟，不太适合打游戏。,There’s noticeable lag when paired with a TV—not ideal for gaming.,negative
+id_108,headphone,反应很灵敏，解锁和打开App几乎没有等待。,Super responsive—unlocking and launching apps is instant.,positive
+id_109,tablet,扬声器音质比我预期好，声音挺饱满的。,The speaker sounds better than I expected—pretty rich and full.,positive
+id_110,smartphone,耳机有点偏重，戴久了脖子有点酸。,They’re a bit heavy—neck gets sore after a while.,negative
+id_111,tablet,前置摄像头自拍略带美颜，拍出来挺自然的。,The front cam adds a light beauty filter—actually looks pretty natural.,positive
+id_112,headphone,屏幕分辨率一般，看久了有点疲劳感。,The resolution’s just okay—eyes get tired after a while.,neutral
+id_113,smartphone,说明书有点简略，配对教程看得我一头雾水。,The manual’s way too vague—pairing instructions confused me.,negative
+id_114,tablet,开了省电模式之后，使用时间翻了一倍。,Battery life literally doubled with power saving mode on.,positive
+id_115,smartphone,接口设计合理，插U盘读卡器都很方便。,Ports are well-placed—plugging in USBs and card readers is super easy.,positive
+id_116,headphone,颜色选择少了一点，希望多出点新颜色。,Not enough color options—hope they release more soon.,neutral
+id_117,smartphone,摄像头凸起太明显，桌上放不平。,The camera bump is huge—it won’t lie flat on a table.,negative
+id_118,tablet,系统更新后多了分屏功能，办公效率提升不少。,The new split-screen feature after the update boosted my productivity.,positive
+id_119,smartphone,连苹果设备速度快，安卓稍微慢点。,Pairs super quick with Apple devices—Android’s a bit slower.,neutral
+id_120,tablet,一加一摄像头看起来有点老气，没有旗舰感。,The dual cam looks kinda dated—doesn’t give flagship vibes.,negative
+id_121,tablet,屏幕支持高刷新率，刷网页贼丝滑。,High refresh rate screen—scrolling feels buttery smooth.,positive
+id_122,tablet,佩戴感不错，跑步也不晃动。,"Very secure fit—even while jogging, they stay put.",positive
+id_123,tablet,续航表现很顶，出门一天完全不用充。,Battery performance is top-tier—no need to charge all day.,positive
+id_124,headphone,系统字体太小，设置里也调不大。,The default font is tiny—and there’s no way to make it bigger in settings.,negative
+id_125,tablet,线控按键不太灵敏，按了半天没反应。,The inline controls barely respond—takes multiple presses.,negative
+id_126,tablet,支持NFC功能，刷公交太方便了。,NFC support is awesome—makes commuting so much easier.,positive
+id_127,headphone,系统偏教育用途，娱乐性不太强。,Feels more like an education tablet—not really built for entertainment.,neutral
+id_128,tablet,打开充电盒就自动连接，操作省心。,Opens the case and connects automatically—super hassle-free.,positive
+id_129,smartphone,玩手游稍微久一点就开始发热了。,Gets warm after just a bit of mobile gaming.,neutral
+id_130,smartphone,电源键设计有点小，不太好按。,The power button is too small—hard to press.,negative
+id_131,tablet,看视频时完全没有音画不同步的问题。,Zero audio delay when watching videos—totally in sync.,positive
+id_132,tablet,通话清晰，降噪麦克风效果很好。,Crystal-clear calls—the noise-canceling mic works wonders.,positive
+id_133,headphone,音量键太靠下了，单手拿的时候容易误触。,The volume button is placed too low—keeps getting pressed by accident.,negative
+id_134,smartphone,低延迟模式下玩游戏几乎无卡顿，惊喜。,Gaming in low-latency mode is smooth as butter—very impressed.,positive
+id_135,tablet,系统动画有点拖沓，不够利索。,System animations feel sluggish—not very snappy.,neutral
+id_136,smartphone,键盘背光灯亮度太低，晚上用不清楚。,Keyboard backlight is too dim—can’t see the keys at night.,negative
+id_137,tablet,续航能力超预期，听了一整天还剩电。,Battery life exceeded my expectations—still had charge after all-day use.,positive
+id_138,smartphone,机身轻薄，女生单手操作毫无压力。,"Light and slim—super easy for one-handed use, especially for girls.",positive
+id_139,tablet,自带支架角度不太稳，稍微动一下就滑。,The built-in stand isn’t very stable—slides down easily.,negative
+id_140,smartphone,耳机自动关机太快了，短暂断开就掉线。,Auto shuts down too quickly—disconnects even after short pauses.,negative
+id_141,smartphone,电池充满后待机很给力，三天不动都还有电。,Standby time is nuts—left it untouched for 3 days and it still had juice.,positive
+id_142,smartphone,平板大小刚好，放包里不占地儿。,Perfect size—fits easily in my bag without taking up space.,positive
+id_143,headphone,语音提示声音太大，吓我一跳。,Voice prompts are way too loud—startled me the first time.,negative
+id_144,headphone,屏幕支持HDR，看电影真的很震撼。,HDR support makes movies look stunning—super immersive.,positive
+id_145,smartphone,配套的手写笔延迟感不明显，写字很顺。,The stylus feels super responsive—writing is smooth and natural.,positive
+id_146,headphone,耳机壳带挂绳孔，可以挂在包上，很方便。,The case has a lanyard hole—super handy for hooking it on my bag.,positive
+id_147,tablet,信号接收有点弱，电梯里就经常没网。,Signal’s pretty weak—no internet as soon as I’m in the elevator.,negative
+id_148,smartphone,支持快充，出门前临时充一下也够用。,Supports fast charging—quick top-up before leaving lasts me hours.,positive
+id_149,smartphone,通话麦克风收音还行，室内效果好。,Mic picks up voice decently—works best indoors.,neutral
+id_150,headphone,发热控制不错，长时间打电话也不会烫手。,Handles heat well—doesn’t get hot even during long calls.,positive
+id_151,smartphone,平板背面容易刮花，用了两天就有细纹了。,The back scratches easily—got fine lines after just two days.,negative
+id_152,tablet,蓝牙连接距离够远，房间隔一堵墙也没断。,Bluetooth range is great—no drops even with a wall between.,positive
+id_153,tablet,字体看着有点小，看久了有点累眼。,Text is kinda small—my eyes get tired after a while.,neutral
+id_154,headphone,耳机自带的语音提示有点吵，没法调音量。,The voice prompts are too loud and you can’t turn them down.,negative
+id_155,tablet,支持外接键盘，打字跟在笔记本上一样顺畅。,Works great with an external keyboard—typing feels just like on a laptop.,positive
+id_156,tablet,边框做得挺细的，整机观感非常现代。,Thin bezels give it a super modern look.,positive
+id_157,headphone,耳机拿出来还要手动连接，有点麻烦。,You have to manually reconnect the earbuds every time—kinda annoying.,negative
+id_158,headphone,自带儿童模式，家里小朋友用起来很放心。,Comes with a kid-friendly mode—perfect for the little ones.,positive
+id_159,headphone,夜景模式拍照偏慢，稍微一抖就糊了。,Night mode takes too long—any little shake and the shot’s ruined.,negative
+id_160,smartphone,音质没想象中惊艳，不过对得起价格。,"Sound isn’t amazing, but fair for the price.",neutral
+id_161,headphone,支持多设备登录，工作生活切换方便。,Supports multi-device login—makes switching between work and personal life easy.,positive
+id_162,tablet,屏幕看起来有点偏黄，调了色温还是一样。,Screen has a yellowish tint—color settings didn’t help.,negative
+id_163,tablet,戴着睡觉不会硌耳，适合听助眠音频。,Comfortable enough to sleep in—great for bedtime audio.,positive
+id_164,tablet,边框略宽，但看剧的时候影响不大。,"Bezels are a bit thick, but doesn’t really bother me while watching shows.",neutral
+id_165,tablet,信号在楼里还不错，比我上一个强不少。,Signal’s solid even indoors—way better than my last phone.,positive
+id_166,headphone,音质对得起价格，低音比预期好。,Decent sound for the price—bass is better than I expected.,positive
+id_167,headphone,充电速度一般，两个小时才充满。,Charging is a bit slow—takes about two hours to get full.,neutral
+id_168,smartphone,屏幕刷新率没标的那么高，有点骗人。,Refresh rate isn’t as high as advertised—kinda misleading.,negative
+id_169,headphone,外观设计简约，戴上去挺有型的。,Sleek minimalist design—looks stylish when worn.,positive
+id_170,headphone,系统运行还可以，但切换应用稍微有点慢。,"System runs okay, but app switching is a bit slow.",neutral
+id_171,tablet,语音助手识别不太灵敏，说半天才反应。,Voice assistant is slow to respond—needs a few tries.,negative
+id_172,smartphone,耳机盒充电口设计不合理，不好插线。,Charging port on the case is awkward—hard to plug in.,negative
+id_173,tablet,自带笔记App很好用，学生党福音。,The built-in notes app is amazing—perfect for students.,positive
+id_174,tablet,背壳颜色特别有质感，不容易沾指纹。,The back has a premium matte finish—resists fingerprints too.,positive
+id_175,tablet,开箱时没有附说明书，只能自己摸索。,No manual in the box—had to figure it out myself.,negative
+id_176,headphone,触控笔需要单独购买，有点坑。,Stylus sold separately—bit of a letdown.,negative
+id_177,tablet,日常使用不卡，后台多个应用也没问题。,Handles daily use smoothly—even with multiple apps running.,positive
+id_178,smartphone,音量调节范围广，适合不同环境使用。,Wide volume range—good for any environment.,positive
+id_179,smartphone,外放音质比想象中好，看视频不用外接音响。,Built-in speakers sound better than I thought—no need for extra speakers.,positive
+id_180,smartphone,机身太薄，拿着不够稳，容易滑手。,Too thin—feels slippery and hard to hold securely.,negative
+id_181,tablet,蓝牙连电脑也没问题，视频会议没卡顿。,Works well with my laptop too—no lag during video calls.,positive
+id_182,smartphone,屏幕触感很顺滑，滑动起来很舒服。,Touchscreen is super smooth—feels great to swipe around.,positive
+id_183,headphone,声音外放偏小，放音乐没啥震撼感。,Speakers are too quiet—music just doesn’t hit hard.,negative
+id_184,smartphone,收纳盒带磁吸，耳机放进去不容易掉。,Magnetic case keeps the buds secure—nice touch.,positive
+id_185,tablet,系统启动有点慢，开机得等好一会儿。,Startup is slow—takes a while to boot up.,negative
+id_186,headphone,机身背面容易沾灰，得经常擦。,Back panel attracts dust easily—needs frequent cleaning.,neutral
+id_187,headphone,配合App用可以自定义EQ，挺实用的。,The companion app lets you tweak the EQ—super handy.,positive
+id_188,headphone,屏幕刷新很快，写字几乎没有延迟。,High refresh rate—writing feels almost real-time.,positive
+id_189,smartphone,无线充电速度比预期慢，勉强能接受。,"Wireless charging is slower than expected, but acceptable.",neutral
+id_190,tablet,耳机拿出来的时候容易误触暂停/播放键。,Keeps pausing/playing when I take them out—too easy to trigger.,negative
+id_191,smartphone,支持OTG功能，可以接U盘很方便。,Supports OTG—makes plugging in USB drives super convenient.,positive
+id_192,smartphone,打字震动有点强，调弱了也不明显。,Typing vibration is too strong—even at low settings.,negative
+id_193,smartphone,左右耳能独立使用，出门遛狗很实用。,Each bud works independently—super useful when walking the dog.,positive
+id_194,headphone,屏幕防指纹效果一般，滑几下就油腻了。,Fingerprint resistance could be better—gets greasy fast.,neutral
+id_195,tablet,拍照速度快，按下快门就立刻成像。,Fast shutter speed—captures instantly.,positive
+id_196,headphone,音质可以，但有时候会有轻微杂音。,"Sound is good overall, but there's occasional static.",neutral
+id_197,smartphone,屏幕显示效果细腻，看文字特别清楚。,Screen is super sharp—text is crystal clear.,positive
+id_198,smartphone,拍摄4K视频时会稍微发热，但画质没话说。,"Gets a bit warm during 4K recording, but the video quality is top-notch.",positive
+id_199,tablet,充一次电能用好几天，续航是真的强。,One charge lasts several days—battery life is insane.,positive
+id_200,tablet,边框略厚，但操作区很清晰，误触少。,Bezels are thick but help avoid accidental touches.,neutral
+id_201,tablet,后盖颜色好看到爆，阳光下还有点变色的感觉。,The back cover color is stunning—kind of shifts in the sunlight.,positive
+id_202,smartphone,偶尔右耳没有声音，重连一次才正常。,Right earbud sometimes goes silent—have to reconnect to fix it.,negative
+id_203,tablet,系统自带笔记软件挺好用的，不用额外下载。,The built-in notes app is super handy—no need for third-party apps.,positive
+id_204,smartphone,游戏模式很实用，不会被通知打扰。,Game mode is a lifesaver—no interruptions from notifications.,positive
+id_205,smartphone,做工感觉一般，塑料感重。,Build quality feels cheap—very plasticky.,negative
+id_206,tablet,外放声音偏小，插耳机才听得清。,Speakers are too quiet—you need headphones to hear clearly.,negative
+id_207,smartphone,充电发热不严重，比以前那台强多了。,Doesn’t heat up much while charging—way better than my old phone.,positive
+id_208,headphone,戴着跑步不会掉，稳得很。,They stay put during runs—really secure fit.,positive
+id_209,tablet,系统简洁易懂，爸妈都能用。,The system’s super easy to use—even my parents figured it out.,positive
+id_210,tablet,指纹识别有时候不灵敏，要按几次。,Fingerprint scanner is hit or miss—takes a few tries.,negative
+id_211,headphone,中频清晰，人声特别立体。,Mids are crisp—vocals sound super clear and full.,positive
+id_212,headphone,重量比我预期轻，出门带着也不累。,Lighter than expected—easy to carry around all day.,positive
+id_213,smartphone,拍照界面有点复杂，得摸索一会才会用。,Camera UI is a bit confusing—took me a while to figure it out.,neutral
+id_214,smartphone,配对需要点耐心，第一次挺慢的。,Takes some patience to pair the first time—it’s a bit slow.,neutral
+id_215,headphone,自带支架有点松，撑不稳。,The built-in stand is kinda loose—doesn’t stay upright well.,negative
+id_216,smartphone,视频防抖做得不错，手持也不糊。,Video stabilization is solid—clear footage even without a gimbal.,positive
+id_217,headphone,音质不错，就是低音不够震撼。,"Sound is good overall, but bass could use more punch.",neutral
+id_218,headphone,续航非常强，开一天视频课都没问题。,Battery lasts all day—no problem with back-to-back video classes.,positive
+id_219,headphone,系统更新慢，安全补丁总是晚半拍。,System updates are slow—security patches always arrive late.,negative
+id_220,tablet,耳机盒有点大，裤兜放着不舒服。,The case is bulky—feels awkward in the pocket.,negative
+id_221,headphone,音质中规中矩，适合看剧但别指望影院效果。,"Sound is average—fine for shows, just don’t expect cinema vibes.",neutral
+id_222,tablet,整体用下来挺顺的，没出现卡顿。,Overall smooth experience—no lag so far.,positive
+id_223,tablet,耳机支持触控操作，反应还挺灵敏。,Touch controls are responsive—nice little feature.,positive
+id_224,smartphone,没有护眼模式，用久了有点刺眼。,No eye comfort mode—screen gets harsh after long use.,negative
+id_225,headphone,充电速度快，插上十分钟能用一上午。,Charges fast—ten minutes gives me a whole morning of use.,positive
+id_226,tablet,连接稳定，没出现断连情况。,Connection is stable—no dropouts so far.,positive
+id_227,headphone,屏幕反光有点严重，白天户外不太好用。,Screen glare is pretty bad—hard to use outdoors during the day.,negative
+id_228,smartphone,自带壳和贴膜，开箱就能用很贴心。,Comes with a case and screen protector—ready to go out of the box.,positive
+id_229,tablet,收音麦克风还不错，语音消息很清晰。,Mic works well—voice notes come through clear.,positive
+id_230,headphone,UI有点陈旧，看起来不太现代。,The UI looks dated—not very modern.,neutral
+id_231,tablet,边缘设计不割手，裸机手感也很不错。,Smooth edges—feels good even without a case.,positive
+id_232,tablet,电量显示不准，明明快没电了还显示50%。,Battery indicator is off—shows 50% but dies soon after.,negative
+id_233,smartphone,系统更新频繁，总是弹提示，有点烦。,Too many update prompts—it’s kind of annoying.,negative
+id_234,tablet,快充兼容性好，用其他充电头也没问题。,Great fast charge compatibility—works fine with third-party chargers.,positive
+id_235,smartphone,耳机套材质柔软，久戴也不会痛。,The ear tips are super soft—no pain even after long use.,positive
+id_236,smartphone,开机动画有点长，希望以后能优化下。,Startup animation is too long—hope they speed that up in updates.,neutral
+id_237,tablet,开机速度飞快，几秒钟就能用。,Boots up in seconds—super fast startup.,positive
+id_238,smartphone,双击暂停偶尔不灵敏，要点好几次。,Double-tap to pause isn’t always responsive—takes a few tries.,neutral
+id_239,tablet,系统支持多窗口操作，办公效率高了不少。,Multi-window mode boosts productivity a lot—great for multitasking.,positive
+id_240,tablet,拍照算法有点过度优化，颜色不太真实。,The camera over-processes photos—colors don’t look natural.,neutral
+id_241,smartphone,盒盖松了点，不太紧，感觉不牢靠。,The case lid is a bit loose—doesn’t feel very secure.,negative
+id_242,tablet,触控灵敏，反应跟得上笔尖动作。,Touch is responsive—keeps up with the stylus perfectly.,positive
+id_243,tablet,拍照对焦速度快，连拍也不卡。,"Focus is fast, and burst mode works smoothly.",positive
+id_244,smartphone,开盖自动配对功能特别方便。,Auto-pair when opening the case—super convenient.,positive
+id_245,tablet,边框容易进灰，需要经常擦一擦。,Dust gets stuck in the bezels—have to clean it often.,neutral
+id_246,tablet,指纹识别区域太小，按不准。,Fingerprint area is tiny—hard to hit it right.,negative
+id_247,tablet,耳机没有防水设计，夏天用有点担心。,Not waterproof—kinda worried about using it in summer.,negative
+id_248,tablet,系统不卡，滑动操作跟手，流畅度高。,System runs smooth—touch gestures are super responsive.,positive
+id_249,headphone,震动马达手感不错，打字很有反馈。,Vibration motor feels great—typing feedback is on point.,positive
+id_250,tablet,带上几乎感觉不到重量，佩戴感一级棒。,Feels weightless when worn—super comfortable.,positive
+id_251,tablet,看漫画的时候画质清晰，色彩也很饱满。,Comics look crisp and vibrant—the colors really pop.,positive
+id_252,tablet,耳塞有点太紧了，戴久了耳朵有点痛。,Ear tips are a bit too tight—ears start to hurt after a while.,negative
+id_253,tablet,系统动画很顺滑，用起来有种高级感。,System animations are super smooth—feels premium to use.,positive
+id_254,smartphone,充电头没有附送，自己还得另买一个。,No charger included—had to buy one separately.,negative
+id_255,tablet,适配各种设备都很快，兼容性强。,Pairs quickly with all kinds of devices—great compatibility.,positive
+id_256,tablet,边缘曲面设计好看但容易误触。,Curved edges look nice but lead to accidental touches.,neutral
+id_257,smartphone,整机手感不错，拿在手上有点重量但不重。,Feels solid in hand—has some weight without being too heavy.,positive
+id_258,smartphone,降噪效果一般，在地铁上还是听得见人声。,Noise cancelling is average—still hear people talking on the subway.,neutral
+id_259,headphone,耗电有点快，尤其是玩游戏的时候。,"Battery drains fast, especially during gaming.",negative
+id_260,smartphone,外壳是金属的，质感很好，摸起来凉凉的。,Metal casing feels great—cool to the touch and premium.,positive
+id_261,tablet,耳机有延迟，玩节奏类游戏会对不上。,There’s some delay—not ideal for rhythm games.,negative
+id_262,tablet,机身抗指纹处理不错，不容易弄脏。,Great anti-fingerprint finish—stays clean most of the time.,positive
+id_263,headphone,官方配件价格偏高，感觉有点割韭菜。,Official accessories are overpriced—feels like a cash grab.,negative
+id_264,headphone,音质对得起价钱，适合日常听歌用。,Sound quality is fair for the price—good for everyday listening.,neutral
+id_265,headphone,拍照启动速度快，不容易错过瞬间。,Camera launches quickly—you won’t miss the moment.,positive
+id_266,headphone,不支持内存卡拓展，有点遗憾。,No SD card support—kind of a bummer.,negative
+id_267,smartphone,低音浑厚有力，听电子乐很爽。,Bass is deep and punchy—perfect for EDM.,positive
+id_268,headphone,桌面整理逻辑有点奇怪，要适应一下。,The home screen layout is a bit odd—takes some getting used to.,neutral
+id_269,headphone,接口不多，拓展设备时候有点麻烦。,Limited ports—connecting accessories can be a hassle.,negative
+id_270,tablet,单只使用也没问题，左右互换很自由。,Works great even with just one earbud—totally interchangeable.,positive
+id_271,headphone,屏幕自动亮度反应有点慢。,Auto-brightness is sluggish—takes time to adjust.,neutral
+id_272,headphone,音量键位置太靠下，横屏用的时候容易误触。,Volume buttons are too low—accidentally hit them in landscape mode.,negative
+id_273,headphone,耳塞质地柔软，不会有异物感。,Soft ear tips—no foreign body sensation at all.,positive
+id_274,headphone,信号接收能力强，地下停车场也有4G。,Strong signal—still get 4G in underground parking lots.,positive
+id_275,tablet,白边控制不错，看网页很舒服。,White balance and edge control are great—web browsing is a pleasure.,positive
+id_276,headphone,没有App可以调节音效，有点可惜。,No companion app for audio tuning—missed opportunity.,neutral
+id_277,tablet,刷短视频特别顺，滑动毫无卡顿。,Smooth AF for short video apps—zero lag.,positive
+id_278,tablet,支持投屏到电视，开会用很方便。,Supports screen casting—great for meetings.,positive
+id_279,smartphone,充电时会有点热，不过还能接受。,"Gets a little warm while charging, but nothing serious.",neutral
+id_280,smartphone,系统更新后变得更卡了，不知道是不是bug。,System update made it laggier—might be a bug.,negative
+id_281,smartphone,屏幕尺寸正好，不大不小，单手也能握住。,"Perfect screen size—not too big, easy to hold with one hand.",positive
+id_282,tablet,连接新设备前需要先断开旧的，有点不方便。,Have to manually disconnect from old device to pair a new one.,negative
+id_283,tablet,手势操作逻辑顺手，很快就上手了。,Gesture controls are intuitive—got used to them in no time.,positive
+id_284,smartphone,音量有点偏小，看电影不够震撼。,Volume’s a bit low—movies don’t feel very immersive.,negative
+id_285,headphone,耳机壳吸力强，放进去自动卡好。,Strong magnetic case—earbuds snap right in.,positive
+id_286,tablet,边玩边充很烫，不太适合重度用户。,Gets super hot when charging and gaming—not for heavy users.,negative
+id_287,headphone,滑动页面有点拖影，看电子书不太舒服。,Slight ghosting when scrolling—not great for eBooks.,neutral
+id_288,headphone,自带麦克风清晰，开会完全够用。,Built-in mic is clear—perfect for meetings.,positive
+id_289,smartphone,刷网页时有时候会卡一下，影响体验。,Web pages occasionally stutter—breaks the flow.,negative
+id_290,headphone,支持快捷键操作，办公特别方便。,Supports keyboard shortcuts—makes work super efficient.,positive
+id_291,headphone,电池续航一般，听4小时左右就要充。,Battery lasts around 4 hours—kinda average.,neutral
+id_292,tablet,系统不卡，但通知管理不太智能。,"System runs well, but the notification system needs work.",neutral
+id_293,headphone,拍照功能一般，凑合用吧。,Camera is basic—just good enough for quick snaps.,neutral
+id_294,smartphone,没有自动暂停功能，拿下来也继续播放。,No auto-pause—keeps playing even when removed.,negative
+id_295,headphone,拍出来的照片颜色鲜艳，很讨喜。,Photos are super vibrant—really eye-catching colors.,positive
+id_296,tablet,可以插键盘，平时用来写点文档刚好。,Works with a keyboard—great for quick document work.,positive
+id_297,headphone,触控灵敏度太高，轻轻碰一下就误触。,Touch is too sensitive—keeps registering accidental taps.,negative
+id_298,headphone,系统稳定，用了一周没死过机。,Very stable OS—no crashes in a week of use.,positive
+id_299,tablet,没有自动亮度调节功能，用起来不太方便。,No auto-brightness setting—makes it less convenient.,negative
+id_300,headphone,蓝牙范围大，隔两个房间也能连着。,Great Bluetooth range—stays connected even two rooms away.,positive
+id_301,headphone,整体运行顺畅，切换App几乎没有卡顿。,Everything runs smoothly—no lag when switching between apps.,positive
+id_302,smartphone,耳机没有物理按键，纯触控操作需要适应。,No physical buttons—pure touch controls take some getting used to.,neutral
+id_303,smartphone,平板边角处理很圆润，拿着手感不错。,Rounded edges feel great—super comfy to hold.,positive
+id_304,headphone,信号在山区明显减弱，经常断网。,Signal drops a lot in the mountains—keeps disconnecting.,negative
+id_305,headphone,耳机佩戴后很贴合，跑步也不会掉。,Fits snugly—won’t fall out even while jogging.,positive
+id_306,tablet,更新系统后，界面变好看了，但有点小bug。,"The new system update looks nicer, but introduced a few bugs.",neutral
+id_307,tablet,自拍功能太强了，美颜得调低点才自然。,The selfie camera is wild—need to tone down the beauty filter.,neutral
+id_308,headphone,通话时背景噪音控制得不够好。,Background noise isn’t filtered well during calls.,negative
+id_309,headphone,电池很抗用，看视频四五小时没问题。,Battery holds up—can binge-watch for 4-5 hours no problem.,positive
+id_310,tablet,机身略厚，但换来的是超长续航。,"A bit thick, but worth it for the battery life.",positive
+id_311,tablet,戴久了耳朵不闷，透气性不错。,Doesn’t get stuffy even after hours—great breathability.,positive
+id_312,headphone,只有Type-C口，连耳机都得转接。,Only has a Type-C port—need an adapter even for headphones.,negative
+id_313,smartphone,后壳容易滑，没壳的话不太敢拿出门。,The back is super slippery—don’t risk it without a case.,negative
+id_314,tablet,低音比较浑厚，但高音稍微有点刺耳。,"Bass is deep, but highs can be a little sharp.",neutral
+id_315,tablet,作为阅读器也挺合适，屏幕柔和不刺眼。,Works great as an e-reader—easy on the eyes.,positive
+id_316,smartphone,屏幕灵敏度高，手指滑动非常顺。,Touch response is top-notch—glides like butter.,positive
+id_317,headphone,音质不错，就是耳机壳太大不好带出门。,"Sound’s good, but the case is bulky for travel.",neutral
+id_318,tablet,做工精细，看起来比价格高端。,Well-built—looks more premium than it costs.,positive
+id_319,tablet,系统偶尔会莫名自动重启，有点烦。,Random reboots now and then—super annoying.,negative
+id_320,tablet,蓝牙连接稳定，延迟也控制得不错。,Stable Bluetooth with minimal lag—nice job.,positive
+id_321,smartphone,屏幕分辨率不错，漫画细节都看得很清楚。,Great screen resolution—comic details are super clear.,positive
+id_322,tablet,晚上拍照噪点有点多，不过亮度够。,"Night shots are bright enough, but kinda noisy.",neutral
+id_323,tablet,没有语音提示切换设备，操作有点盲。,No voice prompt when switching devices—kinda guesswork.,neutral
+id_324,smartphone,触控笔反应灵敏，书写体验接近纸感。,Stylus is very responsive—almost feels like writing on paper.,positive
+id_325,tablet,看视频很顺畅，屏幕色彩鲜艳。,Video playback is smooth—colors are vivid and rich.,positive
+id_326,tablet,没有多设备同时连接功能，不太方便。,Doesn’t support multi-device pairing—not ideal.,negative
+id_327,headphone,键盘手感还行，但按键有点小。,"Keyboard feels okay, but the keys are kinda small.",neutral
+id_328,smartphone,运行流畅，指纹解锁也很快。,"Runs smoothly, and fingerprint unlock is fast.",positive
+id_329,smartphone,音效很立体，听音乐很有沉浸感。,Immersive sound—music really pulls you in.,positive
+id_330,headphone,多任务运行会有点卡，适合轻度办公。,Multitasking lags a bit—better for light office work.,neutral
+id_331,smartphone,系统界面风格有点老气，不够年轻化。,The UI design feels a bit outdated—not very modern.,negative
+id_332,smartphone,降噪开启后耳压感强，不太舒服。,Strong pressure feeling when ANC is on—not comfortable.,negative
+id_333,smartphone,外观设计简洁，很适合学生党。,Simple and clean look—great for students.,positive
+id_334,headphone,续航表现还不错，能撑一天多一点。,Battery holds up—lasts just over a day.,positive
+id_335,tablet,耳机盖合不紧，拿出来容易掉。,The lid doesn’t close tight—earbuds fall out easily.,negative
+id_336,tablet,开机速度一般，不算慢也不快。,"Boot time is average—not too fast, not too slow.",neutral
+id_337,headphone,背面设计挺有特色的，辨识度高。,Back design stands out—very recognizable.,positive
+id_338,headphone,自动暂停功能灵敏，摘下来就停。,Auto-pause works great—stops instantly when removed.,positive
+id_339,smartphone,不支持双App分屏，有点限制操作。,No dual-app split view—limits multitasking.,negative
+id_340,smartphone,通知管理混乱，有时候漏消息。,Notification system is messy—misses some alerts.,negative
+id_341,tablet,耳机套不太贴耳，容易漏音。,Tips don’t seal well—lots of sound leakage.,negative
+id_342,tablet,字体显示清晰，看文件很舒服。,Text is super sharp—great for reading documents.,positive
+id_343,smartphone,夜间模式自动开启功能很实用。,Auto night mode is really handy.,positive
+id_344,smartphone,麦克风收音差，对方听不清。,Mic quality is poor—people can’t hear me clearly.,negative
+id_345,headphone,屏幕对比度高，看图像很有层次感。,High contrast screen—images look very dynamic.,positive
+id_346,headphone,系统流畅性不错，但动画略慢。,"Smooth OS, though animations are a tad slow.",neutral
+id_347,tablet,包装精美，送人也很有档次。,Nicely packaged—makes a great gift.,positive
+id_348,smartphone,外观中规中矩，没有特别惊艳的地方。,Looks pretty standard—nothing special design-wise.,neutral
+id_349,headphone,GPS定位快，导航也很准。,Fast GPS lock and accurate navigation.,positive
+id_350,tablet,低音下潜不足，听摇滚没感觉。,Bass lacks depth—not great for rock music.,negative
+id_351,tablet,平板充电口设计合理，插线不碍事。,The charging port is well-placed—no hassle plugging in.,positive
+id_352,tablet,戴着听歌时间长了也不夹耳，挺舒服。,Can listen for hours without ear fatigue—super comfy.,positive
+id_353,smartphone,屏幕比例太窄了，看视频两边都是黑边。,The screen’s too narrow—black bars on both sides when watching videos.,negative
+id_354,smartphone,支持键盘配件，办公效率提升不少。,Supports keyboard attachments—makes working much more efficient.,positive
+id_355,smartphone,降噪开启后效果明显，飞机上也能安静听歌。,ANC works wonders—can enjoy music even on a plane.,positive
+id_356,tablet,屏幕太亮，调到最低还是刺眼。,Screen’s too bright—even the lowest setting feels harsh.,negative
+id_357,headphone,UI排布合理，功能分类清晰，容易上手。,UI is well-organized—everything’s easy to find.,positive
+id_358,tablet,耳机壳有点划痕，感觉像是别人退的。,The case has scratches—feels like a return item.,negative
+id_359,smartphone,没有红外功能，有点遗憾。,No IR blaster—kind of a letdown.,negative
+id_360,smartphone,用来看网课挺合适，屏幕够大，不卡顿。,Perfect for online classes—big screen and no lag.,positive
+id_361,smartphone,音量调节手感清晰，不容易误触。,Volume control is precise—no accidental changes.,positive
+id_362,headphone,续航中等，属于该充就得充的那种。,Battery life is average—don’t expect to skip a charge.,neutral
+id_363,tablet,显示颜色偏冷，调了半天还是有点发蓝。,Color tone leans cold—still bluish after adjusting settings.,negative
+id_364,tablet,耳机盒质感不错，摸着挺舒服的。,Case feels premium—nice to the touch.,positive
+id_365,smartphone,玩原神有点吃力，偶尔会掉帧。,Struggles with Genshin Impact—frame drops now and then.,neutral
+id_366,smartphone,送的保护膜质量一般，用了几天就起泡了。,The included screen protector bubbled after a few days.,negative
+id_367,headphone,连上电视后延迟感明显，不适合看电影。,Noticeable lag with TV—not great for movie watching.,negative
+id_368,smartphone,系统设置项太多，看着有点复杂。,Too many settings—gets overwhelming quickly.,neutral
+id_369,tablet,外观精致，边框收窄后显得更高端。,Sleek look—thin bezels really elevate the design.,positive
+id_370,smartphone,自动播放功能很灵敏，戴上就开始放歌。,Auto-play is spot on—starts playing as soon as I put them on.,positive
+id_371,headphone,闪充功能很猛，吃饭时间就能充满一半。,Fast charging is crazy good—half full during one meal.,positive
+id_372,headphone,边框太厚，看起来不够现代。,Bezels are too thick—makes it look dated.,negative
+id_373,headphone,音效比较中性，适合听播客不累耳。,Neutral sound profile—great for long podcast sessions.,neutral
+id_374,headphone,信号稳定，地下车库也能打电话。,Signal stays strong—even works in basement garages.,positive
+id_375,smartphone,可以用来画画，但没有压感笔的话不太好用。,"Decent for drawing, but needs a pressure-sensitive pen.",neutral
+id_376,smartphone,耳机连接稳定，但偶尔左右不同步。,"Connection is solid, but sometimes the audio is out of sync between buds.",neutral
+id_377,tablet,背壳容易刮伤，建议一买就贴膜。,Back scratches easily—put on a protector ASAP.,negative
+id_378,smartphone,分屏功能强大，看视频和记笔记同时进行无压力。,Split-screen works flawlessly—watching videos and taking notes at the same time is a breeze.,positive
+id_379,smartphone,麦克风收音偏弱，对方听得费劲。,Mic is weak—people struggle to hear me clearly.,negative
+id_380,smartphone,系统流畅，软件打开速度也快。,System’s snappy—apps open in a flash.,positive
+id_381,headphone,自带App太多，有些用不上也删不掉。,Too much bloatware—can’t even delete the ones I don’t use.,negative
+id_382,headphone,充满一次电能听五六个小时，满意。,Lasts 5–6 hours per charge—pretty happy with that.,positive
+id_383,headphone,没有呼吸灯，有时候不知道有没有新消息。,No notification LED—can’t tell if I’ve missed something.,neutral
+id_384,smartphone,系统优化一般，运行久了会变慢。,Needs better optimization—slows down after long use.,negative
+id_385,smartphone,蓝牙连接快，打开盖子就自动连上。,Instant pairing—opens the lid and it connects.,positive
+id_386,headphone,拍照细节丰富，放大也不糊。,Photos are full of detail—stay sharp even when zoomed.,positive
+id_387,smartphone,触控延迟略高，画图的时候不太跟手。,Touch delay is noticeable—not ideal for drawing.,neutral
+id_388,tablet,耳机磁吸吸力强，单手就能放回盒子。,Strong magnets—easy to pop them back in with one hand.,positive
+id_389,smartphone,边框容易藏灰尘，清理比较麻烦。,Dust builds up in the edges—hard to keep clean.,negative
+id_390,tablet,适合学生使用，功能刚好满足日常学习。,Perfect for students—covers all the basic learning needs.,positive
+id_391,smartphone,App界面简洁，调节EQ很方便。,The app is clean and easy to use—EQ settings are a breeze.,positive
+id_392,smartphone,振动强度有点弱，放口袋里经常感受不到。,Vibration is too weak—can’t feel it in my pocket.,negative
+id_393,headphone,支持HDR，看电影特别有质感。,HDR support makes movies look fantastic.,positive
+id_394,smartphone,耳机外观时尚，白色款很百搭。,Looks sleek—the white version goes with everything.,positive
+id_395,tablet,屏幕边缘触控不太灵敏，打字容易漏字。,Touch is unresponsive near the edges—misses taps while typing.,negative
+id_396,headphone,电量显示精准，不会突然关机。,Battery indicator is accurate—no surprise shutdowns.,positive
+id_397,smartphone,有防水等级，运动时用也不怕出汗。,Sweat-proof for workouts—love the water resistance.,positive
+id_398,headphone,系统通知经常重复跳出，有点打扰。,System keeps pushing duplicate notifications—super distracting.,negative
+id_399,smartphone,续航时间长，学生党一天都不用充。,Battery lasts the whole school day—great for students.,positive
+id_400,smartphone,耳机盖合上时有点松，不是很紧实。,Lid feels a bit loose when closed—not very secure.,neutral
+id_401,smartphone,屏幕刷新率够高，滑动体验超级丝滑。,High refresh rate makes scrolling feel buttery smooth.,positive
+id_402,smartphone,降噪模式切换时有轻微电流声，不影响使用。,"There’s a slight static sound when switching ANC modes, but it’s minor.",neutral
+id_403,tablet,后壳容易沾指纹，用一会儿就油光锃亮了。,Back panel is a fingerprint magnet—gets greasy fast.,negative
+id_404,tablet,系统动画很丝滑，看起来很高级。,The system animations are silky—gives a premium feel.,positive
+id_405,smartphone,触控区域太敏感，调整头发都容易误触。,Touch controls are too sensitive—just brushing my hair sets it off.,negative
+id_406,smartphone,自带屏保图像挺美的，每天换一张看不腻。,The built-in wallpapers are gorgeous—never get tired of them.,positive
+id_407,tablet,系统占用太大，装几个App就提醒内存不足。,System takes up too much space—ran out of room after a few apps.,negative
+id_408,tablet,耳机颜色很特别，朋友都问我在哪买的。,Love the unique color—everyone asks me where I got them.,positive
+id_409,headphone,没有面部解锁，解锁方式略显原始。,No face unlock—feels a bit outdated.,negative
+id_410,headphone,外放音效有惊喜，比预期好很多。,The speaker sounds surprisingly good—better than I expected.,positive
+id_411,headphone,续航非常顶，一周只充了一次。,Battery life is insane—I only charged once this week.,positive
+id_412,smartphone,横屏使用时重力感应有点慢，得晃几下。,Auto-rotate is sluggish—takes a few shakes to turn.,neutral
+id_413,smartphone,手机边角设计锋利，裸机容易刮手。,Edges are a bit sharp—scratches your hand without a case.,negative
+id_414,tablet,蓝牙配对很快，第一次连上就记住了。,Bluetooth pairing is fast—remembers the device after first connect.,positive
+id_415,smartphone,屏幕够大，做演示时大家都能看清。,The screen’s big enough for group presentations—everyone sees clearly.,positive
+id_416,smartphone,导航精准，骑车也能准确定位。,"Navigation is spot-on—even on a bike, no issues.",positive
+id_417,headphone,佩戴有点压耳，不太适合长时间使用。,Feels a bit tight on the ears—not ideal for long sessions.,negative
+id_418,smartphone,系统偏向教育类App，小孩用刚刚好。,System leans towards educational apps—great for kids.,positive
+id_419,tablet,相机启动速度一般，不适合抓拍。,Camera takes a while to open—misses candid moments.,negative
+id_420,smartphone,耳机自动暂停功能失效了，不知道为啥。,Auto-pause stopped working—not sure why.,negative
+id_421,tablet,重力感应方向有误，横着拿还锁着竖屏。,Auto-rotate gets confused—stays vertical even when I hold it sideways.,negative
+id_422,tablet,摄像头配置一般，细节不够锐利。,Camera is average—lacks sharp detail.,neutral
+id_423,tablet,耳机盒做工很好，盖子吸附力很强。,Case feels premium—lid shuts securely with strong magnets.,positive
+id_424,tablet,支持TF卡扩展，不怕内存不够用。,Supports TF card expansion—no storage anxiety.,positive
+id_425,smartphone,震动马达有质感，不是廉价那种嗡嗡声。,Vibration feels premium—not that cheap buzzy kind.,positive
+id_426,smartphone,充电仓设计感十足，看起来很有科技感。,Charging case looks futuristic—serious tech vibes.,positive
+id_427,headphone,边框容易积灰，要经常擦才干净。,Dust collects in the bezels easily—need to clean it often.,neutral
+id_428,tablet,系统耗电偏高，待机时电量也掉得快。,Battery drains fast even on standby—system isn’t power-efficient.,negative
+id_429,tablet,耳机音质很清澈，人声还原度高。,Crystal-clear sound—vocals sound super natural.,positive
+id_430,smartphone,没有NFC功能，少了一点便捷性。,No NFC—misses out on that extra convenience.,negative
+id_431,headphone,可以边充边玩，但会有点烫手。,"Can game while charging, but it gets hot.",neutral
+id_432,smartphone,蓝牙连接稳定，没出现断流现象。,Stable Bluetooth—no connection dropouts so far.,positive
+id_433,headphone,开机速度一般，但系统加载很快。,"Boot time is average, but once on, it runs fast.",neutral
+id_434,headphone,声音外放略小，开到最大也觉得不够。,"Speaker volume is low—even at max, it’s not loud.",negative
+id_435,headphone,耳机佩戴轻盈，几乎没有负担感。,Super lightweight—barely feel them in my ears.,positive
+id_436,smartphone,色彩调教准确，看PPT和图片都舒服。,Color calibration is spot on—great for presentations and images.,positive
+id_437,smartphone,充电速度一般，没有达到宣传的30分钟快充。,Charging isn’t as fast as advertised—didn’t hit 50% in 30 minutes.,negative
+id_438,headphone,App功能全，能自定义音效很加分。,Full-featured app—custom EQ is a big plus.,positive
+id_439,headphone,扬声器位置设计巧妙，横屏看剧不会被挡。,Speakers are well-placed—no blockages when watching in landscape mode.,positive
+id_440,smartphone,接口只有一个，充电和耳机不能同时用。,Only one port—can’t charge and listen to wired audio at the same time.,negative
+id_441,tablet,充电仓电量显示不太准，有时跳着变。,Battery display on the case is off—fluctuates a lot.,neutral
+id_442,smartphone,适合看剧和轻度办公，娱乐办公两不误。,Perfect for light work and binge-watching—solid all-rounder.,positive
+id_443,smartphone,没有3.5mm耳机孔，想插耳机还得买转接头。,No headphone jack—you’ll need a dongle.,negative
+id_444,tablet,耳机戴着不会晃，很贴合耳型。,Fits securely—stays in place no matter what.,positive
+id_445,tablet,手写识别准确率高，写字像在笔记本上。,Handwriting recognition is spot on—feels like using a real notebook.,positive
+id_446,tablet,系统流畅，开多个App也不卡。,System is smooth—handles multiple apps with ease.,positive
+id_447,headphone,音效均衡，适合听各种类型的音乐。,Balanced sound—works well for all music genres.,positive
+id_448,headphone,边框容易进灰，建议搭配保护壳使用。,Bezels attract dust—definitely use a case.,neutral
+id_449,tablet,前置摄像头自拍偏白，肤色不自然。,Selfies are overexposed—skin tones don’t look right.,negative
+id_450,smartphone,耳机盒小巧便携，出门很好带。,Compact case—super easy to carry around.,positive
+id_451,headphone,字体大小可调节，对老人也很友好。,Adjustable font size—great for older users too.,positive
+id_452,smartphone,系统有点臃肿，预装App太多。,The system is bloated—way too many pre-installed apps.,negative
+id_453,headphone,蓝牙连接速度快，几乎秒连。,Bluetooth connects almost instantly.,positive
+id_454,tablet,整机轻薄，拿久了也不会累手。,Super thin and light—doesn’t tire your hand even after long use.,positive
+id_455,smartphone,信号稳定，电梯里都能上网。,Signal is steady—still get internet in elevators.,positive
+id_456,tablet,耳机壳开合有点紧，用久了会松吗？,The case lid is a bit stiff—wonder if it'll loosen over time.,neutral
+id_457,tablet,看PDF文件加载速度快，不会卡顿。,Loads PDFs quickly—no lag at all.,positive
+id_458,headphone,快充发热严重，用久了有点烫手。,Fast charging gets pretty hot—feels toasty after a while.,negative
+id_459,smartphone,左右耳可以单独使用，挺灵活的。,Each earbud works independently—super flexible.,positive
+id_460,smartphone,声音偏小，在户外听不太清楚。,Volume is low—hard to hear outdoors.,negative
+id_461,headphone,系统自定义选项很多，很适合喜欢折腾的人。,Tons of customization—perfect for power users.,positive
+id_462,smartphone,耳机自动连接有点慢，要等几秒。,Takes a few seconds to auto-connect—not instant.,neutral
+id_463,headphone,反应灵敏，写字几乎无延迟。,Super responsive—barely any delay when writing.,positive
+id_464,tablet,外壳质感塑料感强，没有高端感。,Feels plasticky—not premium in the hand.,negative
+id_465,smartphone,耳机戴起来没啥压迫感，很轻松。,No pressure on the ears—super relaxed fit.,positive
+id_466,tablet,带壳后重量增加不少，略显沉重。,Gets noticeably heavier with a case on.,neutral
+id_467,tablet,边框收窄后看起来屏占比很高，很爽。,Narrow bezels = huge screen feel. Love it.,positive
+id_468,headphone,没有佩戴检测，摘下来音乐还在放。,No wear detection—keeps playing after taking them off.,negative
+id_469,headphone,系统流畅度不错，动画也很自然。,Smooth system—animations look clean and natural.,positive
+id_470,tablet,电池挺耐用，轻度使用能撑两天。,Battery’s great—light use lasts two days easy.,positive
+id_471,headphone,充电速度一般，充满得一个多小时。,Takes over an hour to fully charge—not the fastest.,neutral
+id_472,headphone,触控反应偶尔不跟手，特别是湿手时。,Touch response drops when fingers are wet.,negative
+id_473,smartphone,前置镜头角度偏低，自拍有点怪。,Front cam angle is weird—selfies look off.,negative
+id_474,tablet,耳机小巧，戴着几乎感觉不到。,So compact you barely feel them in your ears.,positive
+id_475,headphone,键盘连接顺畅，打字延迟几乎为零。,Keyboard works seamlessly—typing is almost instant.,positive
+id_476,smartphone,没有独立通知灯，有点不方便。,No notification LED—slightly inconvenient.,neutral
+id_477,tablet,耳机按键手感扎实，不会误操作。,Buttons feel solid—no accidental presses.,positive
+id_478,headphone,颜色有点单一，只有黑白两款。,Color options are too limited—just black and white.,neutral
+id_479,headphone,相机夜景模式提升明显，光线处理不错。,Night mode improved a lot—handles low light well.,positive
+id_480,tablet,麦克风对风噪的抑制不够，有点吵。,Wind noise gets through the mic—calls can be noisy.,negative
+id_481,smartphone,配件少，官方壳和笔都要另买。,Barebones package—have to buy the pen and case separately.,negative
+id_482,headphone,动画稍微有点卡，可能是系统问题。,Animations stutter a bit—probably a system thing.,neutral
+id_483,smartphone,音量够大，地铁里都听得清。,Loud enough to hear clearly on the subway.,positive
+id_484,headphone,屏幕色彩准确，看设计稿很靠谱。,Color accuracy is great—perfect for design work.,positive
+id_485,headphone,摄像头突起太高，桌上放不稳。,Camera bump is huge—can’t lay it flat.,negative
+id_486,tablet,续航中规中矩，够用但不惊艳。,"Battery life is decent—not amazing, but fine.",neutral
+id_487,tablet,适合日常办公+追剧的轻度用户。,Great for casual use—work and Netflix both covered.,positive
+id_488,smartphone,系统更新频率还可以，BUG修得快。,System updates are timely—bugs get fixed fast.,positive
+id_489,tablet,耳机防水，跑步流汗也不怕。,Sweat-proof for workouts—no worries while running.,positive
+id_490,tablet,适配蓝牙键盘略慢，要连第二次才认。,Slow to pair with Bluetooth keyboards—needs a second try.,neutral
+id_491,tablet,UI风格简洁，功能也好找。,Clean UI—everything’s easy to find.,positive
+id_492,tablet,耳机壳容易沾灰，建议配保护袋。,Case collects dust easily—recommend using a pouch.,neutral
+id_493,smartphone,画图体验好，延迟感不明显。,Feels great for drawing—barely any latency.,positive
+id_494,headphone,支持5G网络，下载速度飞快。,Supports 5G—downloads are blazing fast.,positive
+id_495,tablet,音质还原真实，听钢琴曲特别有感觉。,Accurate sound—piano pieces sound amazing.,positive
+id_496,headphone,开会用它做笔记非常方便，强推！,Perfect for meeting notes—highly recommend.,positive
+id_497,smartphone,长时间玩游戏容易发烫，需要注意。,Heats up during long gaming sessions—watch out.,negative
+id_498,smartphone,没有主动降噪，通话有点吵。,No ANC—calls get noisy.,negative
+id_499,tablet,刷网页速度很快，不卡顿。,Web browsing is fast and lag-free.,positive
+id_500,tablet,性能稳定，用了一个月都很流畅。,Solid performance—still smooth after a month of use.,positive
+id_501,smartphone,戴着跑步非常稳，不会滑落。,Stays in place perfectly while running—no slipping at all.,positive
+id_502,smartphone,电池一天一充没问题，重度使用也能扛住。,One charge easily lasts a day—even with heavy use.,positive
+id_503,smartphone,系统更新后界面更清爽了，喜欢！,The new update made the UI cleaner—I love it!,positive
+id_504,smartphone,麦克风收音偏远，对方听得不是很清楚。,Mic picks up sound from too far—hard for people to hear me clearly.,negative
+id_505,tablet,自拍美颜有点过头了，调低了还是不自然。,"The beauty mode is way too strong—even turned down, it’s not natural.",negative
+id_506,smartphone,屏幕尺寸正合适，追剧和办公都刚刚好。,Perfect screen size—for both work and binge-watching.,positive
+id_507,smartphone,充电仓有点难打开，设计不太合理。,The case is hard to open—not the best design.,negative
+id_508,headphone,后盖是磨砂质感，手感特别好。,Matte back feels amazing—super nice in hand.,positive
+id_509,headphone,没有4G版，出门必须连热点才行。,No 4G version—have to tether when I’m out.,negative
+id_510,smartphone,续航可以，听六七个小时完全没问题。,Battery holds up for 6–7 hours—no complaints.,positive
+id_511,tablet,边框有点割手，建议戴壳。,Edges feel sharp—definitely use a case.,negative
+id_512,smartphone,支持分屏功能，学习和娱乐两不误。,Split screen works great—study and watch shows at once.,positive
+id_513,smartphone,耳塞套容易滑落，换了大的才好用。,The default ear tips kept slipping—had to switch to a bigger size.,neutral
+id_514,headphone,震动马达手感偏软，没有那种干脆利落的反馈。,Vibration feels mushy—lacks that crisp feedback.,neutral
+id_515,smartphone,颜色准确，看图片不偏色，适合修图。,Colors are accurate—great for editing photos.,positive
+id_516,headphone,没有App配套，用起来少了点自定义的感觉。,No companion app—feels a bit limited without custom settings.,neutral
+id_517,headphone,信号表现优异，山里都还能发消息。,Excellent signal—even works in the mountains.,positive
+id_518,headphone,扬声器音量够大，开会投音也清楚。,Speakers are loud enough—clear sound for meetings.,positive
+id_519,smartphone,戴着有压耳感，时间久了会不舒服。,Feels tight on the ears—gets uncomfortable after a while.,negative
+id_520,headphone,充电口位置尴尬，边用边充不顺手。,Awkward charging port placement—hard to use while charging.,negative
+id_521,headphone,支持快充，插上20分钟就有一半电了。,Fast charging is great—20 minutes gets me to 50%.,positive
+id_522,headphone,触控延迟稍高，暂停反应不够及时。,Touch controls have a bit of lag—pause takes a second.,neutral
+id_523,tablet,整体性能不错，王者荣耀稳得一批。,Performance is solid—runs Honor of Kings super smooth.,positive
+id_524,tablet,系统自带软件太多，占了不少内存。,Too much preloaded software—takes up a lot of space.,negative
+id_525,tablet,耳机灯光很炫酷，但晚上有点刺眼。,The LED lights look cool but too bright at night.,neutral
+id_526,smartphone,系统升级后流畅了不少，动画不卡了。,System is smoother after the update—no more animation stutters.,positive
+id_527,headphone,屏幕抗指纹效果一般，要常擦。,Fingerprint smudges are a problem—needs frequent cleaning.,neutral
+id_528,headphone,通话质量还行，就是环境音处理一般。,Call quality is okay—background noise could be better.,neutral
+id_529,smartphone,界面风格简约，操作逻辑清晰易懂。,Minimalist UI—navigation is intuitive and clear.,positive
+id_530,tablet,适合学生做题、网课、查资料。,"Great for students—perfect for homework, online classes, and research.",positive
+id_531,smartphone,蓝牙断连过一次，不知道是不是干扰问题。,Had one random disconnect—might’ve been interference.,neutral
+id_532,tablet,电池容量大，配合省电模式用得很久。,Big battery + power saver = impressive endurance.,positive
+id_533,smartphone,背壳容易滑手，建议搭配个支架。,Back is slippery—use a stand or case.,neutral
+id_534,smartphone,音质一般，不过看剧听书还算够用。,Sound is average—but fine for shows and audiobooks.,neutral
+id_535,headphone,前置摄像头像素够高，视频会议清晰。,Front cam is sharp—video calls are super clear.,positive
+id_536,tablet,支持外接U盘，资料备份很方便。,Supports USB drives—backing up files is easy.,positive
+id_537,tablet,耳机音量调节不够细，跨度太大了。,Volume steps are too big—hard to find the right level.,neutral
+id_538,tablet,充电速度惊艳，碎片时间也能回血。,Charging speed is awesome—quick top-ups are super effective.,positive
+id_539,smartphone,触控反应偶尔延迟，特别是用笔的时候。,Slight input lag with the stylus—not always super responsive.,neutral
+id_540,smartphone,耳机大小刚好，戴着完全没有负担。,Perfect fit—feels weightless in the ears.,positive
+id_541,tablet,背壳设计很有辨识度，一眼就知道是哪款。,The back design is super recognizable—stands out instantly.,positive
+id_542,smartphone,充电时会发出微弱的电流声，听得见但不影响使用。,"There’s a faint charging noise—not annoying, but it’s there.",neutral
+id_543,smartphone,系统设置项很多，新手可能要适应一下。,Tons of settings—might take newbies some time to get used to.,neutral
+id_544,tablet,后盖玻璃材质好看但容易沾指纹。,Glass back looks good but attracts fingerprints like crazy.,neutral
+id_545,smartphone,蓝牙稳定性很好，连接一次后从没断过。,Bluetooth is super stable—never dropped after the first pairing.,positive
+id_546,headphone,续航惊人，连续看视频七小时都还有电。,Battery life is wild—7 hours of video and still going.,positive
+id_547,tablet,屏幕分辨率略低，看文字有点发虚。,Screen resolution could be better—text looks a bit soft.,negative
+id_548,smartphone,耳机套材质偏硬，戴久了会有压痕。,Tips are a bit stiff—leave marks after long use.,negative
+id_549,tablet,接口位置合理，插多个设备也不冲突。,Port layout is smart—no issues plugging in multiple devices.,positive
+id_550,tablet,快充确实给力，半小时就接近满电。,Fast charge is legit—almost full in just 30 minutes.,positive
+id_551,tablet,通话质量很好，对方说听得很清楚。,Call quality is great—people say they hear me clearly.,positive
+id_552,tablet,横屏观看视频体验一流，声音和画面都跟得上。,Watching videos in landscape is excellent—great audio and visuals.,positive
+id_553,headphone,系统自带的软件有点多，占了不少空间。,Too many pre-installed apps—takes up a lot of storage.,negative
+id_554,smartphone,耳机佩戴时会有轻微异响，尤其在走路时。,Makes a slight noise when walking with them on—kind of odd.,neutral
+id_555,smartphone,画面清晰，看PPT和表格特别舒服。,Super sharp display—great for slides and spreadsheets.,positive
+id_556,smartphone,前摄很广角，但边缘有点畸变。,"Front cam is wide-angle, but there’s some distortion on the edges.",neutral
+id_557,tablet,充电仓电量显示不准确，实际电量偏低。,Battery indicator on the case is off—shows more than it actually has.,negative
+id_558,smartphone,屏幕色彩自然，不偏冷不偏暖。,Colors look natural—not too warm or cool.,positive
+id_559,smartphone,人脸解锁速度快，白天黑夜都能识别。,Face unlock is super fast—works day and night.,positive
+id_560,smartphone,耳机按钮偏硬，按久了手有点酸。,Buttons are a bit stiff—thumb gets tired pressing them.,neutral
+id_561,smartphone,扬声器开到最大也不破音，好评。,No distortion at max volume—impressive speakers.,positive
+id_562,headphone,系统很流畅，几乎没有延迟感。,The system is buttery smooth—no noticeable lag at all.,positive
+id_563,tablet,降噪模式和环境音切换不够顺畅，中间会断一下。,Switching between ANC and ambient mode has a short drop in audio.,neutral
+id_564,headphone,适合在床上看剧，屏幕角度可调很灵活。,Perfect for watching in bed—the screen angle is super adjustable.,positive
+id_565,tablet,拍照启动慢，错过了不少瞬间。,Camera opens slowly—missed some great shots.,negative
+id_566,smartphone,耳机盒支持无线充，终于不用带线了。,The case supports wireless charging—finally no need for cables.,positive
+id_567,smartphone,系统更新频繁，每次都要重启，挺烦的。,"Frequent updates—have to reboot every time, a bit annoying.",neutral
+id_568,tablet,后置三摄拍照效果非常出色，夜拍尤其惊艳。,Triple rear cameras deliver stunning shots—especially at night.,positive
+id_569,tablet,耳塞戴不稳，跑步时老掉。,The tips don’t stay in place—keeps falling out when I run.,negative
+id_570,tablet,尺寸便携，放在包里也不重。,Portable size—easy to carry around in a bag.,positive
+id_571,tablet,震动反馈不明显，打字没啥手感。,Vibration feedback is too subtle—typing feels bland.,neutral
+id_572,headphone,耳机线有点短，不太方便放口袋。,The wire is a bit short—hard to reach the pocket.,negative
+id_573,headphone,触控灵敏，画画时跟手感很好。,Touch is super responsive—great for sketching.,positive
+id_574,headphone,UI风格好看，但图标偏大显得有点杂。,"UI looks great, but the icons are a bit oversized and cluttered.",neutral
+id_575,headphone,耳机壳没有防尘盖，容易积灰。,No dust cover on the case—gets dirty fast.,negative
+id_576,smartphone,看小说时字体清晰，护眼模式很实用。,Text is sharp while reading—eye comfort mode is a nice touch.,positive
+id_577,headphone,通话声音偏小，尤其在马路上听不清。,Call volume is low—hard to hear outdoors.,negative
+id_578,smartphone,包装简洁，里面配件齐全，很满意。,"Clean packaging, complete accessories—very satisfied.",positive
+id_579,headphone,不支持蜂窝网络，只能用WiFi。,No LTE option—WiFi only.,negative
+id_580,tablet,整机握持感不错，单手操作也很顺。,Great grip—easy to use with one hand.,positive
+id_581,headphone,戴上几乎感觉不到重量，适合长时间使用。,Feels weightless—perfect for long sessions.,positive
+id_582,headphone,自带手写笔体验一般，延迟还是有点。,Included stylus has some lag—not the best experience.,neutral
+id_583,smartphone,扬声器声音偏单薄，没有立体感。,Speakers sound a bit flat—lacks depth.,negative
+id_584,smartphone,耳机自动连接很快，开盖秒连。,Auto-connect is fast—linked up as soon as I opened the lid.,positive
+id_585,tablet,触控反应灵敏，画图时笔感顺滑。,Touch is super responsive—stylus glides smoothly.,positive
+id_586,headphone,手机壳不好买，官方配件又贵。,Hard to find a good case—official ones are pricey.,negative
+id_587,smartphone,耳塞戴久会滑出来，建议换大号耳套。,They slip out after a while—bigger tips might help.,neutral
+id_588,tablet,扬声器位置合理，横放也不会被遮住。,Speaker placement is smart—won’t get blocked in landscape mode.,positive
+id_589,tablet,快充发热比较明显，用久了有点烫手。,Fast charging heats it up—feels a bit hot over time.,negative
+id_590,headphone,耳机支持多点连接，两个设备无缝切换。,Supports multipoint—switches between two devices seamlessly.,positive
+id_591,smartphone,屏幕有点反光，在灯下容易反白。,Screen reflects a lot—gets annoying under bright lights.,negative
+id_592,headphone,系统运行平稳，后台挂多个App也不会卡。,Runs smoothly—handles multiple apps in the background with ease.,positive
+id_593,smartphone,App设置丰富，可自定义模式挺实用。,App has lots of settings—custom modes are super handy.,positive
+id_594,smartphone,适合学生上网课，摄像头清晰。,Great for online classes—camera is clear and reliable.,positive
+id_595,headphone,指纹识别偏慢，有时候需要按两次。,Fingerprint scanner is slow—sometimes needs two tries.,neutral
+id_596,headphone,充一次电够用一整天，续航稳得很。,One charge easily lasts all day—super reliable battery.,positive
+id_597,headphone,接口全在一侧，连接外设有点挤。,All ports are on one side—cramped when plugging in accessories.,neutral
+id_598,headphone,系统字体太小，看久了眼睛有点累。,System font is small—eye strain after long use.,neutral
+id_599,headphone,没有主动降噪，在吵杂环境下听不清。,No active noise canceling—hard to hear in noisy places.,negative
+id_600,headphone,外壳质感不错，摸起来很舒服。,Back finish feels great—nice texture.,positive
+id_601,smartphone,音效三频均衡，不刺耳不闷，很舒服。,"Balanced across highs, mids, and lows—nothing harsh or muddy.",positive
+id_602,tablet,刷短视频会有一点点掉帧，不算严重。,Slight frame drops while scrolling short videos—not a big deal.,neutral
+id_603,tablet,屏幕边缘触控不太灵敏，时常点不准。,Edge touch response isn’t great—often misses my taps.,negative
+id_604,headphone,充电仓很轻巧，放口袋也不累赘。,The charging case is compact and pocket-friendly.,positive
+id_605,smartphone,信号表现一般，高楼层容易掉线。,Signal is average—tends to drop on higher floors.,neutral
+id_606,smartphone,背壳材质防滑，单手握持很安心。,Anti-slip back makes it easy to hold with one hand.,positive
+id_607,smartphone,没有磁吸功能，耳机放回盒子要对准。,No magnets in the case—you have to line up the earbuds manually.,negative
+id_608,tablet,系统启动速度快，开机不用等。,Boots up fast—no long wait after powering on.,positive
+id_609,smartphone,接口少了一点，没有HDMI输出不方便。,Lacks ports—no HDMI makes things a bit inconvenient.,negative
+id_610,headphone,触控区域面积太小，误触率高。,Touch area is tiny—accidental touches happen a lot.,negative
+id_611,headphone,外观颜值很高，朋友都说好看。,Looks stunning—my friends keep complimenting it.,positive
+id_612,headphone,平板自带支架，视频会议方便不少。,Built-in stand makes video calls a breeze.,positive
+id_613,smartphone,耳塞不分大小，戴上去不是特别贴合。,Only one ear tip size—doesn’t fit everyone well.,neutral
+id_614,headphone,背面会滑手，建议直接上壳。,The back is slippery—definitely use a case.,negative
+id_615,tablet,办公软件兼容性很好，文件打开流畅。,Great with office apps—documents open without lag.,positive
+id_616,smartphone,音质OK，就是通话的时候有杂音。,"Sound’s fine, but there’s static during calls.",neutral
+id_617,smartphone,充电口做工扎实，插拔感觉稳稳的。,Charging port feels sturdy—plugs in smoothly.,positive
+id_618,tablet,内置App太多，占空间又用不到。,Too many built-in apps—take up space and rarely used.,negative
+id_619,smartphone,耳机颜色很有个性，不容易撞款。,The color is unique—won’t be mixing mine up with others.,positive
+id_620,headphone,有时候连不上Wi-Fi，不知道是系统还是路由器问题。,Occasionally won’t connect to Wi-Fi—not sure if it’s the phone or router.,neutral
+id_621,tablet,边框厚了一点，看视频会分散注意力。,Bezels are a bit thick—distracting when watching videos.,neutral
+id_622,tablet,降噪效果明显，开启后一秒安静。,Noise canceling is strong—peace and quiet instantly.,positive
+id_623,smartphone,拍视频稳定性不错，走路录也不抖。,Video is stable—even walking shots come out smooth.,positive
+id_624,tablet,系统偶尔卡顿，不知道是不是后台太多。,Occasional lag—might be from too many apps running.,neutral
+id_625,smartphone,耳机盒电量显示很准，用起来安心。,Battery indicator on the case is accurate—no surprises.,positive
+id_626,headphone,屏幕颜色调教太艳，看久了有点累眼。,Colors are overly saturated—hurts the eyes after a while.,negative
+id_627,tablet,很适合孩子用，界面简单，操作直观。,Great for kids—simple interface and easy to navigate.,positive
+id_628,tablet,耳机盒带挂绳孔，外出携带更方便。,The case has a lanyard hole—super handy on the go.,positive
+id_629,headphone,系统设置很灵活，几乎所有功能都能自定义。,Highly customizable settings—you can tweak almost everything.,positive
+id_630,headphone,平板发热有点严重，玩游戏时尤其明显。,It gets hot—especially noticeable during gaming.,negative
+id_631,headphone,蓝牙连接速度很快，从没出现延迟。,Bluetooth connects instantly—never any lag.,positive
+id_632,smartphone,息屏时通知不显示，容易错过信息。,No notifications on the lock screen—easy to miss messages.,negative
+id_633,headphone,分屏操作流畅，左右窗口切换不卡。,Split screen runs smoothly—switching sides is seamless.,positive
+id_634,tablet,耳机盒外壳容易刮花，建议配保护套。,The case scratches easily—better get a sleeve for it.,neutral
+id_635,tablet,屏幕太灵敏，放口袋里有时自己点开了。,Screen is too sensitive—sometimes activates in my pocket.,negative
+id_636,smartphone,护眼模式开启后，色温柔和不刺眼。,Eye comfort mode softens the display nicely.,positive
+id_637,smartphone,配套App界面简洁，功能一目了然。,The companion app is clean and intuitive.,positive
+id_638,smartphone,手机边框太宽，影响整体美感。,Bezels are too thick—ruins the aesthetic.,negative
+id_639,headphone,适配蓝牙键盘速度快，打字体验佳。,Pairs fast with Bluetooth keyboards—typing is a breeze.,positive
+id_640,headphone,降噪一开耳朵会有压迫感，适应要时间。,ANC gives a pressure feeling at first—takes getting used to.,neutral
+id_641,headphone,UI设计简洁，适合长辈使用。,UI is clean—perfect for older users.,positive
+id_642,smartphone,音量键位置太靠边，容易误碰。,Volume buttons are placed awkwardly—easy to hit by mistake.,negative
+id_643,headphone,音量调节精度高，小幅调整很方便。,Volume adjusts precisely—fine-tuning is easy.,positive
+id_644,tablet,手机发热控制一般，玩游戏发烫明显。,Heat control isn’t great—gets warm while gaming.,neutral
+id_645,headphone,开机动画有点长，但系统运行流畅。,"Startup animation is long, but the system runs well.",neutral
+id_646,smartphone,充电仓太大了，口袋里塞不下。,The case is bulky—won’t fit in most pockets.,negative
+id_647,tablet,信号好，电梯里也能刷微博。,Signal is strong—can browse Twitter in elevators.,positive
+id_648,headphone,屏幕刷新率高，滑动页面像丝一样顺。,High refresh rate—scrolling feels silky smooth.,positive
+id_649,headphone,耳机灯光自动关闭，晚上用很贴心。,Lights turn off automatically—great for nighttime use.,positive
+id_650,tablet,不支持eSIM，有点落后了。,No eSIM support—feels a bit behind the times.,negative
+id_651,headphone,充电速度超快，早上插一下就能撑到晚上。,Charges super fast—plug it in in the morning and it lasts all day.,positive
+id_652,smartphone,通话音质一般，有时候听不清对方声音。,Call quality is just okay—sometimes hard to hear the other person.,neutral
+id_653,headphone,支架角度可调范围不大，用起来有点受限。,Stand angle is limited—feels a bit restrictive to use.,neutral
+id_654,smartphone,耳机材质亲肤，不会有异物感。,Material feels skin-friendly—no foreign body sensation at all.,positive
+id_655,smartphone,没有呼吸灯，信息提示不够直观。,No notification light—hard to tell when messages arrive.,negative
+id_656,tablet,接口丰富，拓展性强。,Plenty of ports—excellent expandability.,positive
+id_657,headphone,自动连接不太稳定，偶尔要手动重连。,Auto-connect can be unreliable—sometimes needs manual reconnect.,negative
+id_658,smartphone,运行速度飞快，重度用户也不担心卡顿。,Blazing fast—no lag even for heavy users.,positive
+id_659,smartphone,边框很宽，看电影有点不沉浸。,Thick bezels ruin the immersion while watching movies.,negative
+id_660,smartphone,耳机磁吸吸力刚刚好，方便又稳妥。,Magnetic snap is just right—secure and convenient.,positive
+id_661,tablet,系统有点花哨，感觉不太实用。,UI looks flashy but isn’t very practical.,neutral
+id_662,smartphone,护眼模式挺实用，晚上看屏幕眼睛不累。,Eye comfort mode really helps—no eye strain at night.,positive
+id_663,smartphone,按键设计位置偏高，不太好按到。,Buttons are placed too high—hard to reach.,neutral
+id_664,smartphone,快充确实快，但发热有点明显。,"Charging is fast, but it gets noticeably warm.",neutral
+id_665,smartphone,屏幕反光严重，阳光下几乎看不清。,Too much glare—hard to see anything outdoors.,negative
+id_666,smartphone,音质对于这个价位来说算是超值了。,Sound quality is amazing for the price—total value.,positive
+id_667,smartphone,导航定位很快，开车导航反应及时。,GPS is super fast—perfect for driving.,positive
+id_668,headphone,开机速度有点慢，但进系统后不卡。,"Startup is slow, but performance is smooth once booted.",neutral
+id_669,tablet,降噪开关太靠边，容易误碰。,ANC switch is in an awkward spot—easy to press by accident.,negative
+id_670,tablet,系统更新频繁，有时候不太稳定。,"Updates come often, but some cause instability.",neutral
+id_671,headphone,续航不错，上网课两小时电量只掉了15%。,Battery life is solid—only dropped 15% after a two-hour class.,positive
+id_672,headphone,麦克风清晰，语音通话体验不错。,Mic is clear—great for voice calls.,positive
+id_673,smartphone,屏幕色彩真实，不会太艳也不发灰。,Colors look natural—not oversaturated or washed out.,positive
+id_674,tablet,屏幕尺寸对我来说有点太大了，不便携。,A bit too big for me—not very portable.,neutral
+id_675,headphone,耳机没有配备用耳塞，不太贴心。,No spare ear tips included—not very thoughtful.,negative
+id_676,headphone,后台管理不够智能，会误杀音乐App。,Background management is too aggressive—kills music apps.,negative
+id_677,headphone,有防抖支持，看剧不会抖得眼花。,Built-in stabilization keeps videos steady—no shaky mess.,positive
+id_678,headphone,电池续航能用8小时，很满意。,Battery lasts a solid 8 hours—very satisfied.,positive
+id_679,tablet,震动强度适中，打字反馈特别舒服。,Perfect vibration feedback—typing feels great.,positive
+id_680,headphone,开箱自带膜和壳，直接能用很方便。,Came with a screen protector and case—ready to go.,positive
+id_681,smartphone,信号在地铁里断过几次，估计被干扰了。,Signal dropped a few times on the subway—probably interference.,neutral
+id_682,headphone,裸机手感太滑，不小心掉过几次。,Feels too slippery without a case—dropped it a few times.,negative
+id_683,smartphone,自带软件偏少，比较清爽。,Comes with very few apps—clean and minimal.,positive
+id_684,headphone,配对手机超级快，几乎是秒连。,Pairs with my phone almost instantly.,positive
+id_685,headphone,前摄拍出来有点过曝，室外强光下尤其明显。,Front cam overexposes in bright outdoor light.,neutral
+id_686,smartphone,打字反馈偏慢，输入体验一般。,Typing feels laggy—not the best input experience.,negative
+id_687,headphone,耳塞不太贴耳，会有漏音。,Tips don’t fit well—lots of sound leakage.,negative
+id_688,tablet,握持感好，长时间使用也不累手。,Feels great in hand—easy to hold for long periods.,positive
+id_689,tablet,键盘配件手感不错，打字不卡。,Keyboard feels nice—typing is smooth and fast.,positive
+id_690,headphone,耳机提示音太大了，没法调小。,Voice prompts are too loud—can’t adjust them.,negative
+id_691,tablet,屏幕支持高刷新率，滑动超级顺。,High refresh rate screen—scrolling is buttery smooth.,positive
+id_692,headphone,很适合看网课，屏幕分辨率够高。,"Perfect for online classes—sharp, high-res screen.",positive
+id_693,headphone,耳机的蓝牙范围不大，隔墙就断。,Bluetooth range isn’t great—disconnects through walls.,negative
+id_694,smartphone,UI动画华丽但偶尔卡顿，估计优化不够。,UI animations are flashy but lag sometimes—needs better optimization.,neutral
+id_695,smartphone,系统偏向教育和轻办公，打游戏不太合适。,More for study and light work—not ideal for gaming.,neutral
+id_696,tablet,自动暂停灵敏，摘下立刻停。,Auto-pause is spot on—stops playing the moment I take them off.,positive
+id_697,headphone,夜景模式优化很棒，拍灯光不会爆。,Night mode is great—no overexposure with lights.,positive
+id_698,headphone,开机略慢，解锁后就不卡了。,Startup’s a bit slow but runs smooth after unlocking.,neutral
+id_699,headphone,耳机没有音量控制，调音只能靠手机。,No volume controls on the earbuds—have to use the phone.,negative
+id_700,smartphone,屏幕亮度够高，室外阳光下也看得清。,Screen is bright enough to use even in direct sunlight.,positive
+id_701,headphone,耳机音质清晰，听古典音乐特别有层次感。,Crystal-clear audio—classical music sounds layered and rich.,positive
+id_702,smartphone,边框有点宽，看起来屏占比不够高。,Bezels are thick—makes the screen feel smaller.,negative
+id_703,headphone,系统运行流畅，切换应用非常顺手。,Runs smoothly—app switching feels natural and quick.,positive
+id_704,tablet,耳机灯光不能关闭，晚上有点烦。,No way to turn off the LED lights—annoying at night.,negative
+id_705,tablet,没有通知灯，要点亮屏幕才能知道有消息。,No notification light—you have to wake the screen to check.,negative
+id_706,headphone,横屏看PDF刚刚好，字体清晰不刺眼。,Perfect for reading PDFs in landscape—clear and easy on the eyes.,positive
+id_707,headphone,配对简单，新手机上也是秒连。,Pairing is super simple—connects instantly even on new devices.,positive
+id_708,tablet,游戏表现一般，掉帧有点严重。,Gaming performance is so-so—frame drops are noticeable.,negative
+id_709,tablet,触控笔响应不错，画图体验顺畅。,Stylus response is good—drawing feels smooth and natural.,positive
+id_710,tablet,音量调节跨度太大，调一下差别太明显。,Volume steps are too big—hard to find the right level.,neutral
+id_711,smartphone,相机成像色彩偏浓，有点不自然。,Photos come out overly saturated—looks a bit unnatural.,neutral
+id_712,tablet,边框略厚，单手握着边打字有点费劲。,Bezel is a bit thick—typing one-handed is awkward.,neutral
+id_713,tablet,耳塞太软了，有时候会从耳朵滑出来。,The tips are too soft—sometimes slip out of my ears.,neutral
+id_714,tablet,UI设计偏老气，希望能更新得更现代点。,The UI looks dated—really hoping for a more modern look.,negative
+id_715,headphone,支持键盘配件，办公效率提升不少。,Keyboard support really boosts productivity.,positive
+id_716,tablet,耳机壳带磁吸，放回去特别顺手。,Magnetic case makes putting them away super easy.,positive
+id_717,tablet,自拍镜头广角够大，适合多人合影。,Front cam is wide—great for group selfies.,positive
+id_718,headphone,没有自带手写笔，需要另购。,No stylus included—gotta buy it separately.,negative
+id_719,headphone,没有防水功能，出汗时用有点不放心。,No waterproofing—not ideal for workouts.,negative
+id_720,headphone,侧边指纹识别速度很快，解锁流畅。,Side fingerprint scanner is lightning fast.,positive
+id_721,smartphone,支持多点触控，多人操作也不会冲突。,Multi-touch support works great—no input conflicts.,positive
+id_722,tablet,没有降噪功能，在地铁里听不清。,No ANC—hard to hear clearly on the subway.,negative
+id_723,smartphone,夜景拍照效果惊艳，噪点控制得很好。,Night shots are stunning—very little noise.,positive
+id_724,headphone,开机速度很快，点亮即用。,Boots up quickly—ready to use in seconds.,positive
+id_725,tablet,耳机自动暂停功能偶尔会失灵。,Auto-pause doesn’t always work.,neutral
+id_726,headphone,边玩边充发热挺明显，不建议这么用。,Gets hot when gaming and charging—better avoid doing both.,neutral
+id_727,smartphone,系统UI看起来很清爽，没啥广告。,UI looks clean—no ads cluttering the experience.,positive
+id_728,tablet,耳机连接范围有限，房间隔一堵墙就断。,Bluetooth range isn’t great—disconnects through walls.,negative
+id_729,tablet,操作逻辑有点绕，新手上手要点时间。,Takes a while to get used to—UI isn’t beginner-friendly.,neutral
+id_730,smartphone,音效不错，看动画片时效果特别好。,Sound quality is great—especially fun for watching cartoons.,positive
+id_731,tablet,充电仓电量不准，显示还有其实已经没了。,Battery indicator is inaccurate—shows full but dies soon after.,negative
+id_732,smartphone,快门延迟有点大，拍小孩老是错过。,Shutter lag is annoying—missed so many moments with my kid.,negative
+id_733,tablet,配件贵了点，但做工确实好。,Accessories are pricey but well-made.,neutral
+id_734,headphone,耳机音量大但不破音，重低音效果很好。,Loud and clear—bass really hits without distortion.,positive
+id_735,smartphone,没有预装太多App，很清爽。,No bloatware—system is nice and clean.,positive
+id_736,headphone,屏幕偏黄，不适合修图。,Screen has a yellow tint—not ideal for editing.,negative
+id_737,tablet,耳机戴着很稳，适合运动用。,Stays in place—great for workouts.,positive
+id_738,smartphone,语音助手识别率一般，有时叫不醒。,Voice assistant misses commands sometimes—needs improvement.,neutral
+id_739,smartphone,支持无线投屏，看电视更方便了。,Supports wireless casting—makes watching on TV easier.,positive
+id_740,headphone,耳机没有提示电量低，突然就断了。,No low battery warning—just cuts off suddenly.,negative
+id_741,headphone,屏幕支持HDR，看电影很震撼。,HDR support makes movies look epic.,positive
+id_742,smartphone,页面滑动流畅，翻页毫无卡顿感。,Smooth page scrolling—no lag at all.,positive
+id_743,tablet,耳机戴久耳朵热，透气性差了点。,Ears get hot after long use—could use better airflow.,neutral
+id_744,smartphone,自带壁纸很有设计感，每张都好看。,Built-in wallpapers are stunning—really well-designed.,positive
+id_745,tablet,没有3.5mm耳机孔，用有线耳机麻烦。,No 3.5mm jack—wired headphones are a hassle.,negative
+id_746,tablet,低音震撼，听电子音乐特别爽。,Bass is powerful—perfect for EDM.,positive
+id_747,smartphone,拍照界面有点复杂，设置找半天。,Camera interface is messy—takes forever to find settings.,negative
+id_748,tablet,外观时尚，质感不错。,Looks sleek and feels premium.,positive
+id_749,tablet,耳机提示音太频繁，有点打扰。,Voice prompts pop up too often—it’s distracting.,neutral
+id_750,headphone,打游戏一整天也不卡，性能稳得很。,Gaming all day with zero lag—super stable performance.,positive
+id_751,tablet,耳机自动连接成功率高，几乎不需要手动配对。,Auto-connect works nearly every time—rarely need to pair manually.,positive
+id_752,smartphone,手机重了点，长时间拿着有点累。,Feels a bit heavy—gets tiring to hold for too long.,neutral
+id_753,headphone,屏幕支持手写笔，写字延迟感低。,Stylus support is great—low latency when writing.,positive
+id_754,tablet,耳机佩戴时感觉耳压较强，不太舒服。,Feels like ear pressure builds up—not too comfy.,negative
+id_755,smartphone,电池耐用，一天半不用充电。,Battery lasts a day and a half—super efficient.,positive
+id_756,smartphone,音效清晰，在线会议听得很清楚。,Crystal-clear sound—great for online meetings.,positive
+id_757,tablet,蓝牙偶尔会断开，不知道是不是手机的问题。,Bluetooth disconnects sometimes—might be the phone though.,neutral
+id_758,smartphone,信号不稳定，坐高铁经常断网。,Signal drops often on high-speed trains—not ideal.,negative
+id_759,headphone,做工细致，外观很有质感。,Well-built and looks really premium.,positive
+id_760,tablet,低频饱满，听鼓点特别带感。,Full low-end—drums sound super punchy.,positive
+id_761,tablet,系统更新后UI变卡了，希望能修复。,UI lags after the update—hope they fix it soon.,negative
+id_762,headphone,屏幕比例刚好，阅读和打字都顺手。,Perfect screen ratio—great for reading and typing.,positive
+id_763,smartphone,耳机音量不均，一边大一边小，不知道是不是质量问题。,Uneven volume—one earbud louder than the other. Might be faulty.,negative
+id_764,smartphone,没有红外功能，用不了遥控App。,No infrared—can’t use it as a remote.,negative
+id_765,smartphone,支持拓展存储，不用担心空间不够。,Supports storage expansion—no need to worry about space.,positive
+id_766,headphone,降噪开启后会轻微耳鸣，适应了就好。,"ANC causes slight ringing at first, but you get used to it.",neutral
+id_767,tablet,背面很容易沾灰尘，不太好打理。,Back collects dust easily—hard to keep clean.,negative
+id_768,smartphone,看视频不卡顿，加载也快。,Video playback is smooth—loads quickly too.,positive
+id_769,smartphone,蓝牙配对容易，连接稳定。,Easy to pair and stays connected.,positive
+id_770,headphone,拍照成像速度快，适合抓拍。,Snappy camera—perfect for quick shots.,positive
+id_771,tablet,开机动画有点长，希望能优化一下。,Boot animation is too long—could use a speed-up.,neutral
+id_772,headphone,耳机自动暂停功能挺灵敏的，很方便。,Auto-pause is responsive—love the convenience.,positive
+id_773,headphone,屏幕触控不够灵敏，有时点了没反应。,Touch screen isn’t very responsive—misses some taps.,negative
+id_774,headphone,不支持手写笔，感觉功能少了点。,No stylus support—feels like something’s missing.,negative
+id_775,smartphone,耳塞偏小，戴久了有点硌耳朵。,The tips are small—hurt my ears after a while.,negative
+id_776,tablet,系统干净没广告，用着很舒服。,No ads in the system—super clean and pleasant to use.,positive
+id_777,smartphone,可以外接显示器，很适合办公。,Supports external display—great for productivity.,positive
+id_778,smartphone,耳机盒带电量灯，随时知道剩多少电。,Case has battery indicators—always know the level.,positive
+id_779,headphone,语音助手不太智能，常常听错。,Voice assistant isn’t very smart—often mishears me.,negative
+id_780,tablet,看漫画体验极佳，画面细节都能还原。,Perfect for reading comics—amazing detail reproduction.,positive
+id_781,headphone,耳机提示音语速太快，听不清。,Voice prompts are too fast—hard to understand.,neutral
+id_782,headphone,信号稳定，哪怕电梯里也不断线。,Signal stays solid—even works in elevators.,positive
+id_783,tablet,电量持久，轻度使用三天没问题。,Battery lasts 3 days with light use—very impressive.,positive
+id_784,smartphone,没有收纳袋，出门不太方便带。,No pouch included—harder to carry around.,negative
+id_785,tablet,拍照颜色真实，没有太多修饰。,Photos look natural—colors aren’t overly processed.,positive
+id_786,headphone,系统操作逻辑清晰，很容易上手。,System is intuitive—easy to pick up and use.,positive
+id_787,tablet,耳机充电速度快，半小时就差不多满了。,Charges super fast—almost full in 30 minutes.,positive
+id_788,tablet,后摄拍照慢，夜间拍照容易糊。,Rear cam is slow—night shots come out blurry.,negative
+id_789,tablet,音量按钮偏硬，不太好按。,Volume buttons are stiff—takes effort to press.,neutral
+id_790,tablet,耳机颜色很有质感，看起来高级。,Color and finish look premium—very classy.,positive
+id_791,tablet,前摄广角好评，Vlog拍起来省心多了。,Wide front cam is perfect for vlogs—no need to adjust much.,positive
+id_792,headphone,不支持快充，充电时间有点久。,No fast charge—takes a while to fill up.,negative
+id_793,headphone,降噪开启后公交车上也能安静听歌。,"With ANC on, I can enjoy music quietly even on the bus.",positive
+id_794,headphone,应用打开速度快，没有多余加载。,Apps launch instantly—no unnecessary loading time.,positive
+id_795,headphone,屏幕清晰度高，看高清电影很爽。,High-res display—movies look amazing.,positive
+id_796,smartphone,耳塞容易掉，适合静态使用。,Falls out easily—not great for moving around.,negative
+id_797,tablet,后台应用太容易被清理，影响使用体验。,Background apps get killed too fast—hurts multitasking.,negative
+id_798,smartphone,可以外接U盘备份资料，很实用。,Supports USB drives for backups—very practical.,positive
+id_799,smartphone,耳机延迟控制不错，看视频音画同步。,Low latency—great sync between audio and video.,positive
+id_800,smartphone,屏幕很顺滑，操作跟手感很好。,The screen feels smooth—touch response is excellent.,positive
+id_801,headphone,通话降噪效果一般，对方说我背景很吵。,Call noise reduction isn't great—people say they hear a lot of background noise.,negative
+id_802,tablet,系统流畅，App切换毫无压力。,Super smooth system—switching between apps is effortless.,positive
+id_803,headphone,屏幕亮度自动调节有点慢，环境一变就不适应。,Auto-brightness is slow to react—doesn’t keep up with lighting changes.,neutral
+id_804,smartphone,佩戴久了耳朵还是有点疼，可能不太适合我的耳型。,Ears start to hurt after a while—might not fit my shape well.,neutral
+id_805,smartphone,背壳容易刮花，建议一拿到就贴膜。,Back gets scratched easily—apply a film right away.,negative
+id_806,tablet,内存够大，下载软件基本不担心。,Plenty of storage—can download without worrying.,positive
+id_807,headphone,蓝牙连接快，但信号穿墙能力弱。,"Pairs quickly, but struggles through walls.",neutral
+id_808,headphone,拍照速度快，按下就拍下来了，很爽。,Snaps pictures instantly—really satisfying shutter.,positive
+id_809,headphone,边框窄，看视频视觉冲击力强。,Narrow bezels make video viewing more immersive.,positive
+id_810,tablet,没有耳压感，长时间听也不会难受。,No pressure build-up—comfortable even for long listening.,positive
+id_811,smartphone,系统字体偏细，看久了有点吃力。,Font is a bit too thin—strains the eyes after a while.,neutral
+id_812,tablet,散热一般，看剧一小时后背面有点热。,Gets warm after an hour of streaming—cooling could be better.,neutral
+id_813,tablet,蓝牙断连过一次，重启后就好了。,Bluetooth dropped once—reconnected after a restart.,neutral
+id_814,headphone,指纹识别速度很快，基本一触即开。,Fingerprint unlock is lightning fast—works instantly.,positive
+id_815,tablet,接口设计合理，插线充电时也能用支架。,Port placement is smart—can charge and use the stand at once.,positive
+id_816,headphone,音效适合流行音乐，低音很有劲。,Great for pop music—bass has solid punch.,positive
+id_817,tablet,拍照按钮偏小，单手操作不太方便。,Shutter button is too small—hard to use one-handed.,neutral
+id_818,tablet,电量很顶，看视频五小时才掉了一半。,Battery is solid—only dropped 50% after five hours of video.,positive
+id_819,headphone,耳机盒磁力强，吸上去很有安全感。,Case magnets are strong—feels really secure.,positive
+id_820,tablet,屏幕支持高刷，滑动特别顺。,High refresh screen makes scrolling buttery smooth.,positive
+id_821,smartphone,外观漂亮，适合送人当礼物。,Looks stylish—makes a great gift.,positive
+id_822,headphone,麦克风一般，对方说我声音闷闷的。,Mic isn’t great—people say I sound muffled.,negative
+id_823,smartphone,摄像头凸起太高，放桌子上晃动明显。,Camera bump is huge—wobbles on flat surfaces.,negative
+id_824,tablet,兼容性不错，各种App都能顺利跑。,Good compatibility—runs all my apps without issue.,positive
+id_825,headphone,降噪效果不是特别明显，对地铁噪音无能为力。,ANC is weak—barely blocks subway noise.,negative
+id_826,smartphone,快充速度快，早上充十几分钟就够出门了。,Fast charging is a lifesaver—10 minutes and I’m out the door.,positive
+id_827,smartphone,打游戏也不怎么发热，散热表现不错。,Stays cool during gaming—great thermal control.,positive
+id_828,tablet,App功能齐全，但UI设计有点老。,App is feature-rich but the UI feels outdated.,neutral
+id_829,tablet,没有广角镜头，拍风景不太方便。,No wide-angle lens—not great for landscapes.,negative
+id_830,smartphone,扬声器位置巧妙，不容易被手挡住。,Speakers are placed smartly—hands don’t block them.,positive
+id_831,smartphone,耳塞太硬，戴着不舒服。,Ear tips are too stiff—uncomfortable to wear.,negative
+id_832,headphone,系统界面简洁，适合不爱折腾的人。,Simple UI—great for people who want a clean layout.,positive
+id_833,smartphone,没有HDMI输出，只能无线投屏。,No HDMI out—only supports wireless casting.,negative
+id_834,smartphone,耳机外形低调，不喜欢炫酷灯光的首选。,Subtle design—perfect if you’re not into flashy lights.,positive
+id_835,smartphone,系统偶尔闪退，特别是在玩游戏时。,System crashes occasionally—especially during games.,negative
+id_836,headphone,默认壁纸好看，但换起来不太顺手。,Default wallpapers are nice—changing them takes too many steps.,neutral
+id_837,headphone,耳机大小适中，戴起来贴合度高。,Fits just right—great seal and comfort.,positive
+id_838,tablet,没有呼叫录音功能，有点遗憾。,No call recording option—kind of a letdown.,negative
+id_839,tablet,电量显示精确，剩多少一目了然。,Battery indicator is very accurate—no guessing.,positive
+id_840,tablet,语音提示声音太大了，吓我一跳。,Voice prompt is way too loud—startled me the first time.,negative
+id_841,smartphone,前摄美颜太夸张了，人脸失真严重。,Beauty mode is overdone—face looks distorted.,negative
+id_842,smartphone,背壳容易沾指纹，但配壳能解决。,"Back gets fingerprint-y, but a case solves it.",neutral
+id_843,headphone,音质非常饱满，看电影特别爽。,Full-bodied sound—movies feel super immersive.,positive
+id_844,tablet,系统动画精致，视觉观感很好。,System animations are polished—feels visually premium.,positive
+id_845,smartphone,边框宽了点，不过方便握持。,"Bezels are thick, but that helps with grip.",neutral
+id_846,smartphone,耳机连上电脑后没有声音，要重插一次。,No sound when paired to PC—had to replug.,negative
+id_847,headphone,操作系统体验好，逻辑清晰。,OS feels intuitive and logically laid out.,positive
+id_848,smartphone,屏幕刷新率高，拖动画面非常流畅。,High refresh rate—dragging windows is super smooth.,positive
+id_849,headphone,耳机支持aptX，延迟真的低。,aptX support means really low latency.,positive
+id_850,headphone,开箱体验很好，包装讲究。,Unboxing was great—packaging feels premium.,positive
+id_851,headphone,耳机按键偏硬，操作时要使点劲。,Buttons are a bit stiff—you have to press firmly.,neutral
+id_852,tablet,信号在地下车库也不错，不容易断。,Signal holds up even in underground garages.,positive
+id_853,tablet,边框虽宽，但打字时不容易误触。,"Bezels are wide, but it helps avoid accidental touches while typing.",neutral
+id_854,headphone,耳机套稍微偏厚，戴上会有点闷热。,Tips are a bit thick—makes ears feel warm.,neutral
+id_855,tablet,手机外壳做工不错，握持感很好。,The build quality is solid—feels great in hand.,positive
+id_856,headphone,分屏多任务处理很流畅，办公效率高。,Split-screen multitasking is smooth—great for productivity.,positive
+id_857,headphone,蓝牙版本不高，连接稍慢一点。,Bluetooth version is outdated—takes a bit longer to connect.,neutral
+id_858,tablet,照相清晰度高，细节都能拍清。,Photos are sharp—captures fine details really well.,positive
+id_859,headphone,屏幕反光严重，不适合强光下使用。,Too reflective—not great for bright environments.,negative
+id_860,tablet,充电口不是Type-C，有点不方便。,No Type-C charging—kind of inconvenient these days.,negative
+id_861,tablet,系统动画很流畅，看着很舒服。,System animations are smooth—pleasing to the eye.,positive
+id_862,headphone,设备略重，单手持久握着有点吃力。,A bit heavy—hard to hold in one hand for long.,neutral
+id_863,smartphone,耳机连接电脑后音质下降明显。,Sound quality drops when connected to a PC.,negative
+id_864,tablet,充电时有点发热，但能接受。,Gets slightly warm when charging—not too bad though.,neutral
+id_865,headphone,键盘配件体验很好，打字回弹感强。,Keyboard feels great—nice key travel and bounce.,positive
+id_866,tablet,耳机提示音可以换语言，贴心。,Voice prompts can be set to different languages—nice touch.,positive
+id_867,headphone,主摄很强，夜拍也清晰。,Main camera is impressive—night shots come out clear too.,positive
+id_868,smartphone,支持磁吸手写笔，收纳方便。,Supports magnetic stylus—easy to store.,positive
+id_869,smartphone,蓝牙信号不稳，走远点就卡顿了。,Bluetooth cuts out easily when I move away.,negative
+id_870,smartphone,扬声器外放声音大，看视频不需要耳机。,Speakers are loud—don’t need earbuds for watching videos.,positive
+id_871,smartphone,包装很环保，没有多余塑料。,Packaging is eco-friendly—no unnecessary plastic.,positive
+id_872,tablet,耳机充电仓电量很耐用，一周只充两次。,Case holds charge really well—only needs charging twice a week.,positive
+id_873,smartphone,屏幕分辨率不够高，看文字有点糊。,Resolution isn’t sharp—text looks slightly blurry.,negative
+id_874,tablet,续航能力强，一整天基本不用充。,Lasts all day—no need to recharge until night.,positive
+id_875,headphone,没有主动降噪，对环境声音无感。,No active noise cancellation—lets in all ambient sounds.,negative
+id_876,headphone,UI风格好看但不太好找设置。,UI looks nice but settings are hard to find.,neutral
+id_877,tablet,播放4K视频不卡，清晰度高。,Plays 4K videos smoothly—super sharp visuals.,positive
+id_878,tablet,耳机触控灵敏，操作很方便。,Touch controls are responsive—super convenient.,positive
+id_879,tablet,后盖玻璃容易摔碎，建议上保护壳。,Back glass breaks easily—definitely use a case.,negative
+id_880,headphone,开会做笔记很方便，自带笔就能用。,Great for meeting notes—built-in pen support is handy.,positive
+id_881,tablet,蓝牙连接稳定，断连几率低。,Stable Bluetooth—rarely disconnects.,positive
+id_882,headphone,系统操作手势流畅，学习成本低。,Gesture navigation is smooth and easy to learn.,positive
+id_883,smartphone,页面加载速度快，上网冲浪流畅。,Pages load quickly—great for web browsing.,positive
+id_884,smartphone,耳塞材质柔软，戴着不磨耳朵。,Tips are soft—comfortable and don’t chafe.,positive
+id_885,smartphone,拍照快门有延迟，容易错过瞬间。,Shutter lag is noticeable—easy to miss the moment.,negative
+id_886,headphone,边角圆润，不容易磕手。,Rounded corners make it safer and more comfortable to hold.,positive
+id_887,headphone,充电仓灯光提示太亮，晚上有点刺眼。,Charging indicator is too bright—annoying in the dark.,neutral
+id_888,smartphone,夜间模式效果好，看屏幕不刺眼。,Night mode works great—easy on the eyes in the dark.,positive
+id_889,tablet,系统偶尔卡顿，重启后就好了。,"Occasional lag, but a restart fixes it.",neutral
+id_890,headphone,耳机连接范围远，家里走来走去都不卡。,Good range—can walk around the house without drops.,positive
+id_891,headphone,息屏手势方便，抬手亮屏很顺手。,Lift-to-wake works great—super handy.,positive
+id_892,tablet,没有人脸识别，只有密码解锁。,No face unlock—only password option available.,negative
+id_893,headphone,耳机触控有延迟，要等半秒。,Touch controls lag about half a second.,neutral
+id_894,smartphone,信号强度一般，楼层高了容易断。,Signal gets weak on higher floors—could be better.,neutral
+id_895,tablet,自带支架设计实用，不用额外买。,Built-in stand is practical—no need to buy one.,positive
+id_896,smartphone,续航一般，听4小时左右就要充电。,Battery lasts about 4 hours—nothing special.,neutral
+id_897,smartphone,系统支持息屏显示，通知很方便。,Always-on display is super useful for notifications.,positive
+id_898,headphone,开箱配件很少，只有充电器和线。,Minimal accessories in the box—just a charger and cable.,neutral
+id_899,smartphone,麦克风清晰，开会时对方听得清楚。,Mic is clear—great for meetings.,positive
+id_900,headphone,UI不卡顿，日常使用很顺畅。,UI runs smoothly—no lag in everyday use.,positive
+id_901,headphone,耳机充电仓体积小巧，外出携带很方便。,The case is compact—super easy to carry around.,positive
+id_902,smartphone,屏幕边缘触控反应略慢，偶尔点不到。,Edge touch response is a bit sluggish—misses taps sometimes.,neutral
+id_903,headphone,背壳金属材质手感很好，就是有点滑。,"Metal back feels great, but it’s a bit slippery.",neutral
+id_904,tablet,充电仓外壳质感不错，摸起来很顺滑。,Case has a nice finish—feels smooth in hand.,positive
+id_905,headphone,来电铃声音量偏小，容易听不到。,Ringtone volume is low—easy to miss calls.,negative
+id_906,tablet,屏幕分辨率高，阅读体验很棒。,High-res display—great for reading.,positive
+id_907,headphone,没有磁吸功能，耳机放回盒子不太顺。,No magnetic guide—takes effort to fit earbuds back in.,negative
+id_908,tablet,充电接口居中，边充边玩手感好。,Centered charging port—easy to hold while charging.,positive
+id_909,smartphone,边框有点厚，看电影沉浸感差了点。,Thick bezels kill some immersion during movies.,negative
+id_910,headphone,耳塞紧实，佩戴跑步也不会掉。,Snug fit—stays in place even when running.,positive
+id_911,smartphone,UI逻辑清晰，老人用也没障碍。,Clear UI logic—my parents had no trouble using it.,positive
+id_912,smartphone,没有预装多余App，系统很干净。,No bloatware—system is clean and minimal.,positive
+id_913,headphone,耳机盒容易沾指纹，需要经常擦。,Case picks up fingerprints easily—needs constant cleaning.,neutral
+id_914,smartphone,语音输入识别率高，说什么都能识别出来。,Voice input is accurate—understands nearly everything I say.,positive
+id_915,headphone,系统界面美观，操作流程顺畅。,UI looks great—smooth and easy to navigate.,positive
+id_916,smartphone,麦克风拾音距离近，说远了对方就听不清了。,Mic has short pickup range—hard to hear me if I’m not close.,negative
+id_917,headphone,支持双卡双待，对出差党很友好。,Dual SIM support is super handy for travel.,positive
+id_918,headphone,系统响应有点慢，点击后要等一下。,System lags a little—slight delay after tapping.,neutral
+id_919,tablet,App界面不够友好，设置项太分散。,App UI isn’t user-friendly—settings are all over the place.,negative
+id_920,tablet,机身很薄，握起来非常舒服。,Super slim—feels great in hand.,positive
+id_921,headphone,配套保护壳设计合理，角度调节很方便。,Smart cover is well-designed—easy to adjust viewing angles.,positive
+id_922,tablet,耳机戴上没有压迫感，很轻松。,No pressure on the ears—feels light and easy.,positive
+id_923,headphone,后壳容易滑手，建议搭配防滑壳使用。,Slippery back—use a grippy case for sure.,neutral
+id_924,headphone,扬声器音量够大，开会不用外接音箱。,Speakers are loud enough—no need for external audio in meetings.,positive
+id_925,smartphone,耳机灯光太亮，晚上用有点扎眼。,LED lights are too bright—distracting at night.,negative
+id_926,headphone,支持eSIM功能，出国不用换卡太方便了。,eSIM support is awesome—no need to swap SIMs when abroad.,positive
+id_927,smartphone,支持外接硬盘，拷贝文件特别快。,Works great with external drives—file transfers are fast.,positive
+id_928,headphone,没有低电量语音提示，突然没电很尴尬。,No voice warning for low battery—just dies out of nowhere.,negative
+id_929,headphone,边框很薄，视觉冲击感强。,Super slim bezels—looks really immersive.,positive
+id_930,tablet,默认输入法不好用，建议换成第三方。,Default keyboard is clunky—switch to a third-party one.,neutral
+id_931,smartphone,蓝牙稳定性一般，走远点会断。,Bluetooth isn’t stable—drops when I move away.,negative
+id_932,tablet,夜拍细节保留不错，不发糊。,Night shots hold detail well—not blurry at all.,positive
+id_933,smartphone,触控笔笔尖有点滑，写字不太跟手。,Stylus tip is slippery—writing doesn’t feel natural.,neutral
+id_934,headphone,通话时对方说听得到背景电视声。,People on the call can hear my TV in the background.,negative
+id_935,headphone,震动反馈非常到位，敲字很有感觉。,Vibration feedback is spot on—feels great while typing.,positive
+id_936,tablet,没有4G版本，出门只能靠热点。,No 4G version—have to use a hotspot outside.,negative
+id_937,headphone,耳机音质饱满，人声很清晰。,Full sound—vocals come through clearly.,positive
+id_938,tablet,后盖指纹易留印，建议搭配壳使用。,Fingerprint magnet—definitely use a case.,neutral
+id_939,smartphone,屏幕比例适合写作和阅读，办公利器。,Great aspect ratio for reading and writing—ideal for work.,positive
+id_940,headphone,耳塞太紧，戴久了耳朵有点痛。,Tips fit too tightly—hurts after a while.,negative
+id_941,headphone,息屏显示很方便，抬手就能看时间。,Always-on display is super handy—just lift to check the time.,positive
+id_942,smartphone,系统稳定，几乎没遇到闪退。,Very stable system—no crashes so far.,positive
+id_943,smartphone,耳机没有配收纳袋，出差不太方便带。,No case included—not convenient for travel.,negative
+id_944,headphone,打字手感好，振动刚刚好。,Typing feels great—vibration is just right.,positive
+id_945,tablet,没有自动亮度功能，得手动调节。,No auto-brightness—you have to adjust it manually.,negative
+id_946,headphone,音质中规中矩，适合日常听听歌。,Sound quality is average—fine for casual listening.,neutral
+id_947,smartphone,边框圆润，单手操作很舒服。,Rounded edges—comfortable for one-handed use.,positive
+id_948,headphone,屏幕色彩自然，看图片不偏色。,Colors are natural—images look accurate.,positive
+id_949,headphone,耳机提示音太频繁，有点打扰。,Voice prompts come too often—kinda annoying.,neutral
+id_950,smartphone,后摄夜景优化不错，灯光不爆。,Rear camera handles night scenes well—lights aren’t blown out.,positive
+id_951,tablet,耳机戴久了不会累耳，舒适度不错。,Comfortable even after long use—no ear fatigue.,positive
+id_952,headphone,充电线偏短，边用边充比较别扭。,Charging cable is short—awkward to use while charging.,neutral
+id_953,headphone,屏幕清晰，电子书阅读体验佳。,Sharp screen—great for reading ebooks.,positive
+id_954,tablet,触控反应有延迟，暂停经常要点两次。,Touch controls lag—often need two taps to pause.,neutral
+id_955,smartphone,前置摄像头像素一般，拍照偏糊。,Front camera is just okay—selfies are a bit blurry.,negative
+id_956,smartphone,系统动画丝滑，体验和手机差不多。,System animations are buttery smooth—feels just like a phone.,positive
+id_957,tablet,耳机收纳仓自带磁吸，放回去很顺手。,Magnetic case makes storing the earbuds effortless.,positive
+id_958,headphone,拍照颜色调教自然，不会过度美化。,Photos look natural—no excessive beauty filters.,positive
+id_959,headphone,不支持指纹解锁，略显不便。,No fingerprint unlock—kind of inconvenient.,negative
+id_960,smartphone,音量调节跨度太大，调一点变化太明显。,Volume steps are too wide—hard to fine-tune.,neutral
+id_961,tablet,系统自带功能够多，不用下第三方App。,Built-in features are rich—no need for extra apps.,positive
+id_962,smartphone,音效还原真实，看电影很有沉浸感。,Sound feels real—makes movie watching immersive.,positive
+id_963,smartphone,蓝牙连接成功率高，换设备也很快。,Bluetooth pairs reliably—even switching devices is fast.,positive
+id_964,headphone,系统偶尔掉帧，希望后续优化。,Occasional frame drops—needs a future update.,neutral
+id_965,tablet,屏幕比例适合做笔记，写字手感棒。,Perfect screen ratio for note-taking—feels great to write on.,positive
+id_966,tablet,耳机提示音语言不能换，英文听不懂。,No option to change voice prompt language—not ideal if you don’t speak English.,negative
+id_967,smartphone,打游戏发热控制不错，手感不烫。,Stays cool during gaming—doesn’t burn your hands.,positive
+id_968,smartphone,支持分屏和浮窗，操作效率高。,Split screen and floating windows boost multitasking.,positive
+id_969,tablet,没有App配套，设置项很少。,No companion app—very limited settings.,negative
+id_970,headphone,解锁动画略卡顿，希望系统能再流畅些。,Unlock animation stutters a bit—could be smoother.,neutral
+id_971,smartphone,看4K视频不卡顿，画质非常棒。,4K videos play flawlessly—gorgeous quality.,positive
+id_972,smartphone,麦克风降噪不够，会议时有点杂音。,Mic noise cancellation isn’t great—background noise gets through.,negative
+id_973,tablet,屏幕亮度足够，户外也看得清。,Bright screen—easy to read even in sunlight.,positive
+id_974,tablet,外壳有点滑手，建议配套保护套。,The back is slippery—use a case for better grip.,neutral
+id_975,smartphone,耳机体积小，放口袋完全没问题。,Super compact—fits in my pocket with no problem.,positive
+id_976,tablet,支持Wi-Fi 6，上网速度飞快。,Wi-Fi 6 support—super fast internet.,positive
+id_977,tablet,兼容办公软件，文档编辑也流畅。,Runs office apps smoothly—great for editing docs.,positive
+id_978,headphone,耳机没有防水功能，下雨天不敢用。,No water resistance—not safe to use in rain.,negative
+id_979,smartphone,边框不割手，手感圆润舒适。,Rounded edges feel smooth—not sharp at all.,positive
+id_980,tablet,屏幕稍微偏暖，看久了不累眼。,Slightly warm display—easier on the eyes.,positive
+id_981,headphone,耳机蓝牙范围一般，隔墙就断。,Bluetooth range is weak—disconnects through walls.,negative
+id_982,smartphone,开箱就贴好膜了，挺贴心。,Comes with screen protector pre-applied—nice touch.,positive
+id_983,tablet,屏幕尺寸刚好，拿着不觉得大。,Perfect screen size—not too bulky to hold.,positive
+id_984,headphone,音质清晰，中频人声特别好听。,Crystal clear mids—vocals sound amazing.,positive
+id_985,headphone,摄像头夜拍不如预期，细节丢失多。,Low-light photos are underwhelming—lots of detail lost.,negative
+id_986,tablet,边框厚度适中，握持不容易误触。,Bezel size is just right—no accidental touches.,positive
+id_987,headphone,耳机没有音量控制，必须用手机调。,No volume controls on the buds—have to use the phone.,negative
+id_988,smartphone,信号稳定，视频通话很流畅。,Stable signal—video calls are super smooth.,positive
+id_989,smartphone,没有USB-A口，有些老设备插不上。,No USB-A port—older accessories won’t work.,negative
+id_990,smartphone,耳机支持双设备连接，很方便。,Supports dual pairing—super convenient.,positive
+id_991,tablet,整机手感温润，边角打磨得很细。,Feels smooth all over—corners are nicely rounded.,positive
+id_992,tablet,系统流畅，打开App基本无等待。,System is snappy—apps launch instantly.,positive
+id_993,smartphone,耳机灯光不能关闭，晚上影响睡觉。,LED can’t be turned off—distracting at night.,negative
+id_994,tablet,UI清爽，功能不杂，挺适合父母用。,Simple UI—not cluttered—great for older users.,positive
+id_995,smartphone,系统主题可选项多，自定义程度高。,Lots of themes to choose from—very customizable.,positive
+id_996,headphone,耳机盒支持无线充电，用起来更方便了。,The case supports wireless charging—super convenient.,positive
+id_997,smartphone,解锁方式多样，指纹、面部都支持。,Multiple unlock options—supports both face and fingerprint.,positive
+id_998,tablet,不支持蜂窝网络，只能连WiFi。,Wi-Fi only—no cellular version available.,negative
+id_999,tablet,耳机默认音效偏低音，喜欢重低音的福音。,Default tuning favors bass—great for bass lovers.,positive
+id_1000,headphone,系统更新速度快，Bug修得也勤。,Updates roll out quickly—bugs get fixed fast too.,positive
