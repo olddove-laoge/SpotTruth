@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"log"
+	"net"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -12,7 +13,23 @@ type ProxyOptions struct {
 	MaxIdleConns          int
 	MaxIdleConnsPerHost   int
 	IdleConnTimeout       time.Duration
+	DialTimeout           time.Duration
+	TLSHandshakeTimeout   time.Duration
+	ExpectContinueTimeout time.Duration
 	ResponseHeaderTimeout time.Duration
+}
+
+func newTransport(opts ProxyOptions) *http.Transport {
+	return &http.Transport{
+		Proxy:                 http.ProxyFromEnvironment,
+		DialContext:           (&net.Dialer{Timeout: opts.DialTimeout, KeepAlive: 30 * time.Second}).DialContext,
+		MaxIdleConns:          opts.MaxIdleConns,
+		MaxIdleConnsPerHost:   opts.MaxIdleConnsPerHost,
+		IdleConnTimeout:       opts.IdleConnTimeout,
+		TLSHandshakeTimeout:   opts.TLSHandshakeTimeout,
+		ExpectContinueTimeout: opts.ExpectContinueTimeout,
+		ResponseHeaderTimeout: opts.ResponseHeaderTimeout,
+	}
 }
 
 func NewReverseProxy(target string, opts ProxyOptions) (http.Handler, error) {
@@ -22,13 +39,7 @@ func NewReverseProxy(target string, opts ProxyOptions) (http.Handler, error) {
 	}
 
 	proxy := httputil.NewSingleHostReverseProxy(upstreamURL)
-	proxy.Transport = &http.Transport{
-		Proxy:                 http.ProxyFromEnvironment,
-		MaxIdleConns:          opts.MaxIdleConns,
-		MaxIdleConnsPerHost:   opts.MaxIdleConnsPerHost,
-		IdleConnTimeout:       opts.IdleConnTimeout,
-		ResponseHeaderTimeout: opts.ResponseHeaderTimeout,
-	}
+	proxy.Transport = newTransport(opts)
 
 	originalDirector := proxy.Director
 	proxy.Director = func(req *http.Request) {

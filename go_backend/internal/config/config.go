@@ -10,11 +10,17 @@ type Config struct {
 	GatewayAddr           string
 	UpstreamBaseURL       string
 	ReadHeaderTimeout     time.Duration
+	ReadTimeout           time.Duration
+	WriteTimeout          time.Duration
+	IdleTimeout           time.Duration
 	ShutdownTimeout       time.Duration
 	MaxInFlight           int
 	MaxIdleConns          int
 	MaxIdleConnsPerHost   int
 	IdleConnTimeout       time.Duration
+	DialTimeout           time.Duration
+	TLSHandshakeTimeout   time.Duration
+	ExpectContinueTimeout time.Duration
 	ResponseHeaderTimeout time.Duration
 }
 
@@ -23,11 +29,17 @@ func Load() Config {
 		GatewayAddr:           getEnv("GATEWAY_ADDR", ":8080"),
 		UpstreamBaseURL:       getEnv("UPSTREAM_BASE_URL", "http://127.0.0.1:5000"),
 		ReadHeaderTimeout:     getDurationEnv("READ_HEADER_TIMEOUT", 5*time.Second),
+		ReadTimeout:           getDurationEnv("READ_TIMEOUT", 30*time.Second),
+		WriteTimeout:          getDurationEnv("WRITE_TIMEOUT", 30*time.Second),
+		IdleTimeout:           getDurationEnv("SERVER_IDLE_TIMEOUT", 60*time.Second),
 		ShutdownTimeout:       getDurationEnv("SHUTDOWN_TIMEOUT", 10*time.Second),
 		MaxInFlight:           getIntEnv("MAX_IN_FLIGHT", 2048),
 		MaxIdleConns:          getIntEnv("MAX_IDLE_CONNS", 512),
 		MaxIdleConnsPerHost:   getIntEnv("MAX_IDLE_CONNS_PER_HOST", 256),
 		IdleConnTimeout:       getDurationEnv("IDLE_CONN_TIMEOUT", 90*time.Second),
+		DialTimeout:           getDurationEnv("DIAL_TIMEOUT", 3*time.Second),
+		TLSHandshakeTimeout:   getDurationEnv("TLS_HANDSHAKE_TIMEOUT", 5*time.Second),
+		ExpectContinueTimeout: getDurationEnv("EXPECT_CONTINUE_TIMEOUT", 1*time.Second),
 		ResponseHeaderTimeout: getDurationEnv("RESPONSE_HEADER_TIMEOUT", 15*time.Second),
 	}
 }

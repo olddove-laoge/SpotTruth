@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"net/http/httputil"
 	"testing"
 	"time"
 )
@@ -49,5 +50,54 @@ func TestNewReverseProxyInvalidTarget(t *testing.T) {
 	_, err := NewReverseProxy("://bad_url", ProxyOptions{})
 	if err == nil {
 		t.Fatal("非法 target 应返回错误")
+	}
+}
+
+func TestNewReverseProxyTransportTimeoutOptions(t *testing.T) {
+	opts := ProxyOptions{
+		MaxIdleConns:          120,
+		MaxIdleConnsPerHost:   60,
+		IdleConnTimeout:       40 * time.Second,
+		DialTimeout:           2 * time.Second,
+		TLSHandshakeTimeout:   6 * time.Second,
+		ExpectContinueTimeout: 1500 * time.Millisecond,
+		ResponseHeaderTimeout: 3 * time.Second,
+	}
+
+	h, err := NewReverseProxy("http://127.0.0.1:5000", opts)
+	if err != nil {
+		t.Fatalf("创建代理失败: %v", err)
+	}
+
+	rp, ok := h.(*httputil.ReverseProxy)
+	if !ok {
+		t.Fatalf("返回类型错误: %T", h)
+	}
+
+	tr, ok := rp.Transport.(*http.Transport)
+	if !ok {
+		t.Fatalf("transport 类型错误: %T", rp.Transport)
+	}
+
+	if tr.MaxIdleConns != opts.MaxIdleConns {
+		t.Fatalf("MaxIdleConns 错误: got=%d want=%d", tr.MaxIdleConns, opts.MaxIdleConns)
+	}
+	if tr.MaxIdleConnsPerHost != opts.MaxIdleConnsPerHost {
+		t.Fatalf("MaxIdleConnsPerHost 错误: got=%d want=%d", tr.MaxIdleConnsPerHost, opts.MaxIdleConnsPerHost)
+	}
+	if tr.IdleConnTimeout != opts.IdleConnTimeout {
+		t.Fatalf("IdleConnTimeout 错误: got=%v want=%v", tr.IdleConnTimeout, opts.IdleConnTimeout)
+	}
+	if tr.TLSHandshakeTimeout != opts.TLSHandshakeTimeout {
+		t.Fatalf("TLSHandshakeTimeout 错误: got=%v want=%v", tr.TLSHandshakeTimeout, opts.TLSHandshakeTimeout)
+	}
+	if tr.ExpectContinueTimeout != opts.ExpectContinueTimeout {
+		t.Fatalf("ExpectContinueTimeout 错误: got=%v want=%v", tr.ExpectContinueTimeout, opts.ExpectContinueTimeout)
+	}
+	if tr.ResponseHeaderTimeout != opts.ResponseHeaderTimeout {
+		t.Fatalf("ResponseHeaderTimeout 错误: got=%v want=%v", tr.ResponseHeaderTimeout, opts.ResponseHeaderTimeout)
+	}
+	if tr.DialContext == nil {
+		t.Fatal("DialContext 不应为空")
 	}
 }
