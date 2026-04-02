@@ -12,6 +12,10 @@ func TestLoadDefaultValues(t *testing.T) {
 	t.Setenv("READ_TIMEOUT", "")
 	t.Setenv("WRITE_TIMEOUT", "")
 	t.Setenv("SERVER_IDLE_TIMEOUT", "")
+	t.Setenv("AUTH_ENABLED", "")
+	t.Setenv("AUTH_SIGNING_KEY", "")
+	t.Setenv("AUTH_ISSUER", "")
+	t.Setenv("AUTH_ACCESS_TTL", "")
 	t.Setenv("SHUTDOWN_TIMEOUT", "")
 	t.Setenv("MAX_IN_FLIGHT", "")
 	t.Setenv("MAX_IDLE_CONNS", "")
@@ -50,6 +54,18 @@ func TestLoadDefaultValues(t *testing.T) {
 	if cfg.ExpectContinueTimeout != 1*time.Second {
 		t.Fatalf("ExpectContinueTimeout 默认值错误: %v", cfg.ExpectContinueTimeout)
 	}
+	if !cfg.AuthEnabled {
+		t.Fatal("AuthEnabled 默认值错误: 应为 true")
+	}
+	if cfg.AuthSigningKey != "spottruth-dev-signing-key" {
+		t.Fatalf("AuthSigningKey 默认值错误: %s", cfg.AuthSigningKey)
+	}
+	if cfg.AuthIssuer != "spottruth-api-gateway" {
+		t.Fatalf("AuthIssuer 默认值错误: %s", cfg.AuthIssuer)
+	}
+	if cfg.AuthAccessTTL != 30*time.Minute {
+		t.Fatalf("AuthAccessTTL 默认值错误: %v", cfg.AuthAccessTTL)
+	}
 	if cfg.MaxInFlight != 2048 {
 		t.Fatalf("MaxInFlight 默认值错误: %d", cfg.MaxInFlight)
 	}
@@ -64,6 +80,10 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	t.Setenv("READ_TIMEOUT", "20s")
 	t.Setenv("WRITE_TIMEOUT", "25s")
 	t.Setenv("SERVER_IDLE_TIMEOUT", "70s")
+	t.Setenv("AUTH_ENABLED", "false")
+	t.Setenv("AUTH_SIGNING_KEY", "my-sign-key")
+	t.Setenv("AUTH_ISSUER", "spottruth-test")
+	t.Setenv("AUTH_ACCESS_TTL", "45m")
 	t.Setenv("DIAL_TIMEOUT", "4s")
 	t.Setenv("EXPECT_CONTINUE_TIMEOUT", "2s")
 	t.Setenv("TLS_HANDSHAKE_TIMEOUT", "bad")
@@ -100,10 +120,31 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	if cfg.ExpectContinueTimeout != 2*time.Second {
 		t.Fatalf("ExpectContinueTimeout 读取环境变量失败: %v", cfg.ExpectContinueTimeout)
 	}
+	if cfg.AuthEnabled {
+		t.Fatal("AuthEnabled 读取环境变量失败: 应为 false")
+	}
+	if cfg.AuthSigningKey != "my-sign-key" {
+		t.Fatalf("AuthSigningKey 读取环境变量失败: %s", cfg.AuthSigningKey)
+	}
+	if cfg.AuthIssuer != "spottruth-test" {
+		t.Fatalf("AuthIssuer 读取环境变量失败: %s", cfg.AuthIssuer)
+	}
+	if cfg.AuthAccessTTL != 45*time.Minute {
+		t.Fatalf("AuthAccessTTL 读取环境变量失败: %v", cfg.AuthAccessTTL)
+	}
 	if cfg.TLSHandshakeTimeout != 5*time.Second {
 		t.Fatalf("TLSHandshakeTimeout 非法值应回退默认: %v", cfg.TLSHandshakeTimeout)
 	}
 	if cfg.ResponseHeaderTimeout != 15*time.Second {
 		t.Fatalf("ResponseHeaderTimeout 非法值应回退默认: %v", cfg.ResponseHeaderTimeout)
+	}
+}
+
+func TestLoadBoolEnvFallback(t *testing.T) {
+	t.Setenv("AUTH_ENABLED", "not_bool")
+
+	cfg := Load()
+	if !cfg.AuthEnabled {
+		t.Fatal("AUTH_ENABLED 非法值应回退默认 true")
 	}
 }

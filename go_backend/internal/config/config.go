@@ -13,6 +13,10 @@ type Config struct {
 	ReadTimeout           time.Duration
 	WriteTimeout          time.Duration
 	IdleTimeout           time.Duration
+	AuthEnabled           bool
+	AuthSigningKey        string
+	AuthIssuer            string
+	AuthAccessTTL         time.Duration
 	ShutdownTimeout       time.Duration
 	MaxInFlight           int
 	MaxIdleConns          int
@@ -32,6 +36,10 @@ func Load() Config {
 		ReadTimeout:           getDurationEnv("READ_TIMEOUT", 30*time.Second),
 		WriteTimeout:          getDurationEnv("WRITE_TIMEOUT", 30*time.Second),
 		IdleTimeout:           getDurationEnv("SERVER_IDLE_TIMEOUT", 60*time.Second),
+		AuthEnabled:           getBoolEnv("AUTH_ENABLED", true),
+		AuthSigningKey:        getEnv("AUTH_SIGNING_KEY", "spottruth-dev-signing-key"),
+		AuthIssuer:            getEnv("AUTH_ISSUER", "spottruth-api-gateway"),
+		AuthAccessTTL:         getDurationEnv("AUTH_ACCESS_TTL", 30*time.Minute),
 		ShutdownTimeout:       getDurationEnv("SHUTDOWN_TIMEOUT", 10*time.Second),
 		MaxInFlight:           getIntEnv("MAX_IN_FLIGHT", 2048),
 		MaxIdleConns:          getIntEnv("MAX_IDLE_CONNS", 512),
@@ -73,4 +81,16 @@ func getDurationEnv(key string, defaultVal time.Duration) time.Duration {
 		return defaultVal
 	}
 	return d
+}
+
+func getBoolEnv(key string, defaultVal bool) bool {
+	v := os.Getenv(key)
+	if v == "" {
+		return defaultVal
+	}
+	b, err := strconv.ParseBool(v)
+	if err != nil {
+		return defaultVal
+	}
+	return b
 }

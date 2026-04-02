@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"spottruth/go_backend/internal/auth"
 	"spottruth/go_backend/internal/config"
 	"spottruth/go_backend/internal/gateway"
 )
@@ -30,6 +31,14 @@ func main() {
 	}
 
 	handler := gateway.NewHandler(proxy, cfg.MaxInFlight)
+	if cfg.AuthEnabled {
+		tokenManager, err := auth.NewTokenManager(cfg.AuthSigningKey, cfg.AuthIssuer, cfg.AuthAccessTTL)
+		if err != nil {
+			log.Fatalf("鉴权配置非法: %v", err)
+		}
+		handler = gateway.NewHandlerWithAuth(proxy, cfg.MaxInFlight, tokenManager)
+	}
+
 	server := &http.Server{
 		Addr:              cfg.GatewayAddr,
 		Handler:           handler,
