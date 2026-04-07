@@ -20,8 +20,7 @@ from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field, asdict
 from enum import Enum
 from openai import OpenAI
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from peft import PeftModel
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoModelForMaskedLM
 import numpy as np
 
 
@@ -32,7 +31,7 @@ CATEGORIES = ["book", "tablet", "electronics", "fruit", "shampoo", "dairy", "clo
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(SCRIPT_DIR, "output")
 LORA_DIR = os.path.join(OUTPUT_DIR, "lora")
-SARCASM_DIR = os.path.join(OUTPUT_DIR, "sarcasm_detection", "output")
+SARCASM_DIR = os.path.join(SCRIPT_DIR, "sarcasm_detection", "output_prompt")
 KNOWLEDGE_BASE_DIR = os.path.join(SCRIPT_DIR, "data", "knowledge_base")
 
 KIMI_API_KEY = "sk-NxnJvWVKw9cun9Y80gjfQp7PyWR9rOMwy9VH2aNU28xOdxcr"
@@ -422,25 +421,33 @@ class SentimentAnalyzer:
 # ============== 讽刺检测器（TOSPrompt） ==============
 
 class SarcasmDetector:
-    """基于TOSPrompt的讽刺检测器"""
-    
+    """基于TOSPrompt的讽刺检测器
+
+    使用Prompt Learning方式："{text} 是对 {topic} 的讽刺吗？[MASK]"
+    通过预测[MASK]位置是"是"还是"否"来判断是否为讽刺
+    """
+
     def __init__(self):
         self.model = None
         self.tokenizer = None
+        self.yes_token_id = None
+        self.no_token_id = None
         self._load_model()
-    
+
     def _load_model(self):
-        """加载讽刺检测模型"""
+        """加载TOSPrompt完整模型"""
         if os.path.exists(SARCASM_DIR):
             try:
-                base_model = AutoModelForSequenceClassification.from_pretrained(
-                    CACHE_DIR,
-                    num_labels=2
-                )
-                self.model = PeftModel.from_pretrained(base_model, SARCASM_DIR)
-                self.model = self.model.merge_and_unload()
-                self.tokenizer = AutoTokenizer.from_pretrained(CACHE_DIR)
-                print(f"   ✅ 讽刺检测模型加载成功")
+                # 加载MaskedLM完整模型（不是SequenceClassification）
+                self.model = AutoModelForMaskedLM.from_pretrained(SARCASM_DIR)
+                self.tokenizer = AutoTokenizer.from_pretrained(SARCASM_DIR)
+
+                # 获取"是"和"否"的token id
+                self.yes_token_id = self.tokenizer.encode("是", add_special_tokens=False)[0]
+                self.no_token_id = self.tokenizer.encode("否", add_special_tokens=False)[0]
+
+                self.model.eval()
+                print(f"   ✅ 讽刺检测模型(TOSPrompt)加载成功")
             except Exception as e:
                 print(f"   [错误] 加载讽刺检测模型失败: {e}")
                 self.model = None
@@ -449,38 +456,69 @@ class SarcasmDetector:
             print(f"   [警告] 讽刺检测模型目录不存在: {SARCASM_DIR}")
             self.model = None
             self.tokenizer = None
-    
+
     def detect(self, text: str, topic: str = "") -> Dict:
-        """检测讽刺"""
+        """检测讽刺
+
+        构造提示模板: "{text} 是对 {topic} 的讽刺吗？[MASK]"
+        预测[MASK]位置是"是"还是"否"
+        """
         if self.model is None or self.tokenizer is None:
             return {"is_sarcasm": False, "confidence": 0.0, "text": text, "topic": topic, "error": "模型未加载"}
-        
-        prompt = f'"{text}" 是对 "{topic}" 的讽刺吗？[MASK]'
-        inputs = self.tokenizer(prompt, return_tensors="pt", truncation=True, max_length=128)
-        
+
+        # 构造提示模板
+        prompt = f"{text} 是对 {topic} 的讽刺吗？[MASK]"
+
+        inputs = self.tokenizer(
+            prompt,
+            return_tensors="pt",
+            truncation=True,
+            max_length=128,
+            padding=True
+        )
+
         with torch.no_grad():
             outputs = self.model(**inputs)
-            probs = torch.softmax(outputs.logits, dim=-1)
-            
+            logits = outputs.logits  # [batch, seq_len, vocab_size]
+
+            # 找到[MASK]的位置
             mask_token_id = self.tokenizer.mask_token_id
-            if mask_token_id in inputs.input_ids[0]:
-                mask_idx = (inputs.input_ids[0] == mask_token_id).nonzero()[0][0]
-                probs = probs[0]
-            else:
-                probs = probs[0]
-            
-            pred = torch.argmax(probs, dim=-1).item()
-            confidence = probs[pred].item()
-        
-        is_sarcasm = pred == 1
-        
+            mask_positions = (inputs.input_ids == mask_token_id).nonzero(as_tuple=True)
+
+            if len(mask_positions[1]) == 0:
+                # 没有找到[MASK]，返回错误
+                return {"is_sarcasm": False, "confidence": 0.0, "text": text, "topic": topic, "error": "提示模板中未找到[MASK]"}
+
+            mask_idx = mask_positions[1][0].item()
+
+            # 获取[MASK]位置的logits
+            mask_logits = logits[0, mask_idx, :]  # [vocab_size]
+
+            # 获取"是"和"否"的logits
+            yes_logit = mask_logits[self.yes_token_id].item()
+            no_logit = mask_logits[self.no_token_id].item()
+
+            # 计算概率（softmax）
+            exp_yes = np.exp(yes_logit)
+            exp_no = np.exp(no_logit)
+            total = exp_yes + exp_no
+
+            yes_prob = exp_yes / total
+            no_prob = exp_no / total
+
+            # 预测：概率大的为结果
+            is_sarcasm = yes_prob > no_prob
+            confidence = yes_prob if is_sarcasm else no_prob
+
         return {
-            "is_sarcasm": is_sarcasm,
-            "confidence": confidence,
+            "is_sarcasm": bool(is_sarcasm),
+            "confidence": float(confidence),
+            "yes_prob": float(yes_prob),
+            "no_prob": float(no_prob),
             "text": text,
             "topic": topic
         }
-    
+
     def batch_detect(self, texts: List[str], topics: List[str] = None) -> List[Dict]:
         """批量检测"""
         results = []
