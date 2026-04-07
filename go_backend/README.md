@@ -47,6 +47,7 @@ go run ./cmd/api-gateway
 - 最新版本：`go_backend/docs/设计与可扩展性说明.md` 第八节（更新于 2026-04-07）
 - 当前重点：推进 P2（请求追踪、分桶限流、Prometheus/Grafana）
 - 方案2联调与下一阶段准备：`go_backend/docs/第四阶段实施步骤.md`
+- 小白快速联调指引（仅 Agent + Go 网关）：`go_backend/Agent联调小白指南.md`
 
 ### 测试与联调
 
