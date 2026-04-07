@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"spottruth/go_backend/internal/observability"
 )
 
 type statusRecorder struct {
@@ -19,9 +21,11 @@ func (r *statusRecorder) WriteHeader(code int) {
 func RequestLogger(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
+		observability.OnRequestStart()
 		rec := &statusRecorder{ResponseWriter: w, status: http.StatusOK}
 
 		next.ServeHTTP(rec, r)
+		observability.OnRequestDone(rec.status, time.Since(start))
 
 		log.Printf("method=%s path=%s status=%d duration_ms=%d remote=%s", r.Method, r.URL.Path, rec.status, time.Since(start).Milliseconds(), r.RemoteAddr)
 	})

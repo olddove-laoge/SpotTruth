@@ -9,10 +9,21 @@
 
 ### 主要特性
 - `GET /healthz` 健康检查接口
+- `GET /readyz` 就绪检查接口（主动探测上游）
+- `GET /metrics` 网关关键指标快照接口
 - 其余所有路由均反向代理到 Flask 应用
 - 结构化请求日志
+- 网关与代理层双重超时保护（请求读写、空闲连接、上游响应）
+- JWT 鉴权主链路已接入（支持公共白名单路由）
 - 优雅停机
 - 基于环境变量的配置
+
+### 鉴权白名单路由
+- `/healthz`
+- `/readyz`
+- `/metrics`
+- `/api/v1/auth/login`
+- `/api/v1/auth/refresh`
 
 ### 快速启动
 
@@ -31,6 +42,59 @@ go run ./cmd/api-gateway
 - 建议在入口层（如 Nginx/ALB/API Gateway）配置 TLS 与 WAF
 - 可在 `internal/middleware` 目录添加限流、认证等中间件
 - 当流量规模提升时，可将不同领域 API 拆分为独立 Go 服务
+
+### 网关方案表与后续计划
+- 最新版本：`go_backend/docs/设计与可扩展性说明.md` 第八节（更新于 2026-04-07）
+- 当前重点：推进 P2（请求追踪、分桶限流、Prometheus/Grafana）
+- 方案2联调与下一阶段准备：`go_backend/docs/第四阶段实施步骤.md`
+- 小白快速联调指引（仅 Agent + Go 网关）：`go_backend/Agent联调小白指南.md`
+
+### 测试与联调
+
+1. Go 网关自检
+
+```bash
+cd go_backend
+go test ./...
+go build ./...
+go vet ./...
+```
+
+2. 启动 Go 网关
+
+```bash
+cd go_backend
+go run ./cmd/api-gateway
+```
+
+3. 本地接口检查（建议另开终端）
+
+```bash
+curl -sS http://127.0.0.1:8080/healthz
+curl -sS http://127.0.0.1:8080/readyz
+curl -sS http://127.0.0.1:8080/metrics
+```
+
+4. 固定联调回归链路（gateway health -> python tool -> integration test）
+
+```bash
+# 1) gateway health
+curl -sS "http://127.0.0.1:5001/api/gateway/health?gateway_url=http://127.0.0.1:8080"
+
+# 2) python tool
+curl -sS -X POST "http://127.0.0.1:5001/api/python/tool-test" \
+	-H "Content-Type: application/json" \
+	-d '{"product_name":"苹果手机"}'
+
+# 3) integration test
+curl -sS -X POST "http://127.0.0.1:5001/api/integration/test" \
+	-H "Content-Type: application/json" \
+	-d '{"gateway_url":"http://127.0.0.1:8080","product_name":"苹果手机"}'
+```
+
+说明：
+- `5001` 为 `web_app` 示例端口，请按你本地实际端口替换。
+- 第 4 步要求 `web_app` 服务已启动。
 
 ---
 

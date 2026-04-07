@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"spottruth/go_backend/internal/auth"
 	"spottruth/go_backend/internal/config"
 	"spottruth/go_backend/internal/gateway"
 )
@@ -20,17 +21,37 @@ func main() {
 		MaxIdleConns:          cfg.MaxIdleConns,
 		MaxIdleConnsPerHost:   cfg.MaxIdleConnsPerHost,
 		IdleConnTimeout:       cfg.IdleConnTimeout,
+		DialTimeout:           cfg.DialTimeout,
+		TLSHandshakeTimeout:   cfg.TLSHandshakeTimeout,
+		ExpectContinueTimeout: cfg.ExpectContinueTimeout,
 		ResponseHeaderTimeout: cfg.ResponseHeaderTimeout,
 	})
 	if err != nil {
 		log.Fatalf("UPSTREAM_BASE_URL 非法: %v", err)
 	}
 
-	handler := gateway.NewHandler(proxy, cfg.MaxInFlight)
+	handlerOptions := gateway.HandlerOptions{
+		ReadinessChecker:        gateway.NewHTTPReadinessChecker(cfg.UpstreamBaseURL, cfg.UpstreamHealthPath, cfg.ReadinessTimeout),
+		LimiterRetryAfterSecond: cfg.LimiterRetryAfterSec,
+	}
+
+	if cfg.AuthEnabled {
+		tokenManager, err := auth.NewTokenManager(cfg.AuthSigningKey, cfg.AuthIssuer, cfg.AuthAccessTTL)
+		if err != nil {
+			log.Fatalf("鉴权配置非法: %v", err)
+		}
+		handlerOptions.TokenManager = tokenManager
+	}
+
+	handler := gateway.NewHandlerWithOptions(proxy, cfg.MaxInFlight, handlerOptions)
+
 	server := &http.Server{
 		Addr:              cfg.GatewayAddr,
 		Handler:           handler,
 		ReadHeaderTimeout: cfg.ReadHeaderTimeout,
+		ReadTimeout:       cfg.ReadTimeout,
+		WriteTimeout:      cfg.WriteTimeout,
+		IdleTimeout:       cfg.IdleTimeout,
 	}
 
 	go func() {
