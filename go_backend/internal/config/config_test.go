@@ -16,6 +16,9 @@ func TestLoadDefaultValues(t *testing.T) {
 	t.Setenv("AUTH_SIGNING_KEY", "")
 	t.Setenv("AUTH_ISSUER", "")
 	t.Setenv("AUTH_ACCESS_TTL", "")
+	t.Setenv("UPSTREAM_HEALTH_PATH", "")
+	t.Setenv("READINESS_TIMEOUT", "")
+	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "")
 	t.Setenv("SHUTDOWN_TIMEOUT", "")
 	t.Setenv("MAX_IN_FLIGHT", "")
 	t.Setenv("MAX_IDLE_CONNS", "")
@@ -66,6 +69,15 @@ func TestLoadDefaultValues(t *testing.T) {
 	if cfg.AuthAccessTTL != 30*time.Minute {
 		t.Fatalf("AuthAccessTTL 默认值错误: %v", cfg.AuthAccessTTL)
 	}
+	if cfg.UpstreamHealthPath != "/healthz" {
+		t.Fatalf("UpstreamHealthPath 默认值错误: %s", cfg.UpstreamHealthPath)
+	}
+	if cfg.ReadinessTimeout != 2*time.Second {
+		t.Fatalf("ReadinessTimeout 默认值错误: %v", cfg.ReadinessTimeout)
+	}
+	if cfg.LimiterRetryAfterSec != 1 {
+		t.Fatalf("LimiterRetryAfterSec 默认值错误: %d", cfg.LimiterRetryAfterSec)
+	}
 	if cfg.MaxInFlight != 2048 {
 		t.Fatalf("MaxInFlight 默认值错误: %d", cfg.MaxInFlight)
 	}
@@ -84,6 +96,9 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	t.Setenv("AUTH_SIGNING_KEY", "my-sign-key")
 	t.Setenv("AUTH_ISSUER", "spottruth-test")
 	t.Setenv("AUTH_ACCESS_TTL", "45m")
+	t.Setenv("UPSTREAM_HEALTH_PATH", "/actuator/health")
+	t.Setenv("READINESS_TIMEOUT", "1500ms")
+	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "3")
 	t.Setenv("DIAL_TIMEOUT", "4s")
 	t.Setenv("EXPECT_CONTINUE_TIMEOUT", "2s")
 	t.Setenv("TLS_HANDSHAKE_TIMEOUT", "bad")
@@ -132,6 +147,15 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	if cfg.AuthAccessTTL != 45*time.Minute {
 		t.Fatalf("AuthAccessTTL 读取环境变量失败: %v", cfg.AuthAccessTTL)
 	}
+	if cfg.UpstreamHealthPath != "/actuator/health" {
+		t.Fatalf("UpstreamHealthPath 读取环境变量失败: %s", cfg.UpstreamHealthPath)
+	}
+	if cfg.ReadinessTimeout != 1500*time.Millisecond {
+		t.Fatalf("ReadinessTimeout 读取环境变量失败: %v", cfg.ReadinessTimeout)
+	}
+	if cfg.LimiterRetryAfterSec != 3 {
+		t.Fatalf("LimiterRetryAfterSec 读取环境变量失败: %d", cfg.LimiterRetryAfterSec)
+	}
 	if cfg.TLSHandshakeTimeout != 5*time.Second {
 		t.Fatalf("TLSHandshakeTimeout 非法值应回退默认: %v", cfg.TLSHandshakeTimeout)
 	}
@@ -142,9 +166,17 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 
 func TestLoadBoolEnvFallback(t *testing.T) {
 	t.Setenv("AUTH_ENABLED", "not_bool")
+	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "bad")
+	t.Setenv("READINESS_TIMEOUT", "bad")
 
 	cfg := Load()
 	if !cfg.AuthEnabled {
 		t.Fatal("AUTH_ENABLED 非法值应回退默认 true")
+	}
+	if cfg.LimiterRetryAfterSec != 1 {
+		t.Fatalf("LIMITER_RETRY_AFTER_SECONDS 非法值应回退默认 1: %d", cfg.LimiterRetryAfterSec)
+	}
+	if cfg.ReadinessTimeout != 2*time.Second {
+		t.Fatalf("READINESS_TIMEOUT 非法值应回退默认 2s: %v", cfg.ReadinessTimeout)
 	}
 }

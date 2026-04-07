@@ -17,6 +17,9 @@ type Config struct {
 	AuthSigningKey        string
 	AuthIssuer            string
 	AuthAccessTTL         time.Duration
+	UpstreamHealthPath    string
+	ReadinessTimeout      time.Duration
+	LimiterRetryAfterSec  int
 	ShutdownTimeout       time.Duration
 	MaxInFlight           int
 	MaxIdleConns          int
@@ -40,6 +43,9 @@ func Load() Config {
 		AuthSigningKey:        getEnv("AUTH_SIGNING_KEY", "spottruth-dev-signing-key"),
 		AuthIssuer:            getEnv("AUTH_ISSUER", "spottruth-api-gateway"),
 		AuthAccessTTL:         getDurationEnv("AUTH_ACCESS_TTL", 30*time.Minute),
+		UpstreamHealthPath:    getEnv("UPSTREAM_HEALTH_PATH", "/healthz"),
+		ReadinessTimeout:      getDurationEnv("READINESS_TIMEOUT", 2*time.Second),
+		LimiterRetryAfterSec:  getIntEnv("LIMITER_RETRY_AFTER_SECONDS", 1),
 		ShutdownTimeout:       getDurationEnv("SHUTDOWN_TIMEOUT", 10*time.Second),
 		MaxInFlight:           getIntEnv("MAX_IN_FLIGHT", 2048),
 		MaxIdleConns:          getIntEnv("MAX_IDLE_CONNS", 512),

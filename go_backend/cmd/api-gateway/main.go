@@ -30,14 +30,20 @@ func main() {
 		log.Fatalf("UPSTREAM_BASE_URL 非法: %v", err)
 	}
 
-	handler := gateway.NewHandler(proxy, cfg.MaxInFlight)
+	handlerOptions := gateway.HandlerOptions{
+		ReadinessChecker:        gateway.NewHTTPReadinessChecker(cfg.UpstreamBaseURL, cfg.UpstreamHealthPath, cfg.ReadinessTimeout),
+		LimiterRetryAfterSecond: cfg.LimiterRetryAfterSec,
+	}
+
 	if cfg.AuthEnabled {
 		tokenManager, err := auth.NewTokenManager(cfg.AuthSigningKey, cfg.AuthIssuer, cfg.AuthAccessTTL)
 		if err != nil {
 			log.Fatalf("鉴权配置非法: %v", err)
 		}
-		handler = gateway.NewHandlerWithAuth(proxy, cfg.MaxInFlight, tokenManager)
+		handlerOptions.TokenManager = tokenManager
 	}
+
+	handler := gateway.NewHandlerWithOptions(proxy, cfg.MaxInFlight, handlerOptions)
 
 	server := &http.Server{
 		Addr:              cfg.GatewayAddr,

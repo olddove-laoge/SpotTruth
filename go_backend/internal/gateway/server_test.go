@@ -1,6 +1,7 @@
 package gateway
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -8,6 +9,7 @@ import (
 	"time"
 
 	"spottruth/go_backend/internal/auth"
+	"spottruth/go_backend/internal/observability"
 )
 
 func TestHealthz(t *testing.T) {
@@ -164,5 +166,78 @@ func TestPublicRouteBypassesAuth(t *testing.T) {
 
 	if rr.Code != http.StatusAccepted {
 		t.Fatalf("白名单路由应绕过鉴权: got=%d want=%d", rr.Code, http.StatusAccepted)
+	}
+}
+
+func TestReadyzActiveSuccess(t *testing.T) {
+	proxy := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+
+	h := NewHandlerWithOptions(proxy, 10, HandlerOptions{
+		ReadinessChecker: func(ctx context.Context) error { return nil },
+	})
+
+	req := httptest.NewRequest(http.MethodGet, "/readyz", nil)
+	rr := httptest.NewRecorder()
+	h.ServeHTTP(rr, req)
+
+	if rr.Code != http.StatusOK {
+		t.Fatalf("readyz 成功状态码错误: got=%d want=%d", rr.Code, http.StatusOK)
+	}
+}
+
+func TestReadyzActiveFailure(t *testing.T) {
+	proxy := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+
+	h := NewHandlerWithOptions(proxy, 10, HandlerOptions{
+		ReadinessChecker: func(ctx context.Context) error { return context.DeadlineExceeded },
+	})
+
+	req := httptest.NewRequest(http.MethodGet, "/readyz", nil)
+	rr := httptest.NewRecorder()
+	h.ServeHTTP(rr, req)
+
+	if rr.Code != http.StatusServiceUnavailable {
+		t.Fatalf("readyz 失败状态码错误: got=%d want=%d", rr.Code, http.StatusServiceUnavailable)
+	}
+}
+
+func TestMetricsEndpoint(t *testing.T) {
+	observability.ResetForTest()
+
+	proxy := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+
+	h := NewHandler(proxy, 10)
+
+	req1 := httptest.NewRequest(http.MethodGet, "/healthz", nil)
+	rr1 := httptest.NewRecorder()
+	h.ServeHTTP(rr1, req1)
+
+	req2 := httptest.NewRequest(http.MethodGet, "/metrics", nil)
+	rr2 := httptest.NewRecorder()
+	h.ServeHTTP(rr2, req2)
+
+	if rr2.Code != http.StatusOK {
+		t.Fatalf("metrics 状态码错误: got=%d want=%d", rr2.Code, http.StatusOK)
+	}
+
+	var body map[string]any
+	if err := json.Unmarshal(rr2.Body.Bytes(), &body); err != nil {
+		t.Fatalf("metrics 返回 JSON 非法: %v", err)
+	}
+
+	if _, ok := body["requests_total"]; !ok {
+		t.Fatal("metrics 缺少 requests_total")
+	}
+	if _, ok := body["in_flight_requests"]; !ok {
+		t.Fatal("metrics 缺少 in_flight_requests")
+	}
+	if _, ok := body["limiter_rejected_total"]; !ok {
+		t.Fatal("metrics 缺少 limiter_rejected_total")
 	}
 }
