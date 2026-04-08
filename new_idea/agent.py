@@ -147,14 +147,11 @@ TOOLS = [
         "type": "function",
         "function": {
             "name": "calculate_sentiment_stats",
-            "description": "统一计算好评率/差评率，接收讽刺检测和情感分析的结果，输出统计报告",
+            "description": "统一计算好评率/差评率（会自动读取已保存的检测和分析结果）",
             "parameters": {
                 "type": "object",
-                "properties": {
-                    "sarcasm_results": {"type": "array", "description": "讽刺检测结果列表"},
-                    "sentiment_results": {"type": "array", "description": "情感分析结果列表"}
-                },
-                "required": ["sarcasm_results", "sentiment_results"]
+                "properties": {},
+                "required": []
             }
         }
     }
@@ -576,7 +573,19 @@ class Agent:
             if response.get("tool_calls"):
                 tool_call = response["tool_calls"][0]
                 func_name = tool_call["name"]
-                func_args = json.loads(tool_call["arguments"]) if isinstance(tool_call["arguments"], str) else tool_call["arguments"]
+                
+                # 调试：打印原始 arguments
+                raw_args = tool_call["arguments"]
+                print(f"   [调试] raw_args长度: {len(raw_args) if isinstance(raw_args, str) else 'dict'}")
+                
+                try:
+                    func_args = json.loads(raw_args) if isinstance(raw_args, str) else raw_args
+                except json.JSONDecodeError as e:
+                    print(f"   ❌ JSON解析失败: {e}")
+                    print(f"   [调试] 原始内容: {raw_args[:500]}...")
+                    # 跳过失败的调用
+                    messages.append({"role": "user", "content": f"工具参数解析失败，请重新调用。"})
+                    continue
                 
                 print(f"\n🔧 调用工具: {func_name}")
                 print(f"   参数: {json.dumps(func_args, ensure_ascii=False)[:100]}...")
@@ -641,9 +650,12 @@ class Agent:
                             self.collected_products[self.current_product]["sarcasm_results"] = result
                             
                     elif func_name == "sentiment_analysis":
+                        category = func_args.get("category")
+                        if not category and self.current_product:
+                            category = self.collected_products.get(self.current_product, {}).get("category", "electronics")
                         result = self.mcp_server.sentiment_analysis(
                             texts=func_args.get("texts", []),
-                            category=func_args.get("category", "electronics")
+                            category=category or "electronics"
                         )
                         if self.current_product:
                             if "sentiment_results" not in self.collected_products[self.current_product]:
@@ -657,8 +669,10 @@ class Agent:
                         )
                         
                     elif func_name == "calculate_sentiment_stats":
-                        sarcasm_results = func_args.get("sarcasm_results", [])
-                        sentiment_results = func_args.get("sentiment_results", [])
+                        # 直接从已存储的数据获取
+                        product_data = self.collected_products.get(self.current_product, {})
+                        sarcasm_results = product_data.get("sarcasm_results", [])
+                        sentiment_results = product_data.get("sentiment_results", [])
                         result = self.mcp_server.calculate_sentiment_stats(
                             sarcasm_results=sarcasm_results,
                             sentiment_results=sentiment_results

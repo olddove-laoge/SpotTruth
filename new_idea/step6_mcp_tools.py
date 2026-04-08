@@ -21,6 +21,7 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from openai import OpenAI
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoModelForMaskedLM
+from peft import PeftModel
 import numpy as np
 
 
