@@ -61,9 +61,12 @@ class SarcasmDetector:
     def detect(self, text: str, topic: str = "") -> SarcasmResult:
         """检测单条评论是否为讽刺"""
         if not self.is_available():
+            logger.warning(f"🎭 [讽刺检测] 模型不可用，跳过检测: {text[:30]}...")
             return SarcasmResult(text=text, is_sarcasm=False, confidence=0.0, topic=topic)
 
         prompt = f"{text} 是对 {topic} 的讽刺吗？[MASK]"
+        logger.info(f"🎭 [讽刺检测] 输入文本: {text}")
+        logger.info(f"🎭 [讽刺检测] 构造Prompt: {prompt}")
 
         try:
             inputs = self.tokenizer(
@@ -83,6 +86,7 @@ class SarcasmDetector:
                 mask_positions = (inputs.input_ids == mask_token_id).nonzero(as_tuple=True)
 
                 if len(mask_positions[1]) == 0:
+                    logger.error(f"🎭 [讽刺检测] 未找到[MASK]位置")
                     return SarcasmResult(text=text, is_sarcasm=False, confidence=0.0, topic=topic)
 
                 mask_idx = mask_positions[1][0].item()
@@ -91,6 +95,8 @@ class SarcasmDetector:
                 yes_logit = mask_logits[self.yes_token_id].item()
                 no_logit = mask_logits[self.no_token_id].item()
 
+                logger.info(f"🎭 [讽刺检测] 原始Logits -> '是': {yes_logit:.4f}, '否': {no_logit:.4f}")
+
                 # Softmax计算概率
                 exp_yes = np.exp(yes_logit)
                 exp_no = np.exp(no_logit)
@@ -98,8 +104,13 @@ class SarcasmDetector:
                 yes_prob = exp_yes / total
                 no_prob = exp_no / total
 
+                logger.info(f"🎭 [讽刺检测] 计算概率 -> '是': {yes_prob:.4f}, '否': {no_prob:.4f}")
+
                 is_sarcasm = yes_prob > no_prob
                 confidence = yes_prob if is_sarcasm else no_prob
+
+                result_emoji = "✅ 是" if is_sarcasm else "❌ 否"
+                logger.info(f"🎭 [讽刺检测] 最终结果 -> 是否讽刺: {result_emoji}, 置信度: {confidence:.4f}")
 
                 return SarcasmResult(
                     text=text,
@@ -109,7 +120,7 @@ class SarcasmDetector:
                 )
 
         except Exception as e:
-            logger.error(f"讽刺检测失败: {e}")
+            logger.error(f"🎭 [讽刺检测] 检测失败: {e}")
             return SarcasmResult(text=text, is_sarcasm=False, confidence=0.0, topic=topic)
 
     def batch_detect(self, texts: List[str], topic: str = "") -> List[SarcasmResult]:
@@ -256,7 +267,8 @@ class UnifiedAnalyzer:
         texts = [c.text for c in comments]
 
         # 1. 讽刺检测
-        logger.info(f"开始进行讽刺检测，共{len(texts)}条评论...")
+        logger.info(f"🎭 [批量检测] 开始处理 {len(texts)} 条评论...")
+        logger.info(f"🎭 [批量检测] 检测阈值: {self.threshold}")
         sarcasm_results = self.sarcasm_detector.batch_detect(texts, product_name)
 
         # 分类评论
@@ -264,12 +276,15 @@ class UnifiedAnalyzer:
         sarcasm_indices = []
 
         for i, result in enumerate(sarcasm_results):
-            if result.is_sarcasm and result.confidence > self.threshold:
+            is_sarcastic = result.is_sarcasm and result.confidence > self.threshold
+            status = "🎭 讽刺" if is_sarcastic else "✅ 正常"
+            logger.info(f"🎭 [结果{i+1}/{len(texts)}] {status} | 置信度:{result.confidence:.4f} | 文本:{result.text[:40]}...")
+            if is_sarcastic:
                 sarcasm_indices.append(i)
             else:
                 normal_indices.append(i)
 
-        logger.info(f"检测结果: {len(sarcasm_indices)}条讽刺，{len(normal_indices)}条正常")
+        logger.info(f"🎭 [批量检测完成] 总计: {len(sarcasm_indices)}条讽刺，{len(normal_indices)}条正常")
 
         # 2. 处理讽刺评论 - LLM判断
         llm_results: Dict[int, Dict] = {}
@@ -325,7 +340,7 @@ class UnifiedAnalyzer:
 
     def calculate_statistics(self, results: List[SentimentResult]) -> Dict[str, Any]:
         """计算统计结果"""
-        from models import SentimentStatistics
+        from agent.models import SentimentStatistics
 
         total = len(results)
         if total == 0:
