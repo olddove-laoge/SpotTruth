@@ -14,6 +14,7 @@ type HandlerOptions struct {
 	TokenManager            *auth.TokenManager
 	ReadinessChecker        ReadinessChecker
 	LimiterRetryAfterSecond int
+	CircuitBreaker          middleware.CircuitBreakerOptions
 }
 
 func NewHandler(proxy http.Handler, maxInFlight int) http.Handler {
@@ -71,7 +72,8 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 		_ = json.NewEncoder(w).Encode(snapshot)
 	})
 
-	proxyWithLimit := middleware.ConcurrencyLimiterWithOptions(maxInFlight, opts.LimiterRetryAfterSecond, proxy)
+	proxyWithBreaker := middleware.CircuitBreaker(proxy, opts.CircuitBreaker)
+	proxyWithLimit := middleware.ConcurrencyLimiterWithOptions(maxInFlight, opts.LimiterRetryAfterSecond, proxyWithBreaker)
 
 	if opts.TokenManager == nil {
 		mux.Handle("/", proxyWithLimit)

@@ -240,4 +240,10 @@ func TestMetricsEndpoint(t *testing.T) {
 	if _, ok := body["limiter_rejected_total"]; !ok {
 		t.Fatal("metrics 缺少 limiter_rejected_total")
 	}
+	if _, ok := body["circuit_state"]; !ok {
+		t.Fatal("metrics 缺少 circuit_state")
+	}
+	if _, ok := body["circuit_degraded_total"]; !ok {
+		t.Fatal("metrics 缺少 circuit_degraded_total")
+	}
 }

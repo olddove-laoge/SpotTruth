@@ -19,6 +19,13 @@ func TestLoadDefaultValues(t *testing.T) {
 	t.Setenv("UPSTREAM_HEALTH_PATH", "")
 	t.Setenv("READINESS_TIMEOUT", "")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "")
+	t.Setenv("CB_ENABLED", "")
+	t.Setenv("CB_MAX_REQUESTS", "")
+	t.Setenv("CB_INTERVAL", "")
+	t.Setenv("CB_TIMEOUT", "")
+	t.Setenv("CB_MIN_REQUESTS", "")
+	t.Setenv("CB_ERROR_RATE_THRESHOLD", "")
+	t.Setenv("CB_RETRY_AFTER_SECONDS", "")
 	t.Setenv("SHUTDOWN_TIMEOUT", "")
 	t.Setenv("MAX_IN_FLIGHT", "")
 	t.Setenv("MAX_IDLE_CONNS", "")
@@ -78,6 +85,27 @@ func TestLoadDefaultValues(t *testing.T) {
 	if cfg.LimiterRetryAfterSec != 1 {
 		t.Fatalf("LimiterRetryAfterSec 默认值错误: %d", cfg.LimiterRetryAfterSec)
 	}
+	if !cfg.CBEnabled {
+		t.Fatal("CBEnabled 默认值错误: 应为 true")
+	}
+	if cfg.CBMaxRequests != 3 {
+		t.Fatalf("CBMaxRequests 默认值错误: %d", cfg.CBMaxRequests)
+	}
+	if cfg.CBInterval != 10*time.Second {
+		t.Fatalf("CBInterval 默认值错误: %v", cfg.CBInterval)
+	}
+	if cfg.CBTimeout != 15*time.Second {
+		t.Fatalf("CBTimeout 默认值错误: %v", cfg.CBTimeout)
+	}
+	if cfg.CBMinRequests != 5 {
+		t.Fatalf("CBMinRequests 默认值错误: %d", cfg.CBMinRequests)
+	}
+	if cfg.CBErrorRateThreshold != 50 {
+		t.Fatalf("CBErrorRateThreshold 默认值错误: %d", cfg.CBErrorRateThreshold)
+	}
+	if cfg.CBRetryAfterSec != 3 {
+		t.Fatalf("CBRetryAfterSec 默认值错误: %d", cfg.CBRetryAfterSec)
+	}
 	if cfg.MaxInFlight != 2048 {
 		t.Fatalf("MaxInFlight 默认值错误: %d", cfg.MaxInFlight)
 	}
@@ -99,6 +127,13 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	t.Setenv("UPSTREAM_HEALTH_PATH", "/actuator/health")
 	t.Setenv("READINESS_TIMEOUT", "1500ms")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "3")
+	t.Setenv("CB_ENABLED", "true")
+	t.Setenv("CB_MAX_REQUESTS", "8")
+	t.Setenv("CB_INTERVAL", "20s")
+	t.Setenv("CB_TIMEOUT", "30s")
+	t.Setenv("CB_MIN_REQUESTS", "12")
+	t.Setenv("CB_ERROR_RATE_THRESHOLD", "70")
+	t.Setenv("CB_RETRY_AFTER_SECONDS", "9")
 	t.Setenv("DIAL_TIMEOUT", "4s")
 	t.Setenv("EXPECT_CONTINUE_TIMEOUT", "2s")
 	t.Setenv("TLS_HANDSHAKE_TIMEOUT", "bad")
@@ -156,6 +191,27 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	if cfg.LimiterRetryAfterSec != 3 {
 		t.Fatalf("LimiterRetryAfterSec 读取环境变量失败: %d", cfg.LimiterRetryAfterSec)
 	}
+	if !cfg.CBEnabled {
+		t.Fatal("CBEnabled 读取环境变量失败: 应为 true")
+	}
+	if cfg.CBMaxRequests != 8 {
+		t.Fatalf("CBMaxRequests 读取环境变量失败: %d", cfg.CBMaxRequests)
+	}
+	if cfg.CBInterval != 20*time.Second {
+		t.Fatalf("CBInterval 读取环境变量失败: %v", cfg.CBInterval)
+	}
+	if cfg.CBTimeout != 30*time.Second {
+		t.Fatalf("CBTimeout 读取环境变量失败: %v", cfg.CBTimeout)
+	}
+	if cfg.CBMinRequests != 12 {
+		t.Fatalf("CBMinRequests 读取环境变量失败: %d", cfg.CBMinRequests)
+	}
+	if cfg.CBErrorRateThreshold != 70 {
+		t.Fatalf("CBErrorRateThreshold 读取环境变量失败: %d", cfg.CBErrorRateThreshold)
+	}
+	if cfg.CBRetryAfterSec != 9 {
+		t.Fatalf("CBRetryAfterSec 读取环境变量失败: %d", cfg.CBRetryAfterSec)
+	}
 	if cfg.TLSHandshakeTimeout != 5*time.Second {
 		t.Fatalf("TLSHandshakeTimeout 非法值应回退默认: %v", cfg.TLSHandshakeTimeout)
 	}
@@ -168,6 +224,12 @@ func TestLoadBoolEnvFallback(t *testing.T) {
 	t.Setenv("AUTH_ENABLED", "not_bool")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "bad")
 	t.Setenv("READINESS_TIMEOUT", "bad")
+	t.Setenv("CB_MAX_REQUESTS", "bad")
+	t.Setenv("CB_INTERVAL", "bad")
+	t.Setenv("CB_TIMEOUT", "bad")
+	t.Setenv("CB_MIN_REQUESTS", "bad")
+	t.Setenv("CB_ERROR_RATE_THRESHOLD", "1000")
+	t.Setenv("CB_RETRY_AFTER_SECONDS", "bad")
 
 	cfg := Load()
 	if !cfg.AuthEnabled {
@@ -178,5 +240,23 @@ func TestLoadBoolEnvFallback(t *testing.T) {
 	}
 	if cfg.ReadinessTimeout != 2*time.Second {
 		t.Fatalf("READINESS_TIMEOUT 非法值应回退默认 2s: %v", cfg.ReadinessTimeout)
+	}
+	if cfg.CBMaxRequests != 3 {
+		t.Fatalf("CB_MAX_REQUESTS 非法值应回退默认 3: %d", cfg.CBMaxRequests)
+	}
+	if cfg.CBInterval != 10*time.Second {
+		t.Fatalf("CB_INTERVAL 非法值应回退默认 10s: %v", cfg.CBInterval)
+	}
+	if cfg.CBTimeout != 15*time.Second {
+		t.Fatalf("CB_TIMEOUT 非法值应回退默认 15s: %v", cfg.CBTimeout)
+	}
+	if cfg.CBMinRequests != 5 {
+		t.Fatalf("CB_MIN_REQUESTS 非法值应回退默认 5: %d", cfg.CBMinRequests)
+	}
+	if cfg.CBErrorRateThreshold != 50 {
+		t.Fatalf("CB_ERROR_RATE_THRESHOLD 非法值应回退默认 50: %d", cfg.CBErrorRateThreshold)
+	}
+	if cfg.CBRetryAfterSec != 3 {
+		t.Fatalf("CB_RETRY_AFTER_SECONDS 非法值应回退默认 3: %d", cfg.CBRetryAfterSec)
 	}
 }

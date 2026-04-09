@@ -12,6 +12,7 @@ import (
 	"spottruth/go_backend/internal/auth"
 	"spottruth/go_backend/internal/config"
 	"spottruth/go_backend/internal/gateway"
+	"spottruth/go_backend/internal/middleware"
 )
 
 func main() {
@@ -33,6 +34,16 @@ func main() {
 	handlerOptions := gateway.HandlerOptions{
 		ReadinessChecker:        gateway.NewHTTPReadinessChecker(cfg.UpstreamBaseURL, cfg.UpstreamHealthPath, cfg.ReadinessTimeout),
 		LimiterRetryAfterSecond: cfg.LimiterRetryAfterSec,
+		CircuitBreaker: middleware.CircuitBreakerOptions{
+			Enabled:            cfg.CBEnabled,
+			Name:               "upstream-flask",
+			MaxRequests:        uint32(cfg.CBMaxRequests),
+			Interval:           cfg.CBInterval,
+			Timeout:            cfg.CBTimeout,
+			MinRequests:        uint32(cfg.CBMinRequests),
+			ErrorRateThreshold: float64(cfg.CBErrorRateThreshold) / 100.0,
+			RetryAfterSeconds:  cfg.CBRetryAfterSec,
+		},
 	}
 
 	if cfg.AuthEnabled {

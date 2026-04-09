@@ -14,6 +14,7 @@
 - 其余所有路由均反向代理到 Flask 应用
 - 结构化请求日志
 - 网关与代理层双重超时保护（请求读写、空闲连接、上游响应）
+- 熔断与降级保护（open/half-open/closed 状态迁移 + 结构化降级响应）
 - JWT 鉴权主链路已接入（支持公共白名单路由）
 - 优雅停机
 - 基于环境变量的配置
@@ -44,9 +45,10 @@ go run ./cmd/api-gateway
 - 当流量规模提升时，可将不同领域 API 拆分为独立 Go 服务
 
 ### 网关方案表与后续计划
-- 最新版本：`go_backend/docs/设计与可扩展性说明.md` 第八节（更新于 2026-04-07）
-- 当前重点：推进 P2（请求追踪、分桶限流、Prometheus/Grafana）
-- 方案2联调与下一阶段准备：`go_backend/docs/第四阶段实施步骤.md`
+- 最新版本：`go_backend/docs/设计与可扩展性说明.md` 第八节（更新于 2026-04-09）
+- 当前重点：推进第五阶段（分桶限流、Prometheus 标准指标、Agent 真正穿网关链路）
+- 方案2实施与验收：`go_backend/docs/第四阶段实施步骤.md`
+- 方案2回归清单：`go_backend/docs/第四阶段回归清单.md`
 - 小白快速联调指引（仅 Agent + Go 网关）：`go_backend/Agent联调小白指南.md`
 
 ### 测试与联调
@@ -95,6 +97,17 @@ curl -sS -X POST "http://127.0.0.1:5001/api/integration/test" \
 说明：
 - `5001` 为 `web_app` 示例端口，请按你本地实际端口替换。
 - 第 4 步要求 `web_app` 服务已启动。
+
+5. 熔断故障注入回归（第四阶段）
+
+```bash
+cd go_backend
+bash scripts/fault_injection_circuit_breaker.sh http://127.0.0.1:8080 /api/v1/search 8
+```
+
+说明：
+- 执行前请确保上游服务处于异常状态（例如停掉 Flask），用于验证 open-circuit 降级响应。
+- 结果解读见 `go_backend/docs/第四阶段回归清单.md`。
 
 ---
 

@@ -20,6 +20,13 @@ type Config struct {
 	UpstreamHealthPath    string
 	ReadinessTimeout      time.Duration
 	LimiterRetryAfterSec  int
+	CBEnabled             bool
+	CBMaxRequests         int
+	CBInterval            time.Duration
+	CBTimeout             time.Duration
+	CBMinRequests         int
+	CBErrorRateThreshold  int
+	CBRetryAfterSec       int
 	ShutdownTimeout       time.Duration
 	MaxInFlight           int
 	MaxIdleConns          int
@@ -46,6 +53,13 @@ func Load() Config {
 		UpstreamHealthPath:    getEnv("UPSTREAM_HEALTH_PATH", "/healthz"),
 		ReadinessTimeout:      getDurationEnv("READINESS_TIMEOUT", 2*time.Second),
 		LimiterRetryAfterSec:  getIntEnv("LIMITER_RETRY_AFTER_SECONDS", 1),
+		CBEnabled:             getBoolEnv("CB_ENABLED", true),
+		CBMaxRequests:         getIntEnv("CB_MAX_REQUESTS", 3),
+		CBInterval:            getDurationEnv("CB_INTERVAL", 10*time.Second),
+		CBTimeout:             getDurationEnv("CB_TIMEOUT", 15*time.Second),
+		CBMinRequests:         getIntEnv("CB_MIN_REQUESTS", 5),
+		CBErrorRateThreshold:  getIntRangeEnv("CB_ERROR_RATE_THRESHOLD", 50, 1, 100),
+		CBRetryAfterSec:       getIntEnv("CB_RETRY_AFTER_SECONDS", 3),
 		ShutdownTimeout:       getDurationEnv("SHUTDOWN_TIMEOUT", 10*time.Second),
 		MaxInFlight:           getIntEnv("MAX_IN_FLIGHT", 2048),
 		MaxIdleConns:          getIntEnv("MAX_IDLE_CONNS", 512),
@@ -87,6 +101,18 @@ func getDurationEnv(key string, defaultVal time.Duration) time.Duration {
 		return defaultVal
 	}
 	return d
+}
+
+func getIntRangeEnv(key string, defaultVal, minVal, maxVal int) int {
+	v := os.Getenv(key)
+	if v == "" {
+		return defaultVal
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil || n < minVal || n > maxVal {
+		return defaultVal
+	}
+	return n
 }
 
 func getBoolEnv(key string, defaultVal bool) bool {
