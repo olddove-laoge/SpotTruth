@@ -3,6 +3,7 @@ import subprocess
 import os
 import time
 import re
+import uuid
 import requests
 
 app = Flask(__name__, 
@@ -40,6 +41,19 @@ def classify_product_category(product_name):
 def normalize_gateway_base_url(base_url):
     """统一网关地址格式，避免双斜杠拼接。"""
     return (base_url or DEFAULT_GATEWAY_BASE_URL).strip().rstrip('/')
+
+
+def build_gateway_request_headers() -> dict:
+    """构造请求网关时的追踪与鉴权头。"""
+    headers = {
+        "X-Request-ID": str(uuid.uuid4()),
+    }
+
+    token = os.environ.get('SPOTTRUTH_GATEWAY_TOKEN', '').strip()
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    return headers
 
 def convert_urls_to_links(text):
     """将文本中的URL转换为HTML链接"""
@@ -402,25 +416,52 @@ def gateway_health():
 
 @app.route('/api/python/tool-test', methods=['POST'])
 def python_tool_test():
-    """测试Python工具能力（品类分类）。"""
+    """测试Python工具能力（通过网关转发到上游/api/classify）。"""
     data = request.get_json(silent=True) or {}
     product_name = (data.get('product_name') or '').strip()
+    base_url = normalize_gateway_base_url(data.get('gateway_url', DEFAULT_GATEWAY_BASE_URL))
 
     if not product_name:
         return jsonify({"ok": False, "error": "product_name 不能为空"}), 400
 
-    category = classify_product_category(product_name)
-    return jsonify({
-        "ok": True,
-        "tool": "classify_category",
-        "input": product_name,
-        "category": category,
-    })
+    classify_url = f"{base_url}/api/classify"
+    try:
+        response = requests.post(
+            classify_url,
+            json={"product_name": product_name},
+            headers=build_gateway_request_headers(),
+            timeout=8,
+        )
+        try:
+            payload = response.json()
+        except ValueError:
+            payload = {"raw": response.text[:300]}
+
+        category = payload.get('category') if isinstance(payload, dict) else None
+        return jsonify({
+            "ok": response.ok,
+            "tool": "classify_category",
+            "input": product_name,
+            "category": category,
+            "gateway_url": base_url,
+            "classify_url": classify_url,
+            "request_id": response.headers.get('X-Request-ID', ''),
+            "payload": payload,
+        }), (200 if response.ok else 502)
+    except requests.RequestException as e:
+        return jsonify({
+            "ok": False,
+            "tool": "classify_category",
+            "input": product_name,
+            "gateway_url": base_url,
+            "classify_url": classify_url,
+            "error": str(e),
+        }), 502
 
 
 @app.route('/api/integration/test', methods=['POST'])
 def integration_test():
-    """串联测试：Go网关健康检查 + Python工具调用。"""
+    """串联测试：Go网关健康检查 + 网关转发工具调用。"""
     data = request.get_json(silent=True) or {}
     product_name = (data.get('product_name') or '').strip()
     base_url = normalize_gateway_base_url(data.get('gateway_url', DEFAULT_GATEWAY_BASE_URL))
@@ -445,13 +486,36 @@ def integration_test():
     except requests.RequestException as e:
         gateway_result["error"] = str(e)
 
-    category = classify_product_category(product_name)
     python_tool_result = {
-        "ok": True,
+        "ok": False,
         "tool": "classify_category",
         "input": product_name,
-        "category": category,
     }
+    classify_url = f"{base_url}/api/classify"
+    if gateway_result.get("ok", False):
+        try:
+            response = requests.post(
+                classify_url,
+                json={"product_name": product_name},
+                headers=build_gateway_request_headers(),
+                timeout=8,
+            )
+            python_tool_result["ok"] = response.ok
+            python_tool_result["status_code"] = response.status_code
+            python_tool_result["request_id"] = response.headers.get('X-Request-ID', '')
+            try:
+                payload = response.json()
+            except ValueError:
+                payload = {"raw": response.text[:300]}
+            python_tool_result["payload"] = payload
+            if isinstance(payload, dict):
+                python_tool_result["category"] = payload.get("category")
+        except requests.RequestException as e:
+            python_tool_result["error"] = str(e)
+    else:
+        python_tool_result["error"] = "网关健康检查失败，已跳过工具调用"
+
+    python_tool_result["classify_url"] = classify_url
 
     all_ok = gateway_result.get("ok", False) and python_tool_result.get("ok", False)
     return jsonify({
@@ -460,6 +524,23 @@ def integration_test():
         "gateway": gateway_result,
         "python_tool": python_tool_result,
     }), (200 if all_ok else 502)
+
+
+@app.route('/api/classify', methods=['POST'])
+def classify_via_upstream():
+    """上游分类接口：供网关代理转发使用。"""
+    data = request.get_json(silent=True) or {}
+    product_name = (data.get('product_name') or '').strip()
+
+    if not product_name:
+        return jsonify({"error": "product_name不能为空"}), 400
+
+    category = classify_product_category(product_name)
+    return jsonify({
+        "product_name": product_name,
+        "category": category,
+        "keywords_match": category != "electronics"
+    }), 200
 
 @app.route('/')
 def index():
