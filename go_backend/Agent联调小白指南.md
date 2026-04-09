@@ -77,7 +77,8 @@ go run ./cmd/api-gateway
 ~~~bash
 curl -sS http://127.0.0.1:8080/healthz
 curl -sS http://127.0.0.1:8080/readyz
-curl -sS http://127.0.0.1:8080/metrics
+curl -sS http://127.0.0.1:8080/metrics | head -n 20
+curl -sS http://127.0.0.1:8080/metrics/json
 ~~~
 
 常见现象：
@@ -135,10 +136,11 @@ python agent.py
 ~~~bash
 curl -sS http://127.0.0.1:8080/healthz
 curl -sS http://127.0.0.1:8080/readyz
-curl -sS http://127.0.0.1:8080/metrics
+curl -sS http://127.0.0.1:8080/metrics | head -n 20
+curl -sS http://127.0.0.1:8080/metrics/json
 ~~~
 
-重点看 metrics 里的字段：
+重点看 metrics/json 里的字段：
 1. requests_total
 2. in_flight_requests
 3. status_2xx_total / status_4xx_total / status_5xx_total
@@ -154,6 +156,10 @@ curl -sS http://127.0.0.1:8080/metrics
 3. Go 网关 healthz 为 200。
 4. Go 网关 readyz 可按你的上游配置返回正常状态。
 5. metrics 接口可返回 JSON 且包含关键计数项。
+
+备注：
+1. `/metrics` 现在是 Prometheus 文本格式，用于可视化看板采集。
+2. `/metrics/json` 是兼容联调调试端点。
 
 ---
 
@@ -176,3 +182,62 @@ curl -sS http://127.0.0.1:8080/metrics
 ## 9. 下一步（可选）
 
 如果你下一步想做“真正穿网关联调”（即 Agent 的 HTTP 请求经过 Go 网关），需要把 Agent 工具层里涉及 HTTP 的目标地址统一改为网关地址。该改造属于下一阶段方案，不影响本小白版联调先跑通。
+
+---
+
+## 10. 如何演示可视化面板（录视频版）
+
+目标：不用 Docker，直接在本机演示网关指标变化。
+
+### 10.1 安装 Prometheus + Grafana（只做一次）
+
+~~~bash
+brew install prometheus grafana
+~~~
+
+### 10.2 启动 Prometheus
+
+~~~bash
+cd /Users/yllmis/go_projects/SpotTruth/go_backend
+prometheus --config.file=observability/prometheus.yml
+~~~
+
+默认访问：`http://127.0.0.1:9090`
+
+### 10.3 启动 Grafana
+
+~~~bash
+grafana server --homepath /opt/homebrew/opt/grafana/share/grafana
+~~~
+
+默认访问：`http://127.0.0.1:3000`
+默认账号密码：`admin/admin`
+
+### 10.4 Grafana 里配置数据源
+
+1. 登录 Grafana。
+2. 添加 Prometheus 数据源。
+3. URL 填 `http://127.0.0.1:9090`。
+4. Save & test。
+
+### 10.5 推荐演示的 6 个查询
+
+1. `spottruth_requests_total`
+2. `spottruth_in_flight_requests`
+3. `spottruth_http_status_total`
+4. `spottruth_limiter_rejected_total`
+5. `spottruth_circuit_degraded_total`
+6. `spottruth_circuit_state_value`
+
+### 10.6 录视频建议动作
+
+1. 先展示 `healthz/readyz/metrics` 正常。
+2. 执行一次请求洪峰或故障注入，触发图表变化。
+3. 展示限流与熔断曲线变化，再回到稳定状态。
+
+可用命令：
+
+~~~bash
+cd /Users/yllmis/go_projects/SpotTruth/go_backend
+bash scripts/fault_injection_circuit_breaker.sh http://127.0.0.1:8080 /api/v1/search 8
+~~~

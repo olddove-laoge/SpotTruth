@@ -49,10 +49,11 @@ go run ./cmd/api-gateway
 
 ### 网关方案表与后续计划
 - 最新版本：`go_backend/docs/设计与可扩展性说明.md` 第八节（更新于 2026-04-09）
-- 当前重点：第五阶段进行中（已完成分桶限流与 Prometheus 指标，待完成 Agent 真正穿网关链路）
+- 当前重点：第五阶段网关侧已完成，进入第六阶段（Agent 穿网关链路收口）
 - 方案2实施与验收：`go_backend/docs/第四阶段实施步骤.md`
 - 方案2回归清单：`go_backend/docs/第四阶段回归清单.md`
 - 方案5实施进展：`go_backend/docs/第五阶段实施步骤.md`
+- 可视化演示指南（录视频）：`go_backend/docs/可视化面板演示指南.md`
 - 小白快速联调指引（仅 Agent + Go 网关）：`go_backend/Agent联调小白指南.md`
 
 ### 测试与联调
