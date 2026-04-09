@@ -26,7 +26,8 @@ func RequestLogger(next http.Handler) http.Handler {
 
 		next.ServeHTTP(rec, r)
 		observability.OnRequestDone(rec.status, time.Since(start))
+		requestID := GetRequestID(r)
 
-		log.Printf("method=%s path=%s status=%d duration_ms=%d remote=%s", r.Method, r.URL.Path, rec.status, time.Since(start).Milliseconds(), r.RemoteAddr)
+		log.Printf("request_id=%s method=%s path=%s status=%d duration_ms=%d remote=%s", requestID, r.Method, r.URL.Path, rec.status, time.Since(start).Milliseconds(), r.RemoteAddr)
 	})
 }

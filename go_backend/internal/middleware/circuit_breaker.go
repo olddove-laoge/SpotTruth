@@ -1,14 +1,11 @@
 package middleware
 
 import (
-	"crypto/rand"
-	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/sony/gobreaker"
@@ -99,7 +96,7 @@ func CircuitBreaker(next http.Handler, opts CircuitBreakerOptions) http.Handler 
 	})
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		requestID := ensureRequestID(w, r)
+		requestID := EnsureRequestID(w, r)
 
 		_, err := breaker.Execute(func() (interface{}, error) {
 			rec := &breakerStatusRecorder{ResponseWriter: w, status: http.StatusOK}
@@ -141,26 +138,6 @@ func breakerStateName(state gobreaker.State) string {
 	default:
 		return "closed"
 	}
-}
-
-func ensureRequestID(w http.ResponseWriter, r *http.Request) string {
-	requestID := strings.TrimSpace(r.Header.Get("X-Request-ID"))
-	if requestID == "" {
-		requestID = strings.TrimSpace(r.Header.Get("X-Request-Id"))
-	}
-	if requestID == "" {
-		requestID = newRequestID()
-	}
-	w.Header().Set("X-Request-ID", requestID)
-	return requestID
-}
-
-func newRequestID() string {
-	b := make([]byte, 12)
-	if _, err := rand.Read(b); err != nil {
-		return time.Now().Format("20060102150405.000000000")
-	}
-	return hex.EncodeToString(b)
 }
 
 func writeDegradedResponse(w http.ResponseWriter, requestID, reason string, retryAfter int) {

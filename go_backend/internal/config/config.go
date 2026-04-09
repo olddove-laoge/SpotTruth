@@ -20,6 +20,11 @@ type Config struct {
 	UpstreamHealthPath    string
 	ReadinessTimeout      time.Duration
 	LimiterRetryAfterSec  int
+	BucketEnabled         bool
+	BucketRequests        int
+	BucketWindow          time.Duration
+	BucketRetryAfterSec   int
+	BucketPreferAPIKey    bool
 	CBEnabled             bool
 	CBMaxRequests         int
 	CBInterval            time.Duration
@@ -53,6 +58,11 @@ func Load() Config {
 		UpstreamHealthPath:    getEnv("UPSTREAM_HEALTH_PATH", "/healthz"),
 		ReadinessTimeout:      getDurationEnv("READINESS_TIMEOUT", 2*time.Second),
 		LimiterRetryAfterSec:  getIntEnv("LIMITER_RETRY_AFTER_SECONDS", 1),
+		BucketEnabled:         getBoolEnv("BUCKET_LIMIT_ENABLED", true),
+		BucketRequests:        getIntEnv("BUCKET_LIMIT_REQUESTS", 120),
+		BucketWindow:          getDurationEnv("BUCKET_LIMIT_WINDOW", time.Minute),
+		BucketRetryAfterSec:   getIntEnv("BUCKET_LIMIT_RETRY_AFTER_SECONDS", 5),
+		BucketPreferAPIKey:    getBoolEnv("BUCKET_LIMIT_PREFER_API_KEY", true),
 		CBEnabled:             getBoolEnv("CB_ENABLED", true),
 		CBMaxRequests:         getIntEnv("CB_MAX_REQUESTS", 3),
 		CBInterval:            getDurationEnv("CB_INTERVAL", 10*time.Second),

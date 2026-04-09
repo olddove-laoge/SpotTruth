@@ -19,6 +19,11 @@ func TestLoadDefaultValues(t *testing.T) {
 	t.Setenv("UPSTREAM_HEALTH_PATH", "")
 	t.Setenv("READINESS_TIMEOUT", "")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "")
+	t.Setenv("BUCKET_LIMIT_ENABLED", "")
+	t.Setenv("BUCKET_LIMIT_REQUESTS", "")
+	t.Setenv("BUCKET_LIMIT_WINDOW", "")
+	t.Setenv("BUCKET_LIMIT_RETRY_AFTER_SECONDS", "")
+	t.Setenv("BUCKET_LIMIT_PREFER_API_KEY", "")
 	t.Setenv("CB_ENABLED", "")
 	t.Setenv("CB_MAX_REQUESTS", "")
 	t.Setenv("CB_INTERVAL", "")
@@ -85,6 +90,21 @@ func TestLoadDefaultValues(t *testing.T) {
 	if cfg.LimiterRetryAfterSec != 1 {
 		t.Fatalf("LimiterRetryAfterSec 默认值错误: %d", cfg.LimiterRetryAfterSec)
 	}
+	if !cfg.BucketEnabled {
+		t.Fatal("BucketEnabled 默认值错误: 应为 true")
+	}
+	if cfg.BucketRequests != 120 {
+		t.Fatalf("BucketRequests 默认值错误: %d", cfg.BucketRequests)
+	}
+	if cfg.BucketWindow != time.Minute {
+		t.Fatalf("BucketWindow 默认值错误: %v", cfg.BucketWindow)
+	}
+	if cfg.BucketRetryAfterSec != 5 {
+		t.Fatalf("BucketRetryAfterSec 默认值错误: %d", cfg.BucketRetryAfterSec)
+	}
+	if !cfg.BucketPreferAPIKey {
+		t.Fatal("BucketPreferAPIKey 默认值错误: 应为 true")
+	}
 	if !cfg.CBEnabled {
 		t.Fatal("CBEnabled 默认值错误: 应为 true")
 	}
@@ -127,6 +147,11 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	t.Setenv("UPSTREAM_HEALTH_PATH", "/actuator/health")
 	t.Setenv("READINESS_TIMEOUT", "1500ms")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "3")
+	t.Setenv("BUCKET_LIMIT_ENABLED", "false")
+	t.Setenv("BUCKET_LIMIT_REQUESTS", "300")
+	t.Setenv("BUCKET_LIMIT_WINDOW", "2m")
+	t.Setenv("BUCKET_LIMIT_RETRY_AFTER_SECONDS", "7")
+	t.Setenv("BUCKET_LIMIT_PREFER_API_KEY", "false")
 	t.Setenv("CB_ENABLED", "true")
 	t.Setenv("CB_MAX_REQUESTS", "8")
 	t.Setenv("CB_INTERVAL", "20s")
@@ -191,6 +216,21 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	if cfg.LimiterRetryAfterSec != 3 {
 		t.Fatalf("LimiterRetryAfterSec 读取环境变量失败: %d", cfg.LimiterRetryAfterSec)
 	}
+	if cfg.BucketEnabled {
+		t.Fatal("BucketEnabled 读取环境变量失败: 应为 false")
+	}
+	if cfg.BucketRequests != 300 {
+		t.Fatalf("BucketRequests 读取环境变量失败: %d", cfg.BucketRequests)
+	}
+	if cfg.BucketWindow != 2*time.Minute {
+		t.Fatalf("BucketWindow 读取环境变量失败: %v", cfg.BucketWindow)
+	}
+	if cfg.BucketRetryAfterSec != 7 {
+		t.Fatalf("BucketRetryAfterSec 读取环境变量失败: %d", cfg.BucketRetryAfterSec)
+	}
+	if cfg.BucketPreferAPIKey {
+		t.Fatal("BucketPreferAPIKey 读取环境变量失败: 应为 false")
+	}
 	if !cfg.CBEnabled {
 		t.Fatal("CBEnabled 读取环境变量失败: 应为 true")
 	}
@@ -224,6 +264,9 @@ func TestLoadBoolEnvFallback(t *testing.T) {
 	t.Setenv("AUTH_ENABLED", "not_bool")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "bad")
 	t.Setenv("READINESS_TIMEOUT", "bad")
+	t.Setenv("BUCKET_LIMIT_REQUESTS", "bad")
+	t.Setenv("BUCKET_LIMIT_WINDOW", "bad")
+	t.Setenv("BUCKET_LIMIT_RETRY_AFTER_SECONDS", "bad")
 	t.Setenv("CB_MAX_REQUESTS", "bad")
 	t.Setenv("CB_INTERVAL", "bad")
 	t.Setenv("CB_TIMEOUT", "bad")
@@ -240,6 +283,15 @@ func TestLoadBoolEnvFallback(t *testing.T) {
 	}
 	if cfg.ReadinessTimeout != 2*time.Second {
 		t.Fatalf("READINESS_TIMEOUT 非法值应回退默认 2s: %v", cfg.ReadinessTimeout)
+	}
+	if cfg.BucketRequests != 120 {
+		t.Fatalf("BUCKET_LIMIT_REQUESTS 非法值应回退默认 120: %d", cfg.BucketRequests)
+	}
+	if cfg.BucketWindow != time.Minute {
+		t.Fatalf("BUCKET_LIMIT_WINDOW 非法值应回退默认 1m: %v", cfg.BucketWindow)
+	}
+	if cfg.BucketRetryAfterSec != 5 {
+		t.Fatalf("BUCKET_LIMIT_RETRY_AFTER_SECONDS 非法值应回退默认 5: %d", cfg.BucketRetryAfterSec)
 	}
 	if cfg.CBMaxRequests != 3 {
 		t.Fatalf("CB_MAX_REQUESTS 非法值应回退默认 3: %d", cfg.CBMaxRequests)

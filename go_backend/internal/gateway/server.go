@@ -15,6 +15,7 @@ type HandlerOptions struct {
 	ReadinessChecker        ReadinessChecker
 	LimiterRetryAfterSecond int
 	CircuitBreaker          middleware.CircuitBreakerOptions
+	BucketLimiter           middleware.BucketLimiterOptions
 }
 
 func NewHandler(proxy http.Handler, maxInFlight int) http.Handler {
@@ -66,6 +67,11 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 	})
 
 	mux.HandleFunc("GET /metrics", func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("Content-Type", "text/plain; version=0.0.4; charset=utf-8")
+		_, _ = w.Write([]byte(observability.Prometheus()))
+	})
+
+	mux.HandleFunc("GET /metrics/json", func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		snapshot := observability.Snapshot()
 		snapshot["service"] = "spottruth-api-gateway"
@@ -73,17 +79,19 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 	})
 
 	proxyWithBreaker := middleware.CircuitBreaker(proxy, opts.CircuitBreaker)
-	proxyWithLimit := middleware.ConcurrencyLimiterWithOptions(maxInFlight, opts.LimiterRetryAfterSecond, proxyWithBreaker)
+	proxyWithBucket := middleware.BucketLimiter(proxyWithBreaker, opts.BucketLimiter)
+	proxyWithLimit := middleware.ConcurrencyLimiterWithOptions(maxInFlight, opts.LimiterRetryAfterSecond, proxyWithBucket)
 
 	if opts.TokenManager == nil {
 		mux.Handle("/", proxyWithLimit)
-		return middleware.RequestLogger(mux)
+		return middleware.RequestID(middleware.RequestLogger(mux))
 	}
 
 	publicPaths := map[string]struct{}{
 		"/healthz":             {},
 		"/readyz":              {},
 		"/metrics":             {},
+		"/metrics/json":        {},
 		"/api/v1/auth/login":   {},
 		"/api/v1/auth/refresh": {},
 	}
@@ -112,5 +120,5 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 
 	mux.Handle("/", securedProxy)
 
-	return middleware.RequestLogger(mux)
+	return middleware.RequestID(middleware.RequestLogger(mux))
 }

@@ -34,6 +34,13 @@ func main() {
 	handlerOptions := gateway.HandlerOptions{
 		ReadinessChecker:        gateway.NewHTTPReadinessChecker(cfg.UpstreamBaseURL, cfg.UpstreamHealthPath, cfg.ReadinessTimeout),
 		LimiterRetryAfterSecond: cfg.LimiterRetryAfterSec,
+		BucketLimiter: middleware.BucketLimiterOptions{
+			Enabled:           cfg.BucketEnabled,
+			RequestsPerWindow: cfg.BucketRequests,
+			Window:            cfg.BucketWindow,
+			RetryAfterSeconds: cfg.BucketRetryAfterSec,
+			PreferAPIKey:      cfg.BucketPreferAPIKey,
+		},
 		CircuitBreaker: middleware.CircuitBreakerOptions{
 			Enabled:            cfg.CBEnabled,
 			Name:               "upstream-flask",

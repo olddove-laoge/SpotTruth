@@ -10,10 +10,12 @@
 ### 主要特性
 - `GET /healthz` 健康检查接口
 - `GET /readyz` 就绪检查接口（主动探测上游）
-- `GET /metrics` 网关关键指标快照接口
+- `GET /metrics` Prometheus 标准指标接口
+- `GET /metrics/json` 网关指标 JSON 兼容接口
 - 其余所有路由均反向代理到 Flask 应用
 - 结构化请求日志
 - 网关与代理层双重超时保护（请求读写、空闲连接、上游响应）
+- 分桶限流（按 API Key/IP）与并发限流双重保护
 - 熔断与降级保护（open/half-open/closed 状态迁移 + 结构化降级响应）
 - JWT 鉴权主链路已接入（支持公共白名单路由）
 - 优雅停机
@@ -23,6 +25,7 @@
 - `/healthz`
 - `/readyz`
 - `/metrics`
+- `/metrics/json`
 - `/api/v1/auth/login`
 - `/api/v1/auth/refresh`
 
@@ -46,9 +49,10 @@ go run ./cmd/api-gateway
 
 ### 网关方案表与后续计划
 - 最新版本：`go_backend/docs/设计与可扩展性说明.md` 第八节（更新于 2026-04-09）
-- 当前重点：推进第五阶段（分桶限流、Prometheus 标准指标、Agent 真正穿网关链路）
+- 当前重点：第五阶段进行中（已完成分桶限流与 Prometheus 指标，待完成 Agent 真正穿网关链路）
 - 方案2实施与验收：`go_backend/docs/第四阶段实施步骤.md`
 - 方案2回归清单：`go_backend/docs/第四阶段回归清单.md`
+- 方案5实施进展：`go_backend/docs/第五阶段实施步骤.md`
 - 小白快速联调指引（仅 Agent + Go 网关）：`go_backend/Agent联调小白指南.md`
 
 ### 测试与联调
@@ -75,6 +79,7 @@ go run ./cmd/api-gateway
 curl -sS http://127.0.0.1:8080/healthz
 curl -sS http://127.0.0.1:8080/readyz
 curl -sS http://127.0.0.1:8080/metrics
+curl -sS http://127.0.0.1:8080/metrics/json
 ```
 
 4. 固定联调回归链路（gateway health -> python tool -> integration test）

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 
@@ -225,10 +226,21 @@ func TestMetricsEndpoint(t *testing.T) {
 	if rr2.Code != http.StatusOK {
 		t.Fatalf("metrics 状态码错误: got=%d want=%d", rr2.Code, http.StatusOK)
 	}
+	if !strings.Contains(rr2.Body.String(), "spottruth_requests_total") {
+		t.Fatal("metrics Prometheus 输出缺少 spottruth_requests_total")
+	}
+
+	req3 := httptest.NewRequest(http.MethodGet, "/metrics/json", nil)
+	rr3 := httptest.NewRecorder()
+	h.ServeHTTP(rr3, req3)
+
+	if rr3.Code != http.StatusOK {
+		t.Fatalf("metrics/json 状态码错误: got=%d want=%d", rr3.Code, http.StatusOK)
+	}
 
 	var body map[string]any
-	if err := json.Unmarshal(rr2.Body.Bytes(), &body); err != nil {
-		t.Fatalf("metrics 返回 JSON 非法: %v", err)
+	if err := json.Unmarshal(rr3.Body.Bytes(), &body); err != nil {
+		t.Fatalf("metrics/json 返回 JSON 非法: %v", err)
 	}
 
 	if _, ok := body["requests_total"]; !ok {
