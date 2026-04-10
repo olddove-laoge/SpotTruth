@@ -1,9 +1,16 @@
 # Agent 联调小白指南（只看 Agent + Go 网关，不看前端）
 
+补充：
+1. 如果你在 Windows 环境联调，建议直接使用 [go_backend/docs/Windows一键联调命令清单.md](docs/Windows一键联调命令清单.md)。
+2. 该清单已包含：登录拿 token、Bearer 传递、带鉴权熔断验证的可复制命令。
+
 
 ## 0. 先理解一件事（非常重要）
 
-当前代码里，Agent 主入口是 [new_idea/agent.py](../new_idea/agent.py)。
+当前代码里：
+1. Agent 主入口是 [new_idea/run.py](../new_idea/run.py)。
+2. 联调用 API 入口是 [new_idea/agent_api.py](../new_idea/agent_api.py)。
+3. Agent 核心实现位于 [new_idea/agent](../new_idea/agent) 目录。
 
 第六阶段完成后，联调主链路已经改为“优先穿网关”：
 1. 联调接口里的 Python 工具调用统一走 Go 网关入口（默认 `http://127.0.0.1:8080`）。
@@ -97,7 +104,7 @@ curl -sS http://127.0.0.1:8080/metrics/json
 
 ### 5.1 先改 2 个路径（macOS 必看）
 
-在 [new_idea/agent.py](../new_idea/agent.py) 的 main 函数里，默认是 Windows 路径：
+在 [new_idea/config.py](../new_idea/config.py) 里，默认是 Windows 路径：
 1. driver_path = E 盘路径
 2. profile_dir = C 盘路径
 
@@ -114,7 +121,7 @@ profile_dir = "/Users/你的用户名/.spottruth_edge_profile"
 
 ~~~bash
 cd /Users/yllmis/go_projects/SpotTruth/new_idea
-python agent.py
+python run.py
 ~~~
 
 启动后它会依次打开：淘宝 -> 小红书 -> 黑猫投诉，并提示你手动登录。
@@ -170,7 +177,7 @@ curl -sS http://127.0.0.1:8080/metrics/json
    - 处理：重新执行依赖安装命令。
 
 2. 报错：msedgedriver 不存在
-   - 处理：检查 [new_idea/agent.py](../new_idea/agent.py) 里的 driver_path 是否是你本机真实路径。
+   - 处理：检查 [new_idea/config.py](../new_idea/config.py) 里的 driver_path 是否是你本机真实路径。
 
 3. 报错：readyz 一直 503
    - 处理：检查上游服务是否启动；确认 [go_backend/.env](.env) 的 UPSTREAM_HEALTH_PATH 是否和上游路由一致。
@@ -182,7 +189,7 @@ curl -sS http://127.0.0.1:8080/metrics/json
 
 ## 9. 下一步（可选）
 
-如果你下一步想做“全量 Agent CLI 工作流穿网关”（包括旧版 `new_idea/agent.py` 里的本地工具调用链），建议把工具调用层进一步抽象为统一 HTTP 客户端，并默认指向网关入口。当前阶段已完成联调主链路穿网关，可满足演示与排障。
+如果你下一步想做“全量 Agent CLI 工作流穿网关”（包括 `new_idea/run.py` 入口下 `new_idea/agent` 包的工具调用链），建议把工具调用层进一步抽象为统一 HTTP 客户端，并默认指向网关入口。当前阶段已完成联调主链路穿网关，可满足演示与排障。
 
 ---
 
