@@ -14,6 +14,14 @@ class WebAppAPITestCase(unittest.TestCase):
     def setUp(self):
         web_app.app.config['TESTING'] = True
         self.client = web_app.app.test_client()
+        self._old_gateway_token = os.environ.get('SPOTTRUTH_GATEWAY_TOKEN')
+        os.environ['SPOTTRUTH_GATEWAY_TOKEN'] = 'unit-test-token'
+
+    def tearDown(self):
+        if self._old_gateway_token is None:
+            os.environ.pop('SPOTTRUTH_GATEWAY_TOKEN', None)
+        else:
+            os.environ['SPOTTRUTH_GATEWAY_TOKEN'] = self._old_gateway_token
 
     @patch('app.requests.post')
     def test_python_tool_test_success(self, mock_post):
@@ -30,6 +38,9 @@ class WebAppAPITestCase(unittest.TestCase):
         self.assertTrue(payload['ok'])
         self.assertEqual(payload['category'], 'electronics')
         self.assertEqual(payload['request_id'], 'rid-tool-1')
+        self.assertTrue(mock_post.called)
+        headers = mock_post.call_args.kwargs.get('headers', {})
+        self.assertEqual(headers.get('Authorization'), 'Bearer unit-test-token')
 
     def test_python_tool_test_missing_name(self):
         response = self.client.post('/api/python/tool-test', json={})

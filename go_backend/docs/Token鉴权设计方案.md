@@ -22,6 +22,21 @@
 4. 用户提需求，系统异步补数；不把高成本工具调用绑定到用户同步请求中。
 5. 第一阶段先做最小可用方案，后续再逐步扩展为完整 RBAC。
 
+## 三点五、当前实施进度（2026-04-10）
+
+已落地（MVP）：
+1. 网关 JWT 鉴权主链路已启用，支持 `user/admin/system` 角色校验。
+2. 已新增最小登录签发接口：`POST /api/v1/auth/login`，可返回合法 Access Token。
+3. 联调链路已支持统一 Bearer 传递（`web_app` 自动登录取 token 或读取环境变量 token）。
+4. 错误语义已区分：
+   - `401 Unauthorized`：token 缺失/非法/过期，或登录失败。
+   - `403 Forbidden`：token 有效但角色不足。
+
+暂缓（不影响当前联调与熔断验证）：
+1. Refresh Token 与 `POST /api/v1/auth/refresh` 完整实现。
+2. Token 黑名单与主动失效。
+3. 审计日志落库、完整 RBAC 表模型、任务队列联动接口。
+
 ## 四、角色模型
 
 ### 4.1 普通用户（user）

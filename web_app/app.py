@@ -11,6 +11,10 @@ app = Flask(__name__,
            static_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'static'))
 
 DEFAULT_GATEWAY_BASE_URL = os.environ.get('SPOTTRUTH_GATEWAY_URL', 'http://127.0.0.1:8080')
+GATEWAY_TOKEN_CACHE = {
+    "token": "",
+    "expires_at": 0.0,
+}
 
 CATEGORY_KEYWORDS = {
     "book": ["书", "图书", "小说", "教材", "绘本", "书籍"],
@@ -43,13 +47,57 @@ def normalize_gateway_base_url(base_url):
     return (base_url or DEFAULT_GATEWAY_BASE_URL).strip().rstrip('/')
 
 
-def build_gateway_request_headers() -> dict:
+def get_gateway_access_token(base_url: str) -> str:
+    """获取网关访问 token：优先环境变量，其次走最小登录接口自动签发。"""
+    env_token = os.environ.get('SPOTTRUTH_GATEWAY_TOKEN', '').strip()
+    if env_token:
+        return env_token
+
+    now = time.time()
+    cached_token = GATEWAY_TOKEN_CACHE.get("token", "")
+    if cached_token and now < GATEWAY_TOKEN_CACHE.get("expires_at", 0):
+        return cached_token
+
+    account = os.environ.get('SPOTTRUTH_GATEWAY_ACCOUNT', 'spottruth_user').strip()
+    password = os.environ.get('SPOTTRUTH_GATEWAY_PASSWORD', 'spottruth_user_123').strip()
+    if not account or not password:
+        return ""
+
+    login_url = f"{base_url}/api/v1/auth/login"
+    try:
+        response = requests.post(
+            login_url,
+            json={
+                "account": account,
+                "password": password,
+                "login_type": "password",
+            },
+            headers={"X-Request-ID": str(uuid.uuid4())},
+            timeout=5,
+        )
+        if not response.ok:
+            return ""
+        payload = response.json()
+        data = payload.get("data", {}) if isinstance(payload, dict) else {}
+        token = (data.get("access_token") or "").strip()
+        expires_in = int(data.get("expires_in") or 0)
+        if not token:
+            return ""
+        ttl = expires_in - 30 if expires_in > 60 else max(expires_in, 30)
+        GATEWAY_TOKEN_CACHE["token"] = token
+        GATEWAY_TOKEN_CACHE["expires_at"] = now + ttl
+        return token
+    except (requests.RequestException, ValueError, TypeError):
+        return ""
+
+
+def build_gateway_request_headers(base_url: str) -> dict:
     """构造请求网关时的追踪与鉴权头。"""
     headers = {
         "X-Request-ID": str(uuid.uuid4()),
     }
 
-    token = os.environ.get('SPOTTRUTH_GATEWAY_TOKEN', '').strip()
+    token = get_gateway_access_token(base_url)
     if token:
         headers["Authorization"] = f"Bearer {token}"
 
@@ -429,7 +477,7 @@ def python_tool_test():
         response = requests.post(
             classify_url,
             json={"product_name": product_name},
-            headers=build_gateway_request_headers(),
+            headers=build_gateway_request_headers(base_url),
             timeout=8,
         )
         try:
@@ -497,7 +545,7 @@ def integration_test():
             response = requests.post(
                 classify_url,
                 json={"product_name": product_name},
-                headers=build_gateway_request_headers(),
+                headers=build_gateway_request_headers(base_url),
                 timeout=8,
             )
             python_tool_result["ok"] = response.ok

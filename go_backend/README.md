@@ -29,6 +29,28 @@
 - `/api/v1/auth/login`
 - `/api/v1/auth/refresh`
 
+### 最小登录签发（MVP）
+1. 获取 Access Token（默认静态账号）
+
+```bash
+curl -sS -X POST http://127.0.0.1:8080/api/v1/auth/login \
+	-H "Content-Type: application/json" \
+	-d '{"account":"spottruth_user","password":"spottruth_user_123","login_type":"password"}'
+```
+
+2. 受保护接口携带 Bearer Token
+
+```bash
+curl -sS http://127.0.0.1:8080/api/v1/search \
+	-H "Authorization: Bearer <access_token>" \
+	-H "X-Request-ID: demo-auth-1"
+```
+
+说明：
+- `401` 表示 token 缺失/非法/过期。
+- `403` 表示 token 有效但角色权限不足。
+- 若要修改默认账号，请在 `.env` 设置 `AUTH_USER_*`、`AUTH_ADMIN_*`、`AUTH_SYSTEM_*`。
+
 ### 快速启动
 
 ```bash

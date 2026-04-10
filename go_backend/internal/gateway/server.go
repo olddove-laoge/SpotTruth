@@ -12,6 +12,7 @@ import (
 
 type HandlerOptions struct {
 	TokenManager            *auth.TokenManager
+	LoginAuthenticator      auth.LoginAuthenticator
 	ReadinessChecker        ReadinessChecker
 	LimiterRetryAfterSecond int
 	CircuitBreaker          middleware.CircuitBreakerOptions
@@ -86,6 +87,8 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 		mux.Handle("/", proxyWithLimit)
 		return middleware.RequestID(middleware.RequestLogger(mux))
 	}
+
+	mux.HandleFunc("POST /api/v1/auth/login", loginHandler(opts.TokenManager, opts.LoginAuthenticator))
 
 	publicPaths := map[string]struct{}{
 		"/healthz":             {},

@@ -17,6 +17,15 @@ type Config struct {
 	AuthSigningKey        string
 	AuthIssuer            string
 	AuthAccessTTL         time.Duration
+	AuthUserAccount       string
+	AuthUserPassword      string
+	AuthUserID            string
+	AuthAdminAccount      string
+	AuthAdminPassword     string
+	AuthAdminID           string
+	AuthSystemAccount     string
+	AuthSystemPassword    string
+	AuthSystemID          string
 	UpstreamHealthPath    string
 	ReadinessTimeout      time.Duration
 	LimiterRetryAfterSec  int
@@ -55,6 +64,15 @@ func Load() Config {
 		AuthSigningKey:        getEnv("AUTH_SIGNING_KEY", "spottruth-dev-signing-key"),
 		AuthIssuer:            getEnv("AUTH_ISSUER", "spottruth-api-gateway"),
 		AuthAccessTTL:         getDurationEnv("AUTH_ACCESS_TTL", 30*time.Minute),
+		AuthUserAccount:       getEnv("AUTH_USER_ACCOUNT", "spottruth_user"),
+		AuthUserPassword:      getEnv("AUTH_USER_PASSWORD", "spottruth_user_123"),
+		AuthUserID:            getEnv("AUTH_USER_ID", "u-spottruth-user"),
+		AuthAdminAccount:      getEnv("AUTH_ADMIN_ACCOUNT", "spottruth_admin"),
+		AuthAdminPassword:     getEnv("AUTH_ADMIN_PASSWORD", "spottruth_admin_123"),
+		AuthAdminID:           getEnv("AUTH_ADMIN_ID", "u-spottruth-admin"),
+		AuthSystemAccount:     getEnv("AUTH_SYSTEM_ACCOUNT", "spottruth_system"),
+		AuthSystemPassword:    getEnv("AUTH_SYSTEM_PASSWORD", "spottruth_system_123"),
+		AuthSystemID:          getEnv("AUTH_SYSTEM_ID", "s-spottruth-system"),
 		UpstreamHealthPath:    getEnv("UPSTREAM_HEALTH_PATH", "/healthz"),
 		ReadinessTimeout:      getDurationEnv("READINESS_TIMEOUT", 2*time.Second),
 		LimiterRetryAfterSec:  getIntEnv("LIMITER_RETRY_AFTER_SECONDS", 1),

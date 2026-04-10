@@ -4,6 +4,7 @@ set -euo pipefail
 BASE_URL="${1:-http://127.0.0.1:8080}"
 TARGET_PATH="${2:-/api/v1/search}"
 ROUNDS="${3:-8}"
+AUTH_HEADER_RAW="${4:-}"
 
 if ! [[ "$ROUNDS" =~ ^[0-9]+$ ]]; then
   echo "[错误] 第三个参数 ROUNDS 必须是正整数"
@@ -12,7 +13,19 @@ fi
 
 echo "[信息] 开始熔断故障注入"
 echo "[信息] BASE_URL=$BASE_URL TARGET_PATH=$TARGET_PATH ROUNDS=$ROUNDS"
+if [[ -n "$AUTH_HEADER_RAW" ]]; then
+  echo "[信息] 已启用 Authorization 头"
+fi
 echo "[信息] 预期：上游异常时，前几次可能返回 5xx，随后出现 503 + GATEWAY_DEGRADED"
+
+AUTH_HEADER=""
+if [[ -n "$AUTH_HEADER_RAW" ]]; then
+  if [[ "$AUTH_HEADER_RAW" == Bearer* ]]; then
+    AUTH_HEADER="$AUTH_HEADER_RAW"
+  else
+    AUTH_HEADER="Bearer $AUTH_HEADER_RAW"
+  fi
+fi
 
 degraded_count=0
 open_count=0
@@ -21,9 +34,16 @@ for i in $(seq 1 "$ROUNDS"); do
   tmp_file="$(mktemp)"
   request_id="fi-$(date +%s)-$i"
 
-  http_code="$(curl -sS -o "$tmp_file" -w "%{http_code}" \
-    -H "X-Request-ID: $request_id" \
-    "$BASE_URL$TARGET_PATH" || true)"
+  if [[ -n "$AUTH_HEADER" ]]; then
+    http_code="$(curl -sS -o "$tmp_file" -w "%{http_code}" \
+      -H "Authorization: $AUTH_HEADER" \
+      -H "X-Request-ID: $request_id" \
+      "$BASE_URL$TARGET_PATH" || true)"
+  else
+    http_code="$(curl -sS -o "$tmp_file" -w "%{http_code}" \
+      -H "X-Request-ID: $request_id" \
+      "$BASE_URL$TARGET_PATH" || true)"
+  fi
 
   body="$(cat "$tmp_file")"
   rm -f "$tmp_file"

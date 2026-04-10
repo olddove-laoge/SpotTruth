@@ -152,21 +152,147 @@ func TestPublicRouteBypassesAuth(t *testing.T) {
 	if err != nil {
 		t.Fatalf("new token manager failed: %v", err)
 	}
-
-	proxy := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/api/v1/auth/login" {
-			t.Fatalf("白名单路径错误: %s", r.URL.Path)
-		}
-		w.WriteHeader(http.StatusAccepted)
+	loginAuthenticator := auth.NewStaticLoginAuthenticator([]auth.StaticCredential{
+		{
+			Account:  "spottruth_user",
+			Password: "spottruth_user_123",
+			UserID:   "u-1",
+			Username: "spottruth_user",
+			Role:     auth.RoleUser,
+		},
 	})
 
-	h := NewHandlerWithAuth(proxy, 10, tm)
-	req := httptest.NewRequest(http.MethodPost, "/api/v1/auth/login", nil)
+	proxy := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		t.Fatalf("登录接口不应透传到上游: %s", r.URL.Path)
+	})
+
+	h := NewHandlerWithOptions(proxy, 10, HandlerOptions{
+		TokenManager:       tm,
+		LoginAuthenticator: loginAuthenticator,
+	})
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/auth/login", strings.NewReader(`{"account":"spottruth_user","password":"spottruth_user_123","login_type":"password"}`))
+	req.Header.Set("Content-Type", "application/json")
 	rr := httptest.NewRecorder()
 	h.ServeHTTP(rr, req)
 
-	if rr.Code != http.StatusAccepted {
-		t.Fatalf("白名单路由应绕过鉴权: got=%d want=%d", rr.Code, http.StatusAccepted)
+	if rr.Code != http.StatusOK {
+		t.Fatalf("登录签发状态码错误: got=%d want=%d", rr.Code, http.StatusOK)
+	}
+
+	var body struct {
+		Code string `json:"code"`
+		Data struct {
+			AccessToken string `json:"access_token"`
+		} `json:"data"`
+	}
+	if err := json.Unmarshal(rr.Body.Bytes(), &body); err != nil {
+		t.Fatalf("登录返回 JSON 非法: %v", err)
+	}
+	if body.Code != "OK" {
+		t.Fatalf("登录返回码错误: %s", body.Code)
+	}
+	if body.Data.AccessToken == "" {
+		t.Fatal("登录返回 access_token 为空")
+	}
+}
+
+func TestLoginTokenCanAccessProtectedRoute(t *testing.T) {
+	tm, err := auth.NewTokenManager("test-signing-key", "spottruth-gateway", 30*time.Minute)
+	if err != nil {
+		t.Fatalf("new token manager failed: %v", err)
+	}
+	loginAuthenticator := auth.NewStaticLoginAuthenticator([]auth.StaticCredential{
+		{
+			Account:  "spottruth_user",
+			Password: "spottruth_user_123",
+			UserID:   "u-1",
+			Username: "spottruth_user",
+			Role:     auth.RoleUser,
+		},
+	})
+
+	proxy := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/api/v1/search" {
+			t.Fatalf("代理路径错误: %s", r.URL.Path)
+		}
+		w.WriteHeader(http.StatusCreated)
+	})
+
+	h := NewHandlerWithOptions(proxy, 10, HandlerOptions{
+		TokenManager:       tm,
+		LoginAuthenticator: loginAuthenticator,
+	})
+
+	loginReq := httptest.NewRequest(http.MethodPost, "/api/v1/auth/login", strings.NewReader(`{"account":"spottruth_user","password":"spottruth_user_123"}`))
+	loginReq.Header.Set("Content-Type", "application/json")
+	loginResp := httptest.NewRecorder()
+	h.ServeHTTP(loginResp, loginReq)
+	if loginResp.Code != http.StatusOK {
+		t.Fatalf("登录请求失败: %d", loginResp.Code)
+	}
+
+	var loginBody struct {
+		Data struct {
+			AccessToken string `json:"access_token"`
+		} `json:"data"`
+	}
+	if err := json.Unmarshal(loginResp.Body.Bytes(), &loginBody); err != nil {
+		t.Fatalf("登录返回 JSON 非法: %v", err)
+	}
+	if loginBody.Data.AccessToken == "" {
+		t.Fatal("登录返回 token 为空")
+	}
+
+	protectedReq := httptest.NewRequest(http.MethodGet, "/api/v1/search", nil)
+	protectedReq.Header.Set("Authorization", "Bearer "+loginBody.Data.AccessToken)
+	protectedResp := httptest.NewRecorder()
+	h.ServeHTTP(protectedResp, protectedReq)
+
+	if protectedResp.Code != http.StatusCreated {
+		t.Fatalf("登录 token 访问受保护接口失败: got=%d want=%d", protectedResp.Code, http.StatusCreated)
+	}
+}
+
+func TestLoginInvalidCredentialReturnsUnauthorized(t *testing.T) {
+	tm, err := auth.NewTokenManager("test-signing-key", "spottruth-gateway", 30*time.Minute)
+	if err != nil {
+		t.Fatalf("new token manager failed: %v", err)
+	}
+	loginAuthenticator := auth.NewStaticLoginAuthenticator([]auth.StaticCredential{
+		{
+			Account:  "spottruth_user",
+			Password: "spottruth_user_123",
+			UserID:   "u-1",
+			Username: "spottruth_user",
+			Role:     auth.RoleUser,
+		},
+	})
+
+	proxy := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		t.Fatalf("登录失败不应透传到上游: %s", r.URL.Path)
+	})
+
+	h := NewHandlerWithOptions(proxy, 10, HandlerOptions{
+		TokenManager:       tm,
+		LoginAuthenticator: loginAuthenticator,
+	})
+
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/auth/login", strings.NewReader(`{"account":"spottruth_user","password":"wrong"}`))
+	req.Header.Set("Content-Type", "application/json")
+	rr := httptest.NewRecorder()
+	h.ServeHTTP(rr, req)
+
+	if rr.Code != http.StatusUnauthorized {
+		t.Fatalf("登录失败状态码错误: got=%d want=%d", rr.Code, http.StatusUnauthorized)
+	}
+	var body struct {
+		Code string `json:"code"`
+	}
+	if err := json.Unmarshal(rr.Body.Bytes(), &body); err != nil {
+		t.Fatalf("登录失败返回 JSON 非法: %v", err)
+	}
+	if body.Code != "AUTH_LOGIN_FAILED" {
+		t.Fatalf("登录失败错误码错误: %s", body.Code)
 	}
 }
 

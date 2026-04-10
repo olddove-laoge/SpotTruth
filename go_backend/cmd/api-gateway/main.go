@@ -59,6 +59,29 @@ func main() {
 			log.Fatalf("鉴权配置非法: %v", err)
 		}
 		handlerOptions.TokenManager = tokenManager
+		handlerOptions.LoginAuthenticator = auth.NewStaticLoginAuthenticator([]auth.StaticCredential{
+			{
+				Account:  cfg.AuthUserAccount,
+				Password: cfg.AuthUserPassword,
+				UserID:   cfg.AuthUserID,
+				Username: cfg.AuthUserAccount,
+				Role:     auth.RoleUser,
+			},
+			{
+				Account:  cfg.AuthAdminAccount,
+				Password: cfg.AuthAdminPassword,
+				UserID:   cfg.AuthAdminID,
+				Username: cfg.AuthAdminAccount,
+				Role:     auth.RoleAdmin,
+			},
+			{
+				Account:  cfg.AuthSystemAccount,
+				Password: cfg.AuthSystemPassword,
+				UserID:   cfg.AuthSystemID,
+				Username: cfg.AuthSystemAccount,
+				Role:     auth.RoleSystem,
+			},
+		})
 	}
 
 	handler := gateway.NewHandlerWithOptions(proxy, cfg.MaxInFlight, handlerOptions)
