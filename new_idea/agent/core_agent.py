@@ -226,7 +226,7 @@ class BileizhenAgent:
             current_product=current_product
         )
 
-        logger.info(f"解析意图: {intent_data}")
+        logger.info(f"解析意图: {intent_data.get('intent', 'unknown')}, 商品: {intent_data.get('brand', '')} {intent_data.get('product', '')}")
 
         # 3. 处理意图
         intent = intent_data.get("intent", "unknown")

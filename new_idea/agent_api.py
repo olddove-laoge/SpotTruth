@@ -18,6 +18,7 @@ API端点:
 
 import sys
 import os
+import json
 
 # 确保能正确导入 agent 模块
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -92,7 +93,10 @@ def index():
             "/api/analyze": "POST - 分析评论（讽刺检测+情感分析）",
             "/api/classify": "POST - 品类分类",
             "/api/summarize": "POST - 生成总结报告",
-            "/api/judge_sarcasm": "POST - LLM判断讽刺评论"
+            "/api/judge_sarcasm": "POST - LLM判断讽刺评论",
+            "/api/parse_intent": "POST - 解析用户意图（对话式）",
+            "/api/analyze_xiaohongshu": "POST - 分析小红书笔记",
+            "/api/analyze_heimao": "POST - 分析黑猫投诉"
         }
     }), 200
 
@@ -319,6 +323,269 @@ def judge_sarcasm():
 
     except Exception as e:
         logger.error(f"讽刺判断接口出错: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/parse_intent', methods=['POST'])
+def parse_intent():
+    """
+    解析用户意图 - 支持对话式交互
+
+    请求体:
+    {
+        "user_input": "帮我分析德芙巧克力",
+        "conversation_history": [
+            {"role": "user", "content": "你好"},
+            {"role": "assistant", "content": "您好！我是避雷真..."}
+        ],
+        "current_product": ""  // 当前正在分析的商品（可选）
+    }
+
+    响应:
+    {
+        "intent": "analyze",
+        "brand": "德芙",
+        "product": "巧克力",
+        "need_xiaohongshu": false,
+        "need_heimao": false,
+        "clarification_needed": false,
+        "clarification_question": "",
+        "response": "好的，我来帮您分析德芙巧克力"  // 可直接回复用户的话
+    }
+    """
+    try:
+        data = request.get_json() or {}
+        user_input = data.get('user_input', '')
+        history = data.get('conversation_history', [])
+        current_product = data.get('current_product', '')
+
+        if not user_input:
+            return jsonify({"error": "user_input不能为空"}), 400
+
+        logger.info(f"解析意图: {user_input}")
+
+        # 调用LLM解析意图
+        intent_data = llm.parse_intent(user_input, history, current_product)
+
+        # 生成友好的响应语
+        response_text = _generate_intent_response(intent_data, current_product)
+        intent_data['response'] = response_text
+
+        return jsonify(intent_data), 200
+
+    except Exception as e:
+        logger.error(f"意图解析接口出错: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+def _generate_intent_response(intent_data: dict, current_product: str) -> str:
+    """根据意图生成友好的响应语"""
+    intent = intent_data.get('intent', 'unknown')
+    brand = intent_data.get('brand', '')
+    product = intent_data.get('product', '')
+    clarification = intent_data.get('clarification_question', '')
+
+    if clarification:
+        return clarification
+
+    if intent == 'analyze':
+        if brand and product:
+            return f"好的，我来帮您分析 {brand} {product} 的口碑情况。"
+        elif product:
+            return f"好的，我来帮您分析 {product} 的口碑情况。"
+        else:
+            return "好的，我来帮您分析这个商品。"
+
+    elif intent == 'search_xhs':
+        keyword = f"{brand} {product}".strip() if (brand or product) else current_product
+        return f"好的，我来搜索小红书关于 {keyword} 的笔记。"
+
+    elif intent == 'search_heimao':
+        keyword = brand if brand else current_product
+        return f"好的，我来查询 {keyword} 在黑猫投诉平台的情况。"
+
+    elif intent == 'help':
+        return """我可以帮您：
+• 分析商品口碑（淘宝评论、小红书、黑猫投诉）
+• 识别虚假好评和阴阳怪气评价
+• 提供购买建议
+
+请直接告诉我您想了解什么商品，例如："分析德芙巧克力" """
+
+    elif intent == 'unknown':
+        return "我不太理解您的意思。您可以尝试说：\n• 分析 德芙 巧克力\n• 搜索小红书 德芙巧克力避雷\n• 搜索黑猫 德芙"
+
+    else:
+        return "收到，正在处理您的请求..."
+
+
+@app.route('/api/analyze_xiaohongshu', methods=['POST'])
+def analyze_xiaohongshu():
+    """
+    分析小红书笔记内容
+
+    请求体:
+    {
+        "notes": [
+            {"title": "标题", "content": "内容...", "likes": 100},
+            ...
+        ],
+        "keyword": "搜索关键词"
+    }
+
+    响应:
+    {
+        "summary": "小红书用户主要反馈...",
+        "key_points": ["负面点1", "避坑点2"],
+        "sentiment": "mostly_negative"
+    }
+    """
+    try:
+        data = request.get_json() or {}
+        notes = data.get('notes', [])
+        keyword = data.get('keyword', '')
+
+        if not notes:
+            return jsonify({"error": "notes不能为空"}), 400
+
+        logger.info(f"分析小红书笔记: {keyword}, {len(notes)}条")
+
+        # 构建分析提示
+        notes_text = "\n\n".join([
+            f"笔记{i+1}:\n标题: {n.get('title', '')}\n内容: {n.get('content', '')[:300]}..."
+            for i, n in enumerate(notes[:10])
+        ])
+
+        prompt = f"""分析以下关于"{keyword}"的小红书笔记，提取主要观点：
+
+{notes_text}
+
+请总结：
+1. 主要负面观点
+2. 避坑点
+3. 用户抱怨最多的问题
+4. 整体口碑倾向
+
+以简洁的JSON格式输出：
+{{
+    "summary": "整体总结...",
+    "key_points": ["点1", "点2", "点3"],
+    "sentiment": "mostly_positive|mixed|mostly_negative"
+}}"""
+
+        response = llm.chat(
+            [{"role": "user", "content": prompt}],
+            temperature=0.7
+        )
+
+        content = response.content.strip()
+
+        # 提取JSON
+        if "```json" in content:
+            content = content.split("```json")[1].split("```")[0].strip()
+        elif "```" in content:
+            content = content.split("```")[1].split("```")[0].strip()
+
+        try:
+            result = json.loads(content)
+        except json.JSONDecodeError:
+            # 如果解析失败，返回原始文本
+            result = {
+                "summary": content[:500],
+                "key_points": [],
+                "sentiment": "unknown"
+            }
+
+        return jsonify(result), 200
+
+    except Exception as e:
+        logger.error(f"小红书分析接口出错: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/analyze_heimao', methods=['POST'])
+def analyze_heimao():
+    """
+    分析黑猫投诉内容
+
+    请求体:
+    {
+        "complaints": [
+            {"title": "投诉标题", "content": "内容...", "status": "处理中"},
+            ...
+        ],
+        "brand": "品牌名"
+    }
+
+    响应:
+    {
+        "summary": "主要投诉类型...",
+        "complaint_types": ["质量问题", "售后服务"],
+        "severity": "high|medium|low",
+        "recommendation": "建议谨慎购买"
+    }
+    """
+    try:
+        data = request.get_json() or {}
+        complaints = data.get('complaints', [])
+        brand = data.get('brand', '')
+
+        if not complaints:
+            return jsonify({"error": "complaints不能为空"}), 400
+
+        logger.info(f"分析黑猫投诉: {brand}, {len(complaints)}条")
+
+        # 构建分析提示
+        complaints_text = "\n\n".join([
+            f"投诉{i+1}:\n标题: {c.get('title', '')}\n内容: {c.get('content', '')[:300]}..."
+            for i, c in enumerate(complaints[:10])
+        ])
+
+        prompt = f"""分析以下关于"{brand}"的黑猫投诉，提取主要问题：
+
+{complaints_text}
+
+请总结：
+1. 主要投诉类型
+2. 涉及的主要问题
+3. 严重程度和频率
+4. 购买建议
+
+以简洁的JSON格式输出：
+{{
+    "summary": "整体总结...",
+    "complaint_types": ["类型1", "类型2"],
+    "severity": "high|medium|low",
+    "recommendation": "建议..."
+}}"""
+
+        response = llm.chat(
+            [{"role": "user", "content": prompt}],
+            temperature=0.7
+        )
+
+        content = response.content.strip()
+
+        # 提取JSON
+        if "```json" in content:
+            content = content.split("```json")[1].split("```")[0].strip()
+        elif "```" in content:
+            content = content.split("```")[1].split("```")[0].strip()
+
+        try:
+            result = json.loads(content)
+        except json.JSONDecodeError:
+            result = {
+                "summary": content[:500],
+                "complaint_types": [],
+                "severity": "unknown",
+                "recommendation": "建议查看更多用户评价"
+            }
+
+        return jsonify(result), 200
+
+    except Exception as e:
+        logger.error(f"黑猫分析接口出错: {e}")
         return jsonify({"error": str(e)}), 500
 
 

@@ -278,7 +278,13 @@ xxx"""
 3. 如果提到"小红书"，need_xiaohongshu=true
 4. 如果提到"黑猫"或"投诉"，need_heimao=true
 5. 如果用户提到"它"、"这个商品"、"这个"等代词，结合当前商品理解
-6. 如果用户说"综上所述"、"总结"、"建议"等，结合当前商品的已有分析结果理解"""
+6. 如果用户说"综上所述"、"总结"、"建议"等，结合当前商品的已有分析结果理解
+
+示例：
+- 输入: "分析一下德芙巧克力" → intent: "analyze", brand: "德芙", product: "巧克力"
+- 输入: "对比下雀巢咖啡和星巴克咖啡" → intent: "compare", products: 两个商品对象列表
+- 输入: "卫龙辣条和麻辣王子哪个好" → intent: "compare", products: 两个商品对象列表
+- 输入: "搜索小红书 避雷" → intent: "search_xhs", product: "避雷"（结合当前商品）"""
 
         # 构建对话上下文
         messages = [{"role": "system", "content": system_prompt}]

@@ -35,6 +35,10 @@ from agent.analyzers import (
     SarcasmDetector, SentimentAnalyzer
 )
 from agent.data_service import DataService, CrawlerConfig
+from agent.gateway_client import (
+    GatewayClient, GatewayConfig, GatewayDataService,
+    GatewayError, create_gateway_client, test_gateway_connection
+)
 from agent.workflows import (
     Workflow, ProductAnalysisWorkflow,
     SingleSourceWorkflow, WorkflowFactory, WorkflowContext
@@ -51,4 +55,6 @@ __all__ = [
     "DataService", "CrawlerConfig", "Workflow",
     "ProductAnalysisWorkflow", "SingleSourceWorkflow", "WorkflowFactory",
     "WorkflowContext",
+    "GatewayClient", "GatewayConfig", "GatewayDataService",
+    "GatewayError", "create_gateway_client", "test_gateway_connection",
 ]
