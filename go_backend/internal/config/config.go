@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -53,6 +54,8 @@ type Config struct {
 }
 
 func Load() Config {
+	loadEnvFileIfPresent()
+
 	return Config{
 		GatewayAddr:           getEnv("GATEWAY_ADDR", ":8080"),
 		UpstreamBaseURL:       getEnv("UPSTREAM_BASE_URL", "http://127.0.0.1:5000"),
@@ -98,6 +101,64 @@ func Load() Config {
 		ExpectContinueTimeout: getDurationEnv("EXPECT_CONTINUE_TIMEOUT", 1*time.Second),
 		ResponseHeaderTimeout: getDurationEnv("RESPONSE_HEADER_TIMEOUT", 15*time.Second),
 	}
+}
+
+func loadEnvFileIfPresent() {
+	if strings.EqualFold(strings.TrimSpace(os.Getenv("GATEWAY_SKIP_ENV_FILE")), "true") {
+		return
+	}
+
+	customPath := strings.TrimSpace(os.Getenv("GATEWAY_CONFIG_FILE"))
+	if customPath != "" {
+		_ = loadEnvFile(customPath)
+		return
+	}
+
+	if loadEnvFile(".env") {
+		return
+	}
+	_ = loadEnvFile("gateway.env")
+}
+
+func loadEnvFile(path string) bool {
+	content, err := os.ReadFile(path)
+	if err != nil {
+		return false
+	}
+
+	lines := strings.Split(string(content), "\n")
+	for _, raw := range lines {
+		line := strings.TrimSpace(raw)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		if strings.HasPrefix(line, "export ") {
+			line = strings.TrimSpace(strings.TrimPrefix(line, "export "))
+		}
+
+		parts := strings.SplitN(line, "=", 2)
+		if len(parts) != 2 {
+			continue
+		}
+
+		key := strings.TrimSpace(parts[0])
+		value := strings.TrimSpace(parts[1])
+		if key == "" {
+			continue
+		}
+
+		if len(value) >= 2 {
+			if (value[0] == '"' && value[len(value)-1] == '"') || (value[0] == '\'' && value[len(value)-1] == '\'') {
+				value = value[1 : len(value)-1]
+			}
+		}
+
+		if os.Getenv(key) == "" {
+			_ = os.Setenv(key, value)
+		}
+	}
+
+	return true
 }
 
 func getEnv(key, defaultVal string) string {

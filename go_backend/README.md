@@ -55,10 +55,19 @@ curl -sS http://127.0.0.1:8080/api/v1/search \
 
 ```bash
 cd go_backend
-cp .env.example .env
-# 如有需要，可在 shell 中导出 .env 里的变量
 go run ./cmd/api-gateway
 ```
+
+配置加载顺序（从高到低）：
+1. 进程环境变量
+2. `.env`（当前目录存在时自动读取）
+3. `gateway.env`（当前目录存在时自动读取）
+4. 代码默认值
+
+说明：
+1. 仓库已提供可直接提交使用的 `go_backend/gateway.env`。
+2. 若需指定自定义配置文件，可设置 `GATEWAY_CONFIG_FILE=/path/to/your.env`。
+3. 若需关闭配置文件自动加载（仅用环境变量），可设置 `GATEWAY_SKIP_ENV_FILE=true`。
 
 默认行为：
 - 网关监听 `:8080`

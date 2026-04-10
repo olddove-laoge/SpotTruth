@@ -1,11 +1,15 @@
 package config
 
 import (
+	"os"
+	"path/filepath"
 	"testing"
 	"time"
 )
 
 func TestLoadDefaultValues(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "true")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
 	t.Setenv("GATEWAY_ADDR", "")
 	t.Setenv("UPSTREAM_BASE_URL", "")
 	t.Setenv("READ_HEADER_TIMEOUT", "")
@@ -168,6 +172,8 @@ func TestLoadDefaultValues(t *testing.T) {
 }
 
 func TestLoadEnvValuesAndFallback(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "true")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
 	t.Setenv("GATEWAY_ADDR", ":18080")
 	t.Setenv("UPSTREAM_BASE_URL", "http://127.0.0.1:9000")
 	t.Setenv("MAX_IN_FLIGHT", "4096")
@@ -333,6 +339,8 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 }
 
 func TestLoadBoolEnvFallback(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "true")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
 	t.Setenv("AUTH_ENABLED", "not_bool")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "bad")
 	t.Setenv("READINESS_TIMEOUT", "bad")
@@ -382,5 +390,80 @@ func TestLoadBoolEnvFallback(t *testing.T) {
 	}
 	if cfg.CBRetryAfterSec != 3 {
 		t.Fatalf("CB_RETRY_AFTER_SECONDS 非法值应回退默认 3: %d", cfg.CBRetryAfterSec)
+	}
+}
+
+func TestLoadFromGatewayEnvFile(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "false")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
+	t.Setenv("GATEWAY_ADDR", "")
+	t.Setenv("UPSTREAM_BASE_URL", "")
+	t.Setenv("AUTH_SIGNING_KEY", "")
+	t.Setenv("AUTH_ISSUER", "")
+
+	tmpDir := t.TempDir()
+	t.Chdir(tmpDir)
+
+	fileContent := "GATEWAY_ADDR=:19090\nUPSTREAM_BASE_URL=http://127.0.0.1:5999\nAUTH_SIGNING_KEY=file-sign-key\nAUTH_ISSUER=file-issuer\n"
+	if err := os.WriteFile(filepath.Join(tmpDir, "gateway.env"), []byte(fileContent), 0o644); err != nil {
+		t.Fatalf("写入 gateway.env 失败: %v", err)
+	}
+
+	cfg := Load()
+	if cfg.GatewayAddr != ":19090" {
+		t.Fatalf("gateway.env 未生效: %s", cfg.GatewayAddr)
+	}
+	if cfg.UpstreamBaseURL != "http://127.0.0.1:5999" {
+		t.Fatalf("gateway.env 未生效: %s", cfg.UpstreamBaseURL)
+	}
+	if cfg.AuthSigningKey != "file-sign-key" {
+		t.Fatalf("gateway.env 未生效: %s", cfg.AuthSigningKey)
+	}
+	if cfg.AuthIssuer != "file-issuer" {
+		t.Fatalf("gateway.env 未生效: %s", cfg.AuthIssuer)
+	}
+}
+
+func TestEnvOverridesFileValue(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "false")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
+	t.Setenv("GATEWAY_ADDR", ":28080")
+	t.Setenv("AUTH_ISSUER", "env-issuer")
+
+	tmpDir := t.TempDir()
+	t.Chdir(tmpDir)
+
+	fileContent := "GATEWAY_ADDR=:19090\nAUTH_ISSUER=file-issuer\n"
+	if err := os.WriteFile(filepath.Join(tmpDir, "gateway.env"), []byte(fileContent), 0o644); err != nil {
+		t.Fatalf("写入 gateway.env 失败: %v", err)
+	}
+
+	cfg := Load()
+	if cfg.GatewayAddr != ":28080" {
+		t.Fatalf("环境变量应优先于文件: %s", cfg.GatewayAddr)
+	}
+	if cfg.AuthIssuer != "env-issuer" {
+		t.Fatalf("环境变量应优先于文件: %s", cfg.AuthIssuer)
+	}
+}
+
+func TestLoadFromCustomConfigFile(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "false")
+	t.Setenv("GATEWAY_ADDR", "")
+	t.Setenv("UPSTREAM_BASE_URL", "")
+
+	tmpDir := t.TempDir()
+	customFile := filepath.Join(tmpDir, "my-gateway.env")
+	if err := os.WriteFile(customFile, []byte("GATEWAY_ADDR=:39090\nUPSTREAM_BASE_URL=http://127.0.0.1:7000\n"), 0o644); err != nil {
+		t.Fatalf("写入自定义配置文件失败: %v", err)
+	}
+	t.Setenv("GATEWAY_CONFIG_FILE", customFile)
+
+	cfg := Load()
+	if cfg.GatewayAddr != ":39090" {
+		t.Fatalf("自定义配置文件未生效: %s", cfg.GatewayAddr)
+	}
+	if cfg.UpstreamBaseURL != "http://127.0.0.1:7000" {
+		t.Fatalf("自定义配置文件未生效: %s", cfg.UpstreamBaseURL)
 	}
 }

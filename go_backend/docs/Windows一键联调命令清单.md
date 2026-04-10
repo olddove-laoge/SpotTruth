@@ -58,32 +58,19 @@ python agent_api.py
 
 保持该窗口不关闭。
 
-## 4. 终端 B：启动网关（鉴权开启，指向上游 5000）
+## 4. 终端 B：启动网关（默认读取配置文件）
 
 ~~~powershell
 Set-Location $GatewayDir
-$env:AUTH_ENABLED = "true"
-$env:AUTH_SIGNING_KEY = "spottruth-dev-signing-key"
-$env:AUTH_ISSUER = "spottruth-api-gateway"
-$env:AUTH_ACCESS_TTL = "30m"
+# 默认会自动读取 gateway.env（若存在 .env 则优先读取 .env）
+go run ./cmd/api-gateway
+~~~
 
-$env:AUTH_USER_ACCOUNT = "spottruth_user"
-$env:AUTH_USER_PASSWORD = "spottruth_user_123"
-$env:AUTH_USER_ID = "u-spottruth-user"
+如果你要显式指定配置文件：
 
-$env:AUTH_ADMIN_ACCOUNT = "spottruth_admin"
-$env:AUTH_ADMIN_PASSWORD = "spottruth_admin_123"
-$env:AUTH_ADMIN_ID = "u-spottruth-admin"
-
-$env:AUTH_SYSTEM_ACCOUNT = "spottruth_system"
-$env:AUTH_SYSTEM_PASSWORD = "spottruth_system_123"
-$env:AUTH_SYSTEM_ID = "s-spottruth-system"
-
-$env:UPSTREAM_BASE_URL = "http://127.0.0.1:5000"
-
-# 可选：先关熔断，做基础连通性验证
-$env:CB_ENABLED = "true"
-
+~~~powershell
+Set-Location $GatewayDir
+$env:GATEWAY_CONFIG_FILE = "$GatewayDir\gateway.env"
 go run ./cmd/api-gateway
 ~~~
 
@@ -132,15 +119,7 @@ Invoke-WebRequest -Method Get -Uri "http://127.0.0.1:8080/api/v1/search" -Header
 
 ~~~powershell
 Set-Location $GatewayDir
-$env:AUTH_ENABLED = "true"
-$env:AUTH_SIGNING_KEY = "spottruth-dev-signing-key"
-$env:AUTH_ISSUER = "spottruth-api-gateway"
-$env:AUTH_ACCESS_TTL = "30m"
-
-$env:AUTH_USER_ACCOUNT = "spottruth_user"
-$env:AUTH_USER_PASSWORD = "spottruth_user_123"
-$env:AUTH_USER_ID = "u-spottruth-user"
-
+# 默认先吃 gateway.env，再覆盖你要调试的熔断参数
 $env:UPSTREAM_BASE_URL = "http://127.0.0.1:5999"
 $env:CB_ENABLED = "true"
 $env:CB_MIN_REQUESTS = "2"
