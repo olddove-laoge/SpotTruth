@@ -27,7 +27,7 @@
 已落地（MVP）：
 1. 网关 JWT 鉴权主链路已启用，支持 `user/admin/system` 角色校验。
 2. 已新增最小登录签发接口：`POST /api/v1/auth/login`，可返回合法 Access Token。
-3. 联调链路已支持统一 Bearer 传递（`web_app` 自动登录取 token 或读取环境变量 token）。
+3. 联调链路已支持统一 Bearer 传递（调用方可自动登录取 token 或读取环境变量 token）。
 4. 错误语义已区分：
    - `401 Unauthorized`：token 缺失/非法/过期，或登录失败。
    - `403 Forbidden`：token 有效但角色不足。

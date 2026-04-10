@@ -65,7 +65,7 @@ Go 网关默认把流量转发到 127.0.0.1:5000，所以先起一个 Python 服
 
 ~~~bash
 cd /Users/yllmis/go_projects/SpotTruth
-python web_app/app.py
+python new_idea/agent_api.py
 ~~~
 
 如果你有自己的 Flask 服务，也可以替换，只要保证监听地址和网关配置一致。

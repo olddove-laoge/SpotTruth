@@ -123,26 +123,32 @@ curl -sS http://127.0.0.1:8080/metrics
 curl -sS http://127.0.0.1:8080/metrics/json
 ```
 
-4. 固定联调回归链路（gateway health -> python tool -> integration test）
+4. 固定联调回归链路（agent_api -> gateway -> 受保护业务接口）
 
 ```bash
-# 1) gateway health
-curl -sS "http://127.0.0.1:5001/api/gateway/health?gateway_url=http://127.0.0.1:8080"
+# 1) 上游 agent_api 健康检查
+curl -sS "http://127.0.0.1:5000/healthz"
 
-# 2) python tool
-curl -sS -X POST "http://127.0.0.1:5001/api/python/tool-test" \
+# 2) 网关健康与就绪检查
+curl -sS "http://127.0.0.1:8080/healthz"
+curl -sS "http://127.0.0.1:8080/readyz"
+
+# 3) 登录获取 access_token
+TOKEN=$(curl -sS -X POST "http://127.0.0.1:8080/api/v1/auth/login" \
 	-H "Content-Type: application/json" \
+	-d '{"account":"spottruth_user","password":"spottruth_user_123","login_type":"password"}' | jq -r '.data.access_token')
+
+# 4) 通过网关调用上游分类接口
+curl -sS -X POST "http://127.0.0.1:8080/api/classify" \
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer ${TOKEN}" \
+	-H "X-Request-ID: demo-gateway-classify-1" \
 	-d '{"product_name":"苹果手机"}'
-
-# 3) integration test
-curl -sS -X POST "http://127.0.0.1:5001/api/integration/test" \
-	-H "Content-Type: application/json" \
-	-d '{"gateway_url":"http://127.0.0.1:8080","product_name":"苹果手机"}'
 ```
 
 说明：
-- `5001` 为 `web_app` 示例端口，请按你本地实际端口替换。
-- 第 4 步要求 `web_app` 服务已启动。
+ - 若系统未安装 `jq`，可手动从登录响应中复制 `access_token`。
+ - 前端重写期间，建议统一以 `agent_api + gateway` 直连方式做联调。
 
 5. 熔断故障注入回归（第四阶段）
 
