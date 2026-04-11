@@ -60,7 +60,7 @@ pip install -r requirements.txt
 
 2. 运行平台：
 ```bash
-python web_app/app.py
+python new_idea/agent_api.py
 ```
 
 3. 访问界面：
@@ -68,7 +68,7 @@ python web_app/app.py
 http://localhost:5000
 ```
 
-4. 输入淘宝商品链接，点击"开始分析"
+4. 前端正在重写，当前可直接通过 API 进行联调
 
 ## 注意事项
 

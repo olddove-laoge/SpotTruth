@@ -1,11 +1,15 @@
 package config
 
 import (
+	"os"
+	"path/filepath"
 	"testing"
 	"time"
 )
 
 func TestLoadDefaultValues(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "true")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
 	t.Setenv("GATEWAY_ADDR", "")
 	t.Setenv("UPSTREAM_BASE_URL", "")
 	t.Setenv("READ_HEADER_TIMEOUT", "")
@@ -16,6 +20,15 @@ func TestLoadDefaultValues(t *testing.T) {
 	t.Setenv("AUTH_SIGNING_KEY", "")
 	t.Setenv("AUTH_ISSUER", "")
 	t.Setenv("AUTH_ACCESS_TTL", "")
+	t.Setenv("AUTH_USER_ACCOUNT", "")
+	t.Setenv("AUTH_USER_PASSWORD", "")
+	t.Setenv("AUTH_USER_ID", "")
+	t.Setenv("AUTH_ADMIN_ACCOUNT", "")
+	t.Setenv("AUTH_ADMIN_PASSWORD", "")
+	t.Setenv("AUTH_ADMIN_ID", "")
+	t.Setenv("AUTH_SYSTEM_ACCOUNT", "")
+	t.Setenv("AUTH_SYSTEM_PASSWORD", "")
+	t.Setenv("AUTH_SYSTEM_ID", "")
 	t.Setenv("UPSTREAM_HEALTH_PATH", "")
 	t.Setenv("READINESS_TIMEOUT", "")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "")
@@ -81,6 +94,33 @@ func TestLoadDefaultValues(t *testing.T) {
 	if cfg.AuthAccessTTL != 30*time.Minute {
 		t.Fatalf("AuthAccessTTL 默认值错误: %v", cfg.AuthAccessTTL)
 	}
+	if cfg.AuthUserAccount != "spottruth_user" {
+		t.Fatalf("AuthUserAccount 默认值错误: %s", cfg.AuthUserAccount)
+	}
+	if cfg.AuthUserPassword != "spottruth_user_123" {
+		t.Fatalf("AuthUserPassword 默认值错误: %s", cfg.AuthUserPassword)
+	}
+	if cfg.AuthUserID != "u-spottruth-user" {
+		t.Fatalf("AuthUserID 默认值错误: %s", cfg.AuthUserID)
+	}
+	if cfg.AuthAdminAccount != "spottruth_admin" {
+		t.Fatalf("AuthAdminAccount 默认值错误: %s", cfg.AuthAdminAccount)
+	}
+	if cfg.AuthAdminPassword != "spottruth_admin_123" {
+		t.Fatalf("AuthAdminPassword 默认值错误: %s", cfg.AuthAdminPassword)
+	}
+	if cfg.AuthAdminID != "u-spottruth-admin" {
+		t.Fatalf("AuthAdminID 默认值错误: %s", cfg.AuthAdminID)
+	}
+	if cfg.AuthSystemAccount != "spottruth_system" {
+		t.Fatalf("AuthSystemAccount 默认值错误: %s", cfg.AuthSystemAccount)
+	}
+	if cfg.AuthSystemPassword != "spottruth_system_123" {
+		t.Fatalf("AuthSystemPassword 默认值错误: %s", cfg.AuthSystemPassword)
+	}
+	if cfg.AuthSystemID != "s-spottruth-system" {
+		t.Fatalf("AuthSystemID 默认值错误: %s", cfg.AuthSystemID)
+	}
 	if cfg.UpstreamHealthPath != "/healthz" {
 		t.Fatalf("UpstreamHealthPath 默认值错误: %s", cfg.UpstreamHealthPath)
 	}
@@ -132,6 +172,8 @@ func TestLoadDefaultValues(t *testing.T) {
 }
 
 func TestLoadEnvValuesAndFallback(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "true")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
 	t.Setenv("GATEWAY_ADDR", ":18080")
 	t.Setenv("UPSTREAM_BASE_URL", "http://127.0.0.1:9000")
 	t.Setenv("MAX_IN_FLIGHT", "4096")
@@ -144,6 +186,15 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	t.Setenv("AUTH_SIGNING_KEY", "my-sign-key")
 	t.Setenv("AUTH_ISSUER", "spottruth-test")
 	t.Setenv("AUTH_ACCESS_TTL", "45m")
+	t.Setenv("AUTH_USER_ACCOUNT", "demo-user")
+	t.Setenv("AUTH_USER_PASSWORD", "demo-user-pwd")
+	t.Setenv("AUTH_USER_ID", "u-demo-user")
+	t.Setenv("AUTH_ADMIN_ACCOUNT", "demo-admin")
+	t.Setenv("AUTH_ADMIN_PASSWORD", "demo-admin-pwd")
+	t.Setenv("AUTH_ADMIN_ID", "u-demo-admin")
+	t.Setenv("AUTH_SYSTEM_ACCOUNT", "demo-system")
+	t.Setenv("AUTH_SYSTEM_PASSWORD", "demo-system-pwd")
+	t.Setenv("AUTH_SYSTEM_ID", "s-demo-system")
 	t.Setenv("UPSTREAM_HEALTH_PATH", "/actuator/health")
 	t.Setenv("READINESS_TIMEOUT", "1500ms")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "3")
@@ -207,6 +258,33 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 	if cfg.AuthAccessTTL != 45*time.Minute {
 		t.Fatalf("AuthAccessTTL 读取环境变量失败: %v", cfg.AuthAccessTTL)
 	}
+	if cfg.AuthUserAccount != "demo-user" {
+		t.Fatalf("AuthUserAccount 读取环境变量失败: %s", cfg.AuthUserAccount)
+	}
+	if cfg.AuthUserPassword != "demo-user-pwd" {
+		t.Fatalf("AuthUserPassword 读取环境变量失败: %s", cfg.AuthUserPassword)
+	}
+	if cfg.AuthUserID != "u-demo-user" {
+		t.Fatalf("AuthUserID 读取环境变量失败: %s", cfg.AuthUserID)
+	}
+	if cfg.AuthAdminAccount != "demo-admin" {
+		t.Fatalf("AuthAdminAccount 读取环境变量失败: %s", cfg.AuthAdminAccount)
+	}
+	if cfg.AuthAdminPassword != "demo-admin-pwd" {
+		t.Fatalf("AuthAdminPassword 读取环境变量失败: %s", cfg.AuthAdminPassword)
+	}
+	if cfg.AuthAdminID != "u-demo-admin" {
+		t.Fatalf("AuthAdminID 读取环境变量失败: %s", cfg.AuthAdminID)
+	}
+	if cfg.AuthSystemAccount != "demo-system" {
+		t.Fatalf("AuthSystemAccount 读取环境变量失败: %s", cfg.AuthSystemAccount)
+	}
+	if cfg.AuthSystemPassword != "demo-system-pwd" {
+		t.Fatalf("AuthSystemPassword 读取环境变量失败: %s", cfg.AuthSystemPassword)
+	}
+	if cfg.AuthSystemID != "s-demo-system" {
+		t.Fatalf("AuthSystemID 读取环境变量失败: %s", cfg.AuthSystemID)
+	}
 	if cfg.UpstreamHealthPath != "/actuator/health" {
 		t.Fatalf("UpstreamHealthPath 读取环境变量失败: %s", cfg.UpstreamHealthPath)
 	}
@@ -261,6 +339,8 @@ func TestLoadEnvValuesAndFallback(t *testing.T) {
 }
 
 func TestLoadBoolEnvFallback(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "true")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
 	t.Setenv("AUTH_ENABLED", "not_bool")
 	t.Setenv("LIMITER_RETRY_AFTER_SECONDS", "bad")
 	t.Setenv("READINESS_TIMEOUT", "bad")
@@ -310,5 +390,80 @@ func TestLoadBoolEnvFallback(t *testing.T) {
 	}
 	if cfg.CBRetryAfterSec != 3 {
 		t.Fatalf("CB_RETRY_AFTER_SECONDS 非法值应回退默认 3: %d", cfg.CBRetryAfterSec)
+	}
+}
+
+func TestLoadFromGatewayEnvFile(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "false")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
+	t.Setenv("GATEWAY_ADDR", "")
+	t.Setenv("UPSTREAM_BASE_URL", "")
+	t.Setenv("AUTH_SIGNING_KEY", "")
+	t.Setenv("AUTH_ISSUER", "")
+
+	tmpDir := t.TempDir()
+	t.Chdir(tmpDir)
+
+	fileContent := "GATEWAY_ADDR=:19090\nUPSTREAM_BASE_URL=http://127.0.0.1:5999\nAUTH_SIGNING_KEY=file-sign-key\nAUTH_ISSUER=file-issuer\n"
+	if err := os.WriteFile(filepath.Join(tmpDir, "gateway.env"), []byte(fileContent), 0o644); err != nil {
+		t.Fatalf("写入 gateway.env 失败: %v", err)
+	}
+
+	cfg := Load()
+	if cfg.GatewayAddr != ":19090" {
+		t.Fatalf("gateway.env 未生效: %s", cfg.GatewayAddr)
+	}
+	if cfg.UpstreamBaseURL != "http://127.0.0.1:5999" {
+		t.Fatalf("gateway.env 未生效: %s", cfg.UpstreamBaseURL)
+	}
+	if cfg.AuthSigningKey != "file-sign-key" {
+		t.Fatalf("gateway.env 未生效: %s", cfg.AuthSigningKey)
+	}
+	if cfg.AuthIssuer != "file-issuer" {
+		t.Fatalf("gateway.env 未生效: %s", cfg.AuthIssuer)
+	}
+}
+
+func TestEnvOverridesFileValue(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "false")
+	t.Setenv("GATEWAY_CONFIG_FILE", "")
+	t.Setenv("GATEWAY_ADDR", ":28080")
+	t.Setenv("AUTH_ISSUER", "env-issuer")
+
+	tmpDir := t.TempDir()
+	t.Chdir(tmpDir)
+
+	fileContent := "GATEWAY_ADDR=:19090\nAUTH_ISSUER=file-issuer\n"
+	if err := os.WriteFile(filepath.Join(tmpDir, "gateway.env"), []byte(fileContent), 0o644); err != nil {
+		t.Fatalf("写入 gateway.env 失败: %v", err)
+	}
+
+	cfg := Load()
+	if cfg.GatewayAddr != ":28080" {
+		t.Fatalf("环境变量应优先于文件: %s", cfg.GatewayAddr)
+	}
+	if cfg.AuthIssuer != "env-issuer" {
+		t.Fatalf("环境变量应优先于文件: %s", cfg.AuthIssuer)
+	}
+}
+
+func TestLoadFromCustomConfigFile(t *testing.T) {
+	t.Setenv("GATEWAY_SKIP_ENV_FILE", "false")
+	t.Setenv("GATEWAY_ADDR", "")
+	t.Setenv("UPSTREAM_BASE_URL", "")
+
+	tmpDir := t.TempDir()
+	customFile := filepath.Join(tmpDir, "my-gateway.env")
+	if err := os.WriteFile(customFile, []byte("GATEWAY_ADDR=:39090\nUPSTREAM_BASE_URL=http://127.0.0.1:7000\n"), 0o644); err != nil {
+		t.Fatalf("写入自定义配置文件失败: %v", err)
+	}
+	t.Setenv("GATEWAY_CONFIG_FILE", customFile)
+
+	cfg := Load()
+	if cfg.GatewayAddr != ":39090" {
+		t.Fatalf("自定义配置文件未生效: %s", cfg.GatewayAddr)
+	}
+	if cfg.UpstreamBaseURL != "http://127.0.0.1:7000" {
+		t.Fatalf("自定义配置文件未生效: %s", cfg.UpstreamBaseURL)
 	}
 }

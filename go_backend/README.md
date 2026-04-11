@@ -29,14 +29,45 @@
 - `/api/v1/auth/login`
 - `/api/v1/auth/refresh`
 
+### 最小登录签发（MVP）
+1. 获取 Access Token（默认静态账号）
+
+```bash
+curl -sS -X POST http://127.0.0.1:8080/api/v1/auth/login \
+	-H "Content-Type: application/json" \
+	-d '{"account":"spottruth_user","password":"spottruth_user_123","login_type":"password"}'
+```
+
+2. 受保护接口携带 Bearer Token
+
+```bash
+curl -sS http://127.0.0.1:8080/api/v1/search \
+	-H "Authorization: Bearer <access_token>" \
+	-H "X-Request-ID: demo-auth-1"
+```
+
+说明：
+- `401` 表示 token 缺失/非法/过期。
+- `403` 表示 token 有效但角色权限不足。
+- 若要修改默认账号，请在 `.env` 设置 `AUTH_USER_*`、`AUTH_ADMIN_*`、`AUTH_SYSTEM_*`。
+
 ### 快速启动
 
 ```bash
 cd go_backend
-cp .env.example .env
-# 如有需要，可在 shell 中导出 .env 里的变量
 go run ./cmd/api-gateway
 ```
+
+配置加载顺序（从高到低）：
+1. 进程环境变量
+2. `.env`（当前目录存在时自动读取）
+3. `gateway.env`（当前目录存在时自动读取）
+4. 代码默认值
+
+说明：
+1. 仓库已提供可直接提交使用的 `go_backend/gateway.env`。
+2. 若需指定自定义配置文件，可设置 `GATEWAY_CONFIG_FILE=/path/to/your.env`。
+3. 若需关闭配置文件自动加载（仅用环境变量），可设置 `GATEWAY_SKIP_ENV_FILE=true`。
 
 默认行为：
 - 网关监听 `:8080`
@@ -49,12 +80,21 @@ go run ./cmd/api-gateway
 
 ### 网关方案表与后续计划
 - 最新版本：`go_backend/docs/设计与可扩展性说明.md` 第八节（更新于 2026-04-09）
-- 当前重点：第五阶段网关侧已完成，进入第六阶段（Agent 穿网关链路收口）
+- 当前重点：第六阶段已完成（Agent 联调主链路已穿网关），网关层建设已收口
 - 方案2实施与验收：`go_backend/docs/第四阶段实施步骤.md`
 - 方案2回归清单：`go_backend/docs/第四阶段回归清单.md`
 - 方案5实施进展：`go_backend/docs/第五阶段实施步骤.md`
+- 方案6实施进展：`go_backend/docs/第六阶段实施步骤.md`
 - 可视化演示指南（录视频）：`go_backend/docs/可视化面板演示指南.md`
+- 网关层设计总览：`go_backend/docs/网关层设计总览.md`
+- Windows 一键联调命令清单（含登录 token 与带鉴权熔断）：`go_backend/docs/Windows一键联调命令清单.md`
 - 小白快速联调指引（仅 Agent + Go 网关）：`go_backend/Agent联调小白指南.md`
+
+### 网关层作用总结
+- 统一入口：把鉴权、限流、熔断、可观测能力统一下沉到网关，业务服务专注领域逻辑。
+- 稳定性兜底：并发限流 + 分桶限流 + 熔断降级形成多层防护，避免上游抖动扩散。
+- 可追踪联调：每个请求带 `X-Request-ID`，配合日志与 `/metrics` 可快速定位链路问题。
+- 演示友好：支持 Prometheus + Grafana，本地即可完成录屏级可视化展示。
 
 ### 测试与联调
 
@@ -83,26 +123,32 @@ curl -sS http://127.0.0.1:8080/metrics
 curl -sS http://127.0.0.1:8080/metrics/json
 ```
 
-4. 固定联调回归链路（gateway health -> python tool -> integration test）
+4. 固定联调回归链路（agent_api -> gateway -> 受保护业务接口）
 
 ```bash
-# 1) gateway health
-curl -sS "http://127.0.0.1:5001/api/gateway/health?gateway_url=http://127.0.0.1:8080"
+# 1) 上游 agent_api 健康检查
+curl -sS "http://127.0.0.1:5000/healthz"
 
-# 2) python tool
-curl -sS -X POST "http://127.0.0.1:5001/api/python/tool-test" \
+# 2) 网关健康与就绪检查
+curl -sS "http://127.0.0.1:8080/healthz"
+curl -sS "http://127.0.0.1:8080/readyz"
+
+# 3) 登录获取 access_token
+TOKEN=$(curl -sS -X POST "http://127.0.0.1:8080/api/v1/auth/login" \
 	-H "Content-Type: application/json" \
+	-d '{"account":"spottruth_user","password":"spottruth_user_123","login_type":"password"}' | jq -r '.data.access_token')
+
+# 4) 通过网关调用上游分类接口
+curl -sS -X POST "http://127.0.0.1:8080/api/classify" \
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer ${TOKEN}" \
+	-H "X-Request-ID: demo-gateway-classify-1" \
 	-d '{"product_name":"苹果手机"}'
-
-# 3) integration test
-curl -sS -X POST "http://127.0.0.1:5001/api/integration/test" \
-	-H "Content-Type: application/json" \
-	-d '{"gateway_url":"http://127.0.0.1:8080","product_name":"苹果手机"}'
 ```
 
 说明：
-- `5001` 为 `web_app` 示例端口，请按你本地实际端口替换。
-- 第 4 步要求 `web_app` 服务已启动。
+ - 若系统未安装 `jq`，可手动从登录响应中复制 `access_token`。
+ - 前端重写期间，建议统一以 `agent_api + gateway` 直连方式做联调。
 
 5. 熔断故障注入回归（第四阶段）
 

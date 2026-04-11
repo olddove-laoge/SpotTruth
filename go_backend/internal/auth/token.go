@@ -38,6 +38,13 @@ type TokenManager struct {
 	now        func() time.Time
 }
 
+func (m *TokenManager) AccessTTLSeconds() int64 {
+	if m == nil {
+		return 0
+	}
+	return int64(m.accessTTL / time.Second)
+}
+
 func NewTokenManager(signingKey, issuer string, accessTTL time.Duration) (*TokenManager, error) {
 	if signingKey == "" || issuer == "" || accessTTL <= 0 {
 		return nil, ErrInvalidSigningConfig

@@ -1012,7 +1012,7 @@ def get_system_prompt(self) -> str:
 
 ---
 
-## 十八、联调控制台重构 (2026-03-13)
+## 十八、联调控制台重构 (2026-03-13，已下线)
 
 ### 18.1 目标
 
@@ -1022,26 +1022,25 @@ def get_system_prompt(self) -> str:
 
 ### 18.2 改动内容
 
-1. `web_app/app.py`
+1. 旧版 Flask 联调入口（已删除）
    - 新增 `GET /api/gateway/health`：检查 Go 网关 `/healthz`
    - 新增 `POST /api/python/tool-test`：测试 Python 工具（品类分类）
    - 新增 `POST /api/integration/test`：串联执行网关检测 + Python 工具调用
    - 新增轻量品类分类函数与网关地址标准化函数
 
-2. `web_app/templates/index.html`
+2. 旧版联调控制台页面（已删除）
    - 采用 Vue 3（CDN 免构建）重构首页为联调控制台
    - 页面包含四个区块：网关检测、Python工具测试、联合链路测试、原始分析入口
    - 增加结构化结果展示与状态提示
 
-3. `web_app/test_app_api.py`
+3. 旧版联调接口测试（已删除）
    - 新增 Flask API 单元测试（4个用例）
    - 覆盖成功/失败路径，包含网关调用 Mock
 
 ### 18.3 结果
 
-- 前端可一键测试 Go + Python 联调链路
-- 后端具备可复用联调 API
-- 旧业务入口 `/analyze` 保持兼容
+- 该阶段产物用于历史联调，现已从主链路下线。
+- 当前联调入口以 `new_idea/agent_api.py + go_backend/api-gateway` 为准。
 
 ---
 

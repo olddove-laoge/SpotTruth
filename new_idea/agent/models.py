@@ -141,9 +141,26 @@ class AnalysisResult:
     pros: List[str] = field(default_factory=list)
     cons: List[str] = field(default_factory=list)
 
+    # 平台分析记录（用于对比功能）
+    analyzed_platforms: List[str] = field(default_factory=list)  # ["taobao", "xiaohongshu", "heimao"]
+    has_taobao: bool = False
+    has_xiaohongshu: bool = False
+    has_heimao: bool = False
+
     # 元数据
     created_at: str = field(default_factory=lambda: datetime.now().isoformat())
     updated_at: str = field(default_factory=lambda: datetime.now().isoformat())
+
+    def get_platforms_summary(self) -> str:
+        """获取已分析平台的摘要"""
+        platforms = []
+        if self.has_taobao:
+            platforms.append(f"淘宝({len(self.taobao_comments)}条)")
+        if self.has_xiaohongshu:
+            platforms.append(f"小红书({len(self.xiaohongshu_notes)}条)")
+        if self.has_heimao:
+            platforms.append(f"黑猫({len(self.heimao_complaints)}条)")
+        return " + ".join(platforms) if platforms else "无数据"
 
     def to_dict(self) -> Dict:
         return {
@@ -162,6 +179,10 @@ class AnalysisResult:
             "key_issues": self.key_issues,
             "pros": self.pros,
             "cons": self.cons,
+            "analyzed_platforms": self.analyzed_platforms,
+            "has_taobao": self.has_taobao,
+            "has_xiaohongshu": self.has_xiaohongshu,
+            "has_heimao": self.has_heimao,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }
@@ -202,3 +223,23 @@ class Session:
         """保存分析结果到历史"""
         self.analysis_history.append(analysis)
         self.current_analysis = analysis
+
+    def get_last_analyzed_platforms(self) -> List[str]:
+        """获取上次分析的平台列表"""
+        if self.current_analysis:
+            return self.current_analysis.analyzed_platforms
+        return []
+
+    def get_current_product_info(self) -> Optional[Dict]:
+        """获取当前商品信息"""
+        if not self.current_analysis:
+            return None
+        return {
+            "product_name": self.current_analysis.product_name,
+            "brand": self.current_analysis.brand,
+            "category": self.current_analysis.category,
+            "platforms": self.current_analysis.analyzed_platforms,
+            "has_taobao": self.current_analysis.has_taobao,
+            "has_xiaohongshu": self.current_analysis.has_xiaohongshu,
+            "has_heimao": self.current_analysis.has_heimao
+        }

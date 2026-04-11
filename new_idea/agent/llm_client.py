@@ -243,15 +243,26 @@ xxx"""
             logger.error(f"生成建议失败: {e}")
             return f"生成建议时出错: {e}"
 
-    def parse_intent(self, user_input: str, history: List[Dict[str, str]], current_product: str = "") -> Dict[str, Any]:
+    def parse_intent(self, user_input: str, history: List[Dict[str, str]], current_product: str = "", analyzed_platforms: List[str] = None) -> Dict[str, Any]:
         """解析用户意图"""
 
-        # 构建系统提示词，包含当前商品信息
+        analyzed_platforms = analyzed_platforms or []
+
+        # 构建上下文信息
         current_info = f"当前正在分析的商品: {current_product}\n" if current_product else "暂无正在分析的商品\n"
+        platforms_info = f"已分析的平台: {', '.join(analyzed_platforms) if analyzed_platforms else '无'}\n"
+        remaining = []
+        if 'taobao' not in analyzed_platforms:
+            remaining.append('淘宝')
+        if 'xiaohongshu' not in analyzed_platforms:
+            remaining.append('小红书')
+        if 'heimao' not in analyzed_platforms:
+            remaining.append('黑猫投诉')
+        remaining_info = f"未分析的平台: {', '.join(remaining) if remaining else '无'}\n"
 
         system_prompt = f"""你是一个意图识别助手。请分析用户的输入，识别其意图。
 
-{current_info}
+{current_info}{platforms_info}{remaining_info}
 可能的意图：
 1. analyze - 分析某个商品（需要品牌和商品类型）
 2. compare - 对比多个商品
@@ -266,19 +277,29 @@ xxx"""
     "brand": "品牌名（如用户未提供则为空）",
     "product": "商品类型（如用户未提供则为空）",
     "products": [{{"brand": "", "product": ""}}], // 对比时使用
-    "need_xiaohongshu": true/false,
-    "need_heimao": true/false,
-    "clarification_needed": true/false,  // 是否需要用户澄清
+    "need_taobao": true/false,      // 是否需要分析淘宝
+    "need_xiaohongshu": true/false, // 是否需要分析小红书
+    "need_heimao": true/false,      // 是否需要分析黑猫投诉
+    "clarification_needed": true/false,
     "clarification_question": "如果需要澄清，问用户什么"
 }}
 
 规则：
 1. 如果用户没说品牌名且没有当前商品，必须设置clarification_needed=true
 2. 不要猜测品牌名，不确定就问
-3. 如果提到"小红书"，need_xiaohongshu=true
-4. 如果提到"黑猫"或"投诉"，need_heimao=true
-5. 如果用户提到"它"、"这个商品"、"这个"等代词，结合当前商品理解
-6. 如果用户说"综上所述"、"总结"、"建议"等，结合当前商品的已有分析结果理解"""
+3. 根据上下文判断用户想分析哪些平台，不要依赖关键词匹配
+4. 如果用户提到"它"、"这个商品"、"这个"等代词，结合当前商品理解
+5. 如果用户说"那xx呢"、"xx呢"（xx是未分析平台），结合已分析平台理解为继续对比
+6. 如果用户未指定平台，且已有已分析平台，询问用户要对比哪个平台
+
+示例：
+- 输入: "分析一下德芙巧克力" → intent: "analyze", brand: "德芙", product: "巧克力", need_taobao: true
+- 输入: "对比下雀巢咖啡和星巴克咖啡" → intent: "compare", products: 两个商品, need_taobao: true, need_xiaohongshu: true, need_heimao: true
+- 输入: "卫龙辣条和麻辣王子哪个好" → intent: "compare", products: 两个商品, need_taobao: true, need_xiaohongshu: true, need_heimao: true
+- 输入: "搜索小红书 避雷" → intent: "search_xhs", product: "避雷"
+- 输入: "分析雀巢咖啡在小红书的风评" → intent: "analyze", brand: "雀巢", product: "咖啡", need_taobao: false, need_xiaohongshu: true, need_heimao: false
+- 输入: "那淘宝呢"（已分析小红书）→ intent: "compare", products: [当前商品], need_taobao: true, need_xiaohongshu: false, need_heimao: false
+- 输入: "黑猫投诉怎么样"（已分析小红书）→ intent: "compare", products: [当前商品], need_taobao: false, need_xiaohongshu: false, need_heimao: true"""
 
         # 构建对话上下文
         messages = [{"role": "system", "content": system_prompt}]
@@ -313,3 +334,81 @@ xxx"""
                 "clarification_needed": True,
                 "clarification_question": "请告诉我您想分析什么商品？（例如：德芙 巧克力）"
             }
+
+    def generate_comparison_conclusion(
+        self,
+        product_a_name: str,
+        product_b_name: str,
+        stats_a: Dict,
+        stats_b: Dict,
+        summary_a: str,
+        summary_b: str,
+        advice_a: str,
+        advice_b: str,
+        heimao_analysis_a: Optional[Dict] = None,
+        heimao_analysis_b: Optional[Dict] = None,
+        xhs_analysis_a: Optional[Dict] = None,
+        xhs_analysis_b: Optional[Dict] = None,
+        has_taobao_a: bool = False,
+        has_taobao_b: bool = False
+    ) -> str:
+        """生成对比结论 - 由LLM根据数据灵活判断
+
+        重要：基于投诉内容、问题类型、风险等级做判断，而非数量多少。
+        关注：食品安全 > 商品质量 > 服务态度
+        """
+        system_prompt = """你是一位专业的商品口碑分析专家。请根据两款商品的对比数据，生成客观的对比结论和购买建议。
+
+重要原则：
+1. 基于投诉/评论的"内容性质"做判断，而非数量多少
+2. 风险优先级：食品安全问题 > 商品质量问题 > 服务态度问题
+3. 给出明确的购买建议，不要模棱两可
+4. 如果是食品/母婴类商品，食品安全问题一票否决
+5. 注意区分"未爬取数据"和"已爬取但无数据"的情况
+
+输出格式：
+## 对比结论
+1. xxx（具体差异点，如"XX存在食品安全投诉，YY仅涉及服务态度"）
+2. xxx
+...
+
+## 购买建议
+[明确建议]：选择XX
+[理由]：xxx
+[风险提示]：xxx（如适用）"""
+
+        # 构建淘宝数据描述
+        def build_taobao_desc(has_data: bool, stats: Dict, summary: str, advice: str) -> str:
+            if not has_data:
+                return "未爬取淘宝数据"
+            total = stats.get('total', 0)
+            if total == 0:
+                return "已爬取淘宝，但未找到该商品或该商品无评论"
+            return f"好评率{stats.get('positive_rate', 0):.0%}，总评论{total}条，疑似虚假好评{stats.get('sarcasm_count', 0)}条\n分析：{summary[:200]}...\n建议：{advice[:150]}..."
+
+        # 构建数据摘要
+        data_text = f"""商品A：{product_a_name}
+淘宝：{build_taobao_desc(has_taobao_a, stats_a, summary_a, advice_a)}
+黑猫投诉：{heimao_analysis_a.get('summary', '无')[:200] if heimao_analysis_a else '无数据'}
+投诉类型：{', '.join(heimao_analysis_a.get('complaint_types', [])) if heimao_analysis_a else '无'}
+风险等级：{heimao_analysis_a.get('severity', 'unknown') if heimao_analysis_a else 'unknown'}
+小红书：{xhs_analysis_a.get('summary', '无')[:200] if xhs_analysis_a else '无数据'}
+
+商品B：{product_b_name}
+淘宝：{build_taobao_desc(has_taobao_b, stats_b, summary_b, advice_b)}
+黑猫投诉：{heimao_analysis_b.get('summary', '无')[:200] if heimao_analysis_b else '无数据'}
+投诉类型：{', '.join(heimao_analysis_b.get('complaint_types', [])) if heimao_analysis_b else '无'}
+风险等级：{heimao_analysis_b.get('severity', 'unknown') if heimao_analysis_b else 'unknown'}
+小红书：{xhs_analysis_b.get('summary', '无')[:200] if xhs_analysis_b else '无数据'}
+
+请生成对比结论和购买建议："""
+
+        try:
+            response = self.chat([
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": data_text}
+            ], temperature=0.7)
+            return response.content
+        except Exception as e:
+            logger.error(f"生成对比结论失败: {e}")
+            return f"生成对比结论时出错: {e}"

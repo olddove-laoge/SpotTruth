@@ -27,7 +27,7 @@ from agent.models import (
 )
 from agent.infrastructure import (
     logger, events, ToolResult, ToolError,
-    with_retry, timed_tool
+    with_retry, with_retry_advanced, is_retryable_error, timed_tool
 )
 from agent.llm_client import LLMClient, KimiClient
 from agent.analyzers import (
@@ -35,9 +35,20 @@ from agent.analyzers import (
     SarcasmDetector, SentimentAnalyzer
 )
 from agent.data_service import DataService, CrawlerConfig
+from agent.gateway_client import (
+    GatewayClient, GatewayConfig, GatewayDataService,
+    GatewayError, create_gateway_client, test_gateway_connection
+)
 from agent.workflows import (
     Workflow, ProductAnalysisWorkflow,
     SingleSourceWorkflow, WorkflowFactory, WorkflowContext
+)
+from agent.session_manager import (
+    SessionManager, ProductCache, SessionMetadata,
+    prompt_select_session
+)
+from agent.intent_validator import (
+    IntentValidator, validate_and_correct, ValidationResult
 )
 
 __all__ = [
@@ -45,10 +56,15 @@ __all__ = [
     "AnalysisResult", "Comment", "ProductInfo",
     "SentimentResult", "SentimentType", "AnalysisStatus",
     "logger", "events", "ToolResult",
-    "ToolError", "with_retry", "timed_tool",
+    "ToolError", "with_retry", "with_retry_advanced", "is_retryable_error", "timed_tool",
     "LLMClient", "KimiClient", "UnifiedAnalyzer",
     "CategoryClassifier", "SarcasmDetector", "SentimentAnalyzer",
     "DataService", "CrawlerConfig", "Workflow",
     "ProductAnalysisWorkflow", "SingleSourceWorkflow", "WorkflowFactory",
     "WorkflowContext",
+    "GatewayClient", "GatewayConfig", "GatewayDataService",
+    "GatewayError", "create_gateway_client", "test_gateway_connection",
+    "SessionManager", "ProductCache", "SessionMetadata",
+    "prompt_select_session",
+    "IntentValidator", "validate_and_correct", "ValidationResult",
 ]

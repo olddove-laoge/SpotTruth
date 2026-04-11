@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -17,6 +18,15 @@ type Config struct {
 	AuthSigningKey        string
 	AuthIssuer            string
 	AuthAccessTTL         time.Duration
+	AuthUserAccount       string
+	AuthUserPassword      string
+	AuthUserID            string
+	AuthAdminAccount      string
+	AuthAdminPassword     string
+	AuthAdminID           string
+	AuthSystemAccount     string
+	AuthSystemPassword    string
+	AuthSystemID          string
 	UpstreamHealthPath    string
 	ReadinessTimeout      time.Duration
 	LimiterRetryAfterSec  int
@@ -44,6 +54,8 @@ type Config struct {
 }
 
 func Load() Config {
+	loadEnvFileIfPresent()
+
 	return Config{
 		GatewayAddr:           getEnv("GATEWAY_ADDR", ":8080"),
 		UpstreamBaseURL:       getEnv("UPSTREAM_BASE_URL", "http://127.0.0.1:5000"),
@@ -55,6 +67,15 @@ func Load() Config {
 		AuthSigningKey:        getEnv("AUTH_SIGNING_KEY", "spottruth-dev-signing-key"),
 		AuthIssuer:            getEnv("AUTH_ISSUER", "spottruth-api-gateway"),
 		AuthAccessTTL:         getDurationEnv("AUTH_ACCESS_TTL", 30*time.Minute),
+		AuthUserAccount:       getEnv("AUTH_USER_ACCOUNT", "spottruth_user"),
+		AuthUserPassword:      getEnv("AUTH_USER_PASSWORD", "spottruth_user_123"),
+		AuthUserID:            getEnv("AUTH_USER_ID", "u-spottruth-user"),
+		AuthAdminAccount:      getEnv("AUTH_ADMIN_ACCOUNT", "spottruth_admin"),
+		AuthAdminPassword:     getEnv("AUTH_ADMIN_PASSWORD", "spottruth_admin_123"),
+		AuthAdminID:           getEnv("AUTH_ADMIN_ID", "u-spottruth-admin"),
+		AuthSystemAccount:     getEnv("AUTH_SYSTEM_ACCOUNT", "spottruth_system"),
+		AuthSystemPassword:    getEnv("AUTH_SYSTEM_PASSWORD", "spottruth_system_123"),
+		AuthSystemID:          getEnv("AUTH_SYSTEM_ID", "s-spottruth-system"),
 		UpstreamHealthPath:    getEnv("UPSTREAM_HEALTH_PATH", "/healthz"),
 		ReadinessTimeout:      getDurationEnv("READINESS_TIMEOUT", 2*time.Second),
 		LimiterRetryAfterSec:  getIntEnv("LIMITER_RETRY_AFTER_SECONDS", 1),
@@ -80,6 +101,64 @@ func Load() Config {
 		ExpectContinueTimeout: getDurationEnv("EXPECT_CONTINUE_TIMEOUT", 1*time.Second),
 		ResponseHeaderTimeout: getDurationEnv("RESPONSE_HEADER_TIMEOUT", 15*time.Second),
 	}
+}
+
+func loadEnvFileIfPresent() {
+	if strings.EqualFold(strings.TrimSpace(os.Getenv("GATEWAY_SKIP_ENV_FILE")), "true") {
+		return
+	}
+
+	customPath := strings.TrimSpace(os.Getenv("GATEWAY_CONFIG_FILE"))
+	if customPath != "" {
+		_ = loadEnvFile(customPath)
+		return
+	}
+
+	if loadEnvFile(".env") {
+		return
+	}
+	_ = loadEnvFile("gateway.env")
+}
+
+func loadEnvFile(path string) bool {
+	content, err := os.ReadFile(path)
+	if err != nil {
+		return false
+	}
+
+	lines := strings.Split(string(content), "\n")
+	for _, raw := range lines {
+		line := strings.TrimSpace(raw)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		if strings.HasPrefix(line, "export ") {
+			line = strings.TrimSpace(strings.TrimPrefix(line, "export "))
+		}
+
+		parts := strings.SplitN(line, "=", 2)
+		if len(parts) != 2 {
+			continue
+		}
+
+		key := strings.TrimSpace(parts[0])
+		value := strings.TrimSpace(parts[1])
+		if key == "" {
+			continue
+		}
+
+		if len(value) >= 2 {
+			if (value[0] == '"' && value[len(value)-1] == '"') || (value[0] == '\'' && value[len(value)-1] == '\'') {
+				value = value[1 : len(value)-1]
+			}
+		}
+
+		if os.Getenv(key) == "" {
+			_ = os.Setenv(key, value)
+		}
+	}
+
+	return true
 }
 
 func getEnv(key, defaultVal string) string {
