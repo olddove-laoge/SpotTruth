@@ -358,14 +358,15 @@ def parse_intent():
         user_input = data.get('user_input', '')
         history = data.get('conversation_history', [])
         current_product = data.get('current_product', '')
+        analyzed_platforms = data.get('analyzed_platforms', [])
 
         if not user_input:
             return jsonify({"error": "user_input不能为空"}), 400
 
-        logger.info(f"解析意图: {user_input}")
+        logger.info(f"解析意图: {user_input}, 已分析平台: {analyzed_platforms}")
 
         # 调用LLM解析意图
-        intent_data = llm.parse_intent(user_input, history, current_product)
+        intent_data = llm.parse_intent(user_input, history, current_product, analyzed_platforms)
 
         # 生成友好的响应语
         response_text = _generate_intent_response(intent_data, current_product)

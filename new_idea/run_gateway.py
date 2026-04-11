@@ -156,7 +156,8 @@ class ConversationalGatewayAgent:
             intent_data = self.gateway.parse_intent(
                 user_input=user_input,
                 conversation_history=self.session.history[-6:],  # 最近6轮
-                current_product=self.session.current_product
+                current_product=self.session.current_product,
+                analyzed_platforms=self.session.get_last_analyzed_platforms()
             )
         except GatewayError as e:
             print(f"\n🤖 抱歉，我暂时无法处理你的请求: {e}")
@@ -478,28 +479,19 @@ class ConversationalGatewayAgent:
                 {'brand': new_brand, 'product': new_product}
             ]
 
-        # 获取要对比的平台（优先使用用户指定的，其次继承上次分析的）
+        # 获取要对比的平台（完全信任LLM的判断）
+        need_taobao = intent_data.get('need_taobao', True)  # 默认分析淘宝
         need_xhs = intent_data.get('need_xiaohongshu', False)
         need_heimao = intent_data.get('need_heimao', False)
 
         # 构建平台列表
         platforms = []
+        if need_taobao:
+            platforms.append('taobao')
         if need_xhs:
             platforms.append('xiaohongshu')
         if need_heimao:
             platforms.append('heimao')
-
-        # 如果用户没有指定任何平台，才默认使用淘宝+继承上次分析的平台
-        if not platforms:
-            platforms = self.session.get_last_analyzed_platforms()
-            if not platforms:
-                platforms = ['taobao']  # 默认至少对比淘宝
-            need_xhs = 'xiaohongshu' in platforms
-            need_heimao = 'heimao' in platforms
-        # 如果用户指定了平台，就不需要淘宝了
-        # 但如果平台列表为空，还是加上淘宝作为保底
-        elif not platforms:
-            platforms = ['taobao']
 
         print(f"\n🔍 开始对比分析")
         prod_a_brand = products[0].get('brand', '') if isinstance(products[0], dict) else str(products[0])
@@ -520,8 +512,6 @@ class ConversationalGatewayAgent:
             print(f"{'='*60}")
 
             # 复用分析逻辑
-            # 如果只对比小红书/黑猫，不需要爬取淘宝
-            need_taobao = not (need_xhs or need_heimao)
             result = self._analyze_single_product(
                 brand=prod.get('brand', '') if isinstance(prod, dict) else '',
                 product=prod.get('product', '') if isinstance(prod, dict) else '',

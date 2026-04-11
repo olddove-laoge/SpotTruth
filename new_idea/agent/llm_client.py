@@ -243,15 +243,26 @@ xxx"""
             logger.error(f"生成建议失败: {e}")
             return f"生成建议时出错: {e}"
 
-    def parse_intent(self, user_input: str, history: List[Dict[str, str]], current_product: str = "") -> Dict[str, Any]:
+    def parse_intent(self, user_input: str, history: List[Dict[str, str]], current_product: str = "", analyzed_platforms: List[str] = None) -> Dict[str, Any]:
         """解析用户意图"""
 
-        # 构建系统提示词，包含当前商品信息
+        analyzed_platforms = analyzed_platforms or []
+
+        # 构建上下文信息
         current_info = f"当前正在分析的商品: {current_product}\n" if current_product else "暂无正在分析的商品\n"
+        platforms_info = f"已分析的平台: {', '.join(analyzed_platforms) if analyzed_platforms else '无'}\n"
+        remaining = []
+        if 'taobao' not in analyzed_platforms:
+            remaining.append('淘宝')
+        if 'xiaohongshu' not in analyzed_platforms:
+            remaining.append('小红书')
+        if 'heimao' not in analyzed_platforms:
+            remaining.append('黑猫投诉')
+        remaining_info = f"未分析的平台: {', '.join(remaining) if remaining else '无'}\n"
 
         system_prompt = f"""你是一个意图识别助手。请分析用户的输入，识别其意图。
 
-{current_info}
+{current_info}{platforms_info}{remaining_info}
 可能的意图：
 1. analyze - 分析某个商品（需要品牌和商品类型）
 2. compare - 对比多个商品
@@ -266,25 +277,28 @@ xxx"""
     "brand": "品牌名（如用户未提供则为空）",
     "product": "商品类型（如用户未提供则为空）",
     "products": [{{"brand": "", "product": ""}}], // 对比时使用
-    "need_xiaohongshu": true/false,
-    "need_heimao": true/false,
-    "clarification_needed": true/false,  // 是否需要用户澄清
+    "need_taobao": true/false,      // 是否需要分析淘宝
+    "need_xiaohongshu": true/false, // 是否需要分析小红书
+    "need_heimao": true/false,      // 是否需要分析黑猫投诉
+    "clarification_needed": true/false,
     "clarification_question": "如果需要澄清，问用户什么"
 }}
 
 规则：
 1. 如果用户没说品牌名且没有当前商品，必须设置clarification_needed=true
 2. 不要猜测品牌名，不确定就问
-3. 如果提到"小红书"，need_xiaohongshu=true
-4. 如果提到"黑猫"或"投诉"，need_heimao=true
-5. 如果用户提到"它"、"这个商品"、"这个"等代词，结合当前商品理解
-6. 如果用户说"综上所述"、"总结"、"建议"等，结合当前商品的已有分析结果理解
+3. 根据上下文判断用户想分析哪些平台，不要依赖关键词匹配
+4. 如果用户提到"它"、"这个商品"、"这个"等代词，结合当前商品理解
+5. 如果用户说"那xx呢"、"xx呢"（xx是未分析平台），结合已分析平台理解为继续对比
+6. 如果用户未指定平台，且已有已分析平台，询问用户要对比哪个平台
 
 示例：
-- 输入: "分析一下德芙巧克力" → intent: "analyze", brand: "德芙", product: "巧克力"
-- 输入: "对比下雀巢咖啡和星巴克咖啡" → intent: "compare", products: 两个商品对象列表
-- 输入: "卫龙辣条和麻辣王子哪个好" → intent: "compare", products: 两个商品对象列表
-- 输入: "搜索小红书 避雷" → intent: "search_xhs", product: "避雷"（结合当前商品）"""
+- 输入: "分析一下德芙巧克力" → intent: "analyze", brand: "德芙", product: "巧克力", need_taobao: true
+- 输入: "对比下雀巢咖啡和星巴克咖啡" → intent: "compare", products: 两个商品, need_taobao: true, need_xiaohongshu: true, need_heimao: true
+- 输入: "卫龙辣条和麻辣王子哪个好" → intent: "compare", products: 两个商品, need_taobao: true, need_xiaohongshu: true, need_heimao: true
+- 输入: "搜索小红书 避雷" → intent: "search_xhs", product: "避雷"
+- 输入: "那淘宝呢"（已分析小红书）→ intent: "compare", products: [当前商品], need_taobao: true, need_xiaohongshu: false, need_heimao: false
+- 输入: "黑猫投诉怎么样"（已分析小红书）→ intent: "compare", products: [当前商品], need_taobao: false, need_xiaohongshu: false, need_heimao: true"""
 
         # 构建对话上下文
         messages = [{"role": "system", "content": system_prompt}]

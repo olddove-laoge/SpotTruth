@@ -211,7 +211,8 @@ class GatewayClient:
         self,
         user_input: str,
         conversation_history: List[Dict[str, str]] = None,
-        current_product: str = ""
+        current_product: str = "",
+        analyzed_platforms: List[str] = None
     ) -> Dict[str, Any]:
         """解析用户意图"""
         self.ensure_authenticated()
@@ -222,7 +223,8 @@ class GatewayClient:
             data={
                 "user_input": user_input,
                 "conversation_history": conversation_history or [],
-                "current_product": current_product
+                "current_product": current_product,
+                "analyzed_platforms": analyzed_platforms or []
             }
         )
 
