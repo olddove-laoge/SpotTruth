@@ -783,19 +783,58 @@ class ConversationalGatewayAgent:
         xhs_notes = []
         heimao_complaints = []
 
-        try:
-            print("\n🌐 正在启动浏览器...")
-            driver = create_driver()
-            config = CrawlerConfig(driver=driver)
-            data_service = DataService(config)
+        max_retries = 1  # 主爬虫重试1次（避免重复选择商品）
+        for attempt in range(max_retries + 1):
+            try:
+                print("\n🌐 正在启动浏览器...")
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
 
             # 1. 淘宝数据（如果需要）
             if need_taobao:
                 print("🔍 搜索淘宝商品...")
                 search_result = data_service.search_product(brand=brand, product=product, max_results=5)
                 if search_result.success and search_result.data:
-                    product_info = search_result.data[0]
-                    print(f"✅ 找到商品: {product_info.name}")
+                    # 显示前3个商品让用户选择
+                    products = search_result.data[:3]
+                    print(f"\n📦 找到 {len(products)} 个商品，请选择要分析的商品：")
+                    print("=" * 70)
+                    for i, p in enumerate(products, 1):
+                        price = getattr(p, 'price', '未知')
+                        sales = getattr(p, 'sales', '')
+                        shop = getattr(p, 'shop_name', '未知店铺')
+                        shop_tag = getattr(p, 'shop_tag', '')
+                        image_url = getattr(p, 'image_url', '')
+
+                        # 销量信息
+                        sales_info = f"  📈 销量: {sales}" if sales else ""
+                        # 店铺标签
+                        tag_info = f"[{shop_tag}] " if shop_tag else ""
+
+                        print(f"\n   {i}. {p.name}")
+                        print(f"      💰 价格: {price}{sales_info}")
+                        print(f"      🏪 店铺: {tag_info}{shop}")
+                        if image_url:
+                            print(f"      🖼️  图片: {image_url[:60]}...")
+                    print("\n" + "=" * 70)
+
+                    # 获取用户选择
+                    while True:
+                        try:
+                            choice = input("\n请输入商品编号 (1-3，默认1): ").strip()
+                            if not choice:
+                                choice = "1"
+                            choice_idx = int(choice) - 1
+                            if 0 <= choice_idx < len(products):
+                                product_info = products[choice_idx]
+                                break
+                            else:
+                                print("❌ 请输入有效的编号 (1-3)")
+                        except ValueError:
+                            print("❌ 请输入数字")
+
+                    print(f"\n✅ 已选择: {product_info.name}")
 
                     print("💬 获取淘宝评论...")
                     comments_result = data_service.get_comments(
@@ -834,49 +873,90 @@ class ConversationalGatewayAgent:
                     print(f"✅ 获取 {len(heimao_complaints)} 条黑猫投诉")
 
             driver.quit()
+            # 成功完成，直接返回
+            return taobao_comments, xhs_notes, heimao_complaints
 
         except Exception as e:
-            print(f"❌ 爬虫出错: {e}")
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            if attempt < max_retries:
+                delay = 3.0 * (2 ** attempt)
+                print(f"🔁 爬虫出错，{delay:.0f}秒后重试... ({attempt + 1}/{max_retries}): {str(e)[:50]}")
+                import time
+                time.sleep(delay)
+            else:
+                print(f"❌ 爬虫最终失败（已重试{max_retries}次）: {e}")
 
         return taobao_comments, xhs_notes, heimao_complaints
 
     def _crawl_xiaohongshu(self, keyword: str) -> List[str]:
-        """爬取小红书"""
+        """爬取小红书（带重试）"""
         from agent.data_service import DataService, CrawlerConfig
         from agent import create_driver
 
-        try:
-            driver = create_driver()
-            config = CrawlerConfig(driver=driver)
-            data_service = DataService(config)
+        max_retries = 2
+        for attempt in range(max_retries + 1):
+            driver = None
+            try:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
 
-            result = data_service.search_xiaohongshu(keyword=keyword, max_notes=5)
-            notes = [n.text for n in result.data] if result.success and result.data else []
+                result = data_service.search_xiaohongshu(keyword=keyword, max_notes=5)
+                notes = [n.text for n in result.data] if result.success and result.data else []
 
-            driver.quit()
-            return notes
-        except Exception as e:
-            print(f"❌ 小红书爬虫出错: {e}")
-            return []
+                driver.quit()
+                return notes
+            except Exception as e:
+                if driver:
+                    try:
+                        driver.quit()
+                    except:
+                        pass
+                if attempt < max_retries:
+                    delay = 2.0 * (2 ** attempt)
+                    print(f"🔁 小红书爬取失败，{delay:.0f}秒后重试... ({attempt + 1}/{max_retries})")
+                    import time
+                    time.sleep(delay)
+                else:
+                    print(f"❌ 小红书爬虫最终失败（已重试{max_retries}次）: {e}")
+                    return []
 
     def _crawl_heimao(self, brand: str) -> List[str]:
-        """爬取黑猫投诉"""
+        """爬取黑猫投诉（带重试）"""
         from agent.data_service import DataService, CrawlerConfig
         from agent import create_driver
 
-        try:
-            driver = create_driver()
-            config = CrawlerConfig(driver=driver)
-            data_service = DataService(config)
+        max_retries = 2
+        for attempt in range(max_retries + 1):
+            driver = None
+            try:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
 
-            result = data_service.search_heimao(brand=brand, max_complaints=30)
-            complaints = [c.text for c in result.data] if result.success and result.data else []
+                result = data_service.search_heimao(brand=brand, max_complaints=30)
+                complaints = [c.text for c in result.data] if result.success and result.data else []
 
-            driver.quit()
-            return complaints
-        except Exception as e:
-            print(f"❌ 黑猫爬虫出错: {e}")
-            return []
+                driver.quit()
+                return complaints
+            except Exception as e:
+                if driver:
+                    try:
+                        driver.quit()
+                    except:
+                        pass
+                if attempt < max_retries:
+                    delay = 2.0 * (2 ** attempt)
+                    print(f"🔁 黑猫投诉爬取失败，{delay:.0f}秒后重试... ({attempt + 1}/{max_retries})")
+                    import time
+                    time.sleep(delay)
+                else:
+                    print(f"❌ 黑猫爬虫最终失败（已重试{max_retries}次）: {e}")
+                    return []
 
     def _get_mock_comments(self) -> List[str]:
         """获取模拟评论"""

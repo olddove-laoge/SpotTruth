@@ -72,9 +72,10 @@ class GatewayClient:
         path: str,
         data: Optional[Dict] = None,
         headers: Optional[Dict] = None,
-        auth: bool = True
+        auth: bool = True,
+        max_retries: int = 3
     ) -> Dict[str, Any]:
-        """发起HTTP请求"""
+        """发起HTTP请求（带重试）"""
         url = urljoin(self.config.base_url, path)
         req_headers = {
             "Content-Type": "application/json",
@@ -92,29 +93,56 @@ class GatewayClient:
         # 准备请求体
         body = json.dumps(data, ensure_ascii=False).encode("utf-8") if data else None
 
-        req = Request(
-            url=url,
-            data=body,
-            headers=req_headers,
-            method=method
-        )
+        last_error = None
+        for attempt in range(max_retries + 1):
+            req = Request(
+                url=url,
+                data=body,
+                headers=req_headers,
+                method=method
+            )
 
-        try:
-            with urlopen(req, timeout=self.config.timeout) as resp:
-                return json.loads(resp.read().decode("utf-8"))
-        except HTTPError as e:
-            error_body = e.read().decode("utf-8")
             try:
-                error_data = json.loads(error_body)
-                raise GatewayError(
-                    f"API错误: {error_data.get('message', error_body)}",
-                    status=e.code,
-                    code=error_data.get('code', 'UNKNOWN')
-                )
-            except json.JSONDecodeError:
-                raise GatewayError(f"HTTP {e.code}: {error_body}", status=e.code)
-        except URLError as e:
-            raise GatewayError(f"连接失败: {e.reason}")
+                with urlopen(req, timeout=self.config.timeout) as resp:
+                    return json.loads(resp.read().decode("utf-8"))
+            except HTTPError as e:
+                error_body = e.read().decode("utf-8")
+                # 可重试的错误：429(限流), 502(网关错误), 503(服务不可用), 504(网关超时)
+                if e.code in (429, 502, 503, 504) and attempt < max_retries:
+                    delay = min(1.0 * (2 ** attempt), 8.0)  # 指数退避，最大8秒
+                    logger.warning(f"🔁 [Gateway] HTTP {e.code}，{delay:.1f}秒后重试... ({attempt + 1}/{max_retries})")
+                    import time
+                    time.sleep(delay)
+                    continue
+
+                # 不可重试的HTTP错误
+                try:
+                    error_data = json.loads(error_body)
+                    raise GatewayError(
+                        f"API错误: {error_data.get('message', error_body)}",
+                        status=e.code,
+                        code=error_data.get('code', 'UNKNOWN')
+                    )
+                except json.JSONDecodeError:
+                    raise GatewayError(f"HTTP {e.code}: {error_body}", status=e.code)
+            except URLError as e:
+                # 连接错误可重试
+                if attempt < max_retries:
+                    delay = min(1.0 * (2 ** attempt), 8.0)
+                    logger.warning(f"🔁 [Gateway] 连接失败，{delay:.1f}秒后重试... ({attempt + 1}/{max_retries}): {e.reason}")
+                    import time
+                    time.sleep(delay)
+                    continue
+                raise GatewayError(f"连接失败: {e.reason}")
+            except Exception as e:
+                # 其他异常
+                if attempt < max_retries:
+                    delay = min(1.0 * (2 ** attempt), 8.0)
+                    logger.warning(f"🔁 [Gateway] 请求异常，{delay:.1f}秒后重试... ({attempt + 1}/{max_retries}): {e}")
+                    import time
+                    time.sleep(delay)
+                    continue
+                raise GatewayError(f"请求失败: {e}")
 
     def login(self) -> str:
         """登录获取Token"""

@@ -92,6 +92,75 @@ def with_retry(max_retries: int = 2, delay: float = 1.0, exceptions: tuple = (Ex
     return decorator
 
 
+def with_retry_advanced(
+    max_retries: int = 3,
+    base_delay: float = 1.0,
+    max_delay: float = 10.0,
+    backoff_factor: float = 2.0,
+    retryable_exceptions: tuple = (Exception,),
+    on_retry_callback: Callable = None
+):
+    """增强版重试装饰器 - 支持指数退避和用户反馈
+
+    Args:
+        max_retries: 最大重试次数
+        base_delay: 初始延迟（秒）
+        max_delay: 最大延迟（秒）
+        backoff_factor: 退避因子
+        retryable_exceptions: 可重试的异常类型
+        on_retry_callback: 重试时的回调函数 (attempt, error, next_delay)
+    """
+    def decorator(func: Callable[..., T]) -> Callable[..., T]:
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs) -> T:
+            last_error = None
+            for attempt in range(max_retries + 1):
+                try:
+                    return func(*args, **kwargs)
+                except retryable_exceptions as e:
+                    last_error = e
+                    if attempt < max_retries:
+                        # 计算指数退避延迟
+                        delay = min(base_delay * (backoff_factor ** attempt), max_delay)
+                        logger.warning(f"🔁 [{func.__name__}] 第{attempt + 1}次尝试失败，{delay:.1f}秒后重试... 错误: {str(e)[:50]}")
+
+                        # 调用回调通知用户
+                        if on_retry_callback:
+                            try:
+                                on_retry_callback(attempt + 1, e, delay)
+                            except:
+                                pass
+
+                        time.sleep(delay)
+                    else:
+                        logger.error(f"❌ [{func.__name__}] 最终失败（已重试{max_retries}次）: {e}")
+                        raise
+            raise last_error
+        return wrapper
+    return decorator
+
+
+# 判断错误是否可重试（用于HTTP错误）
+def is_retryable_error(error) -> bool:
+    """判断错误是否值得重试"""
+    # HTTP 状态码
+    if hasattr(error, 'code'):
+        status = error.code
+        # 429 (限流), 502 (网关错误), 503 (服务不可用), 504 (网关超时)
+        return status in (429, 502, 503, 504)
+    if hasattr(error, 'status'):
+        status = error.status
+        return status in (429, 502, 503, 504)
+
+    # 连接错误
+    error_msg = str(error).lower()
+    retryable_keywords = [
+        'timeout', 'timed out', 'connection', 'refused', 'reset',
+        'temporarily unavailable', 'service unavailable', 'bad gateway'
+    ]
+    return any(kw in error_msg for kw in retryable_keywords)
+
+
 def timed_tool(func: Callable[..., T]) -> Callable[..., ToolResult]:
     """计时工具装饰器 - 返回ToolResult"""
     @functools.wraps(func)

@@ -27,7 +27,7 @@ from agent.models import (
 )
 from agent.infrastructure import (
     logger, events, ToolResult, ToolError,
-    with_retry, timed_tool
+    with_retry, with_retry_advanced, is_retryable_error, timed_tool
 )
 from agent.llm_client import LLMClient, KimiClient
 from agent.analyzers import (
@@ -49,7 +49,7 @@ __all__ = [
     "AnalysisResult", "Comment", "ProductInfo",
     "SentimentResult", "SentimentType", "AnalysisStatus",
     "logger", "events", "ToolResult",
-    "ToolError", "with_retry", "timed_tool",
+    "ToolError", "with_retry", "with_retry_advanced", "is_retryable_error", "timed_tool",
     "LLMClient", "KimiClient", "UnifiedAnalyzer",
     "CategoryClassifier", "SarcasmDetector", "SentimentAnalyzer",
     "DataService", "CrawlerConfig", "Workflow",
