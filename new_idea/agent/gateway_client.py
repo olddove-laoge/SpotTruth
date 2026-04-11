@@ -260,6 +260,48 @@ class GatewayClient:
             }
         )
 
+    def generate_comparison_conclusion(
+        self,
+        product_a_name: str,
+        product_b_name: str,
+        stats_a: Dict[str, Any],
+        stats_b: Dict[str, Any],
+        summary_a: str,
+        summary_b: str,
+        advice_a: str,
+        advice_b: str,
+        heimao_analysis_a: Optional[Dict] = None,
+        heimao_analysis_b: Optional[Dict] = None,
+        xhs_analysis_a: Optional[Dict] = None,
+        xhs_analysis_b: Optional[Dict] = None,
+        has_taobao_a: bool = False,
+        has_taobao_b: bool = False
+    ) -> str:
+        """生成对比结论"""
+        self.ensure_authenticated()
+
+        resp = self._make_request(
+            "POST",
+            "/api/compare_conclusion",
+            data={
+                "product_a_name": product_a_name,
+                "product_b_name": product_b_name,
+                "stats_a": stats_a,
+                "stats_b": stats_b,
+                "summary_a": summary_a,
+                "summary_b": summary_b,
+                "advice_a": advice_a,
+                "advice_b": advice_b,
+                "heimao_analysis_a": heimao_analysis_a,
+                "heimao_analysis_b": heimao_analysis_b,
+                "xhs_analysis_a": xhs_analysis_a,
+                "xhs_analysis_b": xhs_analysis_b,
+                "has_taobao_a": has_taobao_a,
+                "has_taobao_b": has_taobao_b
+            }
+        )
+        return resp.get("conclusion", "")
+
 
 class GatewayError(Exception):
     """网关错误"""

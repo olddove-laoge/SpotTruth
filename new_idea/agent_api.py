@@ -589,6 +589,76 @@ def analyze_heimao():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route('/api/compare_conclusion', methods=['POST'])
+def compare_conclusion():
+    """
+    生成商品对比结论
+
+    请求体:
+    {
+        "product_a_name": "商品A名称",
+        "product_b_name": "商品B名称",
+        "stats_a": {"total": 100, "positive_rate": 0.8, ...},
+        "stats_b": {"total": 100, "positive_rate": 0.7, ...},
+        "summary_a": "商品A的分析总结",
+        "summary_b": "商品B的分析总结",
+        "advice_a": "商品A的购买建议",
+        "advice_b": "商品B的购买建议",
+        "heimao_analysis_a": {...},
+        "heimao_analysis_b": {...},
+        "xhs_analysis_a": {...},
+        "xhs_analysis_b": {...}
+    }
+
+    响应:
+    {
+        "conclusion": "对比结论文本..."
+    }
+    """
+    try:
+        data = request.get_json() or {}
+
+        product_a_name = data.get('product_a_name', '')
+        product_b_name = data.get('product_b_name', '')
+        stats_a = data.get('stats_a', {})
+        stats_b = data.get('stats_b', {})
+        summary_a = data.get('summary_a', '')
+        summary_b = data.get('summary_b', '')
+        advice_a = data.get('advice_a', '')
+        advice_b = data.get('advice_b', '')
+        heimao_analysis_a = data.get('heimao_analysis_a')
+        heimao_analysis_b = data.get('heimao_analysis_b')
+        xhs_analysis_a = data.get('xhs_analysis_a')
+        xhs_analysis_b = data.get('xhs_analysis_b')
+        has_taobao_a = data.get('has_taobao_a', False)
+        has_taobao_b = data.get('has_taobao_b', False)
+
+        logger.info(f"生成对比结论: {product_a_name} vs {product_b_name}")
+
+        conclusion = llm.generate_comparison_conclusion(
+            product_a_name=product_a_name,
+            product_b_name=product_b_name,
+            stats_a=stats_a,
+            stats_b=stats_b,
+            summary_a=summary_a,
+            summary_b=summary_b,
+            advice_a=advice_a,
+            advice_b=advice_b,
+            heimao_analysis_a=heimao_analysis_a,
+            heimao_analysis_b=heimao_analysis_b,
+            xhs_analysis_a=xhs_analysis_a,
+            xhs_analysis_b=xhs_analysis_b,
+            has_taobao_a=has_taobao_a,
+            has_taobao_b=has_taobao_b
+        )
+
+        return jsonify({"conclusion": conclusion}), 200
+
+    except Exception as e:
+        logger.error(f"对比结论接口出错: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
 # ========== 错误处理 ==========
 
 @app.errorhandler(404)

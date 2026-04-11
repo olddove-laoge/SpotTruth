@@ -319,3 +319,81 @@ xxx"""
                 "clarification_needed": True,
                 "clarification_question": "请告诉我您想分析什么商品？（例如：德芙 巧克力）"
             }
+
+    def generate_comparison_conclusion(
+        self,
+        product_a_name: str,
+        product_b_name: str,
+        stats_a: Dict,
+        stats_b: Dict,
+        summary_a: str,
+        summary_b: str,
+        advice_a: str,
+        advice_b: str,
+        heimao_analysis_a: Optional[Dict] = None,
+        heimao_analysis_b: Optional[Dict] = None,
+        xhs_analysis_a: Optional[Dict] = None,
+        xhs_analysis_b: Optional[Dict] = None,
+        has_taobao_a: bool = False,
+        has_taobao_b: bool = False
+    ) -> str:
+        """生成对比结论 - 由LLM根据数据灵活判断
+
+        重要：基于投诉内容、问题类型、风险等级做判断，而非数量多少。
+        关注：食品安全 > 商品质量 > 服务态度
+        """
+        system_prompt = """你是一位专业的商品口碑分析专家。请根据两款商品的对比数据，生成客观的对比结论和购买建议。
+
+重要原则：
+1. 基于投诉/评论的"内容性质"做判断，而非数量多少
+2. 风险优先级：食品安全问题 > 商品质量问题 > 服务态度问题
+3. 给出明确的购买建议，不要模棱两可
+4. 如果是食品/母婴类商品，食品安全问题一票否决
+5. 注意区分"未爬取数据"和"已爬取但无数据"的情况
+
+输出格式：
+## 对比结论
+1. xxx（具体差异点，如"XX存在食品安全投诉，YY仅涉及服务态度"）
+2. xxx
+...
+
+## 购买建议
+[明确建议]：选择XX
+[理由]：xxx
+[风险提示]：xxx（如适用）"""
+
+        # 构建淘宝数据描述
+        def build_taobao_desc(has_data: bool, stats: Dict, summary: str, advice: str) -> str:
+            if not has_data:
+                return "未爬取淘宝数据"
+            total = stats.get('total', 0)
+            if total == 0:
+                return "已爬取淘宝，但未找到该商品或该商品无评论"
+            return f"好评率{stats.get('positive_rate', 0):.0%}，总评论{total}条，疑似虚假好评{stats.get('sarcasm_count', 0)}条\n分析：{summary[:200]}...\n建议：{advice[:150]}..."
+
+        # 构建数据摘要
+        data_text = f"""商品A：{product_a_name}
+淘宝：{build_taobao_desc(has_taobao_a, stats_a, summary_a, advice_a)}
+黑猫投诉：{heimao_analysis_a.get('summary', '无')[:200] if heimao_analysis_a else '无数据'}
+投诉类型：{', '.join(heimao_analysis_a.get('complaint_types', [])) if heimao_analysis_a else '无'}
+风险等级：{heimao_analysis_a.get('severity', 'unknown') if heimao_analysis_a else 'unknown'}
+小红书：{xhs_analysis_a.get('summary', '无')[:200] if xhs_analysis_a else '无数据'}
+
+商品B：{product_b_name}
+淘宝：{build_taobao_desc(has_taobao_b, stats_b, summary_b, advice_b)}
+黑猫投诉：{heimao_analysis_b.get('summary', '无')[:200] if heimao_analysis_b else '无数据'}
+投诉类型：{', '.join(heimao_analysis_b.get('complaint_types', [])) if heimao_analysis_b else '无'}
+风险等级：{heimao_analysis_b.get('severity', 'unknown') if heimao_analysis_b else 'unknown'}
+小红书：{xhs_analysis_b.get('summary', '无')[:200] if xhs_analysis_b else '无数据'}
+
+请生成对比结论和购买建议："""
+
+        try:
+            response = self.chat([
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": data_text}
+            ], temperature=0.7)
+            return response.content
+        except Exception as e:
+            logger.error(f"生成对比结论失败: {e}")
+            return f"生成对比结论时出错: {e}"

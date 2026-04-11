@@ -259,7 +259,7 @@ class ConversationalGatewayAgent:
                 statistics=stats,
                 sample_comments=[
                     {"text": r["text"], "sentiment": r["sentiment"], "is_sarcasm": r["is_sarcasm"]}
-                    for r in results[:15]
+                    for r in results
                 ]
             )
             summary = summary_result.get('summary', '')
@@ -755,72 +755,32 @@ class ConversationalGatewayAgent:
                 print(f"\n【{result_a['product_name']}】{result_a.get('advice', '暂无建议')[:150]}...")
                 print(f"\n【{result_b['product_name']}】{result_b.get('advice', '暂无建议')[:150]}...")
 
-        # 自动生成对比结论
+        # 使用LLM生成对比结论
         print(f"\n{'='*70}")
         print("🔍 对比结论:")
         print(f"{'='*70}")
 
-        conclusions = []
-
-        # 好评率对比（只有都有淘宝数据时才比较）
-        if has_taobao_a and has_taobao_b:
-            pos_rate_a = stats_a.get('positive_rate', 0)
-            pos_rate_b = stats_b.get('positive_rate', 0)
-            if pos_rate_a > pos_rate_b + 0.05:
-                conclusions.append(f"✅ {result_a['product_name']} 好评率更高({pos_rate_a:.1%} vs {pos_rate_b:.1%})")
-            elif pos_rate_b > pos_rate_a + 0.05:
-                conclusions.append(f"✅ {result_b['product_name']} 好评率更高({pos_rate_b:.1%} vs {pos_rate_a:.1%})")
-
-            # 虚假好评对比
-            sarcasm_a = stats_a.get('sarcasm_count', 0)
-            sarcasm_b = stats_b.get('sarcasm_count', 0)
-            if sarcasm_a < sarcasm_b:
-                conclusions.append(f"✅ {result_a['product_name']} 虚假好评更少")
-            elif sarcasm_b < sarcasm_a:
-                conclusions.append(f"✅ {result_b['product_name']} 虚假好评更少")
-
-        # 小红书对比结论
-        if result_a.get('xhs_count', 0) > 0 and result_b.get('xhs_count', 0) > 0:
-            if result_a['xhs_count'] > result_b['xhs_count']:
-                conclusions.append(f"📱 {result_a['product_name']} 小红书讨论度更高")
-            elif result_b['xhs_count'] > result_a['xhs_count']:
-                conclusions.append(f"📱 {result_b['product_name']} 小红书讨论度更高")
-
-        # 黑猫投诉对比
-        heimao_analysis_a = result_a.get('heimao_analysis', {})
-        heimao_analysis_b = result_b.get('heimao_analysis', {})
-
-        if result_a.get('heimao_count', 0) > 0 or result_b.get('heimao_count', 0) > 0:
-            # 数量对比
-            if result_a.get('heimao_count', 0) < result_b.get('heimao_count', 0):
-                conclusions.append(f"⚠️ {result_a['product_name']} 投诉数量更少({result_a['heimao_count']} vs {result_b['heimao_count']})")
-            elif result_b.get('heimao_count', 0) < result_a.get('heimao_count', 0):
-                conclusions.append(f"⚠️ {result_b['product_name']} 投诉数量更少({result_b['heimao_count']} vs {result_a['heimao_count']})")
-            else:
-                conclusions.append(f"📊 两款商品投诉数量相同({result_a['heimao_count']}条)")
-
-            # 风险等级对比
-            severity_a = heimao_analysis_a.get('severity', '') if heimao_analysis_a else ''
-            severity_b = heimao_analysis_b.get('severity', '') if heimao_analysis_b else ''
-            severity_rank = {'high': 3, 'medium': 2, 'low': 1}
-            rank_a = severity_rank.get(severity_a, 0)
-            rank_b = severity_rank.get(severity_b, 0)
-
-            if rank_a > 0 and rank_b > 0:
-                if rank_a < rank_b:
-                    conclusions.append(f"✅ {result_a['product_name']} 风险等级更低({severity_a} vs {severity_b})")
-                elif rank_b < rank_a:
-                    conclusions.append(f"✅ {result_b['product_name']} 风险等级更低({severity_b} vs {severity_a})")
-            elif severity_a == 'high':
-                conclusions.append(f"🚨 {result_a['product_name']} 风险等级高，需谨慎购买")
-            elif severity_b == 'high':
-                conclusions.append(f"🚨 {result_b['product_name']} 风险等级高，需谨慎购买")
-
-        if conclusions:
-            for c in conclusions:
-                print(f"   {c}")
-        else:
-            print("   📊 两款商品口碑相近，建议根据具体需求选择")
+        try:
+            comparison_conclusion = self.gateway.generate_comparison_conclusion(
+                product_a_name=result_a['product_name'],
+                product_b_name=result_b['product_name'],
+                stats_a=stats_a,
+                stats_b=stats_b,
+                summary_a=result_a.get('summary', ''),
+                summary_b=result_b.get('summary', ''),
+                advice_a=result_a.get('advice', ''),
+                advice_b=result_b.get('advice', ''),
+                heimao_analysis_a=result_a.get('heimao_analysis'),
+                heimao_analysis_b=result_b.get('heimao_analysis'),
+                xhs_analysis_a=result_a.get('xhs_analysis'),
+                xhs_analysis_b=result_b.get('xhs_analysis'),
+                has_taobao_a=has_taobao_a,
+                has_taobao_b=has_taobao_b
+            )
+            print(comparison_conclusion)
+        except Exception as e:
+            print(f"   ❌ 生成对比结论失败: {e}")
+            print("   📊 建议查看上述详细分析后自行判断")
 
         print("=" * 70)
 
