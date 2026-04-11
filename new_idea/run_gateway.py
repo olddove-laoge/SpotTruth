@@ -28,6 +28,7 @@ from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
 
 from agent import GatewayClient, GatewayError
+from agent.session_manager import SessionManager, ProductCache, prompt_select_session
 
 
 @dataclass
@@ -62,8 +63,10 @@ class ConversationalGatewayAgent:
     def __init__(self):
         self.gateway = GatewayClient()
         self.session = ConversationSession()
+        self.session_manager = SessionManager()
         self.has_crawler = False
         self.data_service = None
+        self.current_cache: Optional[ProductCache] = None
 
     def run(self):
         """运行主循环"""
@@ -87,6 +90,21 @@ class ConversationalGatewayAgent:
         # 初始化检查
         if not self._initialize():
             return
+
+        # 选择会话
+        session_id = prompt_select_session()
+        if session_id:
+            self.session_manager.load_session(session_id)
+            # 恢复当前商品到session
+            current_product = self.session_manager.get_current_product()
+            if current_product:
+                self.session.current_product = current_product
+                # 加载缓存
+                self.current_cache = self.session_manager.get_product_cache(current_product)
+                print(f"\n📌 当前商品: {current_product}")
+                if self.current_cache:
+                    platforms = ", ".join(self.current_cache.analyzed_platforms)
+                    print(f"📊 已分析平台: {platforms}")
 
         # 显示欢迎语
         print("\n🤖 你好！我是避雷真，一个商品口碑分析助手。")
@@ -530,19 +548,64 @@ class ConversationalGatewayAgent:
             print("\n❌ 对比失败，无法获取足够的数据")
 
     def _analyze_single_product(self, brand: str, product: str, need_xhs: bool, need_heimao: bool, need_taobao: bool = True) -> Optional[Dict]:
-        """分析单个商品，返回结构化结果"""
+        """分析单个商品，返回结构化结果（带缓存）"""
         product_name = f"{brand} {product}".strip()
 
-        # 1. 获取数据（按需爬取各平台）
-        if self.has_crawler:
-            taobao_comments, xhs_notes, heimao_complaints = self._crawl_data(
-                brand=brand, product=product, need_xhs=need_xhs, need_heimao=need_heimao, need_taobao=need_taobao
+        # 更新当前商品
+        self.session.current_product = product_name
+        self.session_manager.update_current_product(product_name)
+
+        # 尝试加载缓存
+        cache = self.session_manager.get_product_cache(product_name)
+        if cache:
+            print(f"📂 发现缓存: {product_name}")
+            self.current_cache = cache
+
+        # 确定哪些平台需要爬取（未缓存的）
+        need_crawl_taobao = need_taobao and not (cache and cache.has_platform_data('taobao'))
+        need_crawl_xhs = need_xhs and not (cache and cache.has_platform_data('xiaohongshu'))
+        need_crawl_heimao = need_heimao and not (cache and cache.has_platform_data('heimao'))
+
+        if cache and not (need_crawl_taobao or need_crawl_xhs or need_crawl_heimao):
+            print("✅ 全部命中缓存，无需爬取")
+            # 直接从缓存返回
+            return {
+                "product_name": product_name,
+                "brand": brand,
+                "category": cache.category or "electronics",
+                "statistics": cache.taobao_analysis.get('stats', {}) if cache.taobao_analysis else {},
+                "summary": cache.taobao_analysis.get('summary', '') if cache.taobao_analysis else '',
+                "advice": cache.taobao_analysis.get('advice', '') if cache.taobao_analysis else '',
+                "xhs_analysis": cache.xiaohongshu_analysis,
+                "heimao_analysis": cache.heimao_analysis,
+                "taobao_count": len(cache.taobao_comments),
+                "xhs_count": len(cache.xiaohongshu_notes),
+                "heimao_count": len(cache.heimao_complaints),
+                "from_cache": True
+            }
+
+        # 使用缓存的数据作为基础
+        taobao_comments = cache.taobao_comments if cache else []
+        xhs_notes = cache.xiaohongshu_notes if cache else []
+        heimao_complaints = cache.heimao_complaints if cache else []
+
+        # 1. 获取数据（只爬取未缓存的平台）
+        if self.has_crawler and (need_crawl_taobao or need_crawl_xhs or need_crawl_heimao):
+            print(f"🌐 需要爬取: 淘宝={need_crawl_taobao}, 小红书={need_crawl_xhs}, 黑猫={need_crawl_heimao}")
+            new_taobao, new_xhs, new_heimao = self._crawl_data(
+                brand=brand, product=product,
+                need_xhs=need_crawl_xhs, need_heimao=need_crawl_heimao, need_taobao=need_crawl_taobao
             )
-        else:
+            # 合并新数据
+            if new_taobao:
+                taobao_comments = new_taobao
+            if new_xhs:
+                xhs_notes = new_xhs
+            if new_heimao:
+                heimao_complaints = new_heimao
+        elif not cache:
             print("⚠️ 使用模拟数据")
             taobao_comments = self._get_mock_comments()
-            xhs_notes = []
-            heimao_complaints = []
 
         # 显示各平台数据量
         if taobao_comments:
@@ -628,6 +691,30 @@ class ConversationalGatewayAgent:
             except GatewayError as e:
                 print(f"⚠️ 黑猫分析失败: {e}")
 
+        # 7. 保存到缓存
+        analyzed_platforms = []
+        if taobao_comments:
+            analyzed_platforms.append('taobao')
+        if xhs_notes:
+            analyzed_platforms.append('xiaohongshu')
+        if heimao_complaints:
+            analyzed_platforms.append('heimao')
+
+        cache = ProductCache(
+            product_name=product_name,
+            brand=brand,
+            category=category,
+            taobao_comments=taobao_comments,
+            xiaohongshu_notes=xhs_notes,
+            heimao_complaints=heimao_complaints,
+            taobao_analysis={"stats": stats, "results": results, "summary": summary, "advice": advice} if taobao_comments else None,
+            xiaohongshu_analysis=xhs_analysis,
+            heimao_analysis=heimao_analysis,
+            analyzed_platforms=analyzed_platforms
+        )
+        self.session_manager.save_product_cache(cache)
+        self.current_cache = cache
+
         return {
             "product_name": product_name,
             "brand": brand,
@@ -639,7 +726,8 @@ class ConversationalGatewayAgent:
             "heimao_analysis": heimao_analysis,
             "taobao_count": len(taobao_comments),
             "xhs_count": len(xhs_notes),
-            "heimao_count": len(heimao_complaints)
+            "heimao_count": len(heimao_complaints),
+            "from_cache": False
         }
 
     def _print_comparison_report(self, result_a: Dict, result_b: Dict):

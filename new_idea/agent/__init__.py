@@ -43,6 +43,10 @@ from agent.workflows import (
     Workflow, ProductAnalysisWorkflow,
     SingleSourceWorkflow, WorkflowFactory, WorkflowContext
 )
+from agent.session_manager import (
+    SessionManager, ProductCache, SessionMetadata,
+    prompt_select_session
+)
 
 __all__ = [
     "BileizhenAgent", "AgentBuilder", "create_driver",
@@ -57,4 +61,6 @@ __all__ = [
     "WorkflowContext",
     "GatewayClient", "GatewayConfig", "GatewayDataService",
     "GatewayError", "create_gateway_client", "test_gateway_connection",
+    "SessionManager", "ProductCache", "SessionMetadata",
+    "prompt_select_session",
 ]
