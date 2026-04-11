@@ -47,6 +47,9 @@ from agent.session_manager import (
     SessionManager, ProductCache, SessionMetadata,
     prompt_select_session
 )
+from agent.intent_validator import (
+    IntentValidator, validate_and_correct, ValidationResult
+)
 
 __all__ = [
     "BileizhenAgent", "AgentBuilder", "create_driver",
@@ -63,4 +66,5 @@ __all__ = [
     "GatewayError", "create_gateway_client", "test_gateway_connection",
     "SessionManager", "ProductCache", "SessionMetadata",
     "prompt_select_session",
+    "IntentValidator", "validate_and_correct", "ValidationResult",
 ]

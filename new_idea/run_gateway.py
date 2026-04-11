@@ -29,6 +29,7 @@ from dataclasses import dataclass, field
 
 from agent import GatewayClient, GatewayError
 from agent.session_manager import SessionManager, ProductCache, prompt_select_session
+from agent.intent_validator import validate_and_correct, IntentValidator
 
 
 @dataclass
@@ -185,11 +186,18 @@ class ConversationalGatewayAgent:
         response = intent_data.get('response', '收到，我来处理')
         print(f"\n🤖 {response}")
 
-        # 3. 保存对话历史
+        # 3. 意图验证（自动修正参数不一致）
+        intent_data = validate_and_correct(
+            user_input=user_input,
+            intent_data=intent_data,
+            current_product=self.session.current_product
+        )
+
+        # 4. 保存对话历史
         self.session.history.append({"role": "user", "content": user_input})
         self.session.history.append({"role": "assistant", "content": response})
 
-        # 4. 根据意图执行操作
+        # 5. 根据意图执行操作
         intent = intent_data.get('intent', 'unknown')
 
         if intent_data.get('clarification_needed'):
@@ -230,8 +238,8 @@ class ConversationalGatewayAgent:
         print(f"\n🔍 开始分析: {product_name}")
 
         # 1. 获取数据（本地爬虫）
-        # 分析意图默认需要淘宝数据，除非用户明确指定了其他平台
-        need_taobao = not (need_xhs or need_heimao) or True  # 默认True，除非明确跳过
+        # 信任LLM判断，如果没有need_taobao字段，则根据其他平台推断
+        need_taobao = intent_data.get('need_taobao', not (need_xhs or need_heimao))
         if self.has_crawler:
             taobao_comments, xhs_notes, heimao_complaints = self._crawl_data(
                 brand=brand, product=product, need_xhs=need_xhs, need_heimao=need_heimao, need_taobao=need_taobao
@@ -498,7 +506,7 @@ class ConversationalGatewayAgent:
             ]
 
         # 获取要对比的平台（完全信任LLM的判断）
-        need_taobao = intent_data.get('need_taobao', True)  # 默认分析淘宝
+        need_taobao = intent_data.get('need_taobao', not (need_xhs or need_heimao))  # 默认分析淘宝，除非指定了其他平台
         need_xhs = intent_data.get('need_xiaohongshu', False)
         need_heimao = intent_data.get('need_heimao', False)
 
@@ -873,110 +881,111 @@ class ConversationalGatewayAgent:
 
         max_retries = 1  # 主爬虫重试1次（避免重复选择商品）
         for attempt in range(max_retries + 1):
+            driver = None
             try:
                 print("\n🌐 正在启动浏览器...")
                 driver = create_driver()
                 config = CrawlerConfig(driver=driver)
                 data_service = DataService(config)
 
-            # 1. 淘宝数据（如果需要）
-            if need_taobao:
-                print("🔍 搜索淘宝商品...")
-                search_result = data_service.search_product(brand=brand, product=product, max_results=5)
-                if search_result.success and search_result.data:
-                    # 显示前3个商品让用户选择
-                    products = search_result.data[:3]
-                    print(f"\n📦 找到 {len(products)} 个商品，请选择要分析的商品：")
-                    print("=" * 70)
-                    for i, p in enumerate(products, 1):
-                        price = getattr(p, 'price', '未知')
-                        sales = getattr(p, 'sales', '')
-                        shop = getattr(p, 'shop_name', '未知店铺')
-                        shop_tag = getattr(p, 'shop_tag', '')
-                        image_url = getattr(p, 'image_url', '')
+                # 1. 淘宝数据（如果需要）
+                if need_taobao:
+                    print("🔍 搜索淘宝商品...")
+                    search_result = data_service.search_product(brand=brand, product=product, max_results=5)
+                    if search_result.success and search_result.data:
+                        # 显示前3个商品让用户选择
+                        products = search_result.data[:3]
+                        print(f"\n📦 找到 {len(products)} 个商品，请选择要分析的商品：")
+                        print("=" * 70)
+                        for i, p in enumerate(products, 1):
+                            price = getattr(p, 'price', '未知')
+                            sales = getattr(p, 'sales', '')
+                            shop = getattr(p, 'shop_name', '未知店铺')
+                            shop_tag = getattr(p, 'shop_tag', '')
+                            image_url = getattr(p, 'image_url', '')
 
-                        # 销量信息
-                        sales_info = f"  📈 销量: {sales}" if sales else ""
-                        # 店铺标签
-                        tag_info = f"[{shop_tag}] " if shop_tag else ""
+                            # 销量信息
+                            sales_info = f"  📈 销量: {sales}" if sales else ""
+                            # 店铺标签
+                            tag_info = f"[{shop_tag}] " if shop_tag else ""
 
-                        print(f"\n   {i}. {p.name}")
-                        print(f"      💰 价格: {price}{sales_info}")
-                        print(f"      🏪 店铺: {tag_info}{shop}")
-                        if image_url:
-                            print(f"      🖼️  图片: {image_url[:60]}...")
-                    print("\n" + "=" * 70)
+                            print(f"\n   {i}. {p.name}")
+                            print(f"      💰 价格: {price}{sales_info}")
+                            print(f"      🏪 店铺: {tag_info}{shop}")
+                            if image_url:
+                                print(f"      🖼️  图片: {image_url[:60]}...")
+                        print("\n" + "=" * 70)
 
-                    # 获取用户选择
-                    while True:
-                        try:
-                            choice = input("\n请输入商品编号 (1-3，默认1): ").strip()
-                            if not choice:
-                                choice = "1"
-                            choice_idx = int(choice) - 1
-                            if 0 <= choice_idx < len(products):
-                                product_info = products[choice_idx]
-                                break
-                            else:
-                                print("❌ 请输入有效的编号 (1-3)")
-                        except ValueError:
-                            print("❌ 请输入数字")
+                        # 获取用户选择
+                        while True:
+                            try:
+                                choice = input("\n请输入商品编号 (1-3，默认1): ").strip()
+                                if not choice:
+                                    choice = "1"
+                                choice_idx = int(choice) - 1
+                                if 0 <= choice_idx < len(products):
+                                    product_info = products[choice_idx]
+                                    break
+                                else:
+                                    print("❌ 请输入有效的编号 (1-3)")
+                            except ValueError:
+                                print("❌ 请输入数字")
 
-                    print(f"\n✅ 已选择: {product_info.name}")
+                        print(f"\n✅ 已选择: {product_info.name}")
 
-                    print("💬 获取淘宝评论...")
-                    comments_result = data_service.get_comments(
-                        url=product_info.url,
-                        brand=brand,
-                        product=product,
-                        max_count=50
+                        print("💬 获取淘宝评论...")
+                        comments_result = data_service.get_comments(
+                            url=product_info.url,
+                            brand=brand,
+                            product=product,
+                            max_count=50
+                        )
+                        if comments_result.success and comments_result.data:
+                            taobao_comments = [c.text for c in comments_result.data]
+                            print(f"✅ 获取 {len(taobao_comments)} 条淘宝评论")
+                    else:
+                        print("⚠️ 未找到淘宝商品")
+
+                # 2. 小红书数据（如果需要）
+                if need_xhs:
+                    print("📱 获取小红书笔记...")
+                    keyword = f"{brand} {product}".strip()
+                    xhs_result = data_service.search_xiaohongshu(
+                        keyword=keyword,
+                        max_notes=5
                     )
-                    if comments_result.success and comments_result.data:
-                        taobao_comments = [c.text for c in comments_result.data]
-                        print(f"✅ 获取 {len(taobao_comments)} 条淘宝评论")
+                    if xhs_result.success and xhs_result.data:
+                        xhs_notes = [n.text for n in xhs_result.data]
+                        print(f"✅ 获取 {len(xhs_notes)} 条小红书笔记")
+
+                # 3. 黑猫投诉（如果需要）
+                if need_heimao:
+                    print("⚠️ 获取黑猫投诉...")
+                    heimao_result = data_service.search_heimao(
+                        brand=brand,
+                        max_complaints=30
+                    )
+                    if heimao_result.success and heimao_result.data:
+                        heimao_complaints = [c.text for c in heimao_result.data]
+                        print(f"✅ 获取 {len(heimao_complaints)} 条黑猫投诉")
+
+                driver.quit()
+                # 成功完成，直接返回
+                return taobao_comments, xhs_notes, heimao_complaints
+
+            except Exception as e:
+                if driver:
+                    try:
+                        driver.quit()
+                    except:
+                        pass
+                if attempt < max_retries:
+                    delay = 3.0 * (2 ** attempt)
+                    print(f"🔁 爬虫出错，{delay:.0f}秒后重试... ({attempt + 1}/{max_retries}): {str(e)[:50]}")
+                    import time
+                    time.sleep(delay)
                 else:
-                    print("⚠️ 未找到淘宝商品")
-
-            # 2. 小红书数据（如果需要）
-            if need_xhs:
-                print("📱 获取小红书笔记...")
-                keyword = f"{brand} {product}".strip()
-                xhs_result = data_service.search_xiaohongshu(
-                    keyword=keyword,
-                    max_notes=5
-                )
-                if xhs_result.success and xhs_result.data:
-                    xhs_notes = [n.text for n in xhs_result.data]
-                    print(f"✅ 获取 {len(xhs_notes)} 条小红书笔记")
-
-            # 3. 黑猫投诉（如果需要）
-            if need_heimao:
-                print("⚠️ 获取黑猫投诉...")
-                heimao_result = data_service.search_heimao(
-                    brand=brand,
-                    max_complaints=30
-                )
-                if heimao_result.success and heimao_result.data:
-                    heimao_complaints = [c.text for c in heimao_result.data]
-                    print(f"✅ 获取 {len(heimao_complaints)} 条黑猫投诉")
-
-            driver.quit()
-            # 成功完成，直接返回
-            return taobao_comments, xhs_notes, heimao_complaints
-
-        except Exception as e:
-            if driver:
-                try:
-                    driver.quit()
-                except:
-                    pass
-            if attempt < max_retries:
-                delay = 3.0 * (2 ** attempt)
-                print(f"🔁 爬虫出错，{delay:.0f}秒后重试... ({attempt + 1}/{max_retries}): {str(e)[:50]}")
-                import time
-                time.sleep(delay)
-            else:
-                print(f"❌ 爬虫最终失败（已重试{max_retries}次）: {e}")
+                    print(f"❌ 爬虫最终失败（已重试{max_retries}次）: {e}")
 
         return taobao_comments, xhs_notes, heimao_complaints
 

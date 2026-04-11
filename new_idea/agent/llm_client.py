@@ -297,6 +297,7 @@ xxx"""
 - 输入: "对比下雀巢咖啡和星巴克咖啡" → intent: "compare", products: 两个商品, need_taobao: true, need_xiaohongshu: true, need_heimao: true
 - 输入: "卫龙辣条和麻辣王子哪个好" → intent: "compare", products: 两个商品, need_taobao: true, need_xiaohongshu: true, need_heimao: true
 - 输入: "搜索小红书 避雷" → intent: "search_xhs", product: "避雷"
+- 输入: "分析雀巢咖啡在小红书的风评" → intent: "analyze", brand: "雀巢", product: "咖啡", need_taobao: false, need_xiaohongshu: true, need_heimao: false
 - 输入: "那淘宝呢"（已分析小红书）→ intent: "compare", products: [当前商品], need_taobao: true, need_xiaohongshu: false, need_heimao: false
 - 输入: "黑猫投诉怎么样"（已分析小红书）→ intent: "compare", products: [当前商品], need_taobao: false, need_xiaohongshu: false, need_heimao: true"""
 
