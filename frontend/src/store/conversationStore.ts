@@ -92,11 +92,20 @@ export const useConversationStore = create<ConversationState>()(
       sendMessage: async (text: string) => {
         const { addMessage, conversationHistory, currentProduct, productCache } = get();
 
+        // 检查是否是第一条消息
+        const isFirstMessage = get().messages.length === 0;
+
         addMessage({
           role: 'user',
           content: text,
           type: 'text',
         });
+
+        // 如果是第一条消息，保存会话到 localStorage，并触发刷新事件
+        if (isFirstMessage) {
+          get().saveSession();
+          window.dispatchEvent(new CustomEvent('session-saved'));
+        }
 
         addMessage({
           role: 'assistant',

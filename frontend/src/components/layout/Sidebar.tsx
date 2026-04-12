@@ -29,6 +29,15 @@ export function Sidebar({ currentSessionId }: SidebarProps) {
     refreshSessions();
   }, [currentSessionId]);
 
+  // 监听会话保存事件，刷新列表
+  useEffect(() => {
+    const handleSessionSaved = () => {
+      refreshSessions();
+    };
+    window.addEventListener('session-saved', handleSessionSaved);
+    return () => window.removeEventListener('session-saved', handleSessionSaved);
+  }, []);
+
   const handleNewChat = () => {
     newSession();
     refreshSessions();
