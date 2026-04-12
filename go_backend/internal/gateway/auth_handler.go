@@ -58,6 +58,29 @@ func authErrorType(status int) string {
 	}
 }
 
+func logoutHandler() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// 清除 cookie（设置过期时间为过去）
+		http.SetCookie(w, &http.Cookie{
+			Name:     "access_token",
+			Value:    "",
+			Path:     "/",
+			HttpOnly: true,
+			Secure:   false,
+			SameSite: http.SameSiteLaxMode,
+			MaxAge:   -1,
+			Expires:  time.Unix(0, 0),
+		})
+
+		writeJSON(w, http.StatusOK, map[string]any{
+			"code":       "OK",
+			"message":    "logout success",
+			"request_id": middleware.GetRequestID(r),
+			"timestamp":  time.Now().Format(time.RFC3339),
+		})
+	}
+}
+
 func loginHandler(tokenManager *auth.TokenManager, authenticator auth.LoginAuthenticator) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if tokenManager == nil || authenticator == nil {

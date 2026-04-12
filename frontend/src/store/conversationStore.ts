@@ -465,7 +465,12 @@ export const useConversationStore = create<ConversationState>()(
           });
         } finally {
           setLoading(false);
-          set({ pendingCrawlData: null });
+          // 只有在没有等待用户选择的情况下才清空 pendingCrawlData
+          // 如果 needCrawlTaobao 为 true，说明已经设置了 pendingCrawlData 等待用户选择
+          const { pendingCrawlData } = get();
+          if (!pendingCrawlData) {
+            set({ pendingCrawlData: null });
+          }
         }
       },
 

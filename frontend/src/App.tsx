@@ -3,12 +3,14 @@ import { HelpCircle } from 'lucide-react';
 import { Sidebar } from './components/layout/Sidebar';
 import { ChatContainer } from './components/chat/ChatContainer';
 import { HelpModal } from './components/layout/HelpModal';
+import { SettingsModal } from './components/settings/SettingsModal';
 import { Login } from './components/auth/Login';
 import useConversationStore from './store/conversationStore';
 
 function App() {
   const { sessionId } = useConversationStore();
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,10 +27,20 @@ function App() {
     setIsLoggedIn(true);
   };
 
-  const handleLogout = () => {
-    // 清除登录状态，cookie 会在过期后失效
+  const handleLogout = async () => {
+    // 调用后端清除 cookie
+    try {
+      await fetch('/api/v1/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+    } catch {
+      // 忽略错误
+    }
+    // 清除本地状态
+    localStorage.removeItem('access_token');
     setIsLoggedIn(false);
-    window.location.reload(); // 刷新页面回到登录页
+    window.location.reload();
   };
 
   if (isLoading) {
@@ -46,7 +58,7 @@ function App() {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <Sidebar currentSessionId={sessionId} />
+      <Sidebar currentSessionId={sessionId} onSettingsClick={() => setIsSettingsOpen(true)} />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -79,6 +91,9 @@ function App() {
 
         {/* Help Modal */}
         <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
+
+        {/* Settings Modal */}
+        <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
         {/* Chat Area */}
         <main className="flex-1 overflow-hidden">

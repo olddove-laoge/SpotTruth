@@ -5,9 +5,10 @@ import useConversationStore from '../../store/conversationStore';
 
 interface SidebarProps {
   currentSessionId: string;
+  onSettingsClick?: () => void;
 }
 
-export function Sidebar({ currentSessionId }: SidebarProps) {
+export function Sidebar({ currentSessionId, onSettingsClick }: SidebarProps) {
   const [sessions, setSessions] = useState<{ id: string; preview: string; customName?: string; timestamp: number }[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState('');
@@ -205,7 +206,10 @@ export function Sidebar({ currentSessionId }: SidebarProps) {
 
       {/* Footer */}
       <div className="p-4 border-t border-gray-200">
-        <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
+        <button
+          onClick={onSettingsClick}
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+        >
           <Settings size={18} />
           <span className="text-sm">设置</span>
         </button>

@@ -19,6 +19,7 @@ API端点:
 import sys
 import os
 import json
+from typing import Dict, Any
 
 # 确保能正确导入 agent 模块
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -110,9 +111,30 @@ def index():
 import threading
 from agent.data_service import DataService, CrawlerConfig
 from agent import create_driver
+from selenium import webdriver
 
 # 爬虫锁（Selenium 不是线程安全的）
 crawler_lock = threading.Lock()
+
+# ========== 平台登录会话管理 ==========
+
+class LoginSession:
+    """平台登录会话"""
+    def __init__(self):
+        self.driver = None
+        self.is_logged_in = {
+            'taobao': False,
+            'xiaohongshu': False,
+            'heimao': False
+        }
+        self.cookies = {
+            'taobao': None,
+            'xiaohongshu': None,
+            'heimao': None
+        }
+
+# 全局登录会话
+login_session = LoginSession()
 # ========== 爬虫异步任务管理 ==========
 
 from datetime import datetime, timedelta
@@ -1082,6 +1104,78 @@ def compare_conclusion():
 
     except Exception as e:
         logger.error(f"对比结论接口出错: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+# ========== 平台登录接口 ==========
+
+@app.route('/api/login/browser', methods=['POST'])
+def login_browser():
+    """
+    统一浏览器登录
+
+    使用 C:\\unified_bot_profile 作为 Edge Profile，
+    用户在一个浏览器会话中依次登录三个平台，
+    登录状态会自动保存在 Profile 目录中。
+
+    请求体:
+    {
+        "driverPath": "EdgeDriver路径"
+    }
+
+    流程:
+    1. 使用 EdgeDriver + unified_bot_profile 打开浏览器
+    2. 用户依次访问三个平台并登录
+    3. 关闭浏览器后，cookies 自动保存在 profile 中
+    """
+    try:
+        data = request.get_json() or {}
+        driver_path = data.get('driverPath')
+
+        if not driver_path or not os.path.exists(driver_path):
+            return jsonify({"error": "无效的 EdgeDriver 路径"}), 400
+
+        # 关闭之前的 driver
+        if login_session.driver:
+            try:
+                login_session.driver.quit()
+            except:
+                pass
+
+        logger.info("启动统一浏览器登录...")
+
+        # 确保 profile 目录存在
+        profile_dir = r"C:\unified_bot_profile"
+        if not os.path.exists(profile_dir):
+            os.makedirs(profile_dir)
+
+        # 创建新的 driver，使用统一的 profile
+        from selenium.webdriver.edge.service import Service
+        from selenium.webdriver.edge.options import Options
+
+        options = Options()
+        options.use_chromium = True
+        options.add_argument(f"user-data-dir={profile_dir}")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+        service = Service(driver_path)
+        login_session.driver = webdriver.Edge(service=service, options=options)
+
+        # 先打开淘宝（通常是最需要先登录的）
+        login_session.driver.get("https://www.taobao.com")
+
+        logger.info("已打开浏览器，等待用户依次登录三个平台...")
+
+        # 返回成功，让用户在前端看到提示
+        return jsonify({
+            "status": "success",
+            "message": "浏览器已打开，请依次登录淘宝、小红书、黑猫投诉",
+            "profile_dir": profile_dir
+        }), 200
+
+    except Exception as e:
+        logger.error(f"浏览器登录失败: {e}")
         return jsonify({"error": str(e)}), 500
 
 

@@ -25,12 +25,14 @@ export function ProductSelectCard({ products, onSelect }: ProductSelectCardProps
         {products.map((product) => (
           <div
             key={product.id}
-            className={`p-4 rounded-lg border-2 transition-all cursor-pointer ${
+            className={`p-4 rounded-lg border-2 transition-all ${
               selectedId === product.id
                 ? 'border-primary-500 bg-primary-50'
-                : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                : selectedId !== null
+                  ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60'
+                  : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 cursor-pointer'
             }`}
-            onClick={() => handleSelect(product)}
+            onClick={() => selectedId === null && handleSelect(product)}
           >
             <div className="flex gap-4">
               {/* Product Image */}
@@ -72,9 +74,9 @@ export function ProductSelectCard({ products, onSelect }: ProductSelectCardProps
                 <Button
                   size="sm"
                   variant={selectedId === product.id ? 'primary' : 'outline'}
-                  disabled={selectedId === product.id}
+                  disabled={selectedId !== null}
                 >
-                  {selectedId === product.id ? '已选择' : '选择'}
+                  {selectedId === product.id ? '已选择' : (selectedId !== null ? '不可选' : '选择')}
                 </Button>
               </div>
             </div>

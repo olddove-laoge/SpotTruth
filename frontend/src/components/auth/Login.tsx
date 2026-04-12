@@ -16,6 +16,12 @@ export function Login({ onLogin }: LoginProps) {
   // 检查是否已登录（调用健康检查接口，带 cookie）
   useEffect(() => {
     const checkLogin = async () => {
+      // 如果 localStorage 中没有 token，说明已经退出登录，不要自动登录
+      const hasToken = localStorage.getItem('access_token');
+      if (!hasToken) {
+        return;
+      }
+
       try {
         // 尝试调用一个需要认证的接口
         const response = await fetch('/api/classify', {
@@ -26,6 +32,9 @@ export function Login({ onLogin }: LoginProps) {
         });
         if (response.ok) {
           onLogin();
+        } else {
+          // 认证失败，清除 localStorage
+          localStorage.removeItem('access_token');
         }
       } catch {
         // 未登录或请求失败，显示登录页
@@ -55,7 +64,8 @@ export function Login({ onLogin }: LoginProps) {
       const data = await response.json();
 
       if (data.code === 'OK') {
-        // cookie 已由后端自动设置
+        // cookie 已由后端自动设置，同时保存到 localStorage 用于判断登录状态
+        localStorage.setItem('access_token', data.data.access_token);
         onLogin();
       } else {
         setError(data.message || '登录失败');
