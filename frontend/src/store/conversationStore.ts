@@ -553,11 +553,243 @@ export const useConversationStore = create<ConversationState>()(
       },
 
       handleCompareIntent: async (intentData: IntentData) => {
-        get().addMessage({
+        const { addMessage, setLoading, getProductCache, analyzeProduct } = get();
+
+        // 解析商品列表
+        let products = intentData.products || [];
+
+        // 确保 products 是有效数组
+        if (typeof products === 'string') {
+          try {
+            products = JSON.parse(products);
+          } catch {
+            products = [];
+          }
+        }
+
+        // 确保每个元素都是字典
+        const validProducts = [];
+        for (const p of products) {
+          if (typeof p === 'object' && p !== null) {
+            validProducts.push(p);
+          } else if (typeof p === 'string') {
+            try {
+              const parsed = JSON.parse(p);
+              if (typeof parsed === 'object' && parsed !== null) {
+                validProducts.push(parsed);
+              }
+            } catch {
+              // 忽略无效数据
+            }
+          }
+        }
+        products = validProducts;
+
+        // 如果没有明确的两个商品，尝试从上下文中获取
+        if (products.length < 2) {
+          const currentProduct = get().currentProduct;
+          if (!currentProduct) {
+            addMessage({
+              role: 'assistant',
+              content: '🤖 请先告诉我您想对比的第一个商品',
+              type: 'text',
+            });
+            return;
+          }
+
+          // 解析当前商品和第二个商品
+          const currentBrand = intentData.brand || '';
+          const newProduct = intentData.product || '';
+          const newBrand = intentData.brand || '';
+
+          if (!newProduct) {
+            addMessage({
+              role: 'assistant',
+              content: '🤖 请告诉我您想对比的商品名称',
+              type: 'text',
+            });
+            return;
+          }
+
+          // 从 currentProduct 中提取品牌和商品名
+          const currentParts = currentProduct.split(' ');
+          const currentBrandFromContext = currentParts[0] || '';
+          const currentProductName = currentParts.slice(1).join(' ') || currentProduct;
+
+          products = [
+            { brand: currentBrandFromContext, product: currentProductName },
+            { brand: newBrand, product: newProduct },
+          ];
+        }
+
+        // 获取要对比的平台
+        const needTaobao = intentData.needTaobao ?? true;
+        const needXhs = intentData.needXiaohongshu ?? false;
+        const needHeimao = intentData.needHeimao ?? false;
+
+        const platforms = [];
+        if (needTaobao) platforms.push('淘宝');
+        if (needXhs) platforms.push('小红书');
+        if (needHeimao) platforms.push('黑猫投诉');
+
+        const prodA = products[0];
+        const prodB = products[1];
+        const prodAName = `${prodA.brand || ''} ${prodA.product}`.trim();
+        const prodBName = `${prodB.brand || ''} ${prodB.product}`.trim();
+
+        addMessage({
           role: 'assistant',
-          content: '对比功能正在开发中...',
+          content: `🔍 开始对比分析\n\n商品A: ${prodAName}\n商品B: ${prodBName}\n对比维度: ${platforms.join(', ')}`,
           type: 'text',
         });
+
+        // 分别分析两个商品
+        const results = [];
+
+        for (let i = 0; i < products.length; i++) {
+          const prod = products[i];
+          const prodName = `${prod.brand || ''} ${prod.product}`.trim();
+
+          addMessage({
+            role: 'assistant',
+            content: `📦 分析商品 ${i + 1}: ${prodName}`,
+            type: 'text',
+          });
+
+          // 检查缓存
+          let cache = getProductCache(prodName);
+
+          if (!cache) {
+            // 需要重新分析
+            await analyzeProduct(
+              prod.brand || '',
+              prod.product || '',
+              needXhs,
+              needHeimao,
+              needTaobao
+            );
+            // 重新获取缓存
+            cache = getProductCache(prodName);
+          }
+
+          if (cache) {
+            results.push({
+              productName: prodName,
+              brand: prod.brand || '',
+              category: cache.category,
+              statistics: cache.taobaoAnalysis?.stats || {
+                total: 0,
+                positiveCount: 0,
+                negativeCount: 0,
+                sarcasmCount: 0,
+                positiveRate: 0,
+                negativeRate: 0,
+              },
+              summary: cache.taobaoAnalysis?.summary || '',
+              advice: cache.taobaoAnalysis?.advice || '',
+              xhsAnalysis: cache.xiaohongshuAnalysis,
+              heimaoAnalysis: cache.heimaoAnalysis,
+              xhsCount: cache.xiaohongshuNotes.length,
+              heimaoCount: cache.heimaoComplaints.length,
+              hasTaobao: cache.taobaoComments.length > 0,
+            });
+          }
+        }
+
+        // 生成对比报告
+        if (results.length === 2) {
+          addMessage({
+            role: 'assistant',
+            content: '📊 正在生成对比报告...',
+            type: 'loading',
+          });
+
+          try {
+            const resultA = results[0];
+            const resultB = results[1];
+
+            // 调用API生成对比结论
+            const conclusionResult = await api.generateComparisonConclusion({
+              productAName: resultA.productName,
+              productBName: resultB.productName,
+              statsA: {
+                total: resultA.statistics.total,
+                positiveCount: resultA.statistics.positiveCount,
+                negativeCount: resultA.statistics.negativeCount,
+                sarcasmCount: resultA.statistics.sarcasmCount,
+                positiveRate: resultA.statistics.positiveRate,
+                negativeRate: resultA.statistics.negativeRate,
+              },
+              statsB: {
+                total: resultB.statistics.total,
+                positiveCount: resultB.statistics.positiveCount,
+                negativeCount: resultB.statistics.negativeCount,
+                sarcasmCount: resultB.statistics.sarcasmCount,
+                positiveRate: resultB.statistics.positiveRate,
+                negativeRate: resultB.statistics.negativeRate,
+              },
+              summaryA: resultA.summary,
+              summaryB: resultB.summary,
+              adviceA: resultA.advice,
+              adviceB: resultB.advice,
+              heimaoAnalysisA: resultA.heimaoAnalysis,
+              heimaoAnalysisB: resultB.heimaoAnalysis,
+              xhsAnalysisA: resultA.xhsAnalysis,
+              xhsAnalysisB: resultB.xhsAnalysis,
+              hasTaobaoA: resultA.hasTaobao,
+              hasTaobaoB: resultB.hasTaobao,
+            });
+
+            // 构建对比结果
+            const comparisonResult = {
+              productA: {
+                name: resultA.productName,
+                statistics: resultA.statistics,
+                summary: resultA.summary,
+                advice: resultA.advice,
+                xhsAnalysis: resultA.xhsAnalysis,
+                heimaoAnalysis: resultA.heimaoAnalysis,
+                xhsCount: resultA.xhsCount,
+                heimaoCount: resultA.heimaoCount,
+              },
+              productB: {
+                name: resultB.productName,
+                statistics: resultB.statistics,
+                summary: resultB.summary,
+                advice: resultB.advice,
+                xhsAnalysis: resultB.xhsAnalysis,
+                heimaoAnalysis: resultB.heimaoAnalysis,
+                xhsCount: resultB.xhsCount,
+                heimaoCount: resultB.heimaoCount,
+              },
+              conclusion: conclusionResult.conclusion,
+            };
+
+            // 更新loading消息为对比报告
+            const messages = get().messages;
+            const lastMessageId = messages[messages.length - 1]?.id;
+            if (lastMessageId) {
+              get().updateMessage(lastMessageId, {
+                type: 'comparison_report',
+                content: '对比完成',
+                metadata: { comparisonResult },
+              });
+            }
+          } catch (error) {
+            console.error('生成对比结论失败:', error);
+            addMessage({
+              role: 'assistant',
+              content: '❌ 生成对比报告失败，请重试',
+              type: 'error',
+            });
+          }
+        } else {
+          addMessage({
+            role: 'assistant',
+            content: '❌ 对比失败，无法获取足够的数据',
+            type: 'error',
+          });
+        }
       },
 
       clearConversation: () => {
