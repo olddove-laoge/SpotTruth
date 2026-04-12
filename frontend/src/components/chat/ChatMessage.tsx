@@ -47,14 +47,15 @@ export function ChatMessage({ message, onSelectProduct }: ChatMessageProps) {
           <div
             className={`inline-block max-w-[80%] rounded-2xl px-4 py-2.5 text-sm ${
               isUser
-                ? 'bg-primary-500 text-white'
+                ? 'bg-blue-600 text-white shadow-md'
                 : message.type === 'error'
                 ? 'bg-red-50 text-red-700 border border-red-200'
                 : 'bg-white border border-gray-200 text-gray-800 shadow-sm'
             }`}
+            style={isUser ? { color: 'white', backgroundColor: '#2563eb' } : {}}
           >
             {isUser ? (
-              message.content
+              <span style={{ color: 'white' }}>{message.content}</span>
             ) : (
               <MarkdownRenderer content={message.content} />
             )}

@@ -91,7 +91,8 @@ export function Sidebar({ currentSessionId }: SidebarProps) {
       <div className="p-4 border-b border-gray-200">
         <Button
           onClick={handleNewChat}
-          className="w-full justify-center gap-2"
+          variant="primary"
+          className="w-full justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700"
         >
           <Plus size={18} />
           新对话
