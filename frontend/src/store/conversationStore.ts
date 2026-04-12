@@ -44,6 +44,11 @@ interface ConversationState {
   clearConversation: () => void;
   getProductCache: (productName: string) => ProductCache | undefined;
   setProductCache: (cache: ProductCache) => void;
+  saveSession: () => void;
+  newSession: () => void;
+  loadSession: (sessionId: string) => boolean;
+  getSavedSessions: () => { id: string; preview: string; timestamp: number }[];
+  deleteSession: (sessionId: string) => void;
 }
 
 const createInitialState = () => ({
@@ -567,14 +572,113 @@ export const useConversationStore = create<ConversationState>()(
           productCache: new Map(state.productCache).set(cache.productName, cache),
         }));
 
+        // 保存到 localStorage
+        get().saveSession();
+      },
+
+      // 保存当前会话到 localStorage
+      saveSession: () => {
         const { sessionId, productCache, currentProduct, messages, conversationHistory } = get();
+
+        // 只保存有内容的会话
+        if (messages.length === 0) return;
+
         const data = {
+          sessionId,
           currentProduct,
           messages,
           conversationHistory,
           productCache: Object.fromEntries(productCache),
+          savedAt: Date.now(),
         };
         localStorage.setItem(`session_${sessionId}`, JSON.stringify(data));
+        console.log(`[Session] 已保存会话: ${sessionId}`);
+      },
+
+      // 创建新会话（保存当前会话后清空）
+      newSession: () => {
+        // 先保存当前会话
+        get().saveSession();
+
+        // 创建新会话
+        const newState = createInitialState();
+        set(newState);
+        console.log(`[Session] 已创建新会话: ${newState.sessionId}`);
+      },
+
+      // 加载指定会话
+      loadSession: (sessionId: string) => {
+        try {
+          const saved = localStorage.getItem(`session_${sessionId}`);
+          if (!saved) return false;
+
+          const data = JSON.parse(saved);
+
+          // 先保存当前会话
+          get().saveSession();
+
+          // 加载保存的会话
+          set({
+            sessionId: data.sessionId || sessionId,
+            currentProduct: data.currentProduct || '',
+            messages: data.messages || [],
+            conversationHistory: data.conversationHistory || [],
+            productCache: new Map(Object.entries(data.productCache || {})),
+            isLoading: false,
+            loadingText: '',
+            pendingCrawlData: null,
+          });
+
+          console.log(`[Session] 已加载会话: ${sessionId}`);
+          return true;
+        } catch (e) {
+          console.error('[Session] 加载会话失败:', e);
+          return false;
+        }
+      },
+
+      // 获取所有保存的会话列表
+      getSavedSessions: () => {
+        const sessions: { id: string; preview: string; timestamp: number }[] = [];
+
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key?.startsWith('session_')) {
+            try {
+              const data = JSON.parse(localStorage.getItem(key) || '{}');
+              const sessionId = key.replace('session_', '');
+
+              // 生成预览文本（取第一条用户消息或默认文本）
+              const firstUserMsg = data.messages?.find((m: Message) => m.role === 'user');
+              const preview = firstUserMsg
+                ? firstUserMsg.content.slice(0, 30) + (firstUserMsg.content.length > 30 ? '...' : '')
+                : '无标题对话';
+
+              sessions.push({
+                id: sessionId,
+                preview,
+                timestamp: data.savedAt || Date.now(),
+              });
+            } catch (e) {
+              console.error('[Session] 解析会话失败:', key);
+            }
+          }
+        }
+
+        // 按时间倒序排列
+        return sessions.sort((a, b) => b.timestamp - a.timestamp);
+      },
+
+      // 删除指定会话
+      deleteSession: (sessionId: string) => {
+        localStorage.removeItem(`session_${sessionId}`);
+        console.log(`[Session] 已删除会话: ${sessionId}`);
+      },
+
+      // 覆盖 clearConversation，使其先保存再清空
+      clearConversation: () => {
+        get().saveSession();
+        set(createInitialState());
       },
     }),
     { name: 'conversation-store' }

@@ -1,18 +1,14 @@
 import { Sidebar } from './components/layout/Sidebar';
 import { ChatContainer } from './components/chat/ChatContainer';
-import { useConversationStore } from './store/conversationStore';
+import useConversationStore from './store/conversationStore';
 
 function App() {
-  const { sessionId, clearConversation } = useConversationStore();
-
-  const handleNewChat = () => {
-    clearConversation();
-  };
+  const { sessionId } = useConversationStore();
 
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <Sidebar onNewChat={handleNewChat} currentSessionId={sessionId} />
+      <Sidebar currentSessionId={sessionId} />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
