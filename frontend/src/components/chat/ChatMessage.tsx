@@ -4,6 +4,7 @@ import type { Message } from '../../types';
 import { AnalysisCard } from '../analysis/AnalysisCard';
 import { ProductSelectCard } from '../product/ProductSelectCard';
 import { ComparisonCard } from '../compare/ComparisonCard';
+import { MarkdownRenderer } from '../ui/MarkdownRenderer';
 
 interface ChatMessageProps {
   message: Message;
@@ -52,7 +53,11 @@ export function ChatMessage({ message, onSelectProduct }: ChatMessageProps) {
                 : 'bg-white border border-gray-200 text-gray-800 shadow-sm'
             }`}
           >
-            {message.content}
+            {isUser ? (
+              message.content
+            ) : (
+              <MarkdownRenderer content={message.content} />
+            )}
           </div>
         )}
 

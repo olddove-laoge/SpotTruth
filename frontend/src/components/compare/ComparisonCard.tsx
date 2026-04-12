@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
 import { ComparisonTable } from './ComparisonTable';
+import { MarkdownRenderer } from '../ui/MarkdownRenderer';
 import type { ComparisonResult } from '../../types';
 
 interface ComparisonCardProps {
@@ -25,7 +26,9 @@ export function ComparisonCard({ result }: ComparisonCardProps) {
         {/* Conclusion */}
         <div className="bg-primary-50 rounded-lg p-4 border border-primary-100">
           <h4 className="text-sm font-medium text-primary-700 mb-2">🔍 对比结论</h4>
-          <p className="text-sm text-primary-700/80 leading-relaxed">{conclusion}</p>
+          <div className="text-primary-700/80">
+            <MarkdownRenderer content={conclusion} />
+          </div>
         </div>
       </CardContent>
     </Card>
