@@ -86,6 +86,7 @@ go run ./cmd/api-gateway
 - 方案5实施进展：`go_backend/docs/第五阶段实施步骤.md`
 - 方案6实施进展：`go_backend/docs/第六阶段实施步骤.md`
 - 可视化演示指南（录视频）：`go_backend/docs/可视化面板演示指南.md`
+- Windows 比赛彩排与压测指南（含自动出图脚本）：`go_backend/docs/Windows比赛彩排与压测指南.md`
 - 网关层设计总览：`go_backend/docs/网关层设计总览.md`
 - Windows 一键联调命令清单（含登录 token 与带鉴权熔断）：`go_backend/docs/Windows一键联调命令清单.md`
 - 小白快速联调指引（仅 Agent + Go 网关）：`go_backend/Agent联调小白指南.md`

@@ -1,0 +1,232 @@
+#!/usr/bin/env python3
+import argparse
+import csv
+import json
+import math
+from collections import Counter
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Tuple
+
+try:
+    import matplotlib.pyplot as plt
+except Exception as exc:
+    raise SystemExit(
+        "matplotlib is required. Install with: pip install matplotlib\n"
+        f"import error: {exc}"
+    )
+
+
+def percentile(values: List[float], p: float) -> float:
+    if not values:
+        return 0.0
+    if len(values) == 1:
+        return values[0]
+    idx = (len(values) - 1) * p
+    lo = math.floor(idx)
+    hi = math.ceil(idx)
+    if lo == hi:
+        return values[lo]
+    return values[lo] + (values[hi] - values[lo]) * (idx - lo)
+
+
+def parse_hey_csv(csv_path: Path) -> Tuple[List[float], List[float], Counter]:
+    latencies_ms: List[float] = []
+    offsets: List[float] = []
+    status_counter: Counter = Counter()
+
+    with csv_path.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        fields = reader.fieldnames or []
+        latency_key = "response-time" if "response-time" in fields else (fields[0] if fields else "")
+        offset_key = "offset" if "offset" in fields else ""
+        status_key = "status-code" if "status-code" in fields else ""
+
+        for row in reader:
+            if not latency_key or latency_key not in row:
+                continue
+            try:
+                lat_ms = float(row[latency_key]) * 1000.0
+                latencies_ms.append(lat_ms)
+            except Exception:
+                continue
+
+            if offset_key and offset_key in row:
+                try:
+                    offsets.append(float(row[offset_key]))
+                except Exception:
+                    offsets.append(0.0)
+            else:
+                offsets.append(0.0)
+
+            if status_key and status_key in row:
+                code_raw = row[status_key].strip()
+                if code_raw:
+                    try:
+                        code = str(int(float(code_raw)))
+                    except Exception:
+                        code = code_raw
+                    status_counter[code] += 1
+
+    return latencies_ms, offsets, status_counter
+
+
+def summarize(latencies_ms: List[float], offsets: List[float], status_counter: Counter) -> Dict:
+    if not latencies_ms:
+        return {
+            "count": 0,
+            "avg_ms": 0.0,
+            "min_ms": 0.0,
+            "max_ms": 0.0,
+            "p50_ms": 0.0,
+            "p90_ms": 0.0,
+            "p95_ms": 0.0,
+            "p99_ms": 0.0,
+            "duration_s": 0.0,
+            "rps": 0.0,
+            "status_codes": {},
+        }
+
+    sorted_vals = sorted(latencies_ms)
+    duration_s = max(offsets) if offsets else 0.0
+    rps = (len(latencies_ms) / duration_s) if duration_s > 0 else 0.0
+
+    return {
+        "count": len(latencies_ms),
+        "avg_ms": round(sum(latencies_ms) / len(latencies_ms), 3),
+        "min_ms": round(sorted_vals[0], 3),
+        "max_ms": round(sorted_vals[-1], 3),
+        "p50_ms": round(percentile(sorted_vals, 0.50), 3),
+        "p90_ms": round(percentile(sorted_vals, 0.90), 3),
+        "p95_ms": round(percentile(sorted_vals, 0.95), 3),
+        "p99_ms": round(percentile(sorted_vals, 0.99), 3),
+        "duration_s": round(duration_s, 3),
+        "rps": round(rps, 3),
+        "status_codes": dict(sorted(status_counter.items())),
+    }
+
+
+def plot_latency_hist(latencies_ms: List[float], title: str, output_path: Path) -> None:
+    plt.figure(figsize=(10, 5))
+    bins = min(60, max(10, int(len(latencies_ms) ** 0.5)))
+    plt.hist(latencies_ms, bins=bins, color="#1f77b4", alpha=0.85, edgecolor="black", linewidth=0.3)
+    plt.title(f"{title} - Latency Histogram")
+    plt.xlabel("Latency (ms)")
+    plt.ylabel("Count")
+    plt.grid(alpha=0.2)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150)
+    plt.close()
+
+
+def plot_latency_timeline(offsets: List[float], latencies_ms: List[float], title: str, output_path: Path) -> None:
+    plt.figure(figsize=(10, 5))
+    plt.scatter(offsets, latencies_ms, s=8, alpha=0.5, color="#ff7f0e")
+    plt.title(f"{title} - Latency Timeline")
+    plt.xlabel("Offset (s)")
+    plt.ylabel("Latency (ms)")
+    plt.grid(alpha=0.2)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150)
+    plt.close()
+
+
+def plot_status_codes(status_counter: Counter, title: str, output_path: Path) -> None:
+    if not status_counter:
+        return
+    labels = list(status_counter.keys())
+    values = [status_counter[k] for k in labels]
+
+    plt.figure(figsize=(8, 5))
+    plt.bar(labels, values, color="#2ca02c")
+    plt.title(f"{title} - Status Codes")
+    plt.xlabel("HTTP Status")
+    plt.ylabel("Count")
+    plt.grid(axis="y", alpha=0.2)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150)
+    plt.close()
+
+
+def write_markdown_summary(combined: Dict[str, Dict], output_md: Path) -> None:
+    lines = [
+        "# Gateway Load Test Summary",
+        "",
+        f"Generated at: {datetime.now().isoformat(timespec='seconds')}",
+        "",
+    ]
+
+    for name, item in combined.items():
+        lines.append(f"## {name}")
+        lines.append("")
+        lines.append(f"- requests: {item['count']}")
+        lines.append(f"- avg_ms: {item['avg_ms']}")
+        lines.append(f"- p50_ms: {item['p50_ms']}")
+        lines.append(f"- p90_ms: {item['p90_ms']}")
+        lines.append(f"- p95_ms: {item['p95_ms']}")
+        lines.append(f"- p99_ms: {item['p99_ms']}")
+        lines.append(f"- max_ms: {item['max_ms']}")
+        lines.append(f"- duration_s: {item['duration_s']}")
+        lines.append(f"- rps: {item['rps']}")
+        lines.append(f"- status_codes: {json.dumps(item['status_codes'], ensure_ascii=False)}")
+        lines.append("")
+
+    output_md.write_text("\n".join(lines), encoding="utf-8")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Plot hey CSV results and generate summaries")
+    parser.add_argument("--input-dir", required=True, help="Directory containing *.raw.csv files")
+    parser.add_argument("--output-dir", required=True, help="Directory to place charts and summary")
+    parser.add_argument("--title-prefix", default="SpotTruth Gateway", help="Chart title prefix")
+    args = parser.parse_args()
+
+    input_dir = Path(args.input_dir)
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    csv_files = sorted(input_dir.glob("*.raw.csv"))
+    if not csv_files:
+        raise SystemExit(f"No *.raw.csv files found in {input_dir}")
+
+    combined_summary: Dict[str, Dict] = {}
+
+    for csv_file in csv_files:
+        scenario = csv_file.name.replace(".raw.csv", "")
+        latencies_ms, offsets, status_counter = parse_hey_csv(csv_file)
+        summary = summarize(latencies_ms, offsets, status_counter)
+        combined_summary[scenario] = summary
+
+        summary_path = output_dir / f"{scenario}.summary.json"
+        summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
+
+        if summary["count"] == 0:
+            continue
+
+        plot_latency_hist(
+            latencies_ms,
+            f"{args.title_prefix} / {scenario}",
+            output_dir / f"{scenario}.latency_hist.png",
+        )
+        plot_latency_timeline(
+            offsets,
+            latencies_ms,
+            f"{args.title_prefix} / {scenario}",
+            output_dir / f"{scenario}.latency_timeline.png",
+        )
+        plot_status_codes(
+            status_counter,
+            f"{args.title_prefix} / {scenario}",
+            output_dir / f"{scenario}.status_codes.png",
+        )
+
+    (output_dir / "combined.summary.json").write_text(
+        json.dumps(combined_summary, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    write_markdown_summary(combined_summary, output_dir / "combined.summary.md")
+
+    print(f"done: charts and summary written to {output_dir}")
+
+
+if __name__ == "__main__":
+    main()
