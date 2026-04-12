@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, MessageSquare, Settings, Trash2 } from 'lucide-react';
+import { Plus, MessageSquare, Settings, Trash2, Edit2, Check, X } from 'lucide-react';
 import { Button } from '../ui/Button';
 import useConversationStore from '../../store/conversationStore';
 
@@ -8,8 +8,10 @@ interface SidebarProps {
 }
 
 export function Sidebar({ currentSessionId }: SidebarProps) {
-  const [sessions, setSessions] = useState<{ id: string; preview: string; timestamp: number }[]>([]);
-  const { newSession, loadSession, deleteSession, getSavedSessions } = useConversationStore();
+  const [sessions, setSessions] = useState<{ id: string; preview: string; customName?: string; timestamp: number }[]>([]);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editName, setEditName] = useState('');
+  const { newSession, loadSession, deleteSession, renameSession, getSavedSessions } = useConversationStore();
 
   // 加载会话列表
   const refreshSessions = () => {
@@ -41,6 +43,28 @@ export function Sidebar({ currentSessionId }: SidebarProps) {
   const handleDeleteSession = (sessionId: string) => {
     deleteSession(sessionId);
     refreshSessions();
+  };
+
+  // 开始编辑会话名称
+  const startEdit = (session: { id: string; preview: string; customName?: string }) => {
+    setEditingId(session.id);
+    setEditName(session.customName || session.preview);
+  };
+
+  // 保存新名称
+  const saveEdit = (sessionId: string) => {
+    if (editName.trim()) {
+      renameSession(sessionId, editName.trim());
+      refreshSessions();
+    }
+    setEditingId(null);
+    setEditName('');
+  };
+
+  // 取消编辑
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditName('');
   };
 
   // 格式化时间显示
@@ -98,18 +122,71 @@ export function Sidebar({ currentSessionId }: SidebarProps) {
               >
                 <MessageSquare size={16} />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm truncate">{session.preview}</div>
-                  <div className="text-xs text-gray-400">{formatTime(session.timestamp)}</div>
+                  {editingId === session.id ? (
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="text"
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            saveEdit(session.id);
+                          } else if (e.key === 'Escape') {
+                            cancelEdit();
+                          }
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex-1 text-sm px-1 py-0.5 border border-blue-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        autoFocus
+                      />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          saveEdit(session.id);
+                        }}
+                        className="p-0.5 hover:bg-green-100 rounded text-green-600"
+                      >
+                        <Check size={14} />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          cancelEdit();
+                        }}
+                        className="p-0.5 hover:bg-red-100 rounded text-red-600"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="text-sm truncate">{session.customName || session.preview}</div>
+                      <div className="text-xs text-gray-400">{formatTime(session.timestamp)}</div>
+                    </>
+                  )}
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteSession(session.id);
-                  }}
-                  className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-100 rounded transition-all"
-                >
-                  <Trash2 size={14} className="text-red-500" />
-                </button>
+                {editingId !== session.id && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        startEdit(session);
+                      }}
+                      className="opacity-0 group-hover:opacity-100 p-1 hover:bg-blue-100 rounded transition-all"
+                    >
+                      <Edit2 size={14} className="text-blue-500" />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteSession(session.id);
+                      }}
+                      className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-100 rounded transition-all"
+                    >
+                      <Trash2 size={14} className="text-red-500" />
+                    </button>
+                  </>
+                )}
               </div>
             ))
           )}

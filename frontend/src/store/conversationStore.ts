@@ -49,6 +49,7 @@ interface ConversationState {
   loadSession: (sessionId: string) => boolean;
   getSavedSessions: () => { id: string; preview: string; timestamp: number }[];
   deleteSession: (sessionId: string) => void;
+  renameSession: (sessionId: string, newName: string) => void;
 }
 
 const createInitialState = () => ({
@@ -657,6 +658,7 @@ export const useConversationStore = create<ConversationState>()(
               sessions.push({
                 id: sessionId,
                 preview,
+                customName: data.customName,
                 timestamp: data.savedAt || Date.now(),
               });
             } catch (e) {
@@ -673,6 +675,22 @@ export const useConversationStore = create<ConversationState>()(
       deleteSession: (sessionId: string) => {
         localStorage.removeItem(`session_${sessionId}`);
         console.log(`[Session] 已删除会话: ${sessionId}`);
+      },
+
+      // 重命名会话
+      renameSession: (sessionId: string, newName: string) => {
+        try {
+          const saved = localStorage.getItem(`session_${sessionId}`);
+          if (!saved) return;
+
+          const data = JSON.parse(saved);
+          data.customName = newName;
+          data.savedAt = Date.now();
+          localStorage.setItem(`session_${sessionId}`, JSON.stringify(data));
+          console.log(`[Session] 已重命名会话: ${sessionId} -> ${newName}`);
+        } catch (e) {
+          console.error('[Session] 重命名会话失败:', e);
+        }
       },
 
       // 覆盖 clearConversation，使其先保存再清空
