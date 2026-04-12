@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { MessageSquare, Sparkles, ShoppingCart } from 'lucide-react';
+import { MessageSquare, Sparkles, ShoppingCart, Bookmark, BookmarkCheck } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
+import { Button } from '../ui/Button';
 import { SentimentChart } from './SentimentChart';
 import { CommentList } from './CommentList';
+import { useSavedCardsStore } from '../../store/savedCardsStore';
 import type { AnalysisResult } from '../../types';
 
 interface AnalysisCardProps {
@@ -11,8 +13,25 @@ interface AnalysisCardProps {
 
 export function AnalysisCard({ result }: AnalysisCardProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'comments' | 'xhs' | 'heimao'>('overview');
+  const { saveCard, isCardSaved, removeCard } = useSavedCardsStore();
 
   const { statistics, summary, advice, results, xiaohongshu, heimao } = result;
+  const cardId = `analysis-${result.productName}`;
+  const saved = isCardSaved(cardId);
+
+  const handleSave = () => {
+    if (saved) {
+      removeCard(cardId);
+    } else {
+      saveCard({
+        id: cardId,
+        type: 'analysis',
+        title: result.productName,
+        data: result,
+        timestamp: Date.now(),
+      });
+    }
+  };
 
   return (
     <Card className="w-full">
@@ -27,6 +46,15 @@ export function AnalysisCard({ result }: AnalysisCardProps) {
               </span>
             </CardTitle>
           </div>
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={handleSave}
+            className={saved ? 'text-amber-500' : 'text-gray-400 hover:text-amber-500'}
+            title={saved ? '取消保存' : '保存卡片'}
+          >
+            {saved ? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
+          </Button>
         </div>
       </CardHeader>
 
@@ -104,6 +132,83 @@ export function AnalysisCard({ result }: AnalysisCardProps) {
                   购买建议
                 </h4>
                 <p className="text-sm text-primary-700/80 leading-relaxed">{advice}</p>
+              </div>
+            )}
+
+            {/* 小红书概览 */}
+            {xiaohongshu && (
+              <div className="bg-pink-50 rounded-lg p-3 border border-pink-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-sm font-medium text-pink-700 flex items-center gap-1.5">
+                    <span>📱</span>
+                    小红书
+                  </h4>
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded-full ${
+                      xiaohongshu.sentiment === 'mostly_positive'
+                        ? 'bg-emerald-100 text-emerald-700'
+                        : xiaohongshu.sentiment === 'mostly_negative'
+                        ? 'bg-red-100 text-red-700'
+                        : 'bg-amber-100 text-amber-700'
+                    }`}
+                  >
+                    {xiaohongshu.sentiment === 'mostly_positive'
+                      ? '整体正面'
+                      : xiaohongshu.sentiment === 'mostly_negative'
+                      ? '整体负面'
+                      : '褒贬不一'}
+                  </span>
+                </div>
+                <p className="text-sm text-pink-700/80 leading-relaxed line-clamp-3">{xiaohongshu.summary}</p>
+                {xiaohongshu.keyPoints.length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs text-pink-600/70 mb-1">关键发现：</p>
+                    <ul className="space-y-0.5">
+                      {xiaohongshu.keyPoints.slice(0, 3).map((point, index) => (
+                        <li key={index} className="text-xs text-pink-700/70 flex items-start gap-1">
+                          <span className="text-pink-400">•</span>
+                          <span className="line-clamp-1">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 黑猫投诉概览 */}
+            {heimao && (
+              <div className="bg-red-50 rounded-lg p-3 border border-red-100">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-sm font-medium text-red-700 flex items-center gap-1.5">
+                    <span>⚠️</span>
+                    黑猫投诉
+                  </h4>
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded-full ${
+                      heimao.severity === 'high'
+                        ? 'bg-red-100 text-red-700'
+                        : heimao.severity === 'medium'
+                        ? 'bg-amber-100 text-amber-700'
+                        : 'bg-emerald-100 text-emerald-700'
+                    }`}
+                  >
+                    风险等级：{heimao.severity === 'high' ? '高' : heimao.severity === 'medium' ? '中' : '低'}
+                  </span>
+                </div>
+                <p className="text-sm text-red-700/80 leading-relaxed line-clamp-2">{heimao.summary}</p>
+                {heimao.complaintTypes.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {heimao.complaintTypes.slice(0, 4).map((type, index) => (
+                      <span
+                        key={index}
+                        className="text-xs px-2 py-0.5 bg-red-100/50 text-red-600 rounded"
+                      >
+                        {type}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Plus, MessageSquare, Settings, Trash2, Edit2, Check, X } from 'lucide-react';
+import { Plus, MessageSquare, Settings, Trash2, Edit2, Check, X, Bookmark } from 'lucide-react';
 import { Button } from '../ui/Button';
 import useConversationStore from '../../store/conversationStore';
 
 interface SidebarProps {
   currentSessionId: string;
   onSettingsClick?: () => void;
+  onSavedCardsClick?: () => void;
 }
 
-export function Sidebar({ currentSessionId, onSettingsClick }: SidebarProps) {
+export function Sidebar({ currentSessionId, onSettingsClick, onSavedCardsClick }: SidebarProps) {
   const [sessions, setSessions] = useState<{ id: string; preview: string; customName?: string; timestamp: number }[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState('');
@@ -205,10 +206,17 @@ export function Sidebar({ currentSessionId, onSettingsClick }: SidebarProps) {
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-gray-200">
+      <div className="p-4 border-t border-gray-200 space-y-2">
+        <button
+          onClick={onSavedCardsClick}
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors w-full"
+        >
+          <Bookmark size={18} />
+          <span className="text-sm">保存的卡片</span>
+        </button>
         <button
           onClick={onSettingsClick}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors w-full"
         >
           <Settings size={18} />
           <span className="text-sm">设置</span>

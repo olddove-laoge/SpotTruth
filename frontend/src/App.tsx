@@ -4,6 +4,7 @@ import { Sidebar } from './components/layout/Sidebar';
 import { ChatContainer } from './components/chat/ChatContainer';
 import { HelpModal } from './components/layout/HelpModal';
 import { SettingsModal } from './components/settings/SettingsModal';
+import { SavedCardsModal } from './components/saved/SavedCardsModal';
 import { Login } from './components/auth/Login';
 import useConversationStore from './store/conversationStore';
 
@@ -11,6 +12,7 @@ function App() {
   const { sessionId } = useConversationStore();
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isSavedCardsOpen, setIsSavedCardsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -58,7 +60,11 @@ function App() {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <Sidebar currentSessionId={sessionId} onSettingsClick={() => setIsSettingsOpen(true)} />
+      <Sidebar
+        currentSessionId={sessionId}
+        onSettingsClick={() => setIsSettingsOpen(true)}
+        onSavedCardsClick={() => setIsSavedCardsOpen(true)}
+      />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -94,6 +100,9 @@ function App() {
 
         {/* Settings Modal */}
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+
+        {/* Saved Cards Modal */}
+        <SavedCardsModal isOpen={isSavedCardsOpen} onClose={() => setIsSavedCardsOpen(false)} />
 
         {/* Chat Area */}
         <main className="flex-1 overflow-hidden">
