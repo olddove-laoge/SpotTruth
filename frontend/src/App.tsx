@@ -1,13 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HelpCircle } from 'lucide-react';
 import { Sidebar } from './components/layout/Sidebar';
 import { ChatContainer } from './components/chat/ChatContainer';
 import { HelpModal } from './components/layout/HelpModal';
+import { Login } from './components/auth/Login';
 import useConversationStore from './store/conversationStore';
 
 function App() {
   const { sessionId } = useConversationStore();
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 检查登录状态
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+    setIsLoading(false);
+  }, []);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    // 清除登录状态，cookie 会在过期后失效
+    setIsLoggedIn(false);
+    window.location.reload(); // 刷新页面回到登录页
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+      </div>
+    );
+  }
+
+  if (!isLoggedIn) {
+    return <Login onLogin={handleLogin} />;
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -34,9 +68,12 @@ function App() {
               <HelpCircle size={16} />
               <span>使用说明</span>
             </button>
-            <div className="text-sm text-gray-500">
-              对话式商品口碑分析助手
-            </div>
+            <button
+              onClick={handleLogout}
+              className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              退出登录
+            </button>
           </div>
         </header>
 

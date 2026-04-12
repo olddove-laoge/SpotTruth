@@ -123,5 +123,5 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 
 	mux.Handle("/", securedProxy)
 
-	return middleware.RequestID(middleware.RequestLogger(mux))
+	return middleware.CORS(middleware.RequestID(middleware.RequestLogger(mux)))
 }

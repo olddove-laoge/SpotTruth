@@ -93,6 +93,17 @@ func loginHandler(tokenManager *auth.TokenManager, authenticator auth.LoginAuthe
 			return
 		}
 
+		// 设置 cookie（HttpOnly, Secure）
+		http.SetCookie(w, &http.Cookie{
+			Name:     "access_token",
+			Value:    token,
+			Path:     "/",
+			HttpOnly: true,
+			Secure:   false, // 开发环境设为 false，生产环境改为 true
+			SameSite: http.SameSiteLaxMode,
+			MaxAge:   int(tokenManager.AccessTTLSeconds()),
+		})
+
 		writeJSON(w, http.StatusOK, map[string]any{
 			"code":    "OK",
 			"message": "success",

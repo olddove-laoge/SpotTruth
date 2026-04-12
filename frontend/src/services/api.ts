@@ -16,33 +16,17 @@ import type {
 } from '../types';
 
 // API 基础配置
-// 开发环境使用空字符串（走 Vite 代理），生产环境使用完整 URL
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
-// 创建 axios 实例
+// 创建 axios 实例（使用 cookie 认证，无需手动加 token）
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 60000, // 60秒超时
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // 允许跨域请求携带 cookie
 });
-
-// 开发测试用 Token（从登录接口获取，30分钟有效）
-// 注意：实际项目应该实现登录页面获取 Token
-const DEV_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsInVzZXJuYW1lIjoic3BvdHRydXRoX3VzZXIiLCJpc3MiOiJzcG90dHJ1dGgtYXBpLWdhdGV3YXkiLCJzdWIiOiJ1LXNwb3R0cnV0aC11c2VyIiwiZXhwIjoxNzc1OTcyNDU0LCJpYXQiOjE3NzU5NzA2NTQsImp0aSI6IjMxY2Y3MmJlOGU3MzJhOWIzMzVhNWVkN2NkOTIzM2M0In0.AUNkl3m__4J5Rev5dm7uGhqk2r4TNmyqkFcosPy9Aos";
-
-// 请求拦截器 - 添加认证
-apiClient.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('access_token') || DEV_TOKEN;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
 
 // 响应拦截器 - 错误处理
 apiClient.interceptors.response.use(
@@ -53,8 +37,8 @@ apiClient.interceptors.response.use(
       const data = error.response.data as any;
 
       if (status === 401) {
-        // Token 过期，清除并提示
-        localStorage.removeItem('access_token');
+        // Token 过期，跳转登录页
+        window.location.href = '/';
         throw new Error('登录已过期，请重新登录');
       }
 

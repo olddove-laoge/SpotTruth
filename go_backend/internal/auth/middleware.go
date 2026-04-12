@@ -20,9 +20,9 @@ func AuthMiddleware(tokenManager *TokenManager, next http.Handler) http.Handler 
 			return
 		}
 
-		token, ok := extractBearerToken(r.Header.Get("Authorization"))
-		if !ok {
-			writeAuthError(w, r, http.StatusUnauthorized, "AUTH_TOKEN_MISSING", "未携带 Bearer Token")
+		token := extractToken(r)
+		if token == "" {
+			writeAuthError(w, r, http.StatusUnauthorized, "AUTH_TOKEN_MISSING", "未携带 Token")
 			return
 		}
 
@@ -74,6 +74,27 @@ func ClaimsFromContext(ctx context.Context) (*Claims, bool) {
 		return nil, false
 	}
 	return claims, true
+}
+
+// extractToken 从 cookie 或 header 提取 token（优先 cookie）
+func extractToken(r *http.Request) string {
+	// 1. 先尝试从 cookie 读取
+	if cookie, err := r.Cookie("access_token"); err == nil && cookie.Value != "" {
+		return cookie.Value
+	}
+
+	// 2. fallback 到 Authorization header
+	authHeader := r.Header.Get("Authorization")
+	if authHeader == "" {
+		return ""
+	}
+
+	parts := strings.SplitN(authHeader, " ", 2)
+	if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
+		return ""
+	}
+
+	return strings.TrimSpace(parts[1])
 }
 
 func extractBearerToken(authorizationHeader string) (string, bool) {
