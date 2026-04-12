@@ -19,11 +19,13 @@ API端点:
 import sys
 import os
 import json
+from typing import Dict, Any
 
 # 确保能正确导入 agent 模块
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from agent import (
     UnifiedAnalyzer,
     KimiClient,
@@ -33,6 +35,7 @@ from agent import (
 from agent.models import Comment, SourceType, SentimentType
 
 app = Flask(__name__)
+CORS(app)
 
 # ========== 初始化组件 ==========
 
@@ -101,7 +104,451 @@ def index():
     }), 200
 
 
+
+
+# ========== 爬虫接口 ==========
+
+import threading
+from agent.data_service import DataService, CrawlerConfig
+from agent import create_driver
+from selenium import webdriver
+
+# 爬虫锁（Selenium 不是线程安全的）
+crawler_lock = threading.Lock()
+
+# ========== 平台登录会话管理 ==========
+
+class LoginSession:
+    """平台登录会话"""
+    def __init__(self):
+        self.driver = None
+        self.is_logged_in = {
+            'taobao': False,
+            'xiaohongshu': False,
+            'heimao': False
+        }
+        self.cookies = {
+            'taobao': None,
+            'xiaohongshu': None,
+            'heimao': None
+        }
+
+# 全局登录会话
+login_session = LoginSession()
+# ========== 爬虫异步任务管理 ==========
+
+from datetime import datetime, timedelta
+from uuid import uuid4
+
+class CrawlerTask:
+    """爬虫任务状态"""
+    def __init__(self, task_type: str, params: dict):
+        self.id = str(uuid4())[:8]  # 短ID便于使用
+        self.type = task_type  # xiaohongshu, taobao, heimao
+        self.params = params
+        self.status = "pending"  # pending, running, completed, failed
+        self.progress = 0  # 0-100
+        self.message = "等待中..."
+        self.result = None
+        self.error = None
+        self.created_at = datetime.now()
+        self.completed_at = None
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "type": self.type,
+            "status": self.status,
+            "progress": self.progress,
+            "message": self.message,
+            "result": self.result,
+            "error": self.error,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None
+        }
+
+class TaskManager:
+    """内存任务管理器"""
+    def __init__(self, max_age_minutes: int = 30):
+        self._tasks: dict[str, CrawlerTask] = {}
+        self._max_age = timedelta(minutes=max_age_minutes)
+        self._lock = threading.Lock()
+    
+    def create_task(self, task_type: str, params: dict) -> CrawlerTask:
+        """创建新任务"""
+        task = CrawlerTask(task_type, params)
+        with self._lock:
+            self._tasks[task.id] = task
+            self._cleanup_old_tasks()
+        return task
+    
+    def get_task(self, task_id: str) -> CrawlerTask | None:
+        """获取任务状态"""
+        with self._lock:
+            return self._tasks.get(task_id)
+    
+    def update_task(self, task_id: str, **kwargs):
+        """更新任务状态"""
+        with self._lock:
+            task = self._tasks.get(task_id)
+            if task:
+                for key, value in kwargs.items():
+                    if hasattr(task, key):
+                        setattr(task, key, value)
+    
+    def _cleanup_old_tasks(self):
+        """清理过期任务"""
+        now = datetime.now()
+        expired = [
+            tid for tid, task in self._tasks.items()
+            if now - task.created_at > self._max_age
+        ]
+        for tid in expired:
+            del self._tasks[tid]
+
+# 全局任务管理器
+task_manager = TaskManager()
+
+
+def run_crawler_async(task_id: str, crawler_func, *args, **kwargs):
+    """在后台运行爬虫"""
+    def wrapper():
+        try:
+            task_manager.update_task(
+                task_id, 
+                status="running", 
+                message="正在爬取数据...",
+                progress=10
+            )
+            
+            # 执行爬虫
+            result = crawler_func(*args, **kwargs)
+            
+            # 更新完成状态
+            task_manager.update_task(
+                task_id,
+                status="completed",
+                message="爬取完成",
+                progress=100,
+                result=result,
+                completed_at=datetime.now()
+            )
+            logger.info(f"任务 {task_id} 完成")
+            
+        except Exception as e:
+            logger.error(f"任务 {task_id} 失败: {e}")
+            task_manager.update_task(
+                task_id,
+                status="failed",
+                message=f"爬取失败: {str(e)}",
+                error=str(e),
+                completed_at=datetime.now()
+            )
+    
+    # 启动后台线程
+    thread = threading.Thread(target=wrapper, daemon=True)
+    thread.start()
+
+
+
+
+@app.route('/crawler/taobao/search', methods=['POST'])
+def crawler_taobao_search():
+    """
+    异步搜索淘宝商品
+    
+    请求体:
+    {
+        "brand": "德芙",
+        "product": "巧克力",
+        "max_results": 5
+    }
+    """
+    data = request.get_json() or {}
+    brand = data.get('brand', '')
+    product = data.get('product', '')
+    max_results = data.get('max_results', 5)
+    
+    if not product:
+        return jsonify({"error": "product不能为空"}), 400
+    
+    task = task_manager.create_task("taobao_search", {"brand": brand, "product": product, "max_results": max_results})
+    
+    def do_crawl():
+        driver = None
+        try:
+            with crawler_lock:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
+                
+                task_manager.update_task(task.id, progress=20, message="正在搜索商品...")
+                
+                result = data_service.search_product(
+                    brand=brand, 
+                    product=product, 
+                    max_results=max_results
+                )
+                
+                driver.quit()
+            
+            if result and result.success:
+                products = [{
+                    "name": p.name,
+                    "price": getattr(p, 'price', '未知'),
+                    "sales": getattr(p, 'sales', ''),
+                    "shop_name": getattr(p, 'shop_name', '未知店铺'),
+                    "shop_tag": getattr(p, 'shop_tag', ''),
+                    "url": p.url,
+                    "image_url": getattr(p, 'image_url', '')
+                } for p in (result.data or [])[:max_results]]
+                return {"data": products, "count": len(products)}
+            else:
+                raise Exception(result.error if result else "未找到商品")
+        except Exception as e:
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            raise e
+    
+    run_crawler_async(task.id, do_crawl)
+    
+    logger.info(f"淘宝搜索任务已创建: {task.id}, brand={brand}, product={product}")
+    
+    return jsonify({
+        "task_id": task.id,
+        "status": task.status,
+        "message": "任务已创建，请轮询查询状态"
+    }), 202
+
+
+@app.route('/crawler/taobao/comments', methods=['POST'])
+def crawler_taobao_comments():
+    """
+    异步获取淘宝评论
+    
+    请求体:
+    {
+        "url": "https://detail.tmall.com/...",
+        "brand": "德芙",
+        "product": "巧克力",
+        "max_count": 50
+    }
+    """
+    data = request.get_json() or {}
+    url = data.get('url', '')
+    brand = data.get('brand', '')
+    product = data.get('product', '')
+    max_count = data.get('max_count', 50)
+    
+    if not url:
+        return jsonify({"error": "url不能为空"}), 400
+    
+    task = task_manager.create_task("taobao_comments", {"url": url, "brand": brand, "product": product, "max_count": max_count})
+    
+    def do_crawl():
+        driver = None
+        try:
+            with crawler_lock:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
+                
+                task_manager.update_task(task.id, progress=20, message="正在获取评论...")
+                
+                result = data_service.get_comments(
+                    url=url,
+                    brand=brand,
+                    product=product,
+                    max_count=max_count
+                )
+                
+                driver.quit()
+            
+            if result and result.success:
+                comments = [{"text": c.text} for c in (result.data or [])]
+                return {"data": comments, "count": len(comments)}
+            else:
+                raise Exception(result.error if result else "未获取到评论")
+        except Exception as e:
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            raise e
+    
+    run_crawler_async(task.id, do_crawl)
+    
+    logger.info(f"淘宝评论任务已创建: {task.id}, url={url[:50]}...")
+    
+    return jsonify({
+        "task_id": task.id,
+        "status": task.status,
+        "message": "任务已创建，请轮询查询状态"
+    }), 202
+
+
+@app.route('/crawler/xiaohongshu/search', methods=['POST'])
+def crawler_xiaohongshu_search():
+    """
+    异步搜索小红书笔记
+    
+    请求体:
+    {
+        "keyword": "德芙巧克力",
+        "max_notes": 5
+    }
+    
+    响应:
+    {
+        "task_id": "abc123",
+        "status": "pending",
+        "message": "任务已创建"
+    }
+    """
+    data = request.get_json() or {}
+    keyword = data.get('keyword', '')
+    max_notes = data.get('max_notes', 5)
+    
+    if not keyword:
+        return jsonify({"error": "keyword不能为空"}), 400
+    
+    # 创建任务
+    task = task_manager.create_task("xiaohongshu", {"keyword": keyword, "max_notes": max_notes})
+    
+    # 定义爬虫执行函数
+    def do_crawl():
+        driver = None
+        try:
+            with crawler_lock:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
+                
+                task_manager.update_task(task.id, progress=20, message="正在搜索笔记...")
+                
+                result = data_service.search_xiaohongshu(
+                    keyword=keyword,
+                    max_notes=max_notes
+                )
+                
+                driver.quit()
+            
+            if result and result.success:
+                notes = [{"text": n.text} for n in (result.data or [])]
+                return {"data": notes, "count": len(notes)}
+            else:
+                raise Exception(result.error if result else "未找到笔记")
+                
+        except Exception as e:
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            raise e
+    
+    # 启动异步任务
+    run_crawler_async(task.id, do_crawl)
+    
+    logger.info(f"小红书搜索任务已创建: {task.id}, keyword={keyword}")
+    
+    return jsonify({
+        "task_id": task.id,
+        "status": task.status,
+        "message": "任务已创建，请轮询查询状态"
+    }), 202
+
+
+@app.route('/crawler/task/<task_id>/status', methods=['GET'])
+def crawler_task_status(task_id):
+    """
+    查询爬虫任务状态
+    
+    响应:
+    {
+        "id": "abc123",
+        "type": "xiaohongshu",
+        "status": "completed",
+        "progress": 100,
+        "message": "爬取完成",
+        "result": {"data": [...], "count": 5},
+        "error": null
+    }
+    """
+    task = task_manager.get_task(task_id)
+    if not task:
+        return jsonify({"error": "任务不存在"}), 404
+    
+    return jsonify(task.to_dict()), 200
+
+
+@app.route('/crawler/heimao/search', methods=['POST'])
+def crawler_heimao_search():
+    """
+    异步搜索黑猫投诉
+    
+    请求体:
+    {
+        "brand": "德芙",
+        "max_complaints": 30
+    }
+    """
+    data = request.get_json() or {}
+    brand = data.get('brand', '')
+    max_complaints = data.get('max_complaints', 30)
+    
+    if not brand:
+        return jsonify({"error": "brand不能为空"}), 400
+    
+    task = task_manager.create_task("heimao", {"brand": brand, "max_complaints": max_complaints})
+    
+    def do_crawl():
+        driver = None
+        try:
+            with crawler_lock:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
+                
+                task_manager.update_task(task.id, progress=20, message="正在搜索投诉...")
+                
+                result = data_service.search_heimao(
+                    brand=brand,
+                    max_complaints=max_complaints
+                )
+                
+                driver.quit()
+            
+            if result and result.success:
+                complaints = [{"text": c.text} for c in (result.data or [])]
+                return {"data": complaints, "count": len(complaints)}
+            else:
+                raise Exception(result.error if result else "未找到投诉")
+        except Exception as e:
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            raise e
+    
+    run_crawler_async(task.id, do_crawl)
+    
+    logger.info(f"黑猫投诉任务已创建: {task.id}, brand={brand}")
+    
+    return jsonify({
+        "task_id": task.id,
+        "status": task.status,
+        "message": "任务已创建，请轮询查询状态"
+    }), 202
+
+
 # ========== 业务API端点 ==========
+
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze():
@@ -660,6 +1107,78 @@ def compare_conclusion():
         return jsonify({"error": str(e)}), 500
 
 
+# ========== 平台登录接口 ==========
+
+@app.route('/api/login/browser', methods=['POST'])
+def login_browser():
+    """
+    统一浏览器登录
+
+    使用 C:\\unified_bot_profile 作为 Edge Profile，
+    用户在一个浏览器会话中依次登录三个平台，
+    登录状态会自动保存在 Profile 目录中。
+
+    请求体:
+    {
+        "driverPath": "EdgeDriver路径"
+    }
+
+    流程:
+    1. 使用 EdgeDriver + unified_bot_profile 打开浏览器
+    2. 用户依次访问三个平台并登录
+    3. 关闭浏览器后，cookies 自动保存在 profile 中
+    """
+    try:
+        data = request.get_json() or {}
+        driver_path = data.get('driverPath')
+
+        if not driver_path or not os.path.exists(driver_path):
+            return jsonify({"error": "无效的 EdgeDriver 路径"}), 400
+
+        # 关闭之前的 driver
+        if login_session.driver:
+            try:
+                login_session.driver.quit()
+            except:
+                pass
+
+        logger.info("启动统一浏览器登录...")
+
+        # 确保 profile 目录存在
+        profile_dir = r"C:\unified_bot_profile"
+        if not os.path.exists(profile_dir):
+            os.makedirs(profile_dir)
+
+        # 创建新的 driver，使用统一的 profile
+        from selenium.webdriver.edge.service import Service
+        from selenium.webdriver.edge.options import Options
+
+        options = Options()
+        options.use_chromium = True
+        options.add_argument(f"user-data-dir={profile_dir}")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+        service = Service(driver_path)
+        login_session.driver = webdriver.Edge(service=service, options=options)
+
+        # 先打开淘宝（通常是最需要先登录的）
+        login_session.driver.get("https://www.taobao.com")
+
+        logger.info("已打开浏览器，等待用户依次登录三个平台...")
+
+        # 返回成功，让用户在前端看到提示
+        return jsonify({
+            "status": "success",
+            "message": "浏览器已打开，请依次登录淘宝、小红书、黑猫投诉",
+            "profile_dir": profile_dir
+        }), 200
+
+    except Exception as e:
+        logger.error(f"浏览器登录失败: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
 # ========== 错误处理 ==========
 
 @app.errorhandler(404)
@@ -672,7 +1191,6 @@ def internal_error(error):
     return jsonify({"error": "服务器内部错误"}), 500
 
 
-# ========== 启动入口 ==========
 
 def main():
     """启动 Agent API 服务"""
@@ -698,5 +1216,9 @@ def main():
     )
 
 
+
+# ========== 启动入口 ==========
 if __name__ == '__main__':
     main()
+
+

@@ -89,6 +89,7 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 	}
 
 	mux.HandleFunc("POST /api/v1/auth/login", loginHandler(opts.TokenManager, opts.LoginAuthenticator))
+	mux.HandleFunc("POST /api/v1/auth/logout", logoutHandler())
 
 	publicPaths := map[string]struct{}{
 		"/healthz":             {},
@@ -96,6 +97,7 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 		"/metrics":             {},
 		"/metrics/json":        {},
 		"/api/v1/auth/login":   {},
+		"/api/v1/auth/logout":  {},
 		"/api/v1/auth/refresh": {},
 	}
 
@@ -123,5 +125,5 @@ func NewHandlerWithOptions(proxy http.Handler, maxInFlight int, opts HandlerOpti
 
 	mux.Handle("/", securedProxy)
 
-	return middleware.RequestID(middleware.RequestLogger(mux))
+	return middleware.CORS(middleware.RequestID(middleware.RequestLogger(mux)))
 }
