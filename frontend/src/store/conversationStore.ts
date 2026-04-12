@@ -201,8 +201,13 @@ export const useConversationStore = create<ConversationState>()(
 
             // 如果需要淘宝，先显示商品选择
             if (needCrawlTaobao) {
-              setLoading(true, '搜索淘宝商品...');
-              const products = await crawler.searchTaobaoProducts({ brand, product, maxResults: 5 });
+              setLoading(true, '🔍 正在启动淘宝商品搜索...');
+              const products = await crawler.searchTaobaoProducts(
+                { brand, product, maxResults: 5 },
+                (progress, message) => {
+                  setLoading(true, `🔍 ${message} (${progress}%)`);
+                }
+              );
 
               if (products.length === 0) {
                 addMessage({
@@ -265,9 +270,15 @@ export const useConversationStore = create<ConversationState>()(
 
             // 爬取黑猫
             if (needCrawlHeimao) {
-              setLoading(true, '⚠️ 获取黑猫投诉...');
+              setLoading(true, '⚠️ 正在启动黑猫投诉爬取...');
               try {
-                heimaoComplaints = await crawler.searchHeimao(brand || productName, 30);
+                heimaoComplaints = await crawler.searchHeimao(
+                  brand || productName,
+                  30,
+                  (progress, message) => {
+                    setLoading(true, `⚠️ ${message} (${progress}%)`);
+                  }
+                );
                 addMessage({
                   role: 'assistant',
                   content: `✅ 获取 ${heimaoComplaints.length} 条黑猫投诉`,
@@ -275,6 +286,11 @@ export const useConversationStore = create<ConversationState>()(
                 });
               } catch (e) {
                 console.error('黑猫爬取失败:', e);
+                addMessage({
+                  role: 'assistant',
+                  content: `⚠️ 黑猫投诉爬取失败: ${e instanceof Error ? e.message : '未知错误'}`,
+                  type: 'text',
+                });
               }
             }
           }
@@ -453,7 +469,7 @@ export const useConversationStore = create<ConversationState>()(
         const { brand, product: productName, needXhs, needHeimao } = pendingCrawlData;
         const fullProductName = `${brand} ${productName}`.trim();
 
-        setLoading(true, '💬 获取淘宝评论...');
+        setLoading(true, '💬 正在启动淘宝评论获取...');
 
         try {
           const comments = await crawler.getTaobaoComments({
@@ -461,6 +477,8 @@ export const useConversationStore = create<ConversationState>()(
             brand,
             product: productName,
             maxCount: 50,
+          }, (progress, message) => {
+            setLoading(true, `💬 ${message} (${progress}%)`);
           });
 
           addMessage({

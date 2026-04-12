@@ -34,48 +34,108 @@ crawlerClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 搜索淘宝商品
+// 搜索淘宝商品（异步轮询）
 export const searchTaobaoProducts = async (
-  data: CrawlerSearchRequest
+  data: CrawlerSearchRequest,
+  onProgress?: (progress: number, message: string) => void
 ): Promise<Product[]> => {
-  const response = await crawlerClient.post<CrawlerSearchResponse>('/crawler/taobao/search', {
+  // 1. 创建任务
+  const createResponse = await crawlerClient.post('/crawler/taobao/search', {
     brand: data.brand,
     product: data.product,
     max_results: data.maxResults || 5,
   });
 
-  if (!response.data.success) {
-    throw new Error('搜索商品失败');
+  const { task_id } = createResponse.data;
+
+  if (!task_id) {
+    throw new Error('创建任务失败');
   }
 
-  return response.data.data.map((item, index) => ({
-    id: `product-${index}`,
-    name: item.name,
-    price: item.price,
-    sales: item.sales,
-    shopName: item.shop_name,
-    shopTag: item.shop_tag,
-    url: item.url,
-    imageUrl: item.image_url,
-  }));
+  // 2. 轮询查询任务状态
+  const maxAttempts = 60;
+  const pollInterval = 2000;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    await new Promise(resolve => setTimeout(resolve, pollInterval));
+
+    const statusResponse = await crawlerClient.get(`/crawler/task/${task_id}/status`);
+    const task = statusResponse.data;
+
+    if (onProgress && task.progress) {
+      onProgress(task.progress, task.message);
+    }
+
+    if (task.status === 'completed') {
+      if (task.result && task.result.data) {
+        return task.result.data.map((item: any, index: number) => ({
+          id: `product-${index}`,
+          name: item.name,
+          price: item.price,
+          sales: item.sales,
+          shopName: item.shop_name,
+          shopTag: item.shop_tag,
+          url: item.url,
+          imageUrl: item.image_url,
+        }));
+      }
+      return [];
+    }
+
+    if (task.status === 'failed') {
+      throw new Error(task.error || '搜索商品失败');
+    }
+  }
+
+  throw new Error('轮询超时，任务可能仍在运行');
 };
 
-// 获取淘宝评论
+// 获取淘宝评论（异步轮询）
 export const getTaobaoComments = async (
-  data: CrawlerCommentsRequest
+  data: CrawlerCommentsRequest,
+  onProgress?: (progress: number, message: string) => void
 ): Promise<string[]> => {
-  const response = await crawlerClient.post<CrawlerCommentsResponse>('/crawler/taobao/comments', {
+  // 1. 创建任务
+  const createResponse = await crawlerClient.post('/crawler/taobao/comments', {
     url: data.url,
     brand: data.brand,
     product: data.product,
     max_count: data.maxCount || 50,
   });
 
-  if (!response.data.success) {
-    throw new Error('获取评论失败');
+  const { task_id } = createResponse.data;
+
+  if (!task_id) {
+    throw new Error('创建任务失败');
   }
 
-  return response.data.data.map((item) => item.text);
+  // 2. 轮询查询任务状态
+  const maxAttempts = 60;
+  const pollInterval = 2000;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    await new Promise(resolve => setTimeout(resolve, pollInterval));
+
+    const statusResponse = await crawlerClient.get(`/crawler/task/${task_id}/status`);
+    const task = statusResponse.data;
+
+    if (onProgress && task.progress) {
+      onProgress(task.progress, task.message);
+    }
+
+    if (task.status === 'completed') {
+      if (task.result && task.result.data) {
+        return task.result.data.map((item: { text: string }) => item.text);
+      }
+      return [];
+    }
+
+    if (task.status === 'failed') {
+      throw new Error(task.error || '获取评论失败');
+    }
+  }
+
+  throw new Error('轮询超时，任务可能仍在运行');
 };
 
 // 搜索小红书（异步轮询）
@@ -129,21 +189,51 @@ export const searchXiaohongshu = async (
   throw new Error('轮询超时，任务可能仍在运行');
 };
 
-// 搜索黑猫投诉
+// 搜索黑猫投诉（异步轮询）
 export const searchHeimao = async (
   brand: string,
-  maxComplaints: number = 30
+  maxComplaints: number = 30,
+  onProgress?: (progress: number, message: string) => void
 ): Promise<string[]> => {
-  const response = await crawlerClient.post('/crawler/heimao/search', {
+  // 1. 创建任务
+  const createResponse = await crawlerClient.post('/crawler/heimao/search', {
     brand,
     max_complaints: maxComplaints,
   });
 
-  if (!response.data.success) {
-    throw new Error('搜索黑猫投诉失败');
+  const { task_id } = createResponse.data;
+
+  if (!task_id) {
+    throw new Error('创建任务失败');
   }
 
-  return response.data.data.map((item: { text: string }) => item.text);
+  // 2. 轮询查询任务状态
+  const maxAttempts = 60;
+  const pollInterval = 2000;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    await new Promise(resolve => setTimeout(resolve, pollInterval));
+
+    const statusResponse = await crawlerClient.get(`/crawler/task/${task_id}/status`);
+    const task = statusResponse.data;
+
+    if (onProgress && task.progress) {
+      onProgress(task.progress, task.message);
+    }
+
+    if (task.status === 'completed') {
+      if (task.result && task.result.data) {
+        return task.result.data.map((item: { text: string }) => item.text);
+      }
+      return [];
+    }
+
+    if (task.status === 'failed') {
+      throw new Error(task.error || '搜索黑猫投诉失败');
+    }
+  }
+
+  throw new Error('轮询超时，任务可能仍在运行');
 };
 
 export { CRAWLER_BASE_URL };

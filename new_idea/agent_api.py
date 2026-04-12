@@ -233,7 +233,7 @@ def run_crawler_async(task_id: str, crawler_func, *args, **kwargs):
 @app.route('/crawler/taobao/search', methods=['POST'])
 def crawler_taobao_search():
     """
-    搜索淘宝商品
+    异步搜索淘宝商品
     
     请求体:
     {
@@ -247,53 +247,65 @@ def crawler_taobao_search():
     product = data.get('product', '')
     max_results = data.get('max_results', 5)
     
-    logger.info(f"爬虫-搜索淘宝: {brand} {product}")
+    if not product:
+        return jsonify({"error": "product不能为空"}), 400
     
-    driver = None
-    try:
-        with crawler_lock:
-            driver = create_driver()
-            config = CrawlerConfig(driver=driver)
-            data_service = DataService(config)
-            
-            result = data_service.search_product(
-                brand=brand, 
-                product=product, 
-                max_results=max_results
-            )
-            
-            driver.quit()
-        
-        if result and result.success and result.data:
-            products = [{
-                "name": p.name,
-                "price": getattr(p, 'price', '未知'),
-                "sales": getattr(p, 'sales', ''),
-                "shop_name": getattr(p, 'shop_name', '未知店铺'),
-                "shop_tag": getattr(p, 'shop_tag', ''),
-                "url": p.url,
-                "image_url": getattr(p, 'image_url', '')
-            } for p in result.data[:max_results]]
-
-            return jsonify({"success": True, "data": products}), 200
-        else:
-            error_msg = result.error if result and not result.success else "未找到商品"
-            return jsonify({"success": False, "data": [], "error": error_msg}), 200
-
-    except Exception as e:
-        logger.error(f"淘宝搜索失败: {e}")
-        if driver:
-            try:
+    task = task_manager.create_task("taobao_search", {"brand": brand, "product": product, "max_results": max_results})
+    
+    def do_crawl():
+        driver = None
+        try:
+            with crawler_lock:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
+                
+                task_manager.update_task(task.id, progress=20, message="正在搜索商品...")
+                
+                result = data_service.search_product(
+                    brand=brand, 
+                    product=product, 
+                    max_results=max_results
+                )
+                
                 driver.quit()
-            except:
-                pass
-        return jsonify({"success": False, "error": str(e)}), 500
+            
+            if result and result.success:
+                products = [{
+                    "name": p.name,
+                    "price": getattr(p, 'price', '未知'),
+                    "sales": getattr(p, 'sales', ''),
+                    "shop_name": getattr(p, 'shop_name', '未知店铺'),
+                    "shop_tag": getattr(p, 'shop_tag', ''),
+                    "url": p.url,
+                    "image_url": getattr(p, 'image_url', '')
+                } for p in (result.data or [])[:max_results]]
+                return {"data": products, "count": len(products)}
+            else:
+                raise Exception(result.error if result else "未找到商品")
+        except Exception as e:
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            raise e
+    
+    run_crawler_async(task.id, do_crawl)
+    
+    logger.info(f"淘宝搜索任务已创建: {task.id}, brand={brand}, product={product}")
+    
+    return jsonify({
+        "task_id": task.id,
+        "status": task.status,
+        "message": "任务已创建，请轮询查询状态"
+    }), 202
 
 
 @app.route('/crawler/taobao/comments', methods=['POST'])
 def crawler_taobao_comments():
     """
-    获取淘宝评论
+    异步获取淘宝评论
     
     请求体:
     {
@@ -309,39 +321,52 @@ def crawler_taobao_comments():
     product = data.get('product', '')
     max_count = data.get('max_count', 50)
     
-    logger.info(f"爬虫-获取评论: {url[:50]}...")
+    if not url:
+        return jsonify({"error": "url不能为空"}), 400
     
-    driver = None
-    try:
-        with crawler_lock:
-            driver = create_driver()
-            config = CrawlerConfig(driver=driver)
-            data_service = DataService(config)
-            
-            result = data_service.get_comments(
-                url=url,
-                brand=brand,
-                product=product,
-                max_count=max_count
-            )
-            
-            driver.quit()
-        
-        if result and result.success and result.data:
-            comments = [{"text": c.text} for c in result.data]
-            return jsonify({"success": True, "data": comments}), 200
-        else:
-            error_msg = result.error if result and not result.success else "未获取到评论"
-            return jsonify({"success": False, "data": [], "error": error_msg}), 200
-
-    except Exception as e:
-        logger.error(f"获取评论失败: {e}")
-        if driver:
-            try:
+    task = task_manager.create_task("taobao_comments", {"url": url, "brand": brand, "product": product, "max_count": max_count})
+    
+    def do_crawl():
+        driver = None
+        try:
+            with crawler_lock:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
+                
+                task_manager.update_task(task.id, progress=20, message="正在获取评论...")
+                
+                result = data_service.get_comments(
+                    url=url,
+                    brand=brand,
+                    product=product,
+                    max_count=max_count
+                )
+                
                 driver.quit()
-            except:
-                pass
-        return jsonify({"success": False, "error": str(e)}), 500
+            
+            if result and result.success:
+                comments = [{"text": c.text} for c in (result.data or [])]
+                return {"data": comments, "count": len(comments)}
+            else:
+                raise Exception(result.error if result else "未获取到评论")
+        except Exception as e:
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            raise e
+    
+    run_crawler_async(task.id, do_crawl)
+    
+    logger.info(f"淘宝评论任务已创建: {task.id}, url={url[:50]}...")
+    
+    return jsonify({
+        "task_id": task.id,
+        "status": task.status,
+        "message": "任务已创建，请轮询查询状态"
+    }), 202
 
 
 @app.route('/crawler/xiaohongshu/search', methods=['POST'])
@@ -442,7 +467,7 @@ def crawler_task_status(task_id):
 @app.route('/crawler/heimao/search', methods=['POST'])
 def crawler_heimao_search():
     """
-    搜索黑猫投诉
+    异步搜索黑猫投诉
     
     请求体:
     {
@@ -454,37 +479,50 @@ def crawler_heimao_search():
     brand = data.get('brand', '')
     max_complaints = data.get('max_complaints', 30)
     
-    logger.info(f"爬虫-搜索黑猫: {brand}")
+    if not brand:
+        return jsonify({"error": "brand不能为空"}), 400
     
-    driver = None
-    try:
-        with crawler_lock:
-            driver = create_driver()
-            config = CrawlerConfig(driver=driver)
-            data_service = DataService(config)
-            
-            result = data_service.search_heimao(
-                brand=brand,
-                max_complaints=max_complaints
-            )
-            
-            driver.quit()
-        
-        if result and result.success and result.data:
-            complaints = [{"text": c.text} for c in result.data]
-            return jsonify({"success": True, "data": complaints}), 200
-        else:
-            error_msg = result.error if result and not result.success else "未找到投诉"
-            return jsonify({"success": False, "data": [], "error": error_msg}), 200
-            
-    except Exception as e:
-        logger.error(f"黑猫搜索失败: {e}")
-        if driver:
-            try:
+    task = task_manager.create_task("heimao", {"brand": brand, "max_complaints": max_complaints})
+    
+    def do_crawl():
+        driver = None
+        try:
+            with crawler_lock:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
+                
+                task_manager.update_task(task.id, progress=20, message="正在搜索投诉...")
+                
+                result = data_service.search_heimao(
+                    brand=brand,
+                    max_complaints=max_complaints
+                )
+                
                 driver.quit()
-            except:
-                pass
-        return jsonify({"success": False, "error": str(e)}), 500
+            
+            if result and result.success:
+                complaints = [{"text": c.text} for c in (result.data or [])]
+                return {"data": complaints, "count": len(complaints)}
+            else:
+                raise Exception(result.error if result else "未找到投诉")
+        except Exception as e:
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            raise e
+    
+    run_crawler_async(task.id, do_crawl)
+    
+    logger.info(f"黑猫投诉任务已创建: {task.id}, brand={brand}")
+    
+    return jsonify({
+        "task_id": task.id,
+        "status": task.status,
+        "message": "任务已创建，请轮询查询状态"
+    }), 202
 
 
 # ========== 业务API端点 ==========
