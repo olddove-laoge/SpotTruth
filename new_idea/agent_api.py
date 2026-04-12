@@ -24,6 +24,7 @@ import json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from agent import (
     UnifiedAnalyzer,
     KimiClient,
@@ -33,6 +34,7 @@ from agent import (
 from agent.models import Comment, SourceType, SentimentType
 
 app = Flask(__name__)
+CORS(app)
 
 # ========== 初始化组件 ==========
 
@@ -101,7 +103,232 @@ def index():
     }), 200
 
 
+
+
+# ========== 爬虫接口 ==========
+
+import threading
+from agent.data_service import DataService, CrawlerConfig
+from agent import create_driver
+
+# 爬虫锁（Selenium 不是线程安全的）
+crawler_lock = threading.Lock()
+
+
+@app.route('/crawler/taobao/search', methods=['POST'])
+def crawler_taobao_search():
+    """
+    搜索淘宝商品
+    
+    请求体:
+    {
+        "brand": "德芙",
+        "product": "巧克力",
+        "max_results": 5
+    }
+    """
+    data = request.get_json() or {}
+    brand = data.get('brand', '')
+    product = data.get('product', '')
+    max_results = data.get('max_results', 5)
+    
+    logger.info(f"爬虫-搜索淘宝: {brand} {product}")
+    
+    driver = None
+    try:
+        with crawler_lock:
+            driver = create_driver()
+            config = CrawlerConfig(driver=driver)
+            data_service = DataService(config)
+            
+            result = data_service.search_product(
+                brand=brand, 
+                product=product, 
+                max_results=max_results
+            )
+            
+            driver.quit()
+        
+        if result and result.success and result.data:
+            products = [{
+                "name": p.name,
+                "price": getattr(p, 'price', '未知'),
+                "sales": getattr(p, 'sales', ''),
+                "shop_name": getattr(p, 'shop_name', '未知店铺'),
+                "shop_tag": getattr(p, 'shop_tag', ''),
+                "url": p.url,
+                "image_url": getattr(p, 'image_url', '')
+            } for p in result.data[:max_results]]
+
+            return jsonify({"success": True, "data": products}), 200
+        else:
+            error_msg = result.error if result and not result.success else "未找到商品"
+            return jsonify({"success": False, "data": [], "error": error_msg}), 200
+
+    except Exception as e:
+        logger.error(f"淘宝搜索失败: {e}")
+        if driver:
+            try:
+                driver.quit()
+            except:
+                pass
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route('/crawler/taobao/comments', methods=['POST'])
+def crawler_taobao_comments():
+    """
+    获取淘宝评论
+    
+    请求体:
+    {
+        "url": "https://detail.tmall.com/...",
+        "brand": "德芙",
+        "product": "巧克力",
+        "max_count": 50
+    }
+    """
+    data = request.get_json() or {}
+    url = data.get('url', '')
+    brand = data.get('brand', '')
+    product = data.get('product', '')
+    max_count = data.get('max_count', 50)
+    
+    logger.info(f"爬虫-获取评论: {url[:50]}...")
+    
+    driver = None
+    try:
+        with crawler_lock:
+            driver = create_driver()
+            config = CrawlerConfig(driver=driver)
+            data_service = DataService(config)
+            
+            result = data_service.get_comments(
+                url=url,
+                brand=brand,
+                product=product,
+                max_count=max_count
+            )
+            
+            driver.quit()
+        
+        if result and result.success and result.data:
+            comments = [{"text": c.text} for c in result.data]
+            return jsonify({"success": True, "data": comments}), 200
+        else:
+            error_msg = result.error if result and not result.success else "未获取到评论"
+            return jsonify({"success": False, "data": [], "error": error_msg}), 200
+
+    except Exception as e:
+        logger.error(f"获取评论失败: {e}")
+        if driver:
+            try:
+                driver.quit()
+            except:
+                pass
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route('/crawler/xiaohongshu/search', methods=['POST'])
+def crawler_xiaohongshu_search():
+    """
+    搜索小红书笔记
+    
+    请求体:
+    {
+        "keyword": "德芙巧克力",
+        "max_notes": 5
+    }
+    """
+    data = request.get_json() or {}
+    keyword = data.get('keyword', '')
+    max_notes = data.get('max_notes', 5)
+    
+    logger.info(f"爬虫-搜索小红书: {keyword}")
+    
+    driver = None
+    try:
+        with crawler_lock:
+            driver = create_driver()
+            config = CrawlerConfig(driver=driver)
+            data_service = DataService(config)
+            
+            result = data_service.search_xiaohongshu(
+                keyword=keyword,
+                max_notes=max_notes
+            )
+            
+            driver.quit()
+        
+        if result and result.success:
+            notes = [{"text": n.text} for n in (result.data or [])]
+            logger.info(f"小红书搜索完成，返回 {len(notes)} 条笔记")
+            return jsonify({"success": True, "data": notes}), 200
+        else:
+            error_msg = result.error if result else "未找到笔记"
+            logger.warning(f"小红书搜索失败: {error_msg}")
+            return jsonify({"success": False, "data": [], "error": error_msg}), 200
+
+    except Exception as e:
+        logger.error(f"小红书搜索失败: {e}")
+        if driver:
+            try:
+                driver.quit()
+            except:
+                pass
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route('/crawler/heimao/search', methods=['POST'])
+def crawler_heimao_search():
+    """
+    搜索黑猫投诉
+    
+    请求体:
+    {
+        "brand": "德芙",
+        "max_complaints": 30
+    }
+    """
+    data = request.get_json() or {}
+    brand = data.get('brand', '')
+    max_complaints = data.get('max_complaints', 30)
+    
+    logger.info(f"爬虫-搜索黑猫: {brand}")
+    
+    driver = None
+    try:
+        with crawler_lock:
+            driver = create_driver()
+            config = CrawlerConfig(driver=driver)
+            data_service = DataService(config)
+            
+            result = data_service.search_heimao(
+                brand=brand,
+                max_complaints=max_complaints
+            )
+            
+            driver.quit()
+        
+        if result and result.success and result.data:
+            complaints = [{"text": c.text} for c in result.data]
+            return jsonify({"success": True, "data": complaints}), 200
+        else:
+            error_msg = result.error if result and not result.success else "未找到投诉"
+            return jsonify({"success": False, "data": [], "error": error_msg}), 200
+            
+    except Exception as e:
+        logger.error(f"黑猫搜索失败: {e}")
+        if driver:
+            try:
+                driver.quit()
+            except:
+                pass
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 # ========== 业务API端点 ==========
+
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze():
@@ -672,7 +899,6 @@ def internal_error(error):
     return jsonify({"error": "服务器内部错误"}), 500
 
 
-# ========== 启动入口 ==========
 
 def main():
     """启动 Agent API 服务"""
@@ -698,5 +924,9 @@ def main():
     )
 
 
+
+# ========== 启动入口 ==========
 if __name__ == '__main__':
     main()
+
+
