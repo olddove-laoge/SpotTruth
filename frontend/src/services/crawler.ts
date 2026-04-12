@@ -78,21 +78,55 @@ export const getTaobaoComments = async (
   return response.data.data.map((item) => item.text);
 };
 
-// 搜索小红书
+// 搜索小红书（异步轮询）
 export const searchXiaohongshu = async (
   keyword: string,
-  maxNotes: number = 5
+  maxNotes: number = 5,
+  onProgress?: (progress: number, message: string) => void
 ): Promise<string[]> => {
-  const response = await crawlerClient.post('/crawler/xiaohongshu/search', {
+  // 1. 创建任务
+  const createResponse = await crawlerClient.post('/crawler/xiaohongshu/search', {
     keyword,
     max_notes: maxNotes,
   });
 
-  if (!response.data.success) {
-    throw new Error('搜索小红书失败');
+  const { task_id, status } = createResponse.data;
+
+  if (!task_id) {
+    throw new Error('创建任务失败');
   }
 
-  return response.data.data.map((item: { text: string }) => item.text);
+  // 2. 轮询查询任务状态
+  const maxAttempts = 60; // 最多轮询60次（2分钟）
+  const pollInterval = 2000; // 每2秒轮询一次
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    await new Promise(resolve => setTimeout(resolve, pollInterval));
+
+    const statusResponse = await crawlerClient.get(`/crawler/task/${task_id}/status`);
+    const task = statusResponse.data;
+
+    // 通知进度回调
+    if (onProgress && task.progress) {
+      onProgress(task.progress, task.message);
+    }
+
+    // 检查任务状态
+    if (task.status === 'completed') {
+      if (task.result && task.result.data) {
+        return task.result.data.map((item: { text: string }) => item.text);
+      }
+      return [];
+    }
+
+    if (task.status === 'failed') {
+      throw new Error(task.error || '爬取失败');
+    }
+
+    // 继续轮询...
+  }
+
+  throw new Error('轮询超时，任务可能仍在运行');
 };
 
 // 搜索黑猫投诉

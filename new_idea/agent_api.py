@@ -113,6 +113,121 @@ from agent import create_driver
 
 # 爬虫锁（Selenium 不是线程安全的）
 crawler_lock = threading.Lock()
+# ========== 爬虫异步任务管理 ==========
+
+from datetime import datetime, timedelta
+from uuid import uuid4
+
+class CrawlerTask:
+    """爬虫任务状态"""
+    def __init__(self, task_type: str, params: dict):
+        self.id = str(uuid4())[:8]  # 短ID便于使用
+        self.type = task_type  # xiaohongshu, taobao, heimao
+        self.params = params
+        self.status = "pending"  # pending, running, completed, failed
+        self.progress = 0  # 0-100
+        self.message = "等待中..."
+        self.result = None
+        self.error = None
+        self.created_at = datetime.now()
+        self.completed_at = None
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "type": self.type,
+            "status": self.status,
+            "progress": self.progress,
+            "message": self.message,
+            "result": self.result,
+            "error": self.error,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None
+        }
+
+class TaskManager:
+    """内存任务管理器"""
+    def __init__(self, max_age_minutes: int = 30):
+        self._tasks: dict[str, CrawlerTask] = {}
+        self._max_age = timedelta(minutes=max_age_minutes)
+        self._lock = threading.Lock()
+    
+    def create_task(self, task_type: str, params: dict) -> CrawlerTask:
+        """创建新任务"""
+        task = CrawlerTask(task_type, params)
+        with self._lock:
+            self._tasks[task.id] = task
+            self._cleanup_old_tasks()
+        return task
+    
+    def get_task(self, task_id: str) -> CrawlerTask | None:
+        """获取任务状态"""
+        with self._lock:
+            return self._tasks.get(task_id)
+    
+    def update_task(self, task_id: str, **kwargs):
+        """更新任务状态"""
+        with self._lock:
+            task = self._tasks.get(task_id)
+            if task:
+                for key, value in kwargs.items():
+                    if hasattr(task, key):
+                        setattr(task, key, value)
+    
+    def _cleanup_old_tasks(self):
+        """清理过期任务"""
+        now = datetime.now()
+        expired = [
+            tid for tid, task in self._tasks.items()
+            if now - task.created_at > self._max_age
+        ]
+        for tid in expired:
+            del self._tasks[tid]
+
+# 全局任务管理器
+task_manager = TaskManager()
+
+
+def run_crawler_async(task_id: str, crawler_func, *args, **kwargs):
+    """在后台运行爬虫"""
+    def wrapper():
+        try:
+            task_manager.update_task(
+                task_id, 
+                status="running", 
+                message="正在爬取数据...",
+                progress=10
+            )
+            
+            # 执行爬虫
+            result = crawler_func(*args, **kwargs)
+            
+            # 更新完成状态
+            task_manager.update_task(
+                task_id,
+                status="completed",
+                message="爬取完成",
+                progress=100,
+                result=result,
+                completed_at=datetime.now()
+            )
+            logger.info(f"任务 {task_id} 完成")
+            
+        except Exception as e:
+            logger.error(f"任务 {task_id} 失败: {e}")
+            task_manager.update_task(
+                task_id,
+                status="failed",
+                message=f"爬取失败: {str(e)}",
+                error=str(e),
+                completed_at=datetime.now()
+            )
+    
+    # 启动后台线程
+    thread = threading.Thread(target=wrapper, daemon=True)
+    thread.start()
+
+
 
 
 @app.route('/crawler/taobao/search', methods=['POST'])
@@ -232,51 +347,96 @@ def crawler_taobao_comments():
 @app.route('/crawler/xiaohongshu/search', methods=['POST'])
 def crawler_xiaohongshu_search():
     """
-    搜索小红书笔记
+    异步搜索小红书笔记
     
     请求体:
     {
         "keyword": "德芙巧克力",
         "max_notes": 5
     }
+    
+    响应:
+    {
+        "task_id": "abc123",
+        "status": "pending",
+        "message": "任务已创建"
+    }
     """
     data = request.get_json() or {}
     keyword = data.get('keyword', '')
     max_notes = data.get('max_notes', 5)
     
-    logger.info(f"爬虫-搜索小红书: {keyword}")
+    if not keyword:
+        return jsonify({"error": "keyword不能为空"}), 400
     
-    driver = None
-    try:
-        with crawler_lock:
-            driver = create_driver()
-            config = CrawlerConfig(driver=driver)
-            data_service = DataService(config)
-            
-            result = data_service.search_xiaohongshu(
-                keyword=keyword,
-                max_notes=max_notes
-            )
-            
-            driver.quit()
-        
-        if result and result.success:
-            notes = [{"text": n.text} for n in (result.data or [])]
-            logger.info(f"小红书搜索完成，返回 {len(notes)} 条笔记")
-            return jsonify({"success": True, "data": notes}), 200
-        else:
-            error_msg = result.error if result else "未找到笔记"
-            logger.warning(f"小红书搜索失败: {error_msg}")
-            return jsonify({"success": False, "data": [], "error": error_msg}), 200
-
-    except Exception as e:
-        logger.error(f"小红书搜索失败: {e}")
-        if driver:
-            try:
+    # 创建任务
+    task = task_manager.create_task("xiaohongshu", {"keyword": keyword, "max_notes": max_notes})
+    
+    # 定义爬虫执行函数
+    def do_crawl():
+        driver = None
+        try:
+            with crawler_lock:
+                driver = create_driver()
+                config = CrawlerConfig(driver=driver)
+                data_service = DataService(config)
+                
+                task_manager.update_task(task.id, progress=20, message="正在搜索笔记...")
+                
+                result = data_service.search_xiaohongshu(
+                    keyword=keyword,
+                    max_notes=max_notes
+                )
+                
                 driver.quit()
-            except:
-                pass
-        return jsonify({"success": False, "error": str(e)}), 500
+            
+            if result and result.success:
+                notes = [{"text": n.text} for n in (result.data or [])]
+                return {"data": notes, "count": len(notes)}
+            else:
+                raise Exception(result.error if result else "未找到笔记")
+                
+        except Exception as e:
+            if driver:
+                try:
+                    driver.quit()
+                except:
+                    pass
+            raise e
+    
+    # 启动异步任务
+    run_crawler_async(task.id, do_crawl)
+    
+    logger.info(f"小红书搜索任务已创建: {task.id}, keyword={keyword}")
+    
+    return jsonify({
+        "task_id": task.id,
+        "status": task.status,
+        "message": "任务已创建，请轮询查询状态"
+    }), 202
+
+
+@app.route('/crawler/task/<task_id>/status', methods=['GET'])
+def crawler_task_status(task_id):
+    """
+    查询爬虫任务状态
+    
+    响应:
+    {
+        "id": "abc123",
+        "type": "xiaohongshu",
+        "status": "completed",
+        "progress": 100,
+        "message": "爬取完成",
+        "result": {"data": [...], "count": 5},
+        "error": null
+    }
+    """
+    task = task_manager.get_task(task_id)
+    if not task:
+        return jsonify({"error": "任务不存在"}), 404
+    
+    return jsonify(task.to_dict()), 200
 
 
 @app.route('/crawler/heimao/search', methods=['POST'])

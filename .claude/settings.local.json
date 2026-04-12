@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p frontend)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(pkill -f \"vite\")",
+      "Bash(taskkill /F /IM \"node.exe\")",
+      "Bash(npx tailwindcss:*)",
+      "Bash(./node_modules/.bin/tailwindcss init:*)",
+      "Bash(pkill -f vite)",
+      "Bash(curl:*)",
+      "Bash(sed:*)",
+      "Bash(sed -i 's/result.data\\\\[:max_results\\\\]/result[:max_results]/g' agent_api.py)",
+      "Bash(sed -i 's/for c in result.data:/for c in result:/g' agent_api.py)",
+      "Bash(sed -i 's/for n in result.data:/for n in result:/g' agent_api.py)",
+      "Bash(python agent_api.py)",
+      "Bash(python -m venv venv)",
+      "Bash(ls D:/C_data/SpotTruth/new_idea/*.txt)",
+      "Bash(grep -rn \"login\\\\|/auth\\\\|HandleFunc\\\\|router\" D:/C_data/SpotTruth/go_backend/internal/gateway/*.go)",
+      "Bash(pip install:*)",
+      "Bash(pkill -f \"python agent_api.py\")",
+      "Bash(taskkill /F /IM python.exe)",
+      "Bash(python -c \"import agent_api; print\\([r.rule for r in agent_api.app.url_map.iter_rules\\(\\)]\\)\")",
+      "Bash(python:*)",
+      "Bash(netstat -ano)",
+      "Bash(tasklist)",
+      "Bash(taskkill:*)",
+      "Bash(find . -name \"agent_api*.pyc\" -delete)",
+      "Bash(find . -name \"__pycache__\" -type d -exec rm -rf {} +)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

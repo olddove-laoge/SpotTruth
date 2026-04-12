@@ -9,7 +9,7 @@ from pathlib import Path
 @dataclass(frozen=True)
 class PathsConfig:
     """路径配置"""
-    driver_path: str = r"E:\edgedriver_win64\msedgedriver.exe"
+    driver_path: str = r"E:\edgedriver_win64 (1)\msedgedriver.exe"
     profile_dir: str = r"C:\unified_bot_profile"
     cache_dir: str = r"C:\Users\lyh23\.cache\huggingface\hub\models--hfl--chinese-roberta-wwm-ext\snapshots\5c58d0b8ec1d9014354d691c538661bf00bfdb44"
 
