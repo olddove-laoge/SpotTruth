@@ -198,3 +198,4 @@ spottruth_circuit_state_value
 2. `readyz` 不通过：检查上游 `agent_api.py` 是否监听在 5000。
 3. 无法出图：检查 `matplotlib` 是否已安装。
 4. 找不到 `hey`：重新执行安装并确认 PATH。
+5. 执行 `run_gateway_loadtest.ps1` 出现 `UnexpectedToken`（如 `$ScenarioName` 附近报错）：请使用仓库内最新脚本，不要从文档手工复制脚本内容；若本地编辑过该脚本，请保存为 `UTF-8 with BOM` 后重试。

@@ -1,4 +1,4 @@
-param(
+﻿param(
   [string]$BaseUrl = "http://127.0.0.1:8080",
   [string]$LoginAccount = "spottruth_user",
   [string]$LoginPassword = "spottruth_user_123",
@@ -43,13 +43,13 @@ function Invoke-HeyScenario {
     [Parameter(Mandatory = $true)][string]$RunDir
   )
 
-  $rawText = Join-Path $RunDir "$ScenarioName.raw.txt"
-  $rawCsv = Join-Path $RunDir "$ScenarioName.raw.csv"
+  $rawText = Join-Path $RunDir ("{0}.raw.txt" -f $ScenarioName)
+  $rawCsv = Join-Path $RunDir ("{0}.raw.csv" -f $ScenarioName)
 
-  Write-Host "[loadtest] scenario=$ScenarioName (summary)"
+  Write-Host ("[loadtest] scenario={0} (summary)" -f $ScenarioName)
   & $HeyPath @Args 2>&1 | Tee-Object -FilePath $rawText | Out-Null
 
-  Write-Host "[loadtest] scenario=$ScenarioName (csv)"
+  Write-Host ("[loadtest] scenario={0} (csv)" -f $ScenarioName)
   $csvArgs = @("-o", "csv") + $Args
   & $HeyPath @csvArgs | Out-File -FilePath $rawCsv -Encoding utf8
 }
