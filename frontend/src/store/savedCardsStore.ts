@@ -28,6 +28,7 @@ interface SavedCardsState {
 
   // Persistence
   loadCards: () => void;
+  saveToStorage: () => void;
 }
 
 const STORAGE_KEY = 'spottruth_saved_cards';
