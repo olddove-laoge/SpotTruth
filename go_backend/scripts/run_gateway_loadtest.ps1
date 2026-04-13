@@ -2,14 +2,16 @@
   [string]$BaseUrl = "http://127.0.0.1:8080",
   [string]$LoginAccount = "spottruth_user",
   [string]$LoginPassword = "spottruth_user_123",
-  [string]$ClassifyProductName = "苹果手机",
+  [string]$ClassifyProductName = "iPhone 15",
   [int]$HealthRequests = 2000,
   [int]$HealthConcurrency = 80,
-  [int]$LoginRequests = 1000,
+  [int]$LoginRequests = 200,
   [int]$LoginConcurrency = 50,
-  [int]$ClassifyRequests = 1000,
+  [int]$ClassifyRequests = 100,
   [int]$ClassifyConcurrency = 50,
-  [string]$OutputRoot = "./observability/loadtest_results"
+  [string]$OutputRoot = "./observability/loadtest_results",
+  [string]$ApiKey = "",
+  [switch]$DisableBucketAutoFit
 )
 
 Set-StrictMode -Version Latest
@@ -35,6 +37,33 @@ function Resolve-PythonCommand {
   throw "未找到 python 命令。请安装 Python 3。"
 }
 
+function Get-EnvValueFromFile {
+  param(
+    [Parameter(Mandatory = $true)][string]$FilePath,
+    [Parameter(Mandatory = $true)][string]$Key
+  )
+
+  if (-not (Test-Path $FilePath)) {
+    return ""
+  }
+
+  foreach ($line in Get-Content -Path $FilePath) {
+    $trimmed = $line.Trim()
+    if ([string]::IsNullOrWhiteSpace($trimmed)) { continue }
+    if ($trimmed.StartsWith("#")) { continue }
+    if (-not $trimmed.Contains("=")) { continue }
+
+    $pair = $trimmed.Split("=", 2)
+    if ($pair.Length -ne 2) { continue }
+
+    if ($pair[0].Trim() -eq $Key) {
+      return $pair[1].Trim()
+    }
+  }
+
+  return ""
+}
+
 function Invoke-HeyScenario {
   param(
     [Parameter(Mandatory = $true)][string]$HeyPath,
@@ -57,6 +86,30 @@ function Invoke-HeyScenario {
 $scriptDir = Split-Path -Parent $PSCommandPath
 $projectRoot = Split-Path -Parent $scriptDir
 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+$apiKeyValue = if ([string]::IsNullOrWhiteSpace($ApiKey)) { "loadtest-$timestamp" } else { $ApiKey }
+
+$gatewayEnvPath = Join-Path $projectRoot "gateway.env"
+if (-not $DisableBucketAutoFit) {
+  $bucketEnabledRaw = Get-EnvValueFromFile -FilePath $gatewayEnvPath -Key "BUCKET_LIMIT_ENABLED"
+  $bucketRequestsRaw = Get-EnvValueFromFile -FilePath $gatewayEnvPath -Key "BUCKET_LIMIT_REQUESTS"
+
+  $bucketEnabled = $false
+  if (-not [string]::IsNullOrWhiteSpace($bucketEnabledRaw)) {
+    $bucketEnabled = $bucketEnabledRaw.ToLowerInvariant() -eq "true"
+  }
+
+  $bucketRequests = 0
+  if (-not [string]::IsNullOrWhiteSpace($bucketRequestsRaw)) {
+    [void][int]::TryParse($bucketRequestsRaw, [ref]$bucketRequests)
+  }
+
+  if ($bucketEnabled -and $bucketRequests -gt 0 -and $ClassifyRequests -ge $bucketRequests) {
+    $adjusted = [Math]::Max(1, $bucketRequests - 5)
+    Write-Warning ("检测到 BUCKET_LIMIT_REQUESTS={0}，为避免 classify 全量 429，自动将 ClassifyRequests 从 {1} 调整为 {2}。可用 -DisableBucketAutoFit 关闭此行为。" -f $bucketRequests, $ClassifyRequests, $adjusted)
+    $ClassifyRequests = $adjusted
+  }
+}
+
 $outputRootAbs = if ([System.IO.Path]::IsPathRooted($OutputRoot)) {
   $OutputRoot
 } else {
@@ -70,6 +123,8 @@ $meta = @{
   generated_at = (Get-Date).ToString("o")
   base_url = $BaseUrl
   host = $env:COMPUTERNAME
+  api_key = $apiKeyValue
+  disable_bucket_autofit = [bool]$DisableBucketAutoFit
   scenarios = @{
     healthz = @{ requests = $HealthRequests; concurrency = $HealthConcurrency }
     login = @{ requests = $LoginRequests; concurrency = $LoginConcurrency }
@@ -128,6 +183,7 @@ if ([string]::IsNullOrWhiteSpace($token)) {
     "-c", "$ClassifyConcurrency",
     "-m", "POST",
     "-H", "Content-Type: application/json",
+    "-H", "X-API-Key: $apiKeyValue",
     "-H", "Authorization: Bearer $token",
     "-d", $classifyPayload,
     "$BaseUrl/api/classify"

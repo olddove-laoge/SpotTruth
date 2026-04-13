@@ -664,7 +664,9 @@ def classify():
     }
     """
     try:
-        data = request.get_json() or {}
+        data = request.get_json(silent=True) or {}
+        if not isinstance(data, dict):
+            return jsonify({"error": "请求体必须是JSON对象"}), 400
         product_name = data.get('product_name', '')
 
         if not product_name:

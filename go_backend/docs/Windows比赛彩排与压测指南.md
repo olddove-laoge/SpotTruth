@@ -78,6 +78,8 @@ Invoke-RestMethod -Uri "http://127.0.0.1:8080/metrics/json" -Method Get | Conver
 2. `go_backend/scripts/plot_hey_results.py`（把 CSV 原始数据转图）
 3. `go_backend/scripts/generate_loadtest_report_page.py`（读取 `combined.summary.json` 自动生成一页图文结论）
 
+说明：默认网关开启桶限流（`BUCKET_LIMIT_REQUESTS=120`），若 classify 请求量远大于该值，会出现大量 `429`。当前脚本已内置“桶限流自适应”，会自动把 `ClassifyRequests` 下调到安全值，避免结果出现“除 health 外几乎全失败”。
+
 ### 4.1 安装依赖
 
 #### 安装 hey
@@ -112,6 +114,14 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
   -ClassifyProductName "苹果手机"
 ```
 
+若你明确要测试限流触发效果，可关闭自适配：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
+  -ClassifyRequests 1500 -ClassifyConcurrency 60 `
+  -DisableBucketAutoFit
+```
+
 ### 4.3 结果产物说明
 
 脚本会在 `go_backend/observability/loadtest_results/<时间戳>/` 下生成：
@@ -123,6 +133,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
 5. `charts/combined.summary.json`：机器可读汇总。
 6. `charts/combined.summary.md`：可直接贴到汇报材料的摘要。
 7. `loadtest_report.html`：自动生成的一页比赛汇报模板页（图文结论）。
+8. `run.meta.json`：包含本次压测参数（含 `api_key` 与是否启用桶限流自适应）。
 
 ### 4.4 一页汇报模板页使用
 
@@ -199,3 +210,4 @@ spottruth_circuit_state_value
 3. 无法出图：检查 `matplotlib` 是否已安装。
 4. 找不到 `hey`：重新执行安装并确认 PATH。
 5. 执行 `run_gateway_loadtest.ps1` 出现 `UnexpectedToken`（如 `$ScenarioName` 附近报错）：请使用仓库内最新脚本，不要从文档手工复制脚本内容；若本地编辑过该脚本，请保存为 `UTF-8 with BOM` 后重试。
+6. classify 成功率接近 0 且网关多为 `429`：说明命中桶限流。可降低 `-ClassifyRequests`，或使用脚本默认自适配，或在网关侧调大/关闭桶限流后再跑基线压测。
