@@ -28,6 +28,12 @@ def parse_status_distribution(status_codes: Dict[str, int]) -> Tuple[int, int, f
     return total, success, rate
 
 
+def is_business_scenario(name: str) -> bool:
+    n = (name or "").strip().lower()
+    excluded_prefix = ("health", "ready", "metrics")
+    return not any(n.startswith(prefix) for prefix in excluded_prefix)
+
+
 def level_from_metrics(success_rate: float, p95_ms: float) -> str:
     if success_rate >= 0.995 and p95_ms <= 30:
         return "A"
@@ -46,6 +52,7 @@ def calc_metric_delta(before: Dict, after: Dict, key: str) -> int:
 
 
 def render_report(summary: Dict[str, Dict], charts_dir: Path, metrics_before: Dict, metrics_after: Dict, title: str) -> str:
+    _ = charts_dir
     scenarios = []
     for name, item in summary.items():
         status_codes = item.get("status_codes", {}) or {}
@@ -65,14 +72,27 @@ def render_report(summary: Dict[str, Dict], charts_dir: Path, metrics_before: Di
                 "p99_ms": p99,
                 "rps": rps,
                 "status_codes": status_codes,
+                "status_total": total,
+                "status_success": success,
                 "success_rate": success_rate,
                 "level": level,
+                "is_business": is_business_scenario(name),
             }
         )
 
-    scenarios.sort(key=lambda x: x["name"])
+    scenarios.sort(key=lambda x: (0 if x["is_business"] else 1, x["name"]))
 
     total_requests = sum(x["count"] for x in scenarios)
+    weighted_total = sum((x["status_total"] or x["count"]) for x in scenarios)
+    weighted_success = sum(x["status_success"] for x in scenarios)
+    weighted_success_rate = (weighted_success / weighted_total) if weighted_total > 0 else 0.0
+
+    business_scenarios = [x for x in scenarios if x["is_business"]]
+    business_requests = sum(x["count"] for x in business_scenarios)
+    business_total = sum((x["status_total"] or x["count"]) for x in business_scenarios)
+    business_success = sum(x["status_success"] for x in business_scenarios)
+    business_success_rate = (business_success / business_total) if business_total > 0 else 0.0
+
     avg_success_rate = (sum(x["success_rate"] for x in scenarios) / len(scenarios)) if scenarios else 0.0
     best_rps = max(scenarios, key=lambda x: x["rps"]) if scenarios else None
     worst_p99 = max(scenarios, key=lambda x: x["p99_ms"]) if scenarios else None
@@ -83,10 +103,13 @@ def render_report(summary: Dict[str, Dict], charts_dir: Path, metrics_before: Di
     status5xx_delta = calc_metric_delta(metrics_before, metrics_after, "status_5xx_total")
 
     overall = []
-    if avg_success_rate >= 0.99:
-        overall.append("压测阶段整体成功率高，网关稳定性满足比赛演示要求。")
+    if business_success_rate >= 0.98:
+        overall.append("业务链路成功率高，已具备比赛演示稳定性。")
     else:
-        overall.append("压测阶段存在明显失败请求，建议先排查上游可用性与鉴权参数。")
+        overall.append("业务链路存在明显失败请求，建议优先排查鉴权参数、限流阈值和上游接口入参。")
+
+    if avg_success_rate >= business_success_rate and len(scenarios) > len(business_scenarios):
+        overall.append("注意：全场景成功率包含 health/metrics 探活请求，建议以业务成功率作为答辩主指标。")
 
     if degraded_delta > 0:
         overall.append("观测到熔断降级计数上升，说明网关保护机制已生效。")
@@ -101,6 +124,7 @@ def render_report(summary: Dict[str, Dict], charts_dir: Path, metrics_before: Di
     scenario_cards = []
     for s in scenarios:
         scenario = escape(s["name"])
+        scenario_type = "业务" if s["is_business"] else "探活"
         img_hist = f"charts/{scenario}.latency_hist.png"
         img_timeline = f"charts/{scenario}.latency_timeline.png"
         img_status = f"charts/{scenario}.status_codes.png"
@@ -111,7 +135,10 @@ def render_report(summary: Dict[str, Dict], charts_dir: Path, metrics_before: Di
         <section class=\"card\">
           <div class=\"card-head\">
             <h3>{scenario}</h3>
-            <span class=\"badge level-{s['level']}\">等级 {s['level']}</span>
+            <span>
+              <span class=\"badge level-{s['level']}\">等级 {s['level']}</span>
+              <span class=\"badge badge-type\">{scenario_type}</span>
+            </span>
           </div>
           <div class=\"metrics\">
             <div><span>请求数</span><strong>{s['count']}</strong></div>
@@ -159,7 +186,7 @@ def render_report(summary: Dict[str, Dict], charts_dir: Path, metrics_before: Di
       --ok: #166534;
     }}
     * {{ box-sizing: border-box; }}
-    body {{ margin: 0; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); }}
+    body {{ margin: 0; font-family: \"PingFang SC\", \"Microsoft YaHei\", sans-serif; background: var(--bg); color: var(--text); }}
     .container {{ max-width: 1200px; margin: 0 auto; padding: 24px; }}
     .hero {{ background: linear-gradient(135deg, #115e59, #1d4ed8); color: #fff; padding: 20px 24px; border-radius: 14px; }}
     .hero h1 {{ margin: 0 0 8px; font-size: 28px; }}
@@ -175,6 +202,7 @@ def render_report(summary: Dict[str, Dict], charts_dir: Path, metrics_before: Di
     .card-head {{ display: flex; justify-content: space-between; align-items: center; }}
     .card-head h3 {{ margin: 0; font-size: 18px; }}
     .badge {{ font-size: 12px; padding: 4px 10px; border-radius: 999px; color: #fff; }}
+    .badge-type {{ background: #374151; margin-left: 6px; }}
     .level-A {{ background: var(--ok); }}
     .level-B {{ background: var(--primary); }}
     .level-C {{ background: var(--warn); }}
@@ -204,9 +232,12 @@ def render_report(summary: Dict[str, Dict], charts_dir: Path, metrics_before: Di
     </header>
 
     <section class=\"grid\">
+      <div class=\"kpi\"><div class=\"label\">业务成功率（加权）</div><div class=\"value\">{business_success_rate * 100:.2f}%</div></div>
+      <div class=\"kpi\"><div class=\"label\">业务请求量（非探活）</div><div class=\"value\">{business_requests}</div></div>
       <div class=\"kpi\"><div class=\"label\">总请求量（全部场景）</div><div class=\"value\">{total_requests}</div></div>
-      <div class=\"kpi\"><div class=\"label\">平均成功率（场景均值）</div><div class=\"value\">{avg_success_rate * 100:.2f}%</div></div>
       <div class=\"kpi\"><div class=\"label\">requests_total 增量</div><div class=\"value\">{req_delta}</div></div>
+      <div class=\"kpi\"><div class=\"label\">全场景成功率（加权）</div><div class=\"value\">{weighted_success_rate * 100:.2f}%</div></div>
+      <div class=\"kpi\"><div class=\"label\">场景均值成功率</div><div class=\"value\">{avg_success_rate * 100:.2f}%</div></div>
       <div class=\"kpi\"><div class=\"label\">5xx 增量</div><div class=\"value\">{status5xx_delta}</div></div>
     </section>
 

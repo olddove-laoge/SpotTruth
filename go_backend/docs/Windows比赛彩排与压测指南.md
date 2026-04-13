@@ -114,6 +114,17 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
   -ClassifyProductName "苹果手机"
 ```
 
+比赛答辩建议参数（默认桶限流 `120/min` 下不容易被打爆）：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
+  -BaseUrl "http://127.0.0.1:8080" `
+  -HealthRequests 1500 -HealthConcurrency 80 `
+  -LoginRequests 80 -LoginConcurrency 20 `
+  -ClassifyRequests 100 -ClassifyConcurrency 20 `
+  -ClassifyProductName "iPhone 15"
+```
+
 若你明确要测试限流触发效果，可关闭自适配：
 
 ```powershell
@@ -140,7 +151,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
 压测脚本已自动生成 `loadtest_report.html`，可直接浏览器打开。  
 建议把以下内容作为答辩展示主页面：
 
-1. 顶部 KPI（总请求量、成功率、5xx 增量）。
+1. 顶部 KPI 优先看“业务成功率（加权）”与“业务请求量（非探活）”。
 2. 一页结论（最佳吞吐、最高 P99、限流/熔断增量）。
 3. 场景明细卡片（每个场景的延迟、吞吐、状态码与图表）。
 
