@@ -1,6 +1,6 @@
 # Gateway Load Test Summary
 
-Generated at: 2026-04-13T14:07:27
+Generated at: 2026-04-13T14:21:29
 
 ## classify
 
@@ -11,8 +11,8 @@ Generated at: 2026-04-13T14:07:27
 - p95_ms: 30.305
 - p99_ms: 30.987
 - max_ms: 31.4
-- duration_s: -470.053
-- rps: 0.0
+- duration_s: 0.138
+- rps: 354.742
 - status_codes: {"200": 60}
 
 ## healthz
@@ -24,8 +24,8 @@ Generated at: 2026-04-13T14:07:27
 - p95_ms: 13.5
 - p99_ms: 19.821
 - max_ms: 21.8
-- duration_s: -469.779
-- rps: 0.0
+- duration_s: 0.097
+- rps: 8335.248
 - status_codes: {"200": 780}
 
 ## login
@@ -37,6 +37,6 @@ Generated at: 2026-04-13T14:07:27
 - p95_ms: 6.59
 - p99_ms: 7.471
 - max_ms: 7.5
-- duration_s: -470.435
-- rps: 0.0
+- duration_s: 0.008
+- rps: 4284.674
 - status_codes: {"400": 30}

@@ -91,6 +91,16 @@ function Get-EffectiveEnvValue {
   return $DefaultValue
 }
 
+function Write-Utf8NoBom {
+  param(
+    [Parameter(Mandatory = $true)][string]$Path,
+    [Parameter(Mandatory = $true)][string]$Content
+  )
+
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($Path, $Content, $utf8NoBom)
+}
+
 function Invoke-HeyScenario {
   param(
     [Parameter(Mandatory = $true)][string]$HeyPath,
@@ -200,11 +210,11 @@ try {
 
 $loginPayload = @{ account = $LoginAccount; password = $LoginPassword; login_type = "password" } | ConvertTo-Json -Compress
 $loginPayloadPath = Join-Path $runDir "login.payload.json"
-$loginPayload | Out-File -FilePath $loginPayloadPath -Encoding utf8
+Write-Utf8NoBom -Path $loginPayloadPath -Content $loginPayload
 
 $classifyPayloadPath = Join-Path $runDir "classify.payload.json"
 $classifyPayloadTemplate = @{ product_name = $ClassifyProductName } | ConvertTo-Json -Compress
-$classifyPayloadTemplate | Out-File -FilePath $classifyPayloadPath -Encoding utf8
+Write-Utf8NoBom -Path $classifyPayloadPath -Content $classifyPayloadTemplate
 
 $loginArgs = @(
   "-n", "$LoginRequests",
@@ -215,7 +225,11 @@ $loginArgs = @(
   "-D", $loginPayloadPath,
   "$BaseUrl/api/v1/auth/login"
 )
-Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "login" -Args $loginArgs -RunDir $runDir
+if ($LoginRequests -gt 0) {
+  Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "login" -Args $loginArgs -RunDir $runDir
+} else {
+  Write-Host "[loadtest] skip login scenario (requests <= 0)"
+}
 
 Write-Host "[loadtest] fetch access token"
 $token = ""
@@ -245,7 +259,11 @@ if ([string]::IsNullOrWhiteSpace($token)) {
     "-D", $classifyPayloadPath,
     "$BaseUrl/api/classify"
   )
-  Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "classify" -Args $classifyArgs -RunDir $runDir
+  if ($ClassifyRequests -gt 0) {
+    Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "classify" -Args $classifyArgs -RunDir $runDir
+  } else {
+    Write-Host "[loadtest] skip classify scenario (requests <= 0)"
+  }
 }
 
 $healthArgs = @(
@@ -253,7 +271,11 @@ $healthArgs = @(
   "-c", "$HealthConcurrency",
   "$BaseUrl/healthz"
 )
-Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "healthz" -Args $healthArgs -RunDir $runDir
+if ($HealthRequests -gt 0) {
+  Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "healthz" -Args $healthArgs -RunDir $runDir
+} else {
+  Write-Host "[loadtest] skip healthz scenario (requests <= 0)"
+}
 
 Write-Host "[loadtest] capture metrics after"
 try {

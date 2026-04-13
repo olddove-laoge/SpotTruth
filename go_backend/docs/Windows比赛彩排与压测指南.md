@@ -148,6 +148,31 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
 7. `loadtest_report.html`：自动生成的一页比赛汇报模板页（图文结论）。
 8. `run.meta.json`：包含本次压测参数（含 `api_key` 与是否启用桶限流自适应）。
 
+### 4.5 先 200 后 429 的限流演示（可选）
+
+可以通过“同一个 `ApiKey`、同一分钟窗口、两次 classify”稳定复现：
+
+第一步（先跑通，得到 200）：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
+  -ApiKey "demo-limit" `
+  -HealthRequests 0 -LoginRequests 10 -ClassifyRequests 40 `
+  -LoginConcurrency 5 -ClassifyConcurrency 5
+```
+
+第二步（立刻复跑，触发 429）：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
+  -ApiKey "demo-limit" `
+  -DisableBucketAutoFit `
+  -HealthRequests 0 -LoginRequests 0 -ClassifyRequests 120 `
+  -ClassifyConcurrency 20
+```
+
+说明：默认桶限流 `120/min` 且 `BUCKET_LIMIT_PREFER_API_KEY=true` 时，上述两步会先出现 classify `200`，再出现 classify `429`。
+
 ### 4.4 一页汇报模板页使用
 
 压测脚本已自动生成 `loadtest_report.html`，可直接浏览器打开。  

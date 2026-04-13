@@ -54,18 +54,53 @@ def parse_float_value(raw: str) -> float:
     return float(match.group(0))
 
 
+def read_text_with_bom_support(path: Path) -> str:
+    if not path.exists():
+        return ""
+
+    try:
+        data = path.read_bytes()
+    except Exception:
+        return ""
+
+    if data.startswith(b"\xff\xfe"):
+        return data.decode("utf-16", errors="ignore")
+    if data.startswith(b"\xfe\xff"):
+        return data.decode("utf-16-be", errors="ignore")
+    return data.decode("utf-8", errors="ignore")
+
+
 def parse_duration_from_raw_txt(raw_txt_path: Path) -> float:
     if not raw_txt_path.exists():
         return 0.0
 
-    try:
-        text = raw_txt_path.read_text(encoding="utf-8", errors="ignore")
-    except Exception:
+    text = read_text_with_bom_support(raw_txt_path)
+    if not text:
         return 0.0
 
     for line in text.splitlines():
         # hey 常见输出：Total:\t1.2345 secs
         m = re.search(r"^\s*Total(?:\s*time)?\s*:\s*([0-9][0-9.,eE+-]*)", line, re.IGNORECASE)
+        if not m:
+            continue
+        try:
+            return max(parse_float_value(m.group(1)), 0.0)
+        except Exception:
+            continue
+
+    return 0.0
+
+
+def parse_rps_from_raw_txt(raw_txt_path: Path) -> float:
+    if not raw_txt_path.exists():
+        return 0.0
+
+    text = read_text_with_bom_support(raw_txt_path)
+    if not text:
+        return 0.0
+
+    for line in text.splitlines():
+        m = re.search(r"^\s*Requests\s*/\s*sec\s*:\s*([0-9][0-9.,eE+-]*)", line, re.IGNORECASE)
         if not m:
             continue
         try:
@@ -132,7 +167,13 @@ def parse_hey_csv(csv_path: Path) -> Tuple[List[float], List[float], Counter]:
     return latencies_ms, offsets, status_counter
 
 
-def summarize(latencies_ms: List[float], offsets: List[float], status_counter: Counter, duration_hint: float = 0.0) -> Dict:
+def summarize(
+    latencies_ms: List[float],
+    offsets: List[float],
+    status_counter: Counter,
+    duration_hint: float = 0.0,
+    rps_hint: float = 0.0,
+) -> Dict:
     if not latencies_ms:
         return {
             "count": 0,
@@ -149,10 +190,22 @@ def summarize(latencies_ms: List[float], offsets: List[float], status_counter: C
         }
 
     sorted_vals = sorted(latencies_ms)
-    duration_s = max(offsets) if offsets else 0.0
+    duration_s = 0.0
+    if offsets:
+        off_max = max(offsets)
+        off_min = min(offsets)
+        off_span = off_max - off_min
+
+        if off_max > 0:
+            duration_s = off_max
+        elif off_span > 0:
+            # 某些环境下 hey 的 offset 为负值，用跨度作为有效总时长。
+            duration_s = off_span
+
     if duration_s <= 0 and duration_hint > 0:
         duration_s = duration_hint
-    rps = (len(latencies_ms) / duration_s) if duration_s > 0 else 0.0
+
+    rps = rps_hint if rps_hint > 0 else ((len(latencies_ms) / duration_s) if duration_s > 0 else 0.0)
 
     return {
         "count": len(latencies_ms),
@@ -257,8 +310,10 @@ def main() -> None:
     for csv_file in csv_files:
         scenario = csv_file.name.replace(".raw.csv", "")
         latencies_ms, offsets, status_counter = parse_hey_csv(csv_file)
-        duration_hint = parse_duration_from_raw_txt(input_dir / f"{scenario}.raw.txt")
-        summary = summarize(latencies_ms, offsets, status_counter, duration_hint=duration_hint)
+        raw_txt = input_dir / f"{scenario}.raw.txt"
+        duration_hint = parse_duration_from_raw_txt(raw_txt)
+        rps_hint = parse_rps_from_raw_txt(raw_txt)
+        summary = summarize(latencies_ms, offsets, status_counter, duration_hint=duration_hint, rps_hint=rps_hint)
         combined_summary[scenario] = summary
 
         summary_path = output_dir / f"{scenario}.summary.json"
