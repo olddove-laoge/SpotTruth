@@ -119,11 +119,13 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\run_gateway_loadtest.ps1 `
   -BaseUrl "http://127.0.0.1:8080" `
-  -HealthRequests 1500 -HealthConcurrency 80 `
-  -LoginRequests 80 -LoginConcurrency 20 `
-  -ClassifyRequests 100 -ClassifyConcurrency 20 `
+  -HealthRequests 800 -HealthConcurrency 60 `
+  -LoginRequests 30 -LoginConcurrency 10 `
+  -ClassifyRequests 60 -ClassifyConcurrency 10 `
   -ClassifyProductName "iPhone 15"
 ```
+
+说明：脚本现在使用 `hey -D <json文件>` 发送登录与分类请求体，避免 Windows PowerShell 对 `-d` JSON 参数传递时导致的 `400` 问题。
 
 若你明确要测试限流触发效果，可关闭自适配：
 
@@ -222,3 +224,4 @@ spottruth_circuit_state_value
 4. 找不到 `hey`：重新执行安装并确认 PATH。
 5. 执行 `run_gateway_loadtest.ps1` 出现 `UnexpectedToken`（如 `$ScenarioName` 附近报错）：请使用仓库内最新脚本，不要从文档手工复制脚本内容；若本地编辑过该脚本，请保存为 `UTF-8 with BOM` 后重试。
 6. classify 成功率接近 0 且网关多为 `429`：说明命中桶限流。可降低 `-ClassifyRequests`，或使用脚本默认自适配，或在网关侧调大/关闭桶限流后再跑基线压测。
+7. login 全部 `400`：优先使用最新脚本（已改为 `hey -D` 传 JSON 文件）；若仍为 `400`，查看 `login.raw.txt` 与脚本打印的“登录预检响应”，重点确认 `AUTH_*` 账号密码是否与网关实际配置一致。
