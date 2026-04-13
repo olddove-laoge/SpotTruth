@@ -6,9 +6,9 @@
   [int]$HealthRequests = 2000,
   [int]$HealthConcurrency = 80,
   [int]$LoginRequests = 80,
-  [int]$LoginConcurrency = 50,
+  [int]$LoginConcurrency = 20,
   [int]$ClassifyRequests = 100,
-  [int]$ClassifyConcurrency = 50,
+  [int]$ClassifyConcurrency = 20,
   [string]$OutputRoot = "./observability/loadtest_results",
   [string]$ApiKey = "",
   [switch]$DisableBucketAutoFit
@@ -64,6 +64,33 @@ function Get-EnvValueFromFile {
   return ""
 }
 
+function Get-EffectiveEnvValue {
+  param(
+    [Parameter(Mandatory = $true)][string]$ProjectRoot,
+    [Parameter(Mandatory = $true)][string]$Key,
+    [string]$DefaultValue = ""
+  )
+
+  $envVal = [Environment]::GetEnvironmentVariable($Key)
+  if (-not [string]::IsNullOrWhiteSpace($envVal)) {
+    return $envVal
+  }
+
+  $dotenvPath = Join-Path $ProjectRoot ".env"
+  $dotenvVal = Get-EnvValueFromFile -FilePath $dotenvPath -Key $Key
+  if (-not [string]::IsNullOrWhiteSpace($dotenvVal)) {
+    return $dotenvVal
+  }
+
+  $gatewayEnvPath = Join-Path $ProjectRoot "gateway.env"
+  $gatewayEnvVal = Get-EnvValueFromFile -FilePath $gatewayEnvPath -Key $Key
+  if (-not [string]::IsNullOrWhiteSpace($gatewayEnvVal)) {
+    return $gatewayEnvVal
+  }
+
+  return $DefaultValue
+}
+
 function Invoke-HeyScenario {
   param(
     [Parameter(Mandatory = $true)][string]$HeyPath,
@@ -90,10 +117,10 @@ $apiKeyValue = if ([string]::IsNullOrWhiteSpace($ApiKey)) { "loadtest-$timestamp
 $loginApiKey = "$apiKeyValue-login"
 $classifyApiKey = "$apiKeyValue-classify"
 
-$gatewayEnvPath = Join-Path $projectRoot "gateway.env"
 if (-not $DisableBucketAutoFit) {
-  $bucketEnabledRaw = Get-EnvValueFromFile -FilePath $gatewayEnvPath -Key "BUCKET_LIMIT_ENABLED"
-  $bucketRequestsRaw = Get-EnvValueFromFile -FilePath $gatewayEnvPath -Key "BUCKET_LIMIT_REQUESTS"
+  $bucketEnabledRaw = Get-EffectiveEnvValue -ProjectRoot $projectRoot -Key "BUCKET_LIMIT_ENABLED" -DefaultValue "true"
+  $bucketRequestsRaw = Get-EffectiveEnvValue -ProjectRoot $projectRoot -Key "BUCKET_LIMIT_REQUESTS" -DefaultValue "120"
+  $bucketPreferAPIKeyRaw = Get-EffectiveEnvValue -ProjectRoot $projectRoot -Key "BUCKET_LIMIT_PREFER_API_KEY" -DefaultValue "true"
 
   $bucketEnabled = $false
   if (-not [string]::IsNullOrWhiteSpace($bucketEnabledRaw)) {
@@ -103,6 +130,11 @@ if (-not $DisableBucketAutoFit) {
   $bucketRequests = 0
   if (-not [string]::IsNullOrWhiteSpace($bucketRequestsRaw)) {
     [void][int]::TryParse($bucketRequestsRaw, [ref]$bucketRequests)
+  }
+
+  $bucketPreferAPIKey = $true
+  if (-not [string]::IsNullOrWhiteSpace($bucketPreferAPIKeyRaw)) {
+    $bucketPreferAPIKey = $bucketPreferAPIKeyRaw.ToLowerInvariant() -eq "true"
   }
 
   if ($bucketEnabled -and $bucketRequests -gt 0 -and $ClassifyRequests -ge $bucketRequests) {
@@ -115,6 +147,18 @@ if (-not $DisableBucketAutoFit) {
     $adjusted = [Math]::Max(1, $bucketRequests - 10)
     Write-Warning ("检测到 BUCKET_LIMIT_REQUESTS={0}，为避免 login 场景被桶限流，自动将 LoginRequests 从 {1} 调整为 {2}。可用 -DisableBucketAutoFit 关闭此行为。" -f $bucketRequests, $LoginRequests, $adjusted)
     $LoginRequests = $adjusted
+  }
+
+  if ($bucketEnabled -and $bucketRequests -gt 0 -and (-not $bucketPreferAPIKey)) {
+    $businessBudget = [Math]::Max(1, $bucketRequests - 5)
+    $businessTotal = $LoginRequests + $ClassifyRequests
+    if ($businessTotal -gt $businessBudget) {
+      $newLogin = [Math]::Max(1, [Math]::Min($LoginRequests, [int]([Math]::Floor($businessBudget * 0.4))))
+      $newClassify = [Math]::Max(1, $businessBudget - $newLogin)
+      Write-Warning ("检测到 BUCKET_LIMIT_PREFER_API_KEY=false，业务请求按 IP 共享桶限流。自动将 LoginRequests/ClassifyRequests 从 {0}/{1} 调整为 {2}/{3}。" -f $LoginRequests, $ClassifyRequests, $newLogin, $newClassify)
+      $LoginRequests = $newLogin
+      $ClassifyRequests = $newClassify
+    }
   }
 }
 
@@ -155,13 +199,12 @@ try {
 }
 
 $loginPayload = @{ account = $LoginAccount; password = $LoginPassword; login_type = "password" } | ConvertTo-Json -Compress
+$loginPayloadPath = Join-Path $runDir "login.payload.json"
+$loginPayload | Out-File -FilePath $loginPayloadPath -Encoding utf8
 
-$healthArgs = @(
-  "-n", "$HealthRequests",
-  "-c", "$HealthConcurrency",
-  "$BaseUrl/healthz"
-)
-Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "healthz" -Args $healthArgs -RunDir $runDir
+$classifyPayloadPath = Join-Path $runDir "classify.payload.json"
+$classifyPayloadTemplate = @{ product_name = $ClassifyProductName } | ConvertTo-Json -Compress
+$classifyPayloadTemplate | Out-File -FilePath $classifyPayloadPath -Encoding utf8
 
 $loginArgs = @(
   "-n", "$LoginRequests",
@@ -169,7 +212,7 @@ $loginArgs = @(
   "-m", "POST",
   "-H", "Content-Type: application/json",
   "-H", "X-API-Key: $loginApiKey",
-  "-d", $loginPayload,
+  "-D", $loginPayloadPath,
   "$BaseUrl/api/v1/auth/login"
 )
 Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "login" -Args $loginArgs -RunDir $runDir
@@ -182,13 +225,16 @@ try {
     $token = [string]$loginResp.data.access_token
   }
 } catch {
+  Write-Warning ("登录预检失败: {0}" -f $_.Exception.Message)
+  if ($_.ErrorDetails -and -not [string]::IsNullOrWhiteSpace($_.ErrorDetails.Message)) {
+    Write-Warning ("登录预检响应: {0}" -f $_.ErrorDetails.Message)
+  }
   $token = ""
 }
 
 if ([string]::IsNullOrWhiteSpace($token)) {
   Write-Warning "未拿到 access_token，跳过 classify 场景。"
 } else {
-  $classifyPayload = @{ product_name = $ClassifyProductName } | ConvertTo-Json -Compress
   $classifyArgs = @(
     "-n", "$ClassifyRequests",
     "-c", "$ClassifyConcurrency",
@@ -196,11 +242,18 @@ if ([string]::IsNullOrWhiteSpace($token)) {
     "-H", "Content-Type: application/json",
     "-H", "X-API-Key: $classifyApiKey",
     "-H", "Authorization: Bearer $token",
-    "-d", $classifyPayload,
+    "-D", $classifyPayloadPath,
     "$BaseUrl/api/classify"
   )
   Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "classify" -Args $classifyArgs -RunDir $runDir
 }
+
+$healthArgs = @(
+  "-n", "$HealthRequests",
+  "-c", "$HealthConcurrency",
+  "$BaseUrl/healthz"
+)
+Invoke-HeyScenario -HeyPath $heyPath -ScenarioName "healthz" -Args $healthArgs -RunDir $runDir
 
 Write-Host "[loadtest] capture metrics after"
 try {
