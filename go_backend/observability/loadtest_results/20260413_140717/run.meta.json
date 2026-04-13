@@ -1,0 +1,23 @@
+﻿{
+    "classify_api_key":  "loadtest-20260413_140717-classify",
+    "disable_bucket_autofit":  false,
+    "login_api_key":  "loadtest-20260413_140717-login",
+    "scenarios":  {
+                      "classify":  {
+                                       "concurrency":  10,
+                                       "requests":  60
+                                   },
+                      "login":  {
+                                    "concurrency":  10,
+                                    "requests":  30
+                                },
+                      "healthz":  {
+                                      "concurrency":  60,
+                                      "requests":  800
+                                  }
+                  },
+    "host":  "老鸽",
+    "generated_at":  "2026-04-13T14:07:17.0683955+08:00",
+    "base_url":  "http://127.0.0.1:8080",
+    "api_key":  "loadtest-20260413_140717"
+}
