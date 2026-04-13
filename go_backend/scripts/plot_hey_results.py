@@ -3,6 +3,7 @@ import argparse
 import csv
 import json
 import math
+import re
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -30,6 +31,51 @@ def percentile(values: List[float], p: float) -> float:
     return values[lo] + (values[hi] - values[lo]) * (idx - lo)
 
 
+def normalize_field_name(name: str) -> str:
+    s = (name or "").strip().lower().replace("-", "_")
+    s = s.replace(" ", "_")
+    return "".join(ch for ch in s if ch.isalnum() or ch == "_")
+
+
+def parse_float_value(raw: str) -> float:
+    text = (raw or "").strip().strip('"')
+    if not text:
+        raise ValueError("empty number")
+
+    # 兼容 0,123（小数逗号）与 1,234.56（千位分隔）两种格式。
+    if text.count(",") == 1 and text.count(".") == 0:
+        text = text.replace(",", ".")
+    else:
+        text = text.replace(",", "")
+
+    match = re.search(r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?", text)
+    if not match:
+        raise ValueError(f"invalid number: {raw}")
+    return float(match.group(0))
+
+
+def parse_duration_from_raw_txt(raw_txt_path: Path) -> float:
+    if not raw_txt_path.exists():
+        return 0.0
+
+    try:
+        text = raw_txt_path.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return 0.0
+
+    for line in text.splitlines():
+        # hey 常见输出：Total:\t1.2345 secs
+        m = re.search(r"^\s*Total(?:\s*time)?\s*:\s*([0-9][0-9.,eE+-]*)", line, re.IGNORECASE)
+        if not m:
+            continue
+        try:
+            return max(parse_float_value(m.group(1)), 0.0)
+        except Exception:
+            continue
+
+    return 0.0
+
+
 def parse_hey_csv(csv_path: Path) -> Tuple[List[float], List[float], Counter]:
     latencies_ms: List[float] = []
     offsets: List[float] = []
@@ -38,22 +84,37 @@ def parse_hey_csv(csv_path: Path) -> Tuple[List[float], List[float], Counter]:
     with csv_path.open("r", encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
         fields = reader.fieldnames or []
-        latency_key = "response-time" if "response-time" in fields else (fields[0] if fields else "")
-        offset_key = "offset" if "offset" in fields else ""
-        status_key = "status-code" if "status-code" in fields else ""
+        field_map = {normalize_field_name(k): k for k in fields}
+
+        latency_key = (
+            field_map.get("response_time")
+            or field_map.get("latency")
+            or (fields[0] if fields else "")
+        )
+        offset_key = (
+            field_map.get("offset")
+            or field_map.get("total")
+            or field_map.get("elapsed")
+            or ""
+        )
+        status_key = (
+            field_map.get("status_code")
+            or field_map.get("status")
+            or ""
+        )
 
         for row in reader:
             if not latency_key or latency_key not in row:
                 continue
             try:
-                lat_ms = float(row[latency_key]) * 1000.0
+                lat_ms = parse_float_value(row[latency_key]) * 1000.0
                 latencies_ms.append(lat_ms)
             except Exception:
                 continue
 
             if offset_key and offset_key in row:
                 try:
-                    offsets.append(float(row[offset_key]))
+                    offsets.append(parse_float_value(row[offset_key]))
                 except Exception:
                     offsets.append(0.0)
             else:
@@ -63,7 +124,7 @@ def parse_hey_csv(csv_path: Path) -> Tuple[List[float], List[float], Counter]:
                 code_raw = row[status_key].strip()
                 if code_raw:
                     try:
-                        code = str(int(float(code_raw)))
+                        code = str(int(parse_float_value(code_raw)))
                     except Exception:
                         code = code_raw
                     status_counter[code] += 1
@@ -71,7 +132,7 @@ def parse_hey_csv(csv_path: Path) -> Tuple[List[float], List[float], Counter]:
     return latencies_ms, offsets, status_counter
 
 
-def summarize(latencies_ms: List[float], offsets: List[float], status_counter: Counter) -> Dict:
+def summarize(latencies_ms: List[float], offsets: List[float], status_counter: Counter, duration_hint: float = 0.0) -> Dict:
     if not latencies_ms:
         return {
             "count": 0,
@@ -89,6 +150,8 @@ def summarize(latencies_ms: List[float], offsets: List[float], status_counter: C
 
     sorted_vals = sorted(latencies_ms)
     duration_s = max(offsets) if offsets else 0.0
+    if duration_s <= 0 and duration_hint > 0:
+        duration_s = duration_hint
     rps = (len(latencies_ms) / duration_s) if duration_s > 0 else 0.0
 
     return {
@@ -194,7 +257,8 @@ def main() -> None:
     for csv_file in csv_files:
         scenario = csv_file.name.replace(".raw.csv", "")
         latencies_ms, offsets, status_counter = parse_hey_csv(csv_file)
-        summary = summarize(latencies_ms, offsets, status_counter)
+        duration_hint = parse_duration_from_raw_txt(input_dir / f"{scenario}.raw.txt")
+        summary = summarize(latencies_ms, offsets, status_counter, duration_hint=duration_hint)
         combined_summary[scenario] = summary
 
         summary_path = output_dir / f"{scenario}.summary.json"

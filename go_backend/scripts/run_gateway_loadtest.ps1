@@ -5,7 +5,7 @@
   [string]$ClassifyProductName = "iPhone 15",
   [int]$HealthRequests = 2000,
   [int]$HealthConcurrency = 80,
-  [int]$LoginRequests = 200,
+  [int]$LoginRequests = 80,
   [int]$LoginConcurrency = 50,
   [int]$ClassifyRequests = 100,
   [int]$ClassifyConcurrency = 50,
@@ -87,6 +87,8 @@ $scriptDir = Split-Path -Parent $PSCommandPath
 $projectRoot = Split-Path -Parent $scriptDir
 $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
 $apiKeyValue = if ([string]::IsNullOrWhiteSpace($ApiKey)) { "loadtest-$timestamp" } else { $ApiKey }
+$loginApiKey = "$apiKeyValue-login"
+$classifyApiKey = "$apiKeyValue-classify"
 
 $gatewayEnvPath = Join-Path $projectRoot "gateway.env"
 if (-not $DisableBucketAutoFit) {
@@ -108,6 +110,12 @@ if (-not $DisableBucketAutoFit) {
     Write-Warning ("检测到 BUCKET_LIMIT_REQUESTS={0}，为避免 classify 全量 429，自动将 ClassifyRequests 从 {1} 调整为 {2}。可用 -DisableBucketAutoFit 关闭此行为。" -f $bucketRequests, $ClassifyRequests, $adjusted)
     $ClassifyRequests = $adjusted
   }
+
+  if ($bucketEnabled -and $bucketRequests -gt 0 -and $LoginRequests -ge $bucketRequests) {
+    $adjusted = [Math]::Max(1, $bucketRequests - 10)
+    Write-Warning ("检测到 BUCKET_LIMIT_REQUESTS={0}，为避免 login 场景被桶限流，自动将 LoginRequests 从 {1} 调整为 {2}。可用 -DisableBucketAutoFit 关闭此行为。" -f $bucketRequests, $LoginRequests, $adjusted)
+    $LoginRequests = $adjusted
+  }
 }
 
 $outputRootAbs = if ([System.IO.Path]::IsPathRooted($OutputRoot)) {
@@ -124,6 +132,8 @@ $meta = @{
   base_url = $BaseUrl
   host = $env:COMPUTERNAME
   api_key = $apiKeyValue
+  login_api_key = $loginApiKey
+  classify_api_key = $classifyApiKey
   disable_bucket_autofit = [bool]$DisableBucketAutoFit
   scenarios = @{
     healthz = @{ requests = $HealthRequests; concurrency = $HealthConcurrency }
@@ -158,6 +168,7 @@ $loginArgs = @(
   "-c", "$LoginConcurrency",
   "-m", "POST",
   "-H", "Content-Type: application/json",
+  "-H", "X-API-Key: $loginApiKey",
   "-d", $loginPayload,
   "$BaseUrl/api/v1/auth/login"
 )
@@ -183,7 +194,7 @@ if ([string]::IsNullOrWhiteSpace($token)) {
     "-c", "$ClassifyConcurrency",
     "-m", "POST",
     "-H", "Content-Type: application/json",
-    "-H", "X-API-Key: $apiKeyValue",
+    "-H", "X-API-Key: $classifyApiKey",
     "-H", "Authorization: Bearer $token",
     "-d", $classifyPayload,
     "$BaseUrl/api/classify"
