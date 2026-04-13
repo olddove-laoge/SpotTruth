@@ -4,6 +4,7 @@ import { X, Search, Trash2, Bookmark, BarChart3, Package } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useSavedCardsStore, type SavedCard } from '../../store/savedCardsStore';
 import { AnalysisCard } from '../analysis/AnalysisCard';
+import { ComparisonCard } from '../compare/ComparisonCard';
 
 interface SavedCardsModalProps {
   isOpen: boolean;
@@ -88,6 +89,9 @@ export function SavedCardsModal({ isOpen, onClose }: SavedCardsModalProps) {
                 </Button>
                 {viewingCard.type === 'analysis' && (
                   <AnalysisCard result={viewingCard.data as any} />
+                )}
+                {viewingCard.type === 'comparison' && (
+                  <ComparisonCard result={viewingCard.data as any} />
                 )}
               </div>
             ) : (
