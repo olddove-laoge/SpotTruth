@@ -144,7 +144,7 @@ try {
   "{}" | Out-File -FilePath (Join-Path $runDir "metrics.after.json") -Encoding utf8
 }
 
-$pythonCmd = Resolve-PythonCommand
+[array]$pythonCmd = Resolve-PythonCommand
 $plotScript = Join-Path $scriptDir "plot_hey_results.py"
 $reportScript = Join-Path $scriptDir "generate_loadtest_report_page.py"
 $chartDir = Join-Path $runDir "charts"

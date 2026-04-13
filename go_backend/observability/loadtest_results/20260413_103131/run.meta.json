@@ -1,0 +1,19 @@
+﻿{
+    "generated_at":  "2026-04-13T10:31:31.9293929+08:00",
+    "host":  "老鸽",
+    "base_url":  "http://127.0.0.1:8080",
+    "scenarios":  {
+                      "classify":  {
+                                       "concurrency":  50,
+                                       "requests":  1000
+                                   },
+                      "login":  {
+                                    "concurrency":  50,
+                                    "requests":  1000
+                                },
+                      "healthz":  {
+                                      "concurrency":  80,
+                                      "requests":  2000
+                                  }
+                  }
+}

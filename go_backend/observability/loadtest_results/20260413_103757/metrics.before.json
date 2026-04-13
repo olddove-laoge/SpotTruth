@@ -1,0 +1,16 @@
+﻿{
+    "avg_duration_ms":  2.8212140841553253,
+    "circuit_closed_total":  0,
+    "circuit_degraded_total":  22,
+    "circuit_half_open_total":  1,
+    "circuit_open_total":  1,
+    "circuit_state":  "half-open",
+    "goroutines":  5,
+    "in_flight_requests":  1,
+    "limiter_rejected_total":  1880,
+    "requests_total":  8009,
+    "service":  "spottruth-api-gateway",
+    "status_2xx_total":  4006,
+    "status_4xx_total":  3882,
+    "status_5xx_total":  120
+}
